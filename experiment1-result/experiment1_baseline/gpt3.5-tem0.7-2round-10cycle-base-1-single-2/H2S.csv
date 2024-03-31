@@ -1,0 +1,915 @@
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------1/10------H2S:
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: The Helping Hand Store (H2S) collects second hand articles and non-perishable foods from residents of the city of and distributes them to those in need. H2S also operates in other cities, but each location is run independently. To increase the number of items available for distribution, H2S is seeking to offer a Pickup and Delivery Service to its customers, which would allow a resident to schedule a pickup of items from a street address online at the H2S website.
+
+A resident enters a name, street address, phone number, optional email address, as well as a description of the items to be picked up. The resident places the items just outside the front door of the building at the stated street address in the morning of the weekday requested for pickup.
+
+H2S has a fleet of pickup vehicles, which it uses to collect items from residents. At the beginning of every weekday, a pickup route for that day is determined for each vehicle for which a volunteer driver is available. Volunteer drivers indicate their available days on the H2S website. The route takes into account the available storage space of a vehicle and the dimensions and weights of scheduled items. A scheduled pickup may occur anytime between 8:00 and 14:00. After completing all scheduled pickups, the driver drops off all collected second hand articles at H2S's distribution center. Non-perishable foods, on the other hand, are directly dropped off at the   food bank, which then deals with these items without further involvement from H2S.
+
+At H2S's distribution center, an H2S employee examines the quality of the received second hand articles. Those articles that can still be used are tagged with an RFID device. The H2S employee double checks the description of the article given by the resident and makes any corrections as needed. In addition, the H2S employee assigns a category to the article from a standard list of 134 categories (e.g., baby clothing, women's winter boots, fridge, microwave...).
+
+In some cities in which H2S operates, the distribution center offers an additional service for clients who receive second hand articles from H2S but are not able to personally visit the H2S distribution center. Instead, H2S allows those clients to indicate which categories of articles they need. At the end of each day, an H2S employee calls them to let them know about the relevant articles that were dropped off that day. If the client still needs an article, the H2S employee arranges delivery of the article to the client's home address. Delivery of such articles is made by a volunteer driver before picking up items according to the pickup route.
+
+AI:Enumerations:
+1. Category(baby clothing, women's winter boots, fridge, microwave...)
+
+Class:
+1. Resident(name: string, streetAddress: string, phoneNumber: string, emailAddress: string, itemsDescription: string)
+2. PickupVehicle(vehicleID: int, availableStorageSpace: int, availableDays: string)
+3. VolunteerDriver(driverID: int, availableDays: string)
+4. SecondHandArticle(articleID: int, residentID: int, description: string, quality: string, RFIDTag: boolean, category: Category)
+5. NonPerishableFood(foodID: int, description: string)
+6. H2SEmployee(employeeID: int)
+
+Relationships:
+1. 1 Resident place 0..* SecondHandArticle
+2. 1 PickupVehicle has 0..* VolunteerDriver
+3. 1 PickupVehicle has 0..* ScheduledPickup
+4. 1 ScheduledPickup occurs 1 PickupVehicle
+5. 1 ScheduledPickup occurs 1 Resident
+6. 1 ScheduledPickup drops off 0..* SecondHandArticle
+7. 1 SecondHandArticle is dropped off at 1 DistributionCenter
+8. 1 NonPerishableFood is dropped off at 1 FoodBank
+9. 1 H2SEmployee examines 0..* SecondHandArticle
+10. 1 H2SEmployee assigns 1 Category to 0..* SecondHandArticle
+11. 1 DistributionCenter offers 0..* DeliveryService
+12. 1 DeliveryService provides 0..* SecondHandArticle
+13. 1 DeliveryService delivers 1 Resident"
+"
+"
+------------------------------------------------------------
+ O  Class:Resident  Oracle:Resident
+   X  Attribute:name 
+   X  Attribute:streetAddress 
+   X  Attribute:phoneNumber 
+   X  Attribute:emailAddress 
+   X  Attribute:itemsDescription 
+ O  Class:SecondHandArticle  Oracle:SecondHandArticle
+   X  Attribute:articleID 
+   X  Attribute:residentID 
+   X  Attribute:description 
+   X  Attribute:quality 
+   X  Attribute:RFIDTag 
+   O  Attribute:category  Oracle:category 
+ X  Class:Category
+   X  Attribute:clothing 
+   X  Attribute:winter 
+   X  Attribute:fridge 
+   X  Attribute:microwave... 
+ X  Class:PickupVehicle
+   X  Attribute:vehicleID 
+   X  Attribute:availableStorageSpace 
+   X  Attribute:availableDays 
+ X  Class:VolunteerDriver
+   X  Attribute:driverID 
+   X  Attribute:availableDays 
+ X  Class:NonPerishableFood
+   X  Attribute:foodID 
+   X  Attribute:description 
+ X  Class:H2SEmployee
+   X  Attribute:employeeID 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------2/10------H2S:
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: The Helping Hand Store (H2S) collects second hand articles and non-perishable foods from residents of the city of and distributes them to those in need. H2S also operates in other cities, but each location is run independently. To increase the number of items available for distribution, H2S is seeking to offer a Pickup and Delivery Service to its customers, which would allow a resident to schedule a pickup of items from a street address online at the H2S website.
+
+A resident enters a name, street address, phone number, optional email address, as well as a description of the items to be picked up. The resident places the items just outside the front door of the building at the stated street address in the morning of the weekday requested for pickup.
+
+H2S has a fleet of pickup vehicles, which it uses to collect items from residents. At the beginning of every weekday, a pickup route for that day is determined for each vehicle for which a volunteer driver is available. Volunteer drivers indicate their available days on the H2S website. The route takes into account the available storage space of a vehicle and the dimensions and weights of scheduled items. A scheduled pickup may occur anytime between 8:00 and 14:00. After completing all scheduled pickups, the driver drops off all collected second hand articles at H2S's distribution center. Non-perishable foods, on the other hand, are directly dropped off at the   food bank, which then deals with these items without further involvement from H2S.
+
+At H2S's distribution center, an H2S employee examines the quality of the received second hand articles. Those articles that can still be used are tagged with an RFID device. The H2S employee double checks the description of the article given by the resident and makes any corrections as needed. In addition, the H2S employee assigns a category to the article from a standard list of 134 categories (e.g., baby clothing, women's winter boots, fridge, microwave...).
+
+In some cities in which H2S operates, the distribution center offers an additional service for clients who receive second hand articles from H2S but are not able to personally visit the H2S distribution center. Instead, H2S allows those clients to indicate which categories of articles they need. At the end of each day, an H2S employee calls them to let them know about the relevant articles that were dropped off that day. If the client still needs an article, the H2S employee arranges delivery of the article to the client's home address. Delivery of such articles is made by a volunteer driver before picking up items according to the pickup route.
+
+AI:Enumerations:
+1. Category(baby clothing, women's winter boots, fridge, microwave...)
+
+Class:
+1. Resident(name: string, streetAddress: string, phoneNumber: string, emailAddress: string, itemsDescription: string)
+2. PickupVehicle(storageSpace: int, availableDays: string)
+3. VolunteerDriver(availableDays: string)
+4. SecondHandArticle(description: string, RFIDTag: boolean, category: Category)
+5. FoodBank()
+6. H2SEmployee()
+
+Relationships:
+1. Resident contain 1..* SecondHandArticle
+2. PickupVehicle contain 0..* Resident
+3. VolunteerDriver associate 1..* PickupVehicle
+4. PickupVehicle associate 1 H2SEmployee
+5. SecondHandArticle inherit Resident
+6. SecondHandArticle contain 1 H2SEmployee
+7. H2SEmployee associate 1..* SecondHandArticle
+8. FoodBank associate 0..* SecondHandArticle"
+"
+"
+------------------------------------------------------------
+ O  Class:Resident  Oracle:Resident
+   X  Attribute:name 
+   X  Attribute:streetAddress 
+   X  Attribute:phoneNumber 
+   X  Attribute:emailAddress 
+   X  Attribute:itemsDescription 
+ O  Class:SecondHandArticle  Oracle:SecondHandArticle
+   X  Attribute:description 
+   X  Attribute:RFIDTag 
+   O  Attribute:category  Oracle:category 
+ X  Class:Category
+   X  Attribute:clothing 
+   X  Attribute:winter 
+   X  Attribute:fridge 
+   X  Attribute:microwave... 
+ X  Class:PickupVehicle
+   X  Attribute:storageSpace 
+   X  Attribute:availableDays 
+ X  Class:VolunteerDriver
+   X  Attribute:availableDays 
+ X  Class:FoodBank
+ X  Class:H2SEmployee
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------3/10------H2S:
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: The Helping Hand Store (H2S) collects second hand articles and non-perishable foods from residents of the city of and distributes them to those in need. H2S also operates in other cities, but each location is run independently. To increase the number of items available for distribution, H2S is seeking to offer a Pickup and Delivery Service to its customers, which would allow a resident to schedule a pickup of items from a street address online at the H2S website.
+
+A resident enters a name, street address, phone number, optional email address, as well as a description of the items to be picked up. The resident places the items just outside the front door of the building at the stated street address in the morning of the weekday requested for pickup.
+
+H2S has a fleet of pickup vehicles, which it uses to collect items from residents. At the beginning of every weekday, a pickup route for that day is determined for each vehicle for which a volunteer driver is available. Volunteer drivers indicate their available days on the H2S website. The route takes into account the available storage space of a vehicle and the dimensions and weights of scheduled items. A scheduled pickup may occur anytime between 8:00 and 14:00. After completing all scheduled pickups, the driver drops off all collected second hand articles at H2S's distribution center. Non-perishable foods, on the other hand, are directly dropped off at the   food bank, which then deals with these items without further involvement from H2S.
+
+At H2S's distribution center, an H2S employee examines the quality of the received second hand articles. Those articles that can still be used are tagged with an RFID device. The H2S employee double checks the description of the article given by the resident and makes any corrections as needed. In addition, the H2S employee assigns a category to the article from a standard list of 134 categories (e.g., baby clothing, women's winter boots, fridge, microwave...).
+
+In some cities in which H2S operates, the distribution center offers an additional service for clients who receive second hand articles from H2S but are not able to personally visit the H2S distribution center. Instead, H2S allows those clients to indicate which categories of articles they need. At the end of each day, an H2S employee calls them to let them know about the relevant articles that were dropped off that day. If the client still needs an article, the H2S employee arranges delivery of the article to the client's home address. Delivery of such articles is made by a volunteer driver before picking up items according to the pickup route.
+
+AI:Enumerations:
+1. Category(baby clothing, women's winter boots, fridge, microwave...)
+
+Class:
+1. Resident(name: string, streetAddress: string, phoneNumber: string, emailAddress: string, itemsDescription: string)
+2. PickupVehicle(vehicleID: int, availableStorageSpace: int)
+3. VolunteerDriver(driverID: int, availableDays: string)
+4. SecondHandArticle(articleID: int, description: string, quality: string, RFIDTag: string)
+5. FoodBank()
+6. H2SEmployee(employeeID: int)
+7. Client(name: string, address: string, phoneNumber: string, neededCategories: string)
+
+Relationships:
+1..* Resident associate 1 PickupVehicle
+1 PickupVehicle contain 1..* ScheduledPickup
+1 VolunteerDriver associate 1 PickupVehicle
+1 PickupVehicle associate 1 DistributionCenter
+1 DistributionCenter inherit 1 H2SEmployee
+1..* ScheduledPickup associate 1 Resident
+1 ScheduledPickup associate 1 PickupVehicle
+1 ScheduledPickup associate 1 SecondHandArticle
+1..* SecondHandArticle contain 1 RFIDTag
+1 SecondHandArticle associate 1 Category
+1 DistributionCenter contain 1..* SecondHandArticle
+1 DistributionCenter contain 1 FoodBank
+1 DistributionCenter contain 1..* Client
+1..* Client associate 1 Category"
+"
+"
+------------------------------------------------------------
+ O  Class:Resident  Oracle:Resident
+   X  Attribute:name 
+   X  Attribute:streetAddress 
+   X  Attribute:phoneNumber 
+   X  Attribute:emailAddress 
+   X  Attribute:itemsDescription 
+ O  Class:SecondHandArticle  Oracle:SecondHandArticle
+   X  Attribute:articleID 
+   X  Attribute:description 
+   X  Attribute:quality 
+   X  Attribute:RFIDTag 
+ O  Class:Client  Oracle:Client
+   X  Attribute:name 
+   X  Attribute:address 
+   X  Attribute:phoneNumber 
+   O  Attribute:neededCategories  Oracle:neededCategories 
+ X  Class:Category
+   X  Attribute:clothing 
+   X  Attribute:winter 
+   X  Attribute:fridge 
+   X  Attribute:microwave... 
+ X  Class:PickupVehicle
+   X  Attribute:vehicleID 
+   X  Attribute:availableStorageSpace 
+ X  Class:VolunteerDriver
+   X  Attribute:driverID 
+   X  Attribute:availableDays 
+ X  Class:FoodBank
+ X  Class:H2SEmployee
+   X  Attribute:employeeID 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------4/10------H2S:
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: The Helping Hand Store (H2S) collects second hand articles and non-perishable foods from residents of the city of and distributes them to those in need. H2S also operates in other cities, but each location is run independently. To increase the number of items available for distribution, H2S is seeking to offer a Pickup and Delivery Service to its customers, which would allow a resident to schedule a pickup of items from a street address online at the H2S website.
+
+A resident enters a name, street address, phone number, optional email address, as well as a description of the items to be picked up. The resident places the items just outside the front door of the building at the stated street address in the morning of the weekday requested for pickup.
+
+H2S has a fleet of pickup vehicles, which it uses to collect items from residents. At the beginning of every weekday, a pickup route for that day is determined for each vehicle for which a volunteer driver is available. Volunteer drivers indicate their available days on the H2S website. The route takes into account the available storage space of a vehicle and the dimensions and weights of scheduled items. A scheduled pickup may occur anytime between 8:00 and 14:00. After completing all scheduled pickups, the driver drops off all collected second hand articles at H2S's distribution center. Non-perishable foods, on the other hand, are directly dropped off at the   food bank, which then deals with these items without further involvement from H2S.
+
+At H2S's distribution center, an H2S employee examines the quality of the received second hand articles. Those articles that can still be used are tagged with an RFID device. The H2S employee double checks the description of the article given by the resident and makes any corrections as needed. In addition, the H2S employee assigns a category to the article from a standard list of 134 categories (e.g., baby clothing, women's winter boots, fridge, microwave...).
+
+In some cities in which H2S operates, the distribution center offers an additional service for clients who receive second hand articles from H2S but are not able to personally visit the H2S distribution center. Instead, H2S allows those clients to indicate which categories of articles they need. At the end of each day, an H2S employee calls them to let them know about the relevant articles that were dropped off that day. If the client still needs an article, the H2S employee arranges delivery of the article to the client's home address. Delivery of such articles is made by a volunteer driver before picking up items according to the pickup route.
+
+AI:Classes:
+1. Resident(name: string, streetAddress: string, phoneNumber: string, emailAddress: string, itemsDescription: string)
+2. PickupVehicle()
+3. VolunteerDriver(availableDays: string[])
+4. Item(description: string, dimensions: string, weight: float)
+5. Employee()
+6. Article(RFID: string, category: string)
+7. FoodBank()
+8. DistributionCenter()
+9. Client()
+
+Relationships:
+Resident contain 1..* Item
+PickupVehicle associate 0..* VolunteerDriver
+VolunteerDriver associate 0..* PickupVehicle
+PickupVehicle associate 0..* Item
+Employee inherit VolunteerDriver
+Employee contain 0..* Article
+DistributionCenter contain 0..* Article
+Client contain 0..* Category"
+"
+"
+------------------------------------------------------------
+ O  Class:Resident  Oracle:Resident
+   X  Attribute:name 
+   X  Attribute:streetAddress 
+   X  Attribute:phoneNumber 
+   X  Attribute:emailAddress 
+   X  Attribute:itemsDescription 
+ O  Class:Client  Oracle:Client
+ X  Class:PickupVehicle
+ X  Class:VolunteerDriver
+   X  Attribute:availableDays 
+ O  Class:Item  Oracle:abstract item 
+   O  Attribute:description  Oracle:description 
+   O  Attribute:dimensions  Oracle:dimension 
+   O  Attribute:weight  Oracle:weight 
+ X  Class:Employee
+ X  Class:Article
+   X  Attribute:RFID 
+   X  Attribute:category 
+ X  Class:FoodBank
+ X  Class:DistributionCenter
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------5/10------H2S:
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: The Helping Hand Store (H2S) collects second hand articles and non-perishable foods from residents of the city of and distributes them to those in need. H2S also operates in other cities, but each location is run independently. To increase the number of items available for distribution, H2S is seeking to offer a Pickup and Delivery Service to its customers, which would allow a resident to schedule a pickup of items from a street address online at the H2S website.
+
+A resident enters a name, street address, phone number, optional email address, as well as a description of the items to be picked up. The resident places the items just outside the front door of the building at the stated street address in the morning of the weekday requested for pickup.
+
+H2S has a fleet of pickup vehicles, which it uses to collect items from residents. At the beginning of every weekday, a pickup route for that day is determined for each vehicle for which a volunteer driver is available. Volunteer drivers indicate their available days on the H2S website. The route takes into account the available storage space of a vehicle and the dimensions and weights of scheduled items. A scheduled pickup may occur anytime between 8:00 and 14:00. After completing all scheduled pickups, the driver drops off all collected second hand articles at H2S's distribution center. Non-perishable foods, on the other hand, are directly dropped off at the   food bank, which then deals with these items without further involvement from H2S.
+
+At H2S's distribution center, an H2S employee examines the quality of the received second hand articles. Those articles that can still be used are tagged with an RFID device. The H2S employee double checks the description of the article given by the resident and makes any corrections as needed. In addition, the H2S employee assigns a category to the article from a standard list of 134 categories (e.g., baby clothing, women's winter boots, fridge, microwave...).
+
+In some cities in which H2S operates, the distribution center offers an additional service for clients who receive second hand articles from H2S but are not able to personally visit the H2S distribution center. Instead, H2S allows those clients to indicate which categories of articles they need. At the end of each day, an H2S employee calls them to let them know about the relevant articles that were dropped off that day. If the client still needs an article, the H2S employee arranges delivery of the article to the client's home address. Delivery of such articles is made by a volunteer driver before picking up items according to the pickup route.
+
+AI:Enumerations:
+1. Category(baby clothing, women's winter boots, fridge, microwave...)
+
+Class:
+1. Resident(name : String, streetAddress : String, phoneNumber : String, emailAddress : String, itemsDescription : String)
+2. PickupVehicle
+3. VolunteerDriver(availableDays : List<String>)
+4. SecondHandArticle(description : String, quality : String, RFIDTag : String, category : Category)
+5. FoodBank
+6. H2SEmployee
+
+Relationships:
+Resident contain 1 PickupRequest
+PickupRequest associate 1 PickupVehicle
+PickupVehicle contain * PickupRoute
+PickupRoute associate 1 VolunteerDriver
+PickupRoute contain * ScheduledItem
+ScheduledItem associate 1 SecondHandArticle
+SecondHandArticle inherit FoodItem
+SecondHandArticle associate 1 Category
+H2SEmployee associate * ScheduledItem
+H2SEmployee associate * ClientRequest
+ClientRequest associate 1 SecondHandArticle
+ClientRequest associate 1 Resident
+ClientRequest associate 1 DeliveryAddress
+
+Composition:
+PickupRoute contain * ScheduledItem
+H2SEmployee contain * ScheduledItem
+H2SEmployee contain * ClientRequest"
+"
+"
+------------------------------------------------------------
+ O  Class:Resident  Oracle:Resident
+   X  Attribute:name  
+   X  Attribute:streetAddress  
+   X  Attribute:phoneNumber  
+   X  Attribute:emailAddress  
+   X  Attribute:itemsDescription  
+ O  Class:SecondHandArticle  Oracle:SecondHandArticle
+   X  Attribute:description  
+   X  Attribute:quality  
+   X  Attribute:RFIDTag  
+   O  Attribute:category   Oracle:category 
+ X  Class:Category
+   X  Attribute:clothing 
+   X  Attribute:winter 
+   X  Attribute:fridge 
+   X  Attribute:microwave... 
+ X  Class:PickupVehicle
+ X  Class:VolunteerDriver
+   X  Attribute:availableDays  
+ X  Class:FoodBank
+ X  Class:H2SEmployee
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------6/10------H2S:
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: The Helping Hand Store (H2S) collects second hand articles and non-perishable foods from residents of the city of and distributes them to those in need. H2S also operates in other cities, but each location is run independently. To increase the number of items available for distribution, H2S is seeking to offer a Pickup and Delivery Service to its customers, which would allow a resident to schedule a pickup of items from a street address online at the H2S website.
+
+A resident enters a name, street address, phone number, optional email address, as well as a description of the items to be picked up. The resident places the items just outside the front door of the building at the stated street address in the morning of the weekday requested for pickup.
+
+H2S has a fleet of pickup vehicles, which it uses to collect items from residents. At the beginning of every weekday, a pickup route for that day is determined for each vehicle for which a volunteer driver is available. Volunteer drivers indicate their available days on the H2S website. The route takes into account the available storage space of a vehicle and the dimensions and weights of scheduled items. A scheduled pickup may occur anytime between 8:00 and 14:00. After completing all scheduled pickups, the driver drops off all collected second hand articles at H2S's distribution center. Non-perishable foods, on the other hand, are directly dropped off at the   food bank, which then deals with these items without further involvement from H2S.
+
+At H2S's distribution center, an H2S employee examines the quality of the received second hand articles. Those articles that can still be used are tagged with an RFID device. The H2S employee double checks the description of the article given by the resident and makes any corrections as needed. In addition, the H2S employee assigns a category to the article from a standard list of 134 categories (e.g., baby clothing, women's winter boots, fridge, microwave...).
+
+In some cities in which H2S operates, the distribution center offers an additional service for clients who receive second hand articles from H2S but are not able to personally visit the H2S distribution center. Instead, H2S allows those clients to indicate which categories of articles they need. At the end of each day, an H2S employee calls them to let them know about the relevant articles that were dropped off that day. If the client still needs an article, the H2S employee arranges delivery of the article to the client's home address. Delivery of such articles is made by a volunteer driver before picking up items according to the pickup route.
+
+AI:Enumerations:
+1. Category(baby clothing, women's winter boots, fridge, microwave...)
+
+Classes:
+1. Resident(name: string, streetAddress: string, phoneNumber: string, emailAddress: string, itemsDescription: string)
+2. PickupVehicle(vehicleID: int, availableStorageSpace: int)
+3. VolunteerDriver(name: string, availableDays: string)
+4. SecondHandArticle(articleID: int, description: string, quality: string)
+5. FoodBank(name: string, location: string)
+6. H2SEmployee(name: string, role: string)
+7. ArticleCategory(categoryID: int, categoryName: string)
+
+Relationships:
+- 1 resident places 0..* second hand articles
+- 1 resident uses 0..* pickup vehicles
+- 1 pickup vehicle has 1..* volunteer drivers
+- 1 volunteer driver drives 1 pickup route
+- 1 pickup route includes 1..* scheduled pickups
+- 1 scheduled pickup includes 1 resident
+- 1 scheduled pickup collects 1..* second hand articles
+- 1 second hand article is checked by 1 H2S employee
+- 1 second hand article is assigned 1 category from ArticleCategory
+- 1 distribution center offers 0..* services
+- 1 service delivers 0..* articles to clients
+- 1 client receives 0..* articles
+
+Composition:
+- 1 H2S employee contains 1..* second hand articles
+- 1 H2S employee contains 1 ArticleCategory
+- 1 distribution center contains 1 H2S employee
+- 1 distribution center contains 1 FoodBank
+- 1 client contains 0..* received articles"
+"
+"
+------------------------------------------------------------
+ O  Class:Resident  Oracle:Resident
+   X  Attribute:name 
+   X  Attribute:streetAddress 
+   X  Attribute:phoneNumber 
+   X  Attribute:emailAddress 
+   X  Attribute:itemsDescription 
+ O  Class:SecondHandArticle  Oracle:SecondHandArticle
+   X  Attribute:articleID 
+   X  Attribute:description 
+   X  Attribute:quality 
+ X  Class:Category
+   X  Attribute:clothing 
+   X  Attribute:winter 
+   X  Attribute:fridge 
+   X  Attribute:microwave... 
+ X  Class:PickupVehicle
+   X  Attribute:vehicleID 
+   X  Attribute:availableStorageSpace 
+ X  Class:VolunteerDriver
+   X  Attribute:name 
+   X  Attribute:availableDays 
+ X  Class:FoodBank
+   X  Attribute:name 
+   X  Attribute:location 
+ X  Class:H2SEmployee
+   X  Attribute:name 
+   X  Attribute:role 
+ X  Class:ArticleCategory
+   X  Attribute:categoryID 
+   X  Attribute:categoryName 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------7/10------H2S:
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: The Helping Hand Store (H2S) collects second hand articles and non-perishable foods from residents of the city of and distributes them to those in need. H2S also operates in other cities, but each location is run independently. To increase the number of items available for distribution, H2S is seeking to offer a Pickup and Delivery Service to its customers, which would allow a resident to schedule a pickup of items from a street address online at the H2S website.
+
+A resident enters a name, street address, phone number, optional email address, as well as a description of the items to be picked up. The resident places the items just outside the front door of the building at the stated street address in the morning of the weekday requested for pickup.
+
+H2S has a fleet of pickup vehicles, which it uses to collect items from residents. At the beginning of every weekday, a pickup route for that day is determined for each vehicle for which a volunteer driver is available. Volunteer drivers indicate their available days on the H2S website. The route takes into account the available storage space of a vehicle and the dimensions and weights of scheduled items. A scheduled pickup may occur anytime between 8:00 and 14:00. After completing all scheduled pickups, the driver drops off all collected second hand articles at H2S's distribution center. Non-perishable foods, on the other hand, are directly dropped off at the   food bank, which then deals with these items without further involvement from H2S.
+
+At H2S's distribution center, an H2S employee examines the quality of the received second hand articles. Those articles that can still be used are tagged with an RFID device. The H2S employee double checks the description of the article given by the resident and makes any corrections as needed. In addition, the H2S employee assigns a category to the article from a standard list of 134 categories (e.g., baby clothing, women's winter boots, fridge, microwave...).
+
+In some cities in which H2S operates, the distribution center offers an additional service for clients who receive second hand articles from H2S but are not able to personally visit the H2S distribution center. Instead, H2S allows those clients to indicate which categories of articles they need. At the end of each day, an H2S employee calls them to let them know about the relevant articles that were dropped off that day. If the client still needs an article, the H2S employee arranges delivery of the article to the client's home address. Delivery of such articles is made by a volunteer driver before picking up items according to the pickup route.
+
+AI:Enumerations:
+1. Category(baby clothing, women's winter boots, fridge, microwave...)
+
+Class:
+1. Resident(name : String, streetAddress : String, phoneNumber : String, email : String, itemsDescription : String)
+2. PickupVehicle(vehicleID : String, storageSpace : int, availableDays : String)
+3. VolunteerDriver(driverID : String, availableDays : String)
+4. Article(articleID : String, description : String, quality : boolean, category : Category)
+
+Relationships:
+1..* Resident pickup 1 PickupService
+1..* PickupService schedule 1 PickupRoute
+1 PickupRoute assign 1 PickupVehicle
+1 PickupRoute pickup 1..* Resident
+1..* PickupVehicle dropOff 1 DistributionCenter
+1..* Article taggedWith 1 RFIDDevice
+1..* Article belongsTo 1 Category
+1 DistributionCenter offers 0..1 AdditionalService
+1 AdditionalService provide 1..* Client
+1..* Client needs 1..* Category
+1..* VolunteerDriver deliver 1..* Client"
+"
+"
+------------------------------------------------------------
+ O  Class:Resident  Oracle:Resident
+   X  Attribute:name  
+   X  Attribute:streetAddress  
+   X  Attribute:phoneNumber  
+   X  Attribute:email  
+   X  Attribute:itemsDescription  
+ X  Class:Category
+   X  Attribute:clothing 
+   X  Attribute:winter 
+   X  Attribute:fridge 
+   X  Attribute:microwave... 
+ X  Class:PickupVehicle
+   X  Attribute:vehicleID  
+   X  Attribute:storageSpace  
+   X  Attribute:availableDays  
+ X  Class:VolunteerDriver
+   X  Attribute:driverID  
+   X  Attribute:availableDays  
+ X  Class:Article
+   X  Attribute:articleID  
+   X  Attribute:description  
+   X  Attribute:quality  
+   X  Attribute:category  
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------8/10------H2S:
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: The Helping Hand Store (H2S) collects second hand articles and non-perishable foods from residents of the city of and distributes them to those in need. H2S also operates in other cities, but each location is run independently. To increase the number of items available for distribution, H2S is seeking to offer a Pickup and Delivery Service to its customers, which would allow a resident to schedule a pickup of items from a street address online at the H2S website.
+
+A resident enters a name, street address, phone number, optional email address, as well as a description of the items to be picked up. The resident places the items just outside the front door of the building at the stated street address in the morning of the weekday requested for pickup.
+
+H2S has a fleet of pickup vehicles, which it uses to collect items from residents. At the beginning of every weekday, a pickup route for that day is determined for each vehicle for which a volunteer driver is available. Volunteer drivers indicate their available days on the H2S website. The route takes into account the available storage space of a vehicle and the dimensions and weights of scheduled items. A scheduled pickup may occur anytime between 8:00 and 14:00. After completing all scheduled pickups, the driver drops off all collected second hand articles at H2S's distribution center. Non-perishable foods, on the other hand, are directly dropped off at the   food bank, which then deals with these items without further involvement from H2S.
+
+At H2S's distribution center, an H2S employee examines the quality of the received second hand articles. Those articles that can still be used are tagged with an RFID device. The H2S employee double checks the description of the article given by the resident and makes any corrections as needed. In addition, the H2S employee assigns a category to the article from a standard list of 134 categories (e.g., baby clothing, women's winter boots, fridge, microwave...).
+
+In some cities in which H2S operates, the distribution center offers an additional service for clients who receive second hand articles from H2S but are not able to personally visit the H2S distribution center. Instead, H2S allows those clients to indicate which categories of articles they need. At the end of each day, an H2S employee calls them to let them know about the relevant articles that were dropped off that day. If the client still needs an article, the H2S employee arranges delivery of the article to the client's home address. Delivery of such articles is made by a volunteer driver before picking up items according to the pickup route.
+
+AI:Enumerations:
+
+1. ItemCategory(baby clothing, women's winter boots, fridge, microwave, ...)
+2. DayOfWeek(Monday, Tuesday, Wednesday, Thursday, Friday)
+
+Classes:
+1. Resident(name: String, streetAddress: String, phoneNumber: String, emailAddress: String, itemsDescription: String)
+2. PickupVehicle(vehicleID: String, storageSpace: double, availableDays: DayOfWeek[])
+3. VolunteerDriver(name: String, availableDays: DayOfWeek[])
+4. H2SEmployee(name: String)
+5. SecondHandArticle(articleID: String, description: String, quality: String, RFIDTagged: boolean, category: ItemCategory)
+6. FoodBank()
+7. Client(name: String, address: String, neededCategories: ItemCategory[])
+8. DeliveryRoute(routeID: String, pickupTime: TimeRange)
+
+Relationships:
+- Resident request 1 PickupService
+- PickupService schedule 1 PickupRoute
+- PickupRoute assign 1 PickupVehicle
+- PickupVehicle isAssociatedWith 0..* VolunteerDriver
+- VolunteerDriver drive 1 DeliveryRoute
+- DeliveryRoute deliver 1..* SecondHandArticle
+- SecondHandArticle isTaggedBy 1 H2SEmployee
+- SecondHandArticle isCategorizedAs 1 ItemCategory
+- H2SEmployee corrects 0..* SecondHandArticle
+- Client needs 0..* ItemCategory
+- Client isDelivered 1..* SecondHandArticle"
+"
+"
+------------------------------------------------------------
+ O  Class:ItemCategory  Oracle:ItemCategory
+   O  Attribute:clothing  Oracle:Clothing 
+   X  Attribute:winter 
+   O  Attribute:fridge  Oracle:Fridge 
+   X  Attribute:microwave 
+ O  Class:Resident  Oracle:Resident
+   X  Attribute:name 
+   X  Attribute:streetAddress 
+   X  Attribute:phoneNumber 
+   X  Attribute:emailAddress 
+   X  Attribute:itemsDescription 
+ O  Class:SecondHandArticle  Oracle:SecondHandArticle
+   X  Attribute:articleID 
+   X  Attribute:description 
+   X  Attribute:quality 
+   X  Attribute:RFIDTagged 
+   O  Attribute:category  Oracle:category 
+ O  Class:Client  Oracle:Client
+   X  Attribute:name 
+   X  Attribute:address 
+   O  Attribute:neededCategories  Oracle:neededCategories 
+ X  Class:DayOfWeek
+   X  Attribute:Monday 
+   X  Attribute:Tuesday 
+   X  Attribute:Wednesday 
+   X  Attribute:Thursday 
+   X  Attribute:Friday 
+ X  Class:PickupVehicle
+   X  Attribute:vehicleID 
+   X  Attribute:storageSpace 
+   X  Attribute:availableDays 
+ X  Class:VolunteerDriver
+   X  Attribute:name 
+   X  Attribute:availableDays 
+ X  Class:H2SEmployee
+   X  Attribute:name 
+ X  Class:FoodBank
+ X  Class:DeliveryRoute
+   X  Attribute:routeID 
+   X  Attribute:pickupTime 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------9/10------H2S:
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: The Helping Hand Store (H2S) collects second hand articles and non-perishable foods from residents of the city of and distributes them to those in need. H2S also operates in other cities, but each location is run independently. To increase the number of items available for distribution, H2S is seeking to offer a Pickup and Delivery Service to its customers, which would allow a resident to schedule a pickup of items from a street address online at the H2S website.
+
+A resident enters a name, street address, phone number, optional email address, as well as a description of the items to be picked up. The resident places the items just outside the front door of the building at the stated street address in the morning of the weekday requested for pickup.
+
+H2S has a fleet of pickup vehicles, which it uses to collect items from residents. At the beginning of every weekday, a pickup route for that day is determined for each vehicle for which a volunteer driver is available. Volunteer drivers indicate their available days on the H2S website. The route takes into account the available storage space of a vehicle and the dimensions and weights of scheduled items. A scheduled pickup may occur anytime between 8:00 and 14:00. After completing all scheduled pickups, the driver drops off all collected second hand articles at H2S's distribution center. Non-perishable foods, on the other hand, are directly dropped off at the   food bank, which then deals with these items without further involvement from H2S.
+
+At H2S's distribution center, an H2S employee examines the quality of the received second hand articles. Those articles that can still be used are tagged with an RFID device. The H2S employee double checks the description of the article given by the resident and makes any corrections as needed. In addition, the H2S employee assigns a category to the article from a standard list of 134 categories (e.g., baby clothing, women's winter boots, fridge, microwave...).
+
+In some cities in which H2S operates, the distribution center offers an additional service for clients who receive second hand articles from H2S but are not able to personally visit the H2S distribution center. Instead, H2S allows those clients to indicate which categories of articles they need. At the end of each day, an H2S employee calls them to let them know about the relevant articles that were dropped off that day. If the client still needs an article, the H2S employee arranges delivery of the article to the client's home address. Delivery of such articles is made by a volunteer driver before picking up items according to the pickup route.
+
+AI:Enumerations:
+1. Category(baby clothing, women's winter boots, fridge, microwave...)
+
+Class:
+1. Resident(name: string, streetAddress: string, phoneNumber: string, emailAddress: string, itemsDescription: string)
+2. PickupVehicle(vehicleID: int, storageSpace: int)
+3. VolunteerDriver(driverID: int, availableDays: string)
+4. SecondHandArticle(articleID: int, description: string, quality: string, RFIDTag: string, category: Category)
+5. FoodBank
+6. H2SEmployee(employeeID: int)
+
+Relationships:
+- Resident associate 1..* SecondHandArticle
+- PickupVehicle contain 1..* VolunteerDriver
+- PickupVehicle inherit Vehicle
+- PickupVehicle contain 0..* ScheduledPickup
+- VolunteerDriver associate 0..* ScheduledPickup
+- ScheduledPickup associate 1 PickupVehicle
+- ScheduledPickup associate 1 Resident
+- H2SEmployee inherit Employee
+- H2SEmployee contain 0..* ScheduledPickup
+- H2SEmployee contain 0..* SecondHandArticle"
+"
+"
+------------------------------------------------------------
+ O  Class:Resident  Oracle:Resident
+   X  Attribute:name 
+   X  Attribute:streetAddress 
+   X  Attribute:phoneNumber 
+   X  Attribute:emailAddress 
+   X  Attribute:itemsDescription 
+ O  Class:SecondHandArticle  Oracle:SecondHandArticle
+   X  Attribute:articleID 
+   X  Attribute:description 
+   X  Attribute:quality 
+   X  Attribute:RFIDTag 
+   O  Attribute:category  Oracle:category 
+ X  Class:Category
+   X  Attribute:clothing 
+   X  Attribute:winter 
+   X  Attribute:fridge 
+   X  Attribute:microwave... 
+ X  Class:PickupVehicle
+   X  Attribute:vehicleID 
+   X  Attribute:storageSpace 
+ X  Class:VolunteerDriver
+   X  Attribute:driverID 
+   X  Attribute:availableDays 
+ X  Class:FoodBank
+ X  Class:H2SEmployee
+   X  Attribute:employeeID 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------10/10------H2S:
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: The Helping Hand Store (H2S) collects second hand articles and non-perishable foods from residents of the city of and distributes them to those in need. H2S also operates in other cities, but each location is run independently. To increase the number of items available for distribution, H2S is seeking to offer a Pickup and Delivery Service to its customers, which would allow a resident to schedule a pickup of items from a street address online at the H2S website.
+
+A resident enters a name, street address, phone number, optional email address, as well as a description of the items to be picked up. The resident places the items just outside the front door of the building at the stated street address in the morning of the weekday requested for pickup.
+
+H2S has a fleet of pickup vehicles, which it uses to collect items from residents. At the beginning of every weekday, a pickup route for that day is determined for each vehicle for which a volunteer driver is available. Volunteer drivers indicate their available days on the H2S website. The route takes into account the available storage space of a vehicle and the dimensions and weights of scheduled items. A scheduled pickup may occur anytime between 8:00 and 14:00. After completing all scheduled pickups, the driver drops off all collected second hand articles at H2S's distribution center. Non-perishable foods, on the other hand, are directly dropped off at the   food bank, which then deals with these items without further involvement from H2S.
+
+At H2S's distribution center, an H2S employee examines the quality of the received second hand articles. Those articles that can still be used are tagged with an RFID device. The H2S employee double checks the description of the article given by the resident and makes any corrections as needed. In addition, the H2S employee assigns a category to the article from a standard list of 134 categories (e.g., baby clothing, women's winter boots, fridge, microwave...).
+
+In some cities in which H2S operates, the distribution center offers an additional service for clients who receive second hand articles from H2S but are not able to personally visit the H2S distribution center. Instead, H2S allows those clients to indicate which categories of articles they need. At the end of each day, an H2S employee calls them to let them know about the relevant articles that were dropped off that day. If the client still needs an article, the H2S employee arranges delivery of the article to the client's home address. Delivery of such articles is made by a volunteer driver before picking up items according to the pickup route.
+
+AI:Class:
+1.Resident(name: String, streetAddress: String, phoneNumber: String, emailAddress: String, itemsDescription: String)
+2.PickupVehicle
+3.VolunteerDriver(availableDays: String)
+4.H2SEmployee
+5.Article(description: String, category: String)
+6.FoodBank
+
+Enumerations:
+1.Category(baby clothing, women's winter boots, fridge, microwave...)
+
+Relationships:
+1.Resident contain 1..* Article
+2.PickupVehicle contain 1..* Resident
+3.PickupVehicle associate 1 VolunteerDriver
+4.VolunteerDriver associate 1 PickupVehicle
+5.Article inherit H2SEmployee
+6.H2SEmployee contain 1..* Article
+7.H2SEmployee associate 1..* Category
+8.FoodBank inherit H2SEmployee"
+"
+"
+------------------------------------------------------------
+ O  Class:Resident  Oracle:Resident
+   X  Attribute:name 
+   X  Attribute:streetAddress 
+   X  Attribute:phoneNumber 
+   X  Attribute:emailAddress 
+   X  Attribute:itemsDescription 
+ X  Class:PickupVehicle
+ X  Class:VolunteerDriver
+   X  Attribute:availableDays 
+ X  Class:H2SEmployee
+ X  Class:Article
+   X  Attribute:description 
+   X  Attribute:category 
+ X  Class:FoodBank
+ X  Class:Category
+   X  Attribute:clothing 
+   X  Attribute:winter 
+   X  Attribute:fridge 
+   X  Attribute:microwave... 

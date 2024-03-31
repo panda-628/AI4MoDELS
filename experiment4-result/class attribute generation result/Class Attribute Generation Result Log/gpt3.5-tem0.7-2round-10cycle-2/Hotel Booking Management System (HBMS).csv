@@ -1,0 +1,1683 @@
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------1/10------Hotel Booking Management System (HBMS):
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+Hotel Booking Management System (HBMS)
+
+Business travellers use HMBS for booking special accommodation deals offered by participating hotels. Travellers register to HBMS by providing their name, billing information (incl. company name and address) and optional travel preferences (e.g. breakfast included, free wifi, 24/7 front desk, etc.).
+
+When searching for accommodation, the traveller specifies the city, the date of arrival and departure, the number of needed rooms and the type of rooms (e.g. single, double, twin), minimum hotel rating (stars), a tentative budget (max. cost per night), and optionally, further travel preferences to filter offers in the search results. HBMS lists all available offers of hotels for the given travel period, and the traveller can either create a preliminary booking or complete a booking in the regular way.
+
+In case of a preliminary booking, HBMS forwards the key parameters of the booking information (i.e. price, city area, hotel rating and key preferences and a unique booking identifier) to other hotels so that they can compete for the traveller with special offers provided within the next 24 hours. After 24-hour deadline, HBMS sends the five best special offers to the traveller who can switch to the new offer or proceed with the original preliminary booking.
+
+In both cases, the traveller needs to provide credit card information to finalize a booking. Each finalized booking can be either pre-paid (i.e. paid immediately when it cannot be reimbursed), or paid at hotel (when the traveller pays during his/her stay). A finalized booking needs to be confirmed by the hotel within 24 hours. A booking may also contain a cancellation deadline: if the traveller cancels a confirmed booking before this deadline, then there are no further consequences. However, if a confirmed booking is cancelled after this deadline, then 1-night accommodation is charged for the traveller. HBMS stores all past booking information for a traveller to calculate a reliability rating.
+
+Each hotel is located in a city at a particular address, and possibly run by a hotel chain. A hotel may announce its available types of rooms for a given period in HBMS, and may also inform HBMS when a particular type of room is fully booked. HBMS sends information about the preliminary booking information to competitor hotels together with the traveller's preferences and his/her reliability rating. The competitor hotels may then provide a special offer. Once a booking is finalized, the hotel needs to send a confirmation to the traveller. If a completed booking is not confirmed by the hotel within 24 hours, then HBMS needs to cancel it, and reimburse the traveller in case of a pre-paid booking. If the hotel needs to cancel a confirmed booking, then financial compensation must be offered to the traveller.
+
+AI:## Enumerations:
+1. RoomType
+2. PaymentType
+3. BookingStatus
+
+## Classes:
+1. Traveller
+   - Attributes: name, billingInformation, travelPreferences
+
+2. Hotel
+   - Attributes: name, city, address, hotelChain
+
+3. HotelRoom
+   - Attributes: roomType, availability
+
+4. Booking
+   - Attributes: bookingId, price, cityArea, hotelRating, keyPreferences, bookingIdentifier, paymentType, confirmationStatus, cancellationDeadline
+
+5. CreditCardInformation
+   - Attributes: cardNumber, expiryDate, cvv
+
+6. CompetitorHotel
+   - Attributes: competitorName, specialOffer
+
+7. ReliabilityRating
+
+## Attributes (in addition to the ones already mentioned in classes):
+1. Traveller - billingInformation
+   - Attributes: companyName, companyAddress
+
+2. Traveller - travelPreferences
+   - Attributes: breakfastIncluded, freeWifi, frontDeskAvailability
+
+3. HotelRoom - roomType
+   - Attributes: single, double, twin
+
+4. Booking - paymentType
+   - Attributes: prePaid, paidAtHotel
+
+5. CreditCardInformation
+   - Attributes: cardNumber, expiryDate, cvv
+
+6. CompetitorHotel - specialOffer
+   - Attributes: specialOfferDetails
+
+7. ReliabilityRating
+   - Attributes: ratingValue"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. RoomType (SINGLE, DOUBLE, TWIN): Represents the different types of rooms available in a hotel.
+2. PaymentType (PRE_PAID, PAID_AT_HOTEL): Represents the two options for payment when finalizing a booking.
+3. BookingStatus (CONFIRMED, CANCELLED): Represents the status of a booking.
+
+Classes:
+1. Traveller(name: String, billingInformation: BillingInformation, travelPreferences: TravelPreferences): Represents a traveller using the HBMS system and storing their information and preferences.
+2. Hotel(name: String, city: String, address: String, hotelChain: String): Represents a hotel participating in the HBMS system with location and chain information.
+3. HotelRoom(roomType: RoomType, availability: boolean): Represents a room in a hotel with its type and availability status.
+4. Booking(bookingId: String, price: double, cityArea: String, hotelRating: int, keyPreferences: String, bookingIdentifier: String, paymentType: PaymentType, confirmationStatus: BookingStatus, cancellationDeadline: Date): Represents a booking made by a traveller with relevant details.
+5. CreditCardInformation(cardNumber: String, expiryDate: Date, cvv: String): Represents credit card information for payment processing.
+6. CompetitorHotel(competitorName: String, specialOffer: String): Represents a competitor hotel providing special offers in response to preliminary bookings.
+7. ReliabilityRating(ratingValue: int): Represents the reliability rating of a traveller based on past booking information."
+"
+"
+------------------------------------------------------------
+ O  Class:RoomType   Oracle:RoomType
+   O  Attribute:SINGLE  Oracle:SINGLE 
+   O  Attribute:DOUBLE  Oracle:DOUBLE 
+   O  Attribute:TWIN  Oracle:TWIN 
+ O  Class:PaymentType   Oracle:PaymentType
+   O  Attribute:PRE_PAID  Oracle:PREPAID 
+   O  Attribute:PAID_AT_HOTEL  Oracle:PAID_AT_HOTEL 
+ O  Class:BookingStatus   Oracle:BookingStatus
+   O  Attribute:CONFIRMED  Oracle:CONFIRMED 
+   X  Attribute:CANCELLED 
+ O  Class:Traveller  Oracle:Traveller
+   O  Attribute:name  Oracle:name 
+   X  Attribute:billingInformation 
+   X  Attribute:travelPreferences 
+ O  Class:Hotel  Oracle:Hotel
+   X  Attribute:name 
+   O  Attribute:city  Oracle:city 
+   X  Attribute:address 
+   X  Attribute:hotelChain 
+ O  Class:Booking  Oracle:Booking
+   O  Attribute:bookingId  Oracle:bookingId 
+   X  Attribute:price 
+   X  Attribute:cityArea 
+   X  Attribute:hotelRating 
+   X  Attribute:keyPreferences 
+   X  Attribute:bookingIdentifier 
+   O  Attribute:paymentType  Oracle:paymentType 
+   X  Attribute:confirmationStatus 
+   O  Attribute:cancellationDeadline  Oracle:cancellationDeadline 
+ X  Class:HotelRoom
+   X  Attribute:roomType 
+   X  Attribute:availability 
+ X  Class:CreditCardInformation
+   X  Attribute:cardNumber 
+   X  Attribute:expiryDate 
+   X  Attribute:cvv 
+ X  Class:CompetitorHotel
+   X  Attribute:competitorName 
+   X  Attribute:specialOffer 
+ X  Class:ReliabilityRating
+   X  Attribute:ratingValue 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------2/10------Hotel Booking Management System (HBMS):
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+Hotel Booking Management System (HBMS)
+
+Business travellers use HMBS for booking special accommodation deals offered by participating hotels. Travellers register to HBMS by providing their name, billing information (incl. company name and address) and optional travel preferences (e.g. breakfast included, free wifi, 24/7 front desk, etc.).
+
+When searching for accommodation, the traveller specifies the city, the date of arrival and departure, the number of needed rooms and the type of rooms (e.g. single, double, twin), minimum hotel rating (stars), a tentative budget (max. cost per night), and optionally, further travel preferences to filter offers in the search results. HBMS lists all available offers of hotels for the given travel period, and the traveller can either create a preliminary booking or complete a booking in the regular way.
+
+In case of a preliminary booking, HBMS forwards the key parameters of the booking information (i.e. price, city area, hotel rating and key preferences and a unique booking identifier) to other hotels so that they can compete for the traveller with special offers provided within the next 24 hours. After 24-hour deadline, HBMS sends the five best special offers to the traveller who can switch to the new offer or proceed with the original preliminary booking.
+
+In both cases, the traveller needs to provide credit card information to finalize a booking. Each finalized booking can be either pre-paid (i.e. paid immediately when it cannot be reimbursed), or paid at hotel (when the traveller pays during his/her stay). A finalized booking needs to be confirmed by the hotel within 24 hours. A booking may also contain a cancellation deadline: if the traveller cancels a confirmed booking before this deadline, then there are no further consequences. However, if a confirmed booking is cancelled after this deadline, then 1-night accommodation is charged for the traveller. HBMS stores all past booking information for a traveller to calculate a reliability rating.
+
+Each hotel is located in a city at a particular address, and possibly run by a hotel chain. A hotel may announce its available types of rooms for a given period in HBMS, and may also inform HBMS when a particular type of room is fully booked. HBMS sends information about the preliminary booking information to competitor hotels together with the traveller's preferences and his/her reliability rating. The competitor hotels may then provide a special offer. Once a booking is finalized, the hotel needs to send a confirmation to the traveller. If a completed booking is not confirmed by the hotel within 24 hours, then HBMS needs to cancel it, and reimburse the traveller in case of a pre-paid booking. If the hotel needs to cancel a confirmed booking, then financial compensation must be offered to the traveller.
+
+AI:### Enumerations:
+1. RoomType {SINGLE, DOUBLE, TWIN}
+2. PaymentType {PRE_PAID, AT_HOTEL}
+
+### Classes:
+1. Traveller
+    - Attributes:
+        - name: String
+        - billingInformation: BillingInformation
+        - travelPreferences: List<String>
+        - creditCardInformation: CreditCardInformation
+        - reliabilityRating: double
+        - pastBookings: List<Booking>
+
+2. Hotel
+    - Attributes:
+        - name: String
+        - city: String
+        - address: String
+        - hotelChain: HotelChain
+        - availableRoomTypes: List<RoomType>
+        - fullyBookedRoomTypes: List<RoomType>
+
+3. Booking
+    - Attributes:
+        - price: double
+        - cityArea: String
+        - hotelRating: int
+        - keyPreferences: List<String>
+        - bookingIdentifier: String
+        - paymentType: PaymentType
+        - bookingStatus: BookingStatus
+        - cancellationDeadline: Date
+        - confirmationDeadline: Date
+
+4. HotelChain
+    - Attributes:
+        - name: String
+
+5. BillingInformation
+    - Attributes:
+        - companyName: String
+        - address: String
+
+6. CreditCardInformation
+    - Attributes:
+        - cardNumber: String
+        - expiryDate: Date
+
+7. CompetitorHotel
+    - Attributes:
+        - name: String
+        - specialOffer: String
+
+### Additional Classes:
+1. SearchCriteria
+    - Attributes:
+        - city: String
+        - dateOfArrival: Date
+        - dateOfDeparture: Date
+        - numberOfRooms: int
+        - roomType: RoomType
+        - minHotelRating: int
+        - maxCostPerNight: double
+        - furtherTravelPreferences: List<String>
+
+2. Offer
+    - Attributes:
+        - hotel: Hotel
+        - price: double
+        - cityArea: String
+        - hotelRating: int
+        - keyPreferences: List<String>
+
+3. Competition
+    - Attributes:
+        - bookingInformation: Booking
+        - travellerPreferences: List<String>
+
+4. Confirmation
+    - Attributes:
+        - booking: Booking
+        - hotel: Hotel
+
+5. FinancialCompensation
+    - Attributes:
+        - amount: double
+
+6. BookingStatus
+    - Enumerations: {PRELIMINARY, CONFIRMED, CANCELLED}"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. RoomType {SINGLE, DOUBLE, TWIN}: Represents the different types of rooms available in a hotel.
+2. PaymentType {PRE_PAID, AT_HOTEL}: Represents the different payment options for booking confirmation.
+
+Classes:
+1. Traveller(name: String, billingInformation: BillingInformation, travelPreferences: List<String>, creditCardInformation: CreditCardInformation, reliabilityRating: double, pastBookings: List<Booking>): Represents a traveller using the HBMS.
+2. Hotel(name: String, city: String, address: String, hotelChain: HotelChain, availableRoomTypes: List<RoomType>, fullyBookedRoomTypes: List<RoomType]): Represents a hotel participating in the HBMS.
+3. Booking(price: double, cityArea: String, hotelRating: int, keyPreferences: List<String>, bookingIdentifier: String, paymentType: PaymentType, bookingStatus: BookingStatus, cancellationDeadline: Date, confirmationDeadline: Date): Represents a booking made by a traveller.
+4. HotelChain(name: String): Represents a chain of hotels.
+5. BillingInformation(companyName: String, address: String): Represents the billing information of a traveller.
+6. CreditCardInformation(cardNumber: String, expiryDate: Date): Represents the credit card information of a traveller.
+7. CompetitorHotel(name: String, specialOffer: String): Represents a competitor hotel offering special deals.
+8. SearchCriteria(city: String, dateOfArrival: Date, dateOfDeparture: Date, numberOfRooms: int, roomType: RoomType, minHotelRating: int, maxCostPerNight: double, furtherTravelPreferences: List<String>): Represents the search criteria provided by a traveller.
+9. Offer(hotel: Hotel, price: double, cityArea: String, hotelRating: int, keyPreferences: List<String>): Represents an offer made by a hotel.
+10. Competition(bookingInformation: Booking, travellerPreferences: List<String>): Represents the competition between hotels for a booking.
+11. Confirmation(booking: Booking, hotel: Hotel): Represents the confirmation of a booking by a hotel.
+12. FinancialCompensation(amount: double): Represents the financial compensation offered in case of booking cancellation.
+13. BookingStatus: Enumerations {PRELIMINARY, CONFIRMED, CANCELLED}: Represents the status of a booking."
+"
+"
+------------------------------------------------------------
+ O  Class:RoomType   Oracle:RoomType
+   O  Attribute:SINGLE  Oracle:SINGLE 
+   O  Attribute:DOUBLE  Oracle:DOUBLE 
+   O  Attribute:TWIN  Oracle:TWIN 
+ O  Class:PaymentType   Oracle:PaymentType
+   O  Attribute:PRE_PAID  Oracle:PREPAID 
+   X  Attribute:AT_HOTEL 
+ O  Class:Traveller  Oracle:Traveller
+   O  Attribute:name  Oracle:name 
+   X  Attribute:billingInformation 
+   X  Attribute:travelPreferences 
+   X  Attribute:creditCardInformation 
+   O  Attribute:reliabilityRating  Oracle:reliabilityRating 
+   X  Attribute:pastBookings 
+ O  Class:Hotel  Oracle:Hotel
+   X  Attribute:name 
+   O  Attribute:city  Oracle:city 
+   X  Attribute:address 
+   X  Attribute:hotelChain 
+   X  Attribute:availableRoomTypes 
+   X  Attribute:fullyBookedRoomTypes 
+ O  Class:Booking  Oracle:Booking
+   X  Attribute:price 
+   X  Attribute:cityArea 
+   X  Attribute:hotelRating 
+   X  Attribute:keyPreferences 
+   X  Attribute:bookingIdentifier 
+   O  Attribute:paymentType  Oracle:paymentType 
+   O  Attribute:bookingStatus  Oracle:bookingStatus 
+   O  Attribute:cancellationDeadline  Oracle:cancellationDeadline 
+   X  Attribute:confirmationDeadline 
+ O  Class:HotelChain  Oracle:HotelChain
+   X  Attribute:name 
+ O  Class:BillingInformation  Oracle:BillingInformation
+   O  Attribute:companyName  Oracle:companyName 
+   O  Attribute:address  Oracle:address 
+ X  Class:CreditCardInformation
+   X  Attribute:cardNumber 
+   X  Attribute:expiryDate 
+ X  Class:CompetitorHotel
+   X  Attribute:name 
+   X  Attribute:specialOffer 
+ X  Class:SearchCriteria
+   X  Attribute:city 
+   X  Attribute:dateOfArrival 
+   X  Attribute:dateOfDeparture 
+   X  Attribute:numberOfRooms 
+   X  Attribute:roomType 
+   X  Attribute:minHotelRating 
+   X  Attribute:maxCostPerNight 
+   X  Attribute:furtherTravelPreferences 
+ X  Class:Offer
+   X  Attribute:hotel 
+   X  Attribute:price 
+   X  Attribute:cityArea 
+   X  Attribute:hotelRating 
+   X  Attribute:keyPreferences 
+ X  Class:Competition
+   X  Attribute:bookingInformation 
+   X  Attribute:travellerPreferences 
+ X  Class:Confirmation
+   X  Attribute:booking 
+   X  Attribute:hotel 
+ X  Class:FinancialCompensation
+   X  Attribute:amount 
+ X  Class:BookingStatus: Enumerations 
+   X  Attribute:PRELIMINARY 
+   X  Attribute:CONFIRMED 
+   X  Attribute:CANCELLED 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------3/10------Hotel Booking Management System (HBMS):
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+Hotel Booking Management System (HBMS)
+
+Business travellers use HMBS for booking special accommodation deals offered by participating hotels. Travellers register to HBMS by providing their name, billing information (incl. company name and address) and optional travel preferences (e.g. breakfast included, free wifi, 24/7 front desk, etc.).
+
+When searching for accommodation, the traveller specifies the city, the date of arrival and departure, the number of needed rooms and the type of rooms (e.g. single, double, twin), minimum hotel rating (stars), a tentative budget (max. cost per night), and optionally, further travel preferences to filter offers in the search results. HBMS lists all available offers of hotels for the given travel period, and the traveller can either create a preliminary booking or complete a booking in the regular way.
+
+In case of a preliminary booking, HBMS forwards the key parameters of the booking information (i.e. price, city area, hotel rating and key preferences and a unique booking identifier) to other hotels so that they can compete for the traveller with special offers provided within the next 24 hours. After 24-hour deadline, HBMS sends the five best special offers to the traveller who can switch to the new offer or proceed with the original preliminary booking.
+
+In both cases, the traveller needs to provide credit card information to finalize a booking. Each finalized booking can be either pre-paid (i.e. paid immediately when it cannot be reimbursed), or paid at hotel (when the traveller pays during his/her stay). A finalized booking needs to be confirmed by the hotel within 24 hours. A booking may also contain a cancellation deadline: if the traveller cancels a confirmed booking before this deadline, then there are no further consequences. However, if a confirmed booking is cancelled after this deadline, then 1-night accommodation is charged for the traveller. HBMS stores all past booking information for a traveller to calculate a reliability rating.
+
+Each hotel is located in a city at a particular address, and possibly run by a hotel chain. A hotel may announce its available types of rooms for a given period in HBMS, and may also inform HBMS when a particular type of room is fully booked. HBMS sends information about the preliminary booking information to competitor hotels together with the traveller's preferences and his/her reliability rating. The competitor hotels may then provide a special offer. Once a booking is finalized, the hotel needs to send a confirmation to the traveller. If a completed booking is not confirmed by the hotel within 24 hours, then HBMS needs to cancel it, and reimburse the traveller in case of a pre-paid booking. If the hotel needs to cancel a confirmed booking, then financial compensation must be offered to the traveller.
+
+AI:### Enumerations:
+1. RoomType
+2. PaymentType
+
+### Classes:
+1. **Traveller**
+   - Attributes:
+     - name: String
+     - billingInformation: BillingInformation
+     - travelPreferences: List<String>
+
+2. **Hotel**
+   - Attributes:
+     - name: String
+     - city: String
+     - address: String
+     - hotelChain: String
+     - availableRoomTypes: List<RoomType>
+
+3. **BookingInformation**
+   - Attributes:
+     - price: Double
+     - cityArea: String
+     - hotelRating: Integer
+     - keyPreferences: List<String>
+     - bookingIdentifier: String
+     - paymentType: PaymentType
+     - creditCardInformation: CreditCardInformation
+
+4. **CreditCardInformation**
+   - Attributes:
+     - cardNumber: String
+     - expiryDate: String
+     - cvv: String
+
+### Attributes:
+1. **BillingInformation**
+   - company: String
+   - address: String
+
+2. **RoomType**
+   - SINGLE
+   - DOUBLE
+   - TWIN
+
+3. **PaymentType**
+   - PRE_PAID
+   - AT_HOTEL
+
+4. **CancellationPolicy**
+   - cancellationDeadline: Date
+   - penaltyNightCharge: Integer
+
+5. **Booking**
+   - bookingDate: Date
+   - checkInDate: Date
+   - checkOutDate: Date
+   - numberOfRooms: Integer
+   - roomType: RoomType
+   - hotel: Hotel
+   - bookingInformation: BookingInformation
+   - cancellationPolicy: CancellationPolicy
+
+6. **Offer**
+   - price: Double
+   - hotel: Hotel
+   - expiryDate: Date
+
+7. **Confirmation**
+   - booking: Booking
+   - confirmedDate: Date
+
+8. **CompetitorHotel**
+   - name: String
+   - specialOffer: Offer
+
+9. **ReliabilityRating**
+   - rating: Double
+
+10. **City**
+    - name: String
+
+11. **HotelChain**
+    - chainName: String
+
+12. **SearchCriteria**
+    - city: City
+    - checkInDate: Date
+    - checkOutDate: Date
+    - numberOfRooms: Integer
+    - roomType: RoomType
+    - minimumRating: Integer
+    - maxBudgetPerNight: Double
+    - travelPreferences: List<String>"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. RoomType(SINGLE, DOUBLE, TWIN): Represents the different types of rooms available in a hotel.
+2. PaymentType(PRE_PAID, AT_HOTEL): Represents the two payment options for finalizing a booking.
+
+Classes:
+1. Traveller(name: String, billingInformation: BillingInformation, travelPreferences: List<String>): Represents a traveller with their personal information and travel preferences.
+2. Hotel(name: String, city: String, address: String, hotelChain: String, availableRoomTypes: List<RoomType>): Represents a hotel with its details and available room types.
+3. BookingInformation(price: Double, cityArea: String, hotelRating: Integer, keyPreferences: List<String>, bookingIdentifier: String, paymentType: PaymentType, creditCardInformation: CreditCardInformation): Represents the booking information including pricing, preferences, and payment details.
+4. CreditCardInformation(cardNumber: String, expiryDate: String, cvv: String): Represents the credit card information required for payment.
+5. CancellationPolicy(cancellationDeadline: Date, penaltyNightCharge: Integer): Represents the cancellation policy for a booking.
+6. Booking(bookingDate: Date, checkInDate: Date, checkOutDate: Date, numberOfRooms: Integer, roomType: RoomType, hotel: Hotel, bookingInformation: BookingInformation, cancellationPolicy: CancellationPolicy): Represents a booking made by a traveller at a hotel.
+7. Offer(price: Double, hotel: Hotel, expiryDate: Date): Represents a special offer made by a competitor hotel to a traveller.
+8. Confirmation(booking: Booking, confirmedDate: Date): Represents the confirmation of a booking by a hotel.
+9. CompetitorHotel(name: String, specialOffer: Offer): Represents a competitor hotel with a special offer for a traveller.
+10. ReliabilityRating(rating: Double): Represents the reliability rating of a traveller based on past booking information.
+11. City(name: String): Represents a city where hotels are located.
+12. HotelChain(chainName: String): Represents a hotel chain that may operate multiple hotels.
+13. SearchCriteria(city: City, checkInDate: Date, checkOutDate: Date, numberOfRooms: Integer, roomType: RoomType, minimumRating: Integer, maxBudgetPerNight: Double, travelPreferences: List<String>): Represents the search criteria provided by a traveller to find accommodation deals."
+"
+"
+------------------------------------------------------------
+ O  Class:RoomType  Oracle:RoomType
+   O  Attribute:SINGLE  Oracle:SINGLE 
+   O  Attribute:DOUBLE  Oracle:DOUBLE 
+   O  Attribute:TWIN  Oracle:TWIN 
+ O  Class:PaymentType  Oracle:PaymentType
+   O  Attribute:PRE_PAID  Oracle:PREPAID 
+   X  Attribute:AT_HOTEL 
+ O  Class:Traveller  Oracle:Traveller
+   O  Attribute:name  Oracle:name 
+   X  Attribute:billingInformation 
+   X  Attribute:travelPreferences 
+ O  Class:Hotel  Oracle:Hotel
+   X  Attribute:name 
+   O  Attribute:city  Oracle:city 
+   X  Attribute:address 
+   X  Attribute:hotelChain 
+   X  Attribute:availableRoomTypes 
+ O  Class:Booking  Oracle:Booking
+   X  Attribute:bookingDate 
+   X  Attribute:checkInDate 
+   X  Attribute:checkOutDate 
+   X  Attribute:numberOfRooms 
+   X  Attribute:roomType 
+   X  Attribute:hotel 
+   X  Attribute:bookingInformation 
+   X  Attribute:cancellationPolicy 
+ O  Class:HotelChain  Oracle:HotelChain
+   X  Attribute:chainName 
+ X  Class:BookingInformation
+   X  Attribute:price 
+   X  Attribute:cityArea 
+   X  Attribute:hotelRating 
+   X  Attribute:keyPreferences 
+   X  Attribute:bookingIdentifier 
+   X  Attribute:paymentType 
+   X  Attribute:creditCardInformation 
+ X  Class:CreditCardInformation
+   X  Attribute:cardNumber 
+   X  Attribute:expiryDate 
+   X  Attribute:cvv 
+ X  Class:CancellationPolicy
+   X  Attribute:cancellationDeadline 
+   X  Attribute:penaltyNightCharge 
+ X  Class:Offer
+   X  Attribute:price 
+   X  Attribute:hotel 
+   X  Attribute:expiryDate 
+ X  Class:Confirmation
+   X  Attribute:booking 
+   X  Attribute:confirmedDate 
+ X  Class:CompetitorHotel
+   X  Attribute:name 
+   X  Attribute:specialOffer 
+ X  Class:ReliabilityRating
+   X  Attribute:rating 
+ X  Class:City
+   X  Attribute:name 
+ X  Class:SearchCriteria
+   X  Attribute:city 
+   X  Attribute:checkInDate 
+   X  Attribute:checkOutDate 
+   X  Attribute:numberOfRooms 
+   X  Attribute:roomType 
+   X  Attribute:minimumRating 
+   X  Attribute:maxBudgetPerNight 
+   X  Attribute:travelPreferences 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------4/10------Hotel Booking Management System (HBMS):
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+Hotel Booking Management System (HBMS)
+
+Business travellers use HMBS for booking special accommodation deals offered by participating hotels. Travellers register to HBMS by providing their name, billing information (incl. company name and address) and optional travel preferences (e.g. breakfast included, free wifi, 24/7 front desk, etc.).
+
+When searching for accommodation, the traveller specifies the city, the date of arrival and departure, the number of needed rooms and the type of rooms (e.g. single, double, twin), minimum hotel rating (stars), a tentative budget (max. cost per night), and optionally, further travel preferences to filter offers in the search results. HBMS lists all available offers of hotels for the given travel period, and the traveller can either create a preliminary booking or complete a booking in the regular way.
+
+In case of a preliminary booking, HBMS forwards the key parameters of the booking information (i.e. price, city area, hotel rating and key preferences and a unique booking identifier) to other hotels so that they can compete for the traveller with special offers provided within the next 24 hours. After 24-hour deadline, HBMS sends the five best special offers to the traveller who can switch to the new offer or proceed with the original preliminary booking.
+
+In both cases, the traveller needs to provide credit card information to finalize a booking. Each finalized booking can be either pre-paid (i.e. paid immediately when it cannot be reimbursed), or paid at hotel (when the traveller pays during his/her stay). A finalized booking needs to be confirmed by the hotel within 24 hours. A booking may also contain a cancellation deadline: if the traveller cancels a confirmed booking before this deadline, then there are no further consequences. However, if a confirmed booking is cancelled after this deadline, then 1-night accommodation is charged for the traveller. HBMS stores all past booking information for a traveller to calculate a reliability rating.
+
+Each hotel is located in a city at a particular address, and possibly run by a hotel chain. A hotel may announce its available types of rooms for a given period in HBMS, and may also inform HBMS when a particular type of room is fully booked. HBMS sends information about the preliminary booking information to competitor hotels together with the traveller's preferences and his/her reliability rating. The competitor hotels may then provide a special offer. Once a booking is finalized, the hotel needs to send a confirmation to the traveller. If a completed booking is not confirmed by the hotel within 24 hours, then HBMS needs to cancel it, and reimburse the traveller in case of a pre-paid booking. If the hotel needs to cancel a confirmed booking, then financial compensation must be offered to the traveller.
+
+AI:### Enumerations:
+1. RoomType (single, double, twin)
+2. PaymentMethod (pre-paid, paid at hotel)
+
+### Classes:
+1. Traveller
+   - Attributes:
+     - name: string
+     - billingInformation: BillingInformation
+     - travelPreferences: TravelPreferences
+     - creditCardInformation: CreditCardInformation
+     - pastBookings: List<Booking>
+     - reliabilityRating: int
+
+2. Hotel
+   - Attributes:
+     - name: string
+     - city: string
+     - address: string
+     - hotelChain: HotelChain
+     - availableRooms: List<Room>
+     - fullyBookedRooms: List<Room>
+
+3. Booking
+   - Attributes:
+     - price: double
+     - cityArea: string
+     - hotelRating: int
+     - keyPreferences: string
+     - bookingIdentifier: string
+     - specialOffers: List<SpecialOffer>
+     - paymentMethod: PaymentMethod
+     - cancellationDeadline: Date
+     - confirmationDeadline: Date
+
+4. HotelChain
+   - Attributes:
+     - name: string
+
+5. Room
+   - Attributes:
+     - roomType: RoomType
+     - availabilityPeriod: Date
+
+6. SpecialOffer
+   - Attributes:
+     - offerDetails: string
+     - offerValidity: Date
+     - offerPrice: double
+
+7. BillingInformation
+   - Attributes:
+     - companyName: string
+     - address: string
+
+8. TravelPreferences
+   - Attributes:
+     - breakfastIncluded: boolean
+     - freeWifi: boolean
+     - twentyFourSevenFrontDesk: boolean
+     - minimumHotelRating: int
+     - maximumCostPerNight: double
+
+9. CreditCardInformation
+   - Attributes:
+     - cardNumber: string
+     - expiryDate: Date
+
+### Additional Classes (not explicitly mentioned in the description):
+1. SearchResult
+   - Attributes:
+     - hotel: Hotel
+     - availableRooms: List<Room>
+     - priceRange: Range
+
+2. Range
+   - Attributes:
+     - min: double
+     - max: double
+
+3. CompetitorHotel
+   - Attributes:
+     - name: string
+     - specialOffer: SpecialOffer
+     - travellerPreferences: TravelPreferences
+     - travellerReliabilityRating: int"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. RoomType (single, double, twin): Represents the different types of rooms available for booking in hotels.
+2. PaymentMethod (pre-paid, paid at hotel): Represents the methods of payment for finalizing a booking in the hotel booking management system.
+
+### Classes:
+1. Traveller(name: string, billingInformation: BillingInformation, travelPreferences: TravelPreferences, creditCardInformation: CreditCardInformation, pastBookings: List<Booking>, reliabilityRating: int): Represents a traveller who uses the hotel booking management system for accommodation reservations.
+2. Hotel(name: string, city: string, address: string, hotelChain: HotelChain, availableRooms: List<Room>, fullyBookedRooms: List<Room): Represents a hotel participating in the booking system, with details about its location and room availability.
+3. Booking(price: double, cityArea: string, hotelRating: int, keyPreferences: string, bookingIdentifier: string, specialOffers: List<SpecialOffer>, paymentMethod: PaymentMethod, cancellationDeadline: Date, confirmationDeadline: Date): Represents a booking made by a traveller for accommodation at a hotel.
+4. HotelChain(name: string): Represents a chain of hotels that may operate multiple properties.
+5. Room(roomType: RoomType, availabilityPeriod: Date): Represents a type of room available in a hotel for booking during a specific period.
+6. SpecialOffer(offerDetails: string, offerValidity: Date, offerPrice: double): Represents a special offer provided by a hotel to attract travellers.
+7. BillingInformation(companyName: string, address: string): Represents the billing information associated with a traveller.
+8. TravelPreferences(breakfastIncluded: boolean, freeWifi: boolean, twentyFourSevenFrontDesk: boolean, minimumHotelRating: int, maximumCostPerNight: double): Represents the travel preferences specified by a traveller when searching for accommodation.
+9. CreditCardInformation(cardNumber: string, expiryDate: Date): Represents the credit card information used for finalizing bookings in the hotel booking management system."
+"
+"
+------------------------------------------------------------
+ O  Class:RoomType   Oracle:RoomType
+   O  Attribute:single  Oracle:SINGLE 
+   O  Attribute:double  Oracle:DOUBLE 
+   O  Attribute:twin  Oracle:TWIN 
+ O  Class:Traveller  Oracle:Traveller
+   O  Attribute:name  Oracle:name 
+   X  Attribute:billingInformation 
+   X  Attribute:travelPreferences 
+   X  Attribute:creditCardInformation 
+   X  Attribute:pastBookings 
+   O  Attribute:reliabilityRating  Oracle:reliabilityRating 
+ O  Class:Hotel  Oracle:Hotel
+   X  Attribute:name 
+   O  Attribute:city  Oracle:city 
+   X  Attribute:address 
+   X  Attribute:hotelChain 
+   X  Attribute:availableRooms 
+   X  Attribute:fullyBookedRooms 
+ O  Class:Booking  Oracle:Booking
+   X  Attribute:price 
+   X  Attribute:cityArea 
+   X  Attribute:hotelRating 
+   X  Attribute:keyPreferences 
+   X  Attribute:bookingIdentifier 
+   X  Attribute:specialOffers 
+   X  Attribute:paymentMethod 
+   O  Attribute:cancellationDeadline  Oracle:cancellationDeadline 
+   X  Attribute:confirmationDeadline 
+ O  Class:HotelChain  Oracle:HotelChain
+   X  Attribute:name 
+ O  Class:SpecialOffer  Oracle:SpecialOffer
+   X  Attribute:offerDetails 
+   X  Attribute:offerValidity 
+   X  Attribute:offerPrice 
+ O  Class:BillingInformation  Oracle:BillingInformation
+   O  Attribute:companyName  Oracle:companyName 
+   O  Attribute:address  Oracle:address 
+ O  Class:TravelPreferences  Oracle:TravelPreference
+   X  Attribute:breakfastIncluded 
+   X  Attribute:freeWifi 
+   X  Attribute:twentyFourSevenFrontDesk 
+   X  Attribute:minimumHotelRating 
+   X  Attribute:maximumCostPerNight 
+ X  Class:PaymentMethod 
+   X  Attribute:pre-paid 
+   X  Attribute:at 
+ X  Class:Room
+   X  Attribute:roomType 
+   X  Attribute:availabilityPeriod 
+ X  Class:CreditCardInformation
+   X  Attribute:cardNumber 
+   X  Attribute:expiryDate 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------5/10------Hotel Booking Management System (HBMS):
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+Hotel Booking Management System (HBMS)
+
+Business travellers use HMBS for booking special accommodation deals offered by participating hotels. Travellers register to HBMS by providing their name, billing information (incl. company name and address) and optional travel preferences (e.g. breakfast included, free wifi, 24/7 front desk, etc.).
+
+When searching for accommodation, the traveller specifies the city, the date of arrival and departure, the number of needed rooms and the type of rooms (e.g. single, double, twin), minimum hotel rating (stars), a tentative budget (max. cost per night), and optionally, further travel preferences to filter offers in the search results. HBMS lists all available offers of hotels for the given travel period, and the traveller can either create a preliminary booking or complete a booking in the regular way.
+
+In case of a preliminary booking, HBMS forwards the key parameters of the booking information (i.e. price, city area, hotel rating and key preferences and a unique booking identifier) to other hotels so that they can compete for the traveller with special offers provided within the next 24 hours. After 24-hour deadline, HBMS sends the five best special offers to the traveller who can switch to the new offer or proceed with the original preliminary booking.
+
+In both cases, the traveller needs to provide credit card information to finalize a booking. Each finalized booking can be either pre-paid (i.e. paid immediately when it cannot be reimbursed), or paid at hotel (when the traveller pays during his/her stay). A finalized booking needs to be confirmed by the hotel within 24 hours. A booking may also contain a cancellation deadline: if the traveller cancels a confirmed booking before this deadline, then there are no further consequences. However, if a confirmed booking is cancelled after this deadline, then 1-night accommodation is charged for the traveller. HBMS stores all past booking information for a traveller to calculate a reliability rating.
+
+Each hotel is located in a city at a particular address, and possibly run by a hotel chain. A hotel may announce its available types of rooms for a given period in HBMS, and may also inform HBMS when a particular type of room is fully booked. HBMS sends information about the preliminary booking information to competitor hotels together with the traveller's preferences and his/her reliability rating. The competitor hotels may then provide a special offer. Once a booking is finalized, the hotel needs to send a confirmation to the traveller. If a completed booking is not confirmed by the hotel within 24 hours, then HBMS needs to cancel it, and reimburse the traveller in case of a pre-paid booking. If the hotel needs to cancel a confirmed booking, then financial compensation must be offered to the traveller.
+
+AI:### Enumerations:
+1. RoomType {Single, Double, Twin}
+2. PaymentType {PrePaid, AtHotel}
+
+### Classes:
+1. Traveller
+   - Attributes:
+     - name: String
+     - billingInformation: BillingInformation
+     - travelPreferences: List<String>
+
+2. Booking
+   - Attributes:
+     - price: double
+     - city: String
+     - area: String
+     - hotelRating: int
+     - keyPreferences: List<String>
+     - bookingIdentifier: String
+     - creditCardInformation: CreditCardInformation
+     - paymentType: PaymentType
+     - confirmationDeadline: Date
+     - cancellationDeadline: Date
+     - status: BookingStatus
+
+3. Hotel
+   - Attributes:
+     - name: String
+     - city: String
+     - address: String
+     - hotelChain: String
+     - availableRoomTypes: List<RoomType>
+     - fullyBookedRooms: List<RoomType>
+
+4. HBMS
+   - Attributes:
+     - offers: List<Booking>
+     - travellerRating: double
+
+5. CompetitorHotel
+   - Attributes:
+     - specialOffer: double
+
+### Attributes:
+1. BillingInformation
+   - company: String
+   - address: String
+
+2. CreditCardInformation
+   - cardNumber: String
+   - expiryDate: Date
+   - cvv: String
+
+3. BookingStatus
+   - CONFIRMED
+   - PENDING
+   - CANCELLED"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. RoomType {Single, Double, Twin}: Represents the different types of rooms that can be booked in a hotel.
+2. PaymentType {PrePaid, AtHotel}: Indicates the different payment options for a booking.
+
+### Classes:
+1. Traveller(name: String, billingInformation: BillingInformation, travelPreferences: List<String>): Represents a traveller using the booking system with their personal information and travel preferences.
+2. Booking(price: double, city: String, area: String, hotelRating: int, keyPreferences: List<String>, bookingIdentifier: String, creditCardInformation: CreditCardInformation, paymentType: PaymentType, confirmationDeadline: Date, cancellationDeadline: Date, status: BookingStatus): Represents a booking made by a traveller with all the necessary details.
+3. Hotel(name: String, city: String, address: String, hotelChain: String, availableRoomTypes: List<RoomType>, fullyBookedRooms: List<RoomType>): Represents a hotel with its location, available room types, and booking status.
+4. HBMS(offers: List<Booking>, travellerRating: double): Represents the Hotel Booking Management System with the list of offers and traveller ratings.
+5. CompetitorHotel(specialOffer: double): Represents a competitor hotel offering a special deal to a traveller.
+
+### Attributes:
+1. BillingInformation
+   - company: String
+   - address: String
+
+2. CreditCardInformation
+   - cardNumber: String
+   - expiryDate: Date
+   - cvv: String
+
+3. BookingStatus
+   - CONFIRMED
+   - PENDING
+   - CANCELLED"
+"
+"
+------------------------------------------------------------
+ O  Class:RoomType   Oracle:RoomType
+   O  Attribute:Single  Oracle:SINGLE 
+   O  Attribute:Double  Oracle:DOUBLE 
+   O  Attribute:Twin  Oracle:TWIN 
+ O  Class:PaymentType   Oracle:PaymentType
+   O  Attribute:PrePaid  Oracle:PREPAID 
+   X  Attribute:AtHotel 
+ O  Class:Traveller  Oracle:Traveller
+   O  Attribute:name  Oracle:name 
+   X  Attribute:billingInformation 
+   X  Attribute:travelPreferences 
+ O  Class:Booking  Oracle:Booking
+   X  Attribute:price 
+   X  Attribute:city 
+   X  Attribute:area 
+   X  Attribute:hotelRating 
+   X  Attribute:keyPreferences 
+   X  Attribute:bookingIdentifier 
+   X  Attribute:creditCardInformation 
+   O  Attribute:paymentType  Oracle:paymentType 
+   X  Attribute:confirmationDeadline 
+   O  Attribute:cancellationDeadline  Oracle:cancellationDeadline 
+   X  Attribute:status 
+ O  Class:Hotel  Oracle:Hotel
+   X  Attribute:name 
+   O  Attribute:city  Oracle:city 
+   X  Attribute:address 
+   X  Attribute:hotelChain 
+   X  Attribute:availableRoomTypes 
+   X  Attribute:fullyBookedRooms 
+ O  Class:HBMS  Oracle:HBMS
+   X  Attribute:offers 
+   X  Attribute:travellerRating 
+ O  Class:BillingInformation  Oracle:BillingInformation
+ O  Class:BookingStatus  Oracle:BookingStatus
+ X  Class:CompetitorHotel
+   X  Attribute:specialOffer 
+ X  Class:CreditCardInformation
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------6/10------Hotel Booking Management System (HBMS):
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+Hotel Booking Management System (HBMS)
+
+Business travellers use HMBS for booking special accommodation deals offered by participating hotels. Travellers register to HBMS by providing their name, billing information (incl. company name and address) and optional travel preferences (e.g. breakfast included, free wifi, 24/7 front desk, etc.).
+
+When searching for accommodation, the traveller specifies the city, the date of arrival and departure, the number of needed rooms and the type of rooms (e.g. single, double, twin), minimum hotel rating (stars), a tentative budget (max. cost per night), and optionally, further travel preferences to filter offers in the search results. HBMS lists all available offers of hotels for the given travel period, and the traveller can either create a preliminary booking or complete a booking in the regular way.
+
+In case of a preliminary booking, HBMS forwards the key parameters of the booking information (i.e. price, city area, hotel rating and key preferences and a unique booking identifier) to other hotels so that they can compete for the traveller with special offers provided within the next 24 hours. After 24-hour deadline, HBMS sends the five best special offers to the traveller who can switch to the new offer or proceed with the original preliminary booking.
+
+In both cases, the traveller needs to provide credit card information to finalize a booking. Each finalized booking can be either pre-paid (i.e. paid immediately when it cannot be reimbursed), or paid at hotel (when the traveller pays during his/her stay). A finalized booking needs to be confirmed by the hotel within 24 hours. A booking may also contain a cancellation deadline: if the traveller cancels a confirmed booking before this deadline, then there are no further consequences. However, if a confirmed booking is cancelled after this deadline, then 1-night accommodation is charged for the traveller. HBMS stores all past booking information for a traveller to calculate a reliability rating.
+
+Each hotel is located in a city at a particular address, and possibly run by a hotel chain. A hotel may announce its available types of rooms for a given period in HBMS, and may also inform HBMS when a particular type of room is fully booked. HBMS sends information about the preliminary booking information to competitor hotels together with the traveller's preferences and his/her reliability rating. The competitor hotels may then provide a special offer. Once a booking is finalized, the hotel needs to send a confirmation to the traveller. If a completed booking is not confirmed by the hotel within 24 hours, then HBMS needs to cancel it, and reimburse the traveller in case of a pre-paid booking. If the hotel needs to cancel a confirmed booking, then financial compensation must be offered to the traveller.
+
+AI:### Enumerations:
+1. RoomType {SINGLE, DOUBLE, TWIN}
+2. PaymentType {PRE_PAID, AT_HOTEL}
+
+### Classes:
+1. Traveller
+    - Attributes:
+        - name: String
+        - billingInfo: BillingInformation
+        - travelPreferences: List<String>
+2. Booking
+    - Attributes:
+        - price: double
+        - city: String
+        - dateOfArrival: Date
+        - dateOfDeparture: Date
+        - numberOfRooms: int
+        - roomType: RoomType
+        - minimumRating: int
+        - budget: double
+        - additionalPreferences: List<String>
+        - bookingIdentifier: String
+        - creditCardInfo: CreditCardInformation
+        - paymentType: PaymentType
+        - confirmationStatus: boolean
+        - cancellationDeadline: Date
+3. Hotel
+    - Attributes:
+        - name: String
+        - city: String
+        - address: String
+        - hotelChain: String
+        - availableRooms: Map<RoomType, Integer>
+    - Methods:
+        - announceAvailableRooms(period: Date)
+        - informFullyBookedRoom(roomType: RoomType)
+        - sendConfirmation(booking: Booking)
+        - cancelBooking(booking: Booking)
+        - offerFinancialCompensation(booking: Booking)
+
+### Attributes:
+1. BillingInformation
+    - company: String
+    - address: String
+2. CreditCardInformation
+    - cardNumber: String
+    - expirationDate: Date
+    - cvv: String"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. RoomType {SINGLE, DOUBLE, TWIN}: Representing the different types of rooms available for booking in the hotel.
+2. PaymentType {PRE_PAID, AT_HOTEL}: Representing the two options for payment methods for a booking.
+
+### Classes:
+1. Traveller(name: String, billingInfo: BillingInformation, travelPreferences: List<String>): Represents a traveller who registers to HBMS and provides necessary information for booking accommodations.
+2. Booking(price: double, city: String, dateOfArrival: Date, dateOfDeparture: Date, numberOfRooms: int, roomType: RoomType, minimumRating: int, budget: double, additionalPreferences: List<String>, bookingIdentifier: String, creditCardInfo: CreditCardInformation, paymentType: PaymentType, confirmationStatus: boolean, cancellationDeadline: Date): Represents the booking information and status for a traveller in HBMS.
+3. Hotel(name: String, city: String, address: String, hotelChain: String, availableRooms: Map<RoomType, Integer>): Represents a hotel participating in HBMS and its available rooms and information.
+4. BillingInformation(company: String, address: String): Represents the billing information provided by a traveller during registration.
+5. CreditCardInformation(cardNumber: String, expirationDate: Date, cvv: String): Represents the credit card information provided for booking confirmation."
+"
+"
+------------------------------------------------------------
+ O  Class:RoomType   Oracle:RoomType
+   O  Attribute:SINGLE  Oracle:SINGLE 
+   O  Attribute:DOUBLE  Oracle:DOUBLE 
+   O  Attribute:TWIN  Oracle:TWIN 
+ O  Class:PaymentType   Oracle:PaymentType
+   O  Attribute:PRE_PAID  Oracle:PREPAID 
+   X  Attribute:AT_HOTEL 
+ O  Class:Traveller  Oracle:Traveller
+   O  Attribute:name  Oracle:name 
+   X  Attribute:billingInfo 
+   X  Attribute:travelPreferences 
+ O  Class:Booking  Oracle:Booking
+   X  Attribute:price 
+   X  Attribute:city 
+   X  Attribute:dateOfArrival 
+   X  Attribute:dateOfDeparture 
+   X  Attribute:numberOfRooms 
+   X  Attribute:roomType 
+   X  Attribute:minimumRating 
+   X  Attribute:budget 
+   X  Attribute:additionalPreferences 
+   X  Attribute:bookingIdentifier 
+   X  Attribute:creditCardInfo 
+   O  Attribute:paymentType  Oracle:paymentType 
+   X  Attribute:confirmationStatus 
+   O  Attribute:cancellationDeadline  Oracle:cancellationDeadline 
+ O  Class:Hotel  Oracle:Hotel
+   X  Attribute:name 
+   O  Attribute:city  Oracle:city 
+   X  Attribute:address 
+   X  Attribute:hotelChain 
+   X  Attribute:availableRooms 
+   X  Attribute:Integer> 
+ O  Class:BillingInformation  Oracle:BillingInformation
+   X  Attribute:company 
+   O  Attribute:address  Oracle:address 
+ X  Class:CreditCardInformation
+   X  Attribute:cardNumber 
+   X  Attribute:expirationDate 
+   X  Attribute:cvv 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------7/10------Hotel Booking Management System (HBMS):
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+Hotel Booking Management System (HBMS)
+
+Business travellers use HMBS for booking special accommodation deals offered by participating hotels. Travellers register to HBMS by providing their name, billing information (incl. company name and address) and optional travel preferences (e.g. breakfast included, free wifi, 24/7 front desk, etc.).
+
+When searching for accommodation, the traveller specifies the city, the date of arrival and departure, the number of needed rooms and the type of rooms (e.g. single, double, twin), minimum hotel rating (stars), a tentative budget (max. cost per night), and optionally, further travel preferences to filter offers in the search results. HBMS lists all available offers of hotels for the given travel period, and the traveller can either create a preliminary booking or complete a booking in the regular way.
+
+In case of a preliminary booking, HBMS forwards the key parameters of the booking information (i.e. price, city area, hotel rating and key preferences and a unique booking identifier) to other hotels so that they can compete for the traveller with special offers provided within the next 24 hours. After 24-hour deadline, HBMS sends the five best special offers to the traveller who can switch to the new offer or proceed with the original preliminary booking.
+
+In both cases, the traveller needs to provide credit card information to finalize a booking. Each finalized booking can be either pre-paid (i.e. paid immediately when it cannot be reimbursed), or paid at hotel (when the traveller pays during his/her stay). A finalized booking needs to be confirmed by the hotel within 24 hours. A booking may also contain a cancellation deadline: if the traveller cancels a confirmed booking before this deadline, then there are no further consequences. However, if a confirmed booking is cancelled after this deadline, then 1-night accommodation is charged for the traveller. HBMS stores all past booking information for a traveller to calculate a reliability rating.
+
+Each hotel is located in a city at a particular address, and possibly run by a hotel chain. A hotel may announce its available types of rooms for a given period in HBMS, and may also inform HBMS when a particular type of room is fully booked. HBMS sends information about the preliminary booking information to competitor hotels together with the traveller's preferences and his/her reliability rating. The competitor hotels may then provide a special offer. Once a booking is finalized, the hotel needs to send a confirmation to the traveller. If a completed booking is not confirmed by the hotel within 24 hours, then HBMS needs to cancel it, and reimburse the traveller in case of a pre-paid booking. If the hotel needs to cancel a confirmed booking, then financial compensation must be offered to the traveller.
+
+AI:### Enumerations:
+1. RoomType
+   - SINGLE
+   - DOUBLE
+   - TWIN
+
+### Classes:
+1. Traveller
+   - Attributes:
+     - name: String
+     - billingInformation: BillingInformation
+     - travelPreferences: List<String>
+
+2. Hotel
+   - Attributes:
+     - name: String
+     - city: String
+     - address: String
+     - hotelChain: HotelChain
+     - availableRoomTypes: List<RoomType>
+
+3. Booking
+   - Attributes:
+     - price: double
+     - cityArea: String
+     - hotelRating: int
+     - keyPreferences: List<String>
+     - bookingIdentifier: String
+     - creditCardInformation: CreditCardInformation
+     - paymentType: PaymentType
+     - confirmed: boolean
+     - cancellationDeadline: Date
+
+4. HotelChain
+   - Attributes:
+     - name: String
+
+5. BillingInformation
+   - Attributes:
+     - companyName: String
+     - address: String
+
+6. CreditCardInformation
+   - Attributes:
+     - cardNumber: String
+     - expirationDate: Date
+     - cvv: String
+
+### Attributes:
+- minimumHotelRating: int
+- tentativeBudget: double
+- travelPreferences: List<String>
+- searchResults: List<Hotel>
+- specialOffers: List<Offer>
+- competitors: List<Hotel>
+- reliabilityRating: double
+- confirmationDeadline: Date
+- financialCompensation: double
+- cancellationCharge: double"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. RoomType(SINGLE, DOUBLE, TWIN): Represents the different types of rooms that can be booked in a hotel.
+
+### Classes:
+1. Traveller(name: String, billingInformation: BillingInformation, travelPreferences: List<String>): Represents a traveller using the Hotel Booking Management System with associated information and preferences.
+   
+2. Hotel(name: String, city: String, address: String, hotelChain: HotelChain, availableRoomTypes: List<RoomType>): Represents a hotel participating in the system with relevant details and room types.
+   
+3. Booking(price: double, cityArea: String, hotelRating: int, keyPreferences: List<String>, bookingIdentifier: String, creditCardInformation: CreditCardInformation, paymentType: PaymentType, confirmed: boolean, cancellationDeadline: Date): Represents a booking made by a traveller with booking details and payment information.
+   
+4. HotelChain(name: String): Represents a hotel chain that owns one or more hotels.
+   
+5. BillingInformation(companyName: String, address: String): Represents the billing information associated with a traveller.
+   
+6. CreditCardInformation(cardNumber: String, expirationDate: Date, cvv: String): Represents the credit card information used for booking.
+"
+"
+"
+------------------------------------------------------------
+ O  Class:RoomType  Oracle:RoomType
+   O  Attribute:SINGLE  Oracle:SINGLE 
+   O  Attribute:DOUBLE  Oracle:DOUBLE 
+   O  Attribute:TWIN  Oracle:TWIN 
+ O  Class:Traveller  Oracle:Traveller
+   O  Attribute:name  Oracle:name 
+   X  Attribute:billingInformation 
+   X  Attribute:travelPreferences 
+ O  Class:Hotel  Oracle:Hotel
+   X  Attribute:name 
+   O  Attribute:city  Oracle:city 
+   X  Attribute:address 
+   X  Attribute:hotelChain 
+   X  Attribute:availableRoomTypes 
+ O  Class:Booking  Oracle:Booking
+   X  Attribute:price 
+   X  Attribute:cityArea 
+   X  Attribute:hotelRating 
+   X  Attribute:keyPreferences 
+   X  Attribute:bookingIdentifier 
+   X  Attribute:creditCardInformation 
+   O  Attribute:paymentType  Oracle:paymentType 
+   X  Attribute:confirmed 
+   O  Attribute:cancellationDeadline  Oracle:cancellationDeadline 
+ O  Class:HotelChain  Oracle:HotelChain
+   X  Attribute:name 
+ O  Class:BillingInformation  Oracle:BillingInformation
+   O  Attribute:companyName  Oracle:companyName 
+   O  Attribute:address  Oracle:address 
+ X  Class:CreditCardInformation
+   X  Attribute:cardNumber 
+   X  Attribute:expirationDate 
+   X  Attribute:cvv 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------8/10------Hotel Booking Management System (HBMS):
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+Hotel Booking Management System (HBMS)
+
+Business travellers use HMBS for booking special accommodation deals offered by participating hotels. Travellers register to HBMS by providing their name, billing information (incl. company name and address) and optional travel preferences (e.g. breakfast included, free wifi, 24/7 front desk, etc.).
+
+When searching for accommodation, the traveller specifies the city, the date of arrival and departure, the number of needed rooms and the type of rooms (e.g. single, double, twin), minimum hotel rating (stars), a tentative budget (max. cost per night), and optionally, further travel preferences to filter offers in the search results. HBMS lists all available offers of hotels for the given travel period, and the traveller can either create a preliminary booking or complete a booking in the regular way.
+
+In case of a preliminary booking, HBMS forwards the key parameters of the booking information (i.e. price, city area, hotel rating and key preferences and a unique booking identifier) to other hotels so that they can compete for the traveller with special offers provided within the next 24 hours. After 24-hour deadline, HBMS sends the five best special offers to the traveller who can switch to the new offer or proceed with the original preliminary booking.
+
+In both cases, the traveller needs to provide credit card information to finalize a booking. Each finalized booking can be either pre-paid (i.e. paid immediately when it cannot be reimbursed), or paid at hotel (when the traveller pays during his/her stay). A finalized booking needs to be confirmed by the hotel within 24 hours. A booking may also contain a cancellation deadline: if the traveller cancels a confirmed booking before this deadline, then there are no further consequences. However, if a confirmed booking is cancelled after this deadline, then 1-night accommodation is charged for the traveller. HBMS stores all past booking information for a traveller to calculate a reliability rating.
+
+Each hotel is located in a city at a particular address, and possibly run by a hotel chain. A hotel may announce its available types of rooms for a given period in HBMS, and may also inform HBMS when a particular type of room is fully booked. HBMS sends information about the preliminary booking information to competitor hotels together with the traveller's preferences and his/her reliability rating. The competitor hotels may then provide a special offer. Once a booking is finalized, the hotel needs to send a confirmation to the traveller. If a completed booking is not confirmed by the hotel within 24 hours, then HBMS needs to cancel it, and reimburse the traveller in case of a pre-paid booking. If the hotel needs to cancel a confirmed booking, then financial compensation must be offered to the traveller.
+
+AI:### Enumerations:
+1. RoomType (single, double, twin)
+2. PaymentType (pre-paid, paid at hotel)
+
+### Classes:
+1. Traveller
+   - Attributes:
+     - name: String
+     - billingInfo: BillingInformation
+     - travelPreferences: List<String>
+
+2. Hotel
+   - Attributes:
+     - name: String
+     - city: String
+     - address: String
+     - rating: int
+     - roomTypesAvailable: List<RoomType>
+     - hotelChain: HotelChain
+
+3. Booking
+   - Attributes:
+     - traveller: Traveller
+     - hotel: Hotel
+     - checkInDate: Date
+     - checkOutDate: Date
+     - roomsRequired: int
+     - roomType: RoomType
+     - minRating: int
+     - maxBudget: double
+     - paymentType: PaymentType
+     - bookingStatus: String
+     - confirmationDeadline: Date
+
+4. HotelChain
+   - Attributes:
+     - name: String
+
+5. BillingInformation
+   - Attributes:
+     - companyName: String
+     - companyAddress: String
+     - creditCardInfo: CreditCardInformation
+
+6. CreditCardInformation
+   - Attributes:
+     - cardNumber: String
+     - expirationDate: Date
+
+### Attributes (Additional):
+1. Offer
+   - Attributes:
+     - price: double
+     - cityArea: String
+     - keyPreferences: List<String>
+     - bookingIdentifier: String
+
+2. SpecialOffer
+   - Attributes:
+     - offer: Offer
+     - competitorHotel: Hotel
+
+3. ReliabilityRating
+   - Attributes:
+     - rating: double
+
+4. CancellationPolicy
+   - Attributes:
+     - deadline: Date
+     - penaltyCharge: double
+
+5. Confirmation
+   - Attributes:
+     - confirmationDate: Date
+     - compensationOffer: double"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. RoomType (single, double, twin): Represents the different types of rooms available in hotels.
+2. PaymentType (pre-paid, paid at hotel): Indicates the different payment options for booking accommodations.
+
+### Classes:
+1. Traveller(name: String, billingInfo: BillingInformation, travelPreferences: List<String>): Represents a traveller who can register and provide booking preferences.
+2. Hotel(name: String, city: String, address: String, rating: int, roomTypesAvailable: List<RoomType>, hotelChain: HotelChain): Represents a hotel with details like name, location, rating, and available room types.
+3. Booking(traveller: Traveller, hotel: Hotel, checkInDate: Date, checkOutDate: Date, roomsRequired: int, roomType: RoomType, minRating: int, maxBudget: double, paymentType: PaymentType, bookingStatus: String, confirmationDeadline: Date): Represents a booking made by a traveller specifying details like check-in/out dates, room requirements, and payment type.
+4. HotelChain(name: String): Represents a hotel chain to which a hotel may belong.
+5. BillingInformation(companyName: String, companyAddress: String, creditCardInfo: CreditCardInformation): Represents billing information provided by a traveller including company details and credit card information.
+6. CreditCardInformation(cardNumber: String, expirationDate: Date): Represents credit card details required for payment.
+7. Offer(price: double, cityArea: String, keyPreferences: List<String>, bookingIdentifier: String): Represents an offer made to a traveller with specific details.
+8. SpecialOffer(offer: Offer, competitorHotel: Hotel): Represents a special offer provided by a competitor hotel in response to a preliminary booking.
+9. ReliabilityRating(rating: double): Represents the reliability rating of a traveller based on past booking information.
+10. CancellationPolicy(deadline: Date, penaltyCharge: double): Represents the cancellation policy for a booking including the deadline and penalty charge.
+11. Confirmation(confirmationDate: Date, compensationOffer: double): Represents the confirmation details for a booking including the date and any compensation offered."
+"
+"
+------------------------------------------------------------
+ O  Class:RoomType   Oracle:RoomType
+   O  Attribute:single  Oracle:SINGLE 
+   O  Attribute:double  Oracle:DOUBLE 
+   O  Attribute:twin  Oracle:TWIN 
+ O  Class:PaymentType   Oracle:PaymentType
+   O  Attribute:pre-paid  Oracle:PREPAID 
+   X  Attribute:at 
+ O  Class:Traveller  Oracle:Traveller
+   O  Attribute:name  Oracle:name 
+   X  Attribute:billingInfo 
+   X  Attribute:travelPreferences 
+ O  Class:Hotel  Oracle:Hotel
+   X  Attribute:name 
+   O  Attribute:city  Oracle:city 
+   X  Attribute:address 
+   X  Attribute:rating 
+   X  Attribute:roomTypesAvailable 
+   X  Attribute:hotelChain 
+ O  Class:Booking  Oracle:Booking
+   X  Attribute:traveller 
+   X  Attribute:hotel 
+   X  Attribute:checkInDate 
+   X  Attribute:checkOutDate 
+   X  Attribute:roomsRequired 
+   X  Attribute:roomType 
+   X  Attribute:minRating 
+   X  Attribute:maxBudget 
+   O  Attribute:paymentType  Oracle:paymentType 
+   O  Attribute:bookingStatus  Oracle:bookingStatus 
+   X  Attribute:confirmationDeadline 
+ O  Class:HotelChain  Oracle:HotelChain
+   X  Attribute:name 
+ O  Class:BillingInformation  Oracle:BillingInformation
+   O  Attribute:companyName  Oracle:companyName 
+   X  Attribute:companyAddress 
+   X  Attribute:creditCardInfo 
+ O  Class:SpecialOffer  Oracle:SpecialOffer
+   X  Attribute:offer 
+   X  Attribute:competitorHotel 
+ X  Class:CreditCardInformation
+   X  Attribute:cardNumber 
+   X  Attribute:expirationDate 
+ X  Class:Offer
+   X  Attribute:price 
+   X  Attribute:cityArea 
+   X  Attribute:keyPreferences 
+   X  Attribute:bookingIdentifier 
+ X  Class:ReliabilityRating
+   X  Attribute:rating 
+ X  Class:CancellationPolicy
+   X  Attribute:deadline 
+   X  Attribute:penaltyCharge 
+ X  Class:Confirmation
+   X  Attribute:confirmationDate 
+   X  Attribute:compensationOffer 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------9/10------Hotel Booking Management System (HBMS):
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+Hotel Booking Management System (HBMS)
+
+Business travellers use HMBS for booking special accommodation deals offered by participating hotels. Travellers register to HBMS by providing their name, billing information (incl. company name and address) and optional travel preferences (e.g. breakfast included, free wifi, 24/7 front desk, etc.).
+
+When searching for accommodation, the traveller specifies the city, the date of arrival and departure, the number of needed rooms and the type of rooms (e.g. single, double, twin), minimum hotel rating (stars), a tentative budget (max. cost per night), and optionally, further travel preferences to filter offers in the search results. HBMS lists all available offers of hotels for the given travel period, and the traveller can either create a preliminary booking or complete a booking in the regular way.
+
+In case of a preliminary booking, HBMS forwards the key parameters of the booking information (i.e. price, city area, hotel rating and key preferences and a unique booking identifier) to other hotels so that they can compete for the traveller with special offers provided within the next 24 hours. After 24-hour deadline, HBMS sends the five best special offers to the traveller who can switch to the new offer or proceed with the original preliminary booking.
+
+In both cases, the traveller needs to provide credit card information to finalize a booking. Each finalized booking can be either pre-paid (i.e. paid immediately when it cannot be reimbursed), or paid at hotel (when the traveller pays during his/her stay). A finalized booking needs to be confirmed by the hotel within 24 hours. A booking may also contain a cancellation deadline: if the traveller cancels a confirmed booking before this deadline, then there are no further consequences. However, if a confirmed booking is cancelled after this deadline, then 1-night accommodation is charged for the traveller. HBMS stores all past booking information for a traveller to calculate a reliability rating.
+
+Each hotel is located in a city at a particular address, and possibly run by a hotel chain. A hotel may announce its available types of rooms for a given period in HBMS, and may also inform HBMS when a particular type of room is fully booked. HBMS sends information about the preliminary booking information to competitor hotels together with the traveller's preferences and his/her reliability rating. The competitor hotels may then provide a special offer. Once a booking is finalized, the hotel needs to send a confirmation to the traveller. If a completed booking is not confirmed by the hotel within 24 hours, then HBMS needs to cancel it, and reimburse the traveller in case of a pre-paid booking. If the hotel needs to cancel a confirmed booking, then financial compensation must be offered to the traveller.
+
+AI:### Enumerations:
+1. RoomType (single, double, twin)
+2. PaymentType (pre-paid, paid at hotel)
+
+### Classes:
+1. Traveller
+   - Attributes:
+     - name: String
+     - billingInformation: BillingInformation
+     - travelPreferences: List<String>
+
+2. Hotel
+   - Attributes:
+     - name: String
+     - city: String
+     - address: String
+     - chain: String
+     - availableRoomTypes: List<RoomType>
+
+3. Booking
+   - Attributes:
+     - price: double
+     - cityArea: String
+     - hotelRating: int
+     - keyPreferences: List<String>
+     - bookingIdentifier: String
+     - paymentType: PaymentType
+     - confirmationDeadline: Date
+
+4. HBMS
+   - Attributes:
+     - travellerPreferences: List<String>
+     - hotelOffers: List<Booking>
+
+5. CompetitorHotel
+   - Attributes:
+     - specialOffer: String
+
+6. Confirmation
+   - Attributes:
+     - confirmationDate: Date
+     - financialCompensation: double
+
+### Attributes:
+- Traveller:
+  - name
+  - billingInformation
+    - company: String
+    - address: String
+  - travelPreferences
+
+- Hotel:
+  - name
+  - city
+  - address
+  - chain
+  - availableRoomTypes
+
+- Booking:
+  - price
+  - cityArea
+  - hotelRating
+  - keyPreferences
+  - bookingIdentifier
+  - paymentType
+  - confirmationDeadline
+
+- HBMS:
+  - travellerPreferences
+  - hotelOffers
+
+- CompetitorHotel:
+  - specialOffer
+
+- Confirmation:
+  - confirmationDate
+  - financialCompensation"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. RoomType (single, double, twin): Represents the different types of rooms available in a hotel.
+2. PaymentType (pre-paid, paid at hotel): Represents the different payment options for bookings.
+
+### Classes:
+1. Traveller(name: String, billingInformation: BillingInformation, travelPreferences: List<String>): Represents a traveller using the HBMS system with personal information and travel preferences.
+2. Hotel(name: String, city: String, address: String, chain: String, availableRoomTypes: List<RoomType>): Represents a hotel with location, room types, and chain affiliation.
+3. Booking(price: double, cityArea: String, hotelRating: int, keyPreferences: List<String>, bookingIdentifier: String, paymentType: PaymentType, confirmationDeadline: Date): Represents a booking made by a traveller with details such as price, location, and payment type.
+4. HBMS(travellerPreferences: List<String>, hotelOffers: List<Booking>): Represents the Hotel Booking Management System with traveller preferences and hotel offers.
+5. CompetitorHotel(specialOffer: String): Represents a competitor hotel offering a special deal.
+6. Confirmation(confirmationDate: Date, financialCompensation: double): Represents the confirmation details of a booking with date and compensation information."
+"
+"
+------------------------------------------------------------
+ O  Class:RoomType   Oracle:RoomType
+   O  Attribute:single  Oracle:SINGLE 
+   O  Attribute:double  Oracle:DOUBLE 
+   O  Attribute:twin  Oracle:TWIN 
+ O  Class:PaymentType   Oracle:PaymentType
+   O  Attribute:pre-paid  Oracle:PREPAID 
+   X  Attribute:at 
+ O  Class:Traveller  Oracle:Traveller
+   O  Attribute:name  Oracle:name 
+   X  Attribute:billingInformation 
+   X  Attribute:travelPreferences 
+ O  Class:Hotel  Oracle:Hotel
+   X  Attribute:name 
+   O  Attribute:city  Oracle:city 
+   X  Attribute:address 
+   X  Attribute:chain 
+   X  Attribute:availableRoomTypes 
+ O  Class:Booking  Oracle:Booking
+   X  Attribute:price 
+   X  Attribute:cityArea 
+   X  Attribute:hotelRating 
+   X  Attribute:keyPreferences 
+   X  Attribute:bookingIdentifier 
+   O  Attribute:paymentType  Oracle:paymentType 
+   X  Attribute:confirmationDeadline 
+ O  Class:HBMS  Oracle:HBMS
+   X  Attribute:travellerPreferences 
+   X  Attribute:hotelOffers 
+ X  Class:CompetitorHotel
+   X  Attribute:specialOffer 
+ X  Class:Confirmation
+   X  Attribute:confirmationDate 
+   X  Attribute:financialCompensation 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------10/10------Hotel Booking Management System (HBMS):
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+Hotel Booking Management System (HBMS)
+
+Business travellers use HMBS for booking special accommodation deals offered by participating hotels. Travellers register to HBMS by providing their name, billing information (incl. company name and address) and optional travel preferences (e.g. breakfast included, free wifi, 24/7 front desk, etc.).
+
+When searching for accommodation, the traveller specifies the city, the date of arrival and departure, the number of needed rooms and the type of rooms (e.g. single, double, twin), minimum hotel rating (stars), a tentative budget (max. cost per night), and optionally, further travel preferences to filter offers in the search results. HBMS lists all available offers of hotels for the given travel period, and the traveller can either create a preliminary booking or complete a booking in the regular way.
+
+In case of a preliminary booking, HBMS forwards the key parameters of the booking information (i.e. price, city area, hotel rating and key preferences and a unique booking identifier) to other hotels so that they can compete for the traveller with special offers provided within the next 24 hours. After 24-hour deadline, HBMS sends the five best special offers to the traveller who can switch to the new offer or proceed with the original preliminary booking.
+
+In both cases, the traveller needs to provide credit card information to finalize a booking. Each finalized booking can be either pre-paid (i.e. paid immediately when it cannot be reimbursed), or paid at hotel (when the traveller pays during his/her stay). A finalized booking needs to be confirmed by the hotel within 24 hours. A booking may also contain a cancellation deadline: if the traveller cancels a confirmed booking before this deadline, then there are no further consequences. However, if a confirmed booking is cancelled after this deadline, then 1-night accommodation is charged for the traveller. HBMS stores all past booking information for a traveller to calculate a reliability rating.
+
+Each hotel is located in a city at a particular address, and possibly run by a hotel chain. A hotel may announce its available types of rooms for a given period in HBMS, and may also inform HBMS when a particular type of room is fully booked. HBMS sends information about the preliminary booking information to competitor hotels together with the traveller's preferences and his/her reliability rating. The competitor hotels may then provide a special offer. Once a booking is finalized, the hotel needs to send a confirmation to the traveller. If a completed booking is not confirmed by the hotel within 24 hours, then HBMS needs to cancel it, and reimburse the traveller in case of a pre-paid booking. If the hotel needs to cancel a confirmed booking, then financial compensation must be offered to the traveller.
+
+AI:### Enumerations:
+1. RoomType
+   - Single
+   - Double
+   - Twin
+
+### Classes:
+1. Traveller
+   - Attributes:
+     - Name: String
+     - BillingInformation: BillingInfo
+     - TravelPreferences: List<String>
+
+2. BillingInfo
+   - Attributes:
+     - CompanyName: String
+     - Address: String
+
+3. SearchCriteria
+   - Attributes:
+     - City: String
+     - ArrivalDate: Date
+     - DepartureDate: Date
+     - NumberOfRooms: int
+     - RoomType: RoomType
+     - MinimumRating: int
+     - MaxCostPerNight: double
+     - TravelPreferences: List<String>
+
+4. Offer
+   - Attributes:
+     - Hotel: Hotel
+     - Price: double
+     - CityArea: String
+     - Rating: int
+     - KeyPreferences: List<String>
+     - BookingIdentifier: String
+
+5. CreditCardInfo
+   - Attributes:
+     - CardNumber: String
+     - ExpiryDate: Date
+     - CVV: String
+
+6. Booking
+   - Attributes:
+     - Traveller: Traveller
+     - Hotel: Hotel
+     - Price: double
+     - CityArea: String
+     - Rating: int
+     - KeyPreferences: List<String>
+     - BookingIdentifier: String
+     - PaymentType: String
+     - ConfirmationStatus: boolean
+     - CancellationDeadline: Date
+
+7. Hotel
+   - Attributes:
+     - Name: String
+     - City: String
+     - Address: String
+     - Chain: HotelChain
+     - RoomTypes: List<RoomType>
+
+8. HotelChain
+   - Attributes:
+     - Name: String
+
+### Attributes not associated with a specific class:
+- Unique booking identifier
+- Price
+- Traveller reliability rating"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. RoomType(Single, Double, Twin): Represents the different types of rooms that can be booked in a hotel.
+
+### Classes:
+1. Traveller(Name: String, BillingInformation: BillingInfo, TravelPreferences: List<String>): Represents a traveller using the HBMS with personal and billing information.
+
+2. BillingInfo(CompanyName: String, Address: String): Represents the billing information of a traveller including company name and address.
+
+3. SearchCriteria(City: String, ArrivalDate: Date, DepartureDate: Date, NumberOfRooms: int, RoomType: RoomType, MinimumRating: int, MaxCostPerNight: double, TravelPreferences: List<String>): Represents the criteria used by a traveller to search for accommodation.
+
+4. Offer(Hotel: Hotel, Price: double, CityArea: String, Rating: int, KeyPreferences: List<String>, BookingIdentifier: String): Represents an offer made by a hotel to a traveller based on search criteria.
+
+5. CreditCardInfo(CardNumber: String, ExpiryDate: Date, CVV: String): Represents the credit card information provided by a traveller for booking confirmation.
+
+6. Booking(Traveller: Traveller, Hotel: Hotel, Price: double, CityArea: String, Rating: int, KeyPreferences: List<String>, BookingIdentifier: String, PaymentType: String, ConfirmationStatus: boolean, CancellationDeadline: Date): Represents a booking made by a traveller in the HBMS.
+
+7. Hotel(Name: String, City: String, Address: String, Chain: HotelChain, RoomTypes: List<RoomType>): Represents a hotel with its location, chain affiliation, and available room types.
+
+8. HotelChain(Name: String): Represents a hotel chain with a name."
+"
+"
+------------------------------------------------------------
+ O  Class:RoomType  Oracle:RoomType
+   O  Attribute:Single  Oracle:SINGLE 
+   O  Attribute:Double  Oracle:DOUBLE 
+   O  Attribute:Twin  Oracle:TWIN 
+ O  Class:Traveller  Oracle:Traveller
+   O  Attribute:Name  Oracle:name 
+   X  Attribute:BillingInformation 
+   X  Attribute:TravelPreferences 
+ O  Class:Booking  Oracle:Booking
+   X  Attribute:Traveller 
+   X  Attribute:Hotel 
+   X  Attribute:Price 
+   X  Attribute:CityArea 
+   X  Attribute:Rating 
+   X  Attribute:KeyPreferences 
+   X  Attribute:BookingIdentifier 
+   O  Attribute:PaymentType  Oracle:paymentType 
+   X  Attribute:ConfirmationStatus 
+   O  Attribute:CancellationDeadline  Oracle:cancellationDeadline 
+ O  Class:Hotel  Oracle:Hotel
+   X  Attribute:Name 
+   O  Attribute:City  Oracle:city 
+   X  Attribute:Address 
+   X  Attribute:Chain 
+   X  Attribute:RoomTypes 
+ O  Class:HotelChain  Oracle:HotelChain
+   X  Attribute:Name 
+ O  Class:BillingInfo  Oracle:BillingInformation 
+   O  Attribute:CompanyName  Oracle:companyName 
+   O  Attribute:Address  Oracle:address 
+ X  Class:SearchCriteria
+   X  Attribute:City 
+   X  Attribute:ArrivalDate 
+   X  Attribute:DepartureDate 
+   X  Attribute:NumberOfRooms 
+   X  Attribute:RoomType 
+   X  Attribute:MinimumRating 
+   X  Attribute:MaxCostPerNight 
+   X  Attribute:TravelPreferences 
+ X  Class:Offer
+   X  Attribute:Hotel 
+   X  Attribute:Price 
+   X  Attribute:CityArea 
+   X  Attribute:Rating 
+   X  Attribute:KeyPreferences 
+   X  Attribute:BookingIdentifier 
+ X  Class:CreditCardInfo
+   X  Attribute:CardNumber 
+   X  Attribute:ExpiryDate 
+   X  Attribute:CVV 

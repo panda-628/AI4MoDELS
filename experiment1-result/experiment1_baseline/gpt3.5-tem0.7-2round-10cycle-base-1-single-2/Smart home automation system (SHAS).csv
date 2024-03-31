@@ -1,0 +1,913 @@
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------1/10------Smart home automation system (SHAS):
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+AI:Enumerations:
+
+1. DeviceType(sensor, actuator)
+2. CommandStatus(requested, completed, failed)
+
+Classes:
+1. SmartHome(address: String)
+2. Room(name: String)
+3. Device(identifier: String, type: DeviceType)
+4. SensorReading(value: double, timestamp: DateTime)
+5. ControlCommand(command: String, timestamp: DateTime, status: CommandStatus)
+6. ActivityLog
+7. AutomationRule
+8. RuleCondition
+9. RuleAction
+
+Relationships:
+- SmartHome contain 1..* Room
+- Room contain 0..* Device
+- Device inherit SensorReading
+- Device inherit ControlCommand
+- ActivityLog associate 1 SmartHome
+- AutomationRule contain 0..* RuleCondition
+- AutomationRule contain 1 RuleAction
+- AutomationRule depend on 0..* AutomationRule
+- AutomationRule conflict with 0..* AutomationRule
+- AutomationRule record timestamp when triggered"
+"
+"
+------------------------------------------------------------
+ O  Class:CommandStatus  Oracle:CommandStatus 
+   O  Attribute:requested  Oracle:Requested 
+   O  Attribute:completed  Oracle:Completed 
+   O  Attribute:failed  Oracle:Failed 
+ O  Class:SmartHome  Oracle:SmartHome
+   X  Attribute:address 
+ O  Class:Room  Oracle:Room
+   X  Attribute:name 
+ O  Class:SensorReading  Oracle:SensorReading
+   O  Attribute:value  Oracle:value 
+   X  Attribute:timestamp 
+ O  Class:ControlCommand  Oracle:ControlCommand
+   X  Attribute:command 
+   X  Attribute:timestamp 
+   X  Attribute:status 
+ O  Class:ActivityLog  Oracle:ActvityLog
+ X  Class:DeviceType
+   X  Attribute:sensor 
+   X  Attribute:actuator 
+ X  Class:Device
+   X  Attribute:identifier 
+   X  Attribute:type 
+ X  Class:AutomationRule
+ X  Class:RuleCondition
+ X  Class:RuleAction
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------2/10------Smart home automation system (SHAS):
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+AI:Enumerations:
+
+1. Status (requested, completed, failed)
+2. RuleType (precondition, action)
+
+Class:
+1. SmartHome(address : String)
+2. Room(roomNumber : int)
+3. Device(deviceId : int, deviceType : String)
+4. Sensor(deviceId : int, sensorType : String)
+5. Actuator(deviceId : int, actuatorType : String)
+6. SensorReading(value : float, timestamp : DateTime)
+7. ControlCommand(command : String, timestamp : DateTime, status : Status)
+8. ActivityLog
+9. AutomationRule
+10. RuleHierarchy
+
+Relationships:
+1. 1..* SmartHome contain 1..* Room
+2. 1..* Room contain 0..* Device
+3. 1..* Device inherit 1 Sensor or Actuator
+4. 1 Sensor or Actuator associate 1..* SensorReading
+5. 1 Actuator associate 1..* ControlCommand
+6. 1 SmartHome contain 1 ActivityLog
+7. 1 SmartHome contain 1..* AutomationRule
+8. 1 AutomationRule associate 1 RuleHierarchy"
+"
+"
+------------------------------------------------------------
+ O  Class:SmartHome  Oracle:SmartHome
+   X  Attribute:address  
+ O  Class:Room  Oracle:Room
+   X  Attribute:roomNumber  
+ O  Class:SensorReading  Oracle:SensorReading
+   O  Attribute:value   Oracle:value 
+   X  Attribute:timestamp  
+ O  Class:ControlCommand  Oracle:ControlCommand
+   X  Attribute:command  
+   X  Attribute:timestamp  
+   X  Attribute:status  
+ O  Class:ActivityLog  Oracle:ActvityLog
+ O  Class:Status   Oracle:CommandStatus  
+   O  Attribute:requested  Oracle:Requested 
+   O  Attribute:completed  Oracle:Completed 
+   O  Attribute:failed  Oracle:Failed 
+ X  Class:RuleType 
+   X  Attribute:precondition 
+   X  Attribute:action 
+ X  Class:Device
+   X  Attribute:deviceId  
+   X  Attribute:deviceType  
+ X  Class:Sensor
+   X  Attribute:deviceId  
+   X  Attribute:sensorType  
+ X  Class:Actuator
+   X  Attribute:deviceId  
+   X  Attribute:actuatorType  
+ X  Class:AutomationRule
+ X  Class:RuleHierarchy
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------3/10------Smart home automation system (SHAS):
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+AI:Enumerations:
+1. DeviceType(temperature sensor, movement sensor, light controller, lock controller)
+2. CommandStatus(requested, completed, failed)
+
+Classes:
+1. SmartHome(address : String)
+2. Room(roomNumber : int)
+3. Device(deviceId : int, deviceType : DeviceType)
+4. Sensor(deviceId : int, timestamp : DateTime, value : double)
+5. Actuator(deviceId : int, timestamp : DateTime, command : String, status : CommandStatus)
+6. ActivityLog(logId : int)
+7. AutomationRule(ruleId : int, precondition : String, action : String, isActive : boolean)
+8. RuleDependency(dependentRuleId : int, parentRuleId : int)
+
+Relationships:
+- SmartHome contain * Room
+- Room contain * Device
+- Device inherit Sensor
+- Device inherit Actuator
+- SmartHome contain * ActivityLog
+- SmartHome contain * AutomationRule
+- AutomationRule depend on RuleDependency"
+"
+"
+------------------------------------------------------------
+ O  Class:CommandStatus  Oracle:CommandStatus 
+   O  Attribute:requested  Oracle:Requested 
+   O  Attribute:completed  Oracle:Completed 
+   O  Attribute:failed  Oracle:Failed 
+ O  Class:SmartHome  Oracle:SmartHome
+   X  Attribute:address  
+ O  Class:Room  Oracle:Room
+   X  Attribute:roomNumber  
+ O  Class:ActivityLog  Oracle:ActvityLog
+   X  Attribute:logId  
+ X  Class:DeviceType
+   X  Attribute:sensor 
+   X  Attribute:sensor 
+   X  Attribute:controller 
+   X  Attribute:controller 
+ X  Class:Device
+   X  Attribute:deviceId  
+   X  Attribute:deviceType  
+ X  Class:Sensor
+   X  Attribute:deviceId  
+   X  Attribute:timestamp  
+   X  Attribute:value  
+ X  Class:Actuator
+   X  Attribute:deviceId  
+   X  Attribute:timestamp  
+   X  Attribute:command  
+   X  Attribute:status  
+ X  Class:AutomationRule
+   X  Attribute:ruleId  
+   X  Attribute:precondition  
+   X  Attribute:action  
+   X  Attribute:isActive  
+ X  Class:RuleDependency
+   X  Attribute:dependentRuleId  
+   X  Attribute:parentRuleId  
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------4/10------Smart home automation system (SHAS):
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+AI:Enumerations:
+
+Class:
+1. SmartHome(address : String)
+2. Room(roomNumber : int)
+3. SensorDevice(deviceId : int, deviceType : String)
+4. ActuatorDevice(deviceId : int, deviceType : String)
+5. SensorReading(value : double, timestamp : DateTime)
+6. ControlCommand(commandName : String, timestamp : DateTime, status : String)
+7. ActivityLog()
+
+Relationships:
+- SmartHome contain 1..* Room
+- Room contain 0..* SensorDevice
+- Room contain 0..* ActuatorDevice
+- SensorDevice associate 1..* SensorReading
+- ActuatorDevice associate 1..* ControlCommand
+- SmartHome contain 1 ActivityLog
+
+Inheritance:
+- N/A
+
+Composition:
+- N/A"
+"
+"
+------------------------------------------------------------
+ O  Class:SmartHome  Oracle:SmartHome
+   X  Attribute:address  
+ O  Class:Room  Oracle:Room
+   X  Attribute:roomNumber  
+ O  Class:SensorDevice  Oracle:SensorDevice
+   X  Attribute:deviceId  
+   X  Attribute:deviceType  
+ O  Class:ActuatorDevice  Oracle:ActuatorDevice
+   X  Attribute:deviceId  
+   X  Attribute:deviceType  
+ O  Class:SensorReading  Oracle:SensorReading
+   O  Attribute:value   Oracle:value 
+   X  Attribute:timestamp  
+ O  Class:ControlCommand  Oracle:ControlCommand
+   X  Attribute:commandName  
+   X  Attribute:timestamp  
+   X  Attribute:status  
+ O  Class:ActivityLog  Oracle:ActvityLog
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------5/10------Smart home automation system (SHAS):
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+AI:Enumerations:
+
+1. DeviceType (temperature sensor, movement sensor, light controller, lock controller)
+  
+Class:
+
+1. SmartHome(address: String)
+2. Room(roomName: String)
+3. SensorDevice(deviceId: String, deviceType: DeviceType)
+4. ActuatorDevice(deviceId: String, deviceType: DeviceType)
+5. SensorReading(value: double, timestamp: Date)
+6. ControlCommand(commandName: String, timestamp: Date, status: String)
+7. ActivityLog
+8. AutomationRule
+9. RuleCondition
+10. RuleAction
+
+Relationships:
+
+1. SmartHome contain 1..* Room
+2. Room contain 0..* SensorDevice
+3. Room contain 0..* ActuatorDevice
+4. SensorDevice associate 1 SensorReading
+5. ActuatorDevice associate 1 ControlCommand
+6. SmartHome contain 1 ActivityLog
+7. SmartHome contain 1..* AutomationRule
+8. AutomationRule contain 1 RuleCondition
+9. AutomationRule contain 1 RuleAction
+10. AutomationRule depend on/deconflict with other AutomationRule"
+"
+"
+------------------------------------------------------------
+ O  Class:SmartHome  Oracle:SmartHome
+   X  Attribute:address 
+ O  Class:Room  Oracle:Room
+   X  Attribute:roomName 
+ O  Class:SensorDevice  Oracle:SensorDevice
+   X  Attribute:deviceId 
+   X  Attribute:deviceType 
+ O  Class:ActuatorDevice  Oracle:ActuatorDevice
+   X  Attribute:deviceId 
+   X  Attribute:deviceType 
+ O  Class:SensorReading  Oracle:SensorReading
+   O  Attribute:value  Oracle:value 
+   X  Attribute:timestamp 
+ O  Class:ControlCommand  Oracle:ControlCommand
+   X  Attribute:commandName 
+   X  Attribute:timestamp 
+   X  Attribute:status 
+ O  Class:ActivityLog  Oracle:ActvityLog
+ X  Class:DeviceType 
+   X  Attribute:sensor 
+   X  Attribute:sensor 
+   X  Attribute:controller 
+   X  Attribute:controller 
+ X  Class:AutomationRule
+ X  Class:RuleCondition
+ X  Class:RuleAction
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------6/10------Smart home automation system (SHAS):
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+AI:Enumerations:
+1. Status (requested, completed, failed)
+2. Operator (AND, OR, NOT)
+
+Classes:
+1. SmartHome(address : String)
+2. Room(name : String)
+3. Device(identifier : String, type : String)
+4. SensorDevice(identifier : String, type : String)
+5. ActuatorDevice(identifier : String, type : String)
+6. SensorReading(value : Double, timestamp : DateTime)
+7. ControlCommand(command : String, timestamp : DateTime, status : Status)
+8. ActivityLog
+9. AutomationRule
+10. RuleHierarchy
+
+Relationships:
+- SmartHome contain 1..* Room
+- Room contain 0..* SensorDevice
+- Room contain 0..* ActuatorDevice
+- SensorDevice associate 1 SensorReading
+- ActuatorDevice associate 1 ControlCommand
+- AutomationRule inherit RuleHierarchy
+- RuleHierarchy contain 0..* AutomationRule"
+"
+"
+------------------------------------------------------------
+ O  Class:SmartHome  Oracle:SmartHome
+   X  Attribute:address  
+ O  Class:Room  Oracle:Room
+   X  Attribute:name  
+ O  Class:SensorDevice  Oracle:SensorDevice
+   X  Attribute:identifier  
+   X  Attribute:type  
+ O  Class:ActuatorDevice  Oracle:ActuatorDevice
+   X  Attribute:identifier  
+   X  Attribute:type  
+ O  Class:SensorReading  Oracle:SensorReading
+   O  Attribute:value   Oracle:value 
+   X  Attribute:timestamp  
+ O  Class:ControlCommand  Oracle:ControlCommand
+   X  Attribute:command  
+   X  Attribute:timestamp  
+   X  Attribute:status  
+ O  Class:ActivityLog  Oracle:ActvityLog
+ O  Class:Status   Oracle:CommandStatus  
+   O  Attribute:requested  Oracle:Requested 
+   O  Attribute:completed  Oracle:Completed 
+   O  Attribute:failed  Oracle:Failed 
+ O  Class:Operator   Oracle:BinaryOp  
+   O  Attribute:AND  Oracle:AND 
+   O  Attribute:OR  Oracle:OR 
+   X  Attribute:NOT 
+ X  Class:Device
+   X  Attribute:identifier  
+   X  Attribute:type  
+ X  Class:AutomationRule
+ X  Class:RuleHierarchy
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------7/10------Smart home automation system (SHAS):
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+AI:Enumerations:
+1. DeviceType(temperatureSensor, movementSensor, lightController, lockController)
+2. CommandStatus(requested, completed, failed)
+
+Class:
+1. SmartHome(address: String)
+2. Room(name: String)
+3. Device(deviceId: String, deviceType: DeviceType)
+4. SensorReading(value: double, timestamp: DateTime)
+5. ControlCommand(command: String, timestamp: DateTime, status: CommandStatus)
+6. ActivityLog
+7. AutomationRule
+8. RuleHierarchy
+
+Relationships:
+1. SmartHome contain 0..* Room
+2. Room contain 0..* Device
+3. Device inherit SensorReading
+4. Device inherit ControlCommand
+5. AutomationRule associate 0..* Room
+6. AutomationRule associate 0..* Device
+7. AutomationRule associate 0..* SensorReading
+8. AutomationRule associate 0..* ControlCommand
+9. AutomationRule contain 0..* Action
+10. RuleHierarchy inherit AutomationRule
+11. AutomationRule associate 1..* RuleHierarchy"
+"
+"
+------------------------------------------------------------
+ O  Class:CommandStatus  Oracle:CommandStatus 
+   O  Attribute:requested  Oracle:Requested 
+   O  Attribute:completed  Oracle:Completed 
+   O  Attribute:failed  Oracle:Failed 
+ O  Class:SmartHome  Oracle:SmartHome
+   X  Attribute:address 
+ O  Class:Room  Oracle:Room
+   X  Attribute:name 
+ O  Class:SensorReading  Oracle:SensorReading
+   O  Attribute:value  Oracle:value 
+   X  Attribute:timestamp 
+ O  Class:ControlCommand  Oracle:ControlCommand
+   X  Attribute:command 
+   X  Attribute:timestamp 
+   X  Attribute:status 
+ O  Class:ActivityLog  Oracle:ActvityLog
+ X  Class:DeviceType
+   X  Attribute:temperatureSensor 
+   X  Attribute:movementSensor 
+   X  Attribute:lightController 
+   X  Attribute:lockController 
+ X  Class:Device
+   X  Attribute:deviceId 
+   X  Attribute:deviceType 
+ X  Class:AutomationRule
+ X  Class:RuleHierarchy
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------8/10------Smart home automation system (SHAS):
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+AI:Class:
+1. SmartHome(address: String)
+2. Room(roomNumber: int)
+3. SensorDevice(deviceId: String)
+4. ActuatorDevice(deviceId: String, deviceType: String)
+5. SensorReading(value: double, timestamp: Date)
+6. ControlCommand(commandName: String, timestamp: Date, status: String)
+7. ActivityLog
+8. AutomationRule(precondition: String, action: String, active: boolean)
+9. Alert
+
+Relationships:
+1. SmartHome contain 1..* Room
+2. Room contain 0..* SensorDevice
+3. Room contain 0..* ActuatorDevice
+4. SensorDevice associate 1 SensorReading
+5. ActuatorDevice associate 1 ControlCommand
+6. SmartHome contain 1 ActivityLog
+7. SmartHome contain 1..* AutomationRule
+8. AutomationRule depend on or conflict with other AutomationRule"
+"
+"
+------------------------------------------------------------
+ O  Class:SmartHome  Oracle:SmartHome
+   X  Attribute:address 
+ O  Class:Room  Oracle:Room
+   X  Attribute:roomNumber 
+ O  Class:SensorDevice  Oracle:SensorDevice
+   X  Attribute:deviceId 
+ O  Class:ActuatorDevice  Oracle:ActuatorDevice
+   X  Attribute:deviceId 
+   X  Attribute:deviceType 
+ O  Class:SensorReading  Oracle:SensorReading
+   O  Attribute:value  Oracle:value 
+   X  Attribute:timestamp 
+ O  Class:ControlCommand  Oracle:ControlCommand
+   X  Attribute:commandName 
+   X  Attribute:timestamp 
+   X  Attribute:status 
+ O  Class:ActivityLog  Oracle:ActvityLog
+ X  Class:AutomationRule
+   X  Attribute:precondition 
+   X  Attribute:action 
+   X  Attribute:active 
+ X  Class:Alert
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------9/10------Smart home automation system (SHAS):
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+AI:Class:
+1. SmartHome(address: String)
+2. Room(roomNumber: Integer)
+3. SensorDevice(deviceId: String, type: String)
+4. ActuatorDevice(deviceId: String, type: String)
+5. SensorReading(value: Double, timestamp: DateTime)
+6. ControlCommand(command: String, status: String, timestamp: DateTime)
+7. ActivityLog
+
+Relationships:
+1..* SmartHome contain 1..* Room
+1..* Room contain 0..* SensorDevice
+1..* Room contain 0..* ActuatorDevice
+1..* SensorDevice associate 1 SmartHome
+1..* ActuatorDevice associate 1 SmartHome
+1..* SensorDevice associate 1..* SensorReading
+1..* ActuatorDevice associate 1..* ControlCommand
+1 SmartHome contain 1 ActivityLog
+
+Class:
+1. AutomationRule
+2. Precondition
+3. Action
+
+Relationships:
+1..* AutomationRule contain 1 Precondition
+1..* AutomationRule contain 1 Action
+1 AutomationRule inherit Precondition
+1 AutomationRule inherit Action
+1..* AutomationRule depend 1..* AutomationRule
+1..* AutomationRule conflict 1..* AutomationRule
+1..* AutomationRule trigger 1 ActivityLog"
+"
+"
+------------------------------------------------------------
+ O  Class:SmartHome  Oracle:SmartHome
+   X  Attribute:address 
+ O  Class:Room  Oracle:Room
+   X  Attribute:roomNumber 
+ O  Class:SensorDevice  Oracle:SensorDevice
+   X  Attribute:deviceId 
+   X  Attribute:type 
+ O  Class:ActuatorDevice  Oracle:ActuatorDevice
+   X  Attribute:deviceId 
+   X  Attribute:type 
+ O  Class:SensorReading  Oracle:SensorReading
+   O  Attribute:value  Oracle:value 
+   X  Attribute:timestamp 
+ O  Class:ControlCommand  Oracle:ControlCommand
+   X  Attribute:command 
+   X  Attribute:status 
+   X  Attribute:timestamp 
+ O  Class:ActivityLog  Oracle:ActvityLog
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------10/10------Smart home automation system (SHAS):
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+AI:Enumerations:
+
+1. DeviceType (TemperatureSensor, MovementSensor, LightController, LockController)
+2. CommandStatus (Requested, Completed, Failed)
+
+Classes:
+
+1. SmartHome(address : String)
+2. Room(name : String)
+3. SensorDevice(deviceId : String, deviceType : DeviceType)
+4. ActuatorDevice(deviceId : String, deviceType : DeviceType)
+5. SensorReading(value : Float, timestamp : DateTime)
+6. ControlCommand(command : String, timestamp : DateTime, status : CommandStatus)
+7. ActivityLog
+8. AutomationRule
+9. RuleCondition
+10. RuleAction
+
+Relationships:
+
+SmartHome contain 1..* Room
+Room contain 0..* SensorDevice
+Room contain 0..* ActuatorDevice
+SensorDevice associate 1..* SensorReading
+ActuatorDevice associate 1..* ControlCommand
+SmartHome contain 1 ActivityLog
+SmartHome contain 0..* AutomationRule
+AutomationRule inherit RuleCondition
+AutomationRule inherit RuleAction
+AutomationRule depend on 0..* AutomationRule
+AutomationRule conflict with 0..* AutomationRule
+ActivityLog associate 1..* ControlCommand"
+"
+"
+------------------------------------------------------------
+ O  Class:CommandStatus   Oracle:CommandStatus 
+   O  Attribute:Requested  Oracle:Requested 
+   O  Attribute:Completed  Oracle:Completed 
+   O  Attribute:Failed  Oracle:Failed 
+ O  Class:SmartHome  Oracle:SmartHome
+   X  Attribute:address  
+ O  Class:Room  Oracle:Room
+   X  Attribute:name  
+ O  Class:SensorDevice  Oracle:SensorDevice
+   X  Attribute:deviceId  
+   X  Attribute:deviceType  
+ O  Class:ActuatorDevice  Oracle:ActuatorDevice
+   X  Attribute:deviceId  
+   X  Attribute:deviceType  
+ O  Class:SensorReading  Oracle:SensorReading
+   O  Attribute:value   Oracle:value 
+   X  Attribute:timestamp  
+ O  Class:ControlCommand  Oracle:ControlCommand
+   X  Attribute:command  
+   X  Attribute:timestamp  
+   X  Attribute:status  
+ O  Class:ActivityLog  Oracle:ActvityLog
+ X  Class:DeviceType 
+   X  Attribute:TemperatureSensor 
+   X  Attribute:MovementSensor 
+   X  Attribute:LightController 
+   X  Attribute:LockController 
+ X  Class:AutomationRule
+ X  Class:RuleCondition
+ X  Class:RuleAction

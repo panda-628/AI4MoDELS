@@ -1,0 +1,492 @@
+---------------------1/10------DBA:
+AI_answer_after_cut:
++ 1 User associate 1..* PlayedGame
++ 1 Game associate 1..* Level
++ 1 Game associate 1..* Block
++ 1 Game associate 1 Paddle
++ 1 Game associate 1 Ball
++ 1 Game associate 1 HallOfFameEntry
++ 1 PlayedGame associate 1..* PlayedBall
++ 1 PlayedGame associate 1 PlayedPaddle
++ 1 PlayedGame associate 1..* PlayedBlockAssignment
++ 1 Player associate 1..* PlayedGame
++ 1 Admin associate 1 Game
+
+
++ 1 DestroyBlock contain 1..* User
++ 1 DestroyBlock contain 1..* BlockAssignment
++ 1 DestroyBlock contain 1..* PlayedGame
++ 1 Game contain 1..* Level
++ 1 Game contain 1..* Block
++ 1 Game contain 1 Paddle
++ 1 Game contain 1 Ball
++ 1 Game contain 1 HallOfFameEntry
++ 1 PlayedGame contain 1..* PlayedBall
++ 1 PlayedGame contain 1 PlayedPaddle
++ 1 PlayedGame contain 1..* PlayedBlockAssignment
++ 1 Player contain 1..* PlayedGame
++ 1 Admin contain 1 Game
+AI_answer_after_cut:
++ User extends Player
++ User extends Admin
++ Game extends BlockAssignment
++ Game extends Level
++ Game extends Block
++ Game extends Paddle
++ Game extends Ball
++ Game extends HallOfFameEntry
++ PlayedGame extends Game
++ PlayedBall extends Ball
++ PlayedPaddle extends Paddle
++ PlayedBlockAssignment extends BlockAssignment
++ Player extends User
++ Admin extends User
+
+# Description:
+The DestroyBlock application first allows a game admin to design a DestroyBlock game and then players to play the game and compete for an entry in the game's hall of fame.
+
+DESIGN GAME: A user has a unique username. A user is always a player and optionally an admin. A user has the same password as a player and as an admin and chooses the admin mode or play mode when logging into the application. Only an admin may create a game.
+
+Each game has a unique name and its own hall of fame. The admin designs a game by defining a set of blocks. Each block has a color and is worth a certain number of points between 1 and 1000 as specified by the admin.
+
+A game has several levels as defined by the admin. Levels are numbered starting with Level 1 and the maximum number of levels is 99. For each level, the admin specifies the starting arrangement of blocks. Each block is placed in one cell of a grid system. The block at the top left corner is in grid position 1/1, the one to the right of it is in grid position 2/1, the one below it is in grid position 1/2, and so on. The admin may also define a level as random, i.e., the blocks at the top are randomly selected for the level from the set of blocks defined by the admin.
+
+The number of blocks shown at the beginning of each level is the same and is also defined by the admin. With each level, the speed of the ball increases starting at its minimum speed and the length of the paddle is reduced gradually from its maximum length to its minimum length. The minimum speed, speed increase factor, maximum length, and minimum length are all specified by the admin for the game.
+
+PLAY GAME: A player can play a game when it is published by the game admin. At the beginning of a game or level, the DestroyBlock application places the blocks at the top of the play area as specified by the admin in the design phase. The ball is placed in the center of the play area and drops in a straight line towards the bottom. The paddle of the player is positioned in the middle at the bottom of the play area. The player moves the paddle to the right or left at the bottom of the play area while trying to bounce the ball towards the blocks. The ball moves at a certain speed in a certain direction. The ball bounces back from the wall at the top as well as the two side walls on the right and left. If the ball hits a block, the ball bounces back, the block disappears, and the player scores the points of the hit block.
+
+When the ball hits the last block, the player advances to the next level. If the ball reaches the bottom wall, the ball is out-of-bounds and the player loses one life. The player starts a game with three lives. When the player has lost all three lives or the player has finished the last level, the game ends and the total score is displayed in the game's hall of fame.
+
+At the end of a level or when the player pauses the game, the game is saved. A paused game can be resumed by the player. The next level of a game does not start automatically but only upon player confirmation.
+
+A user may be a player for one game and an admin for another game but cannot be both for the same game. There is only one admin per game. Players compete against each other for the high score in the game's hall of fame. A player may play different games and the same game multiple times. However, only one game may be played at any point in time, i.e., games are not played in parallel.
+result_presicion = 0.4166666666666667
+result_recall = 0.5263157894736842
+result_F1 = 0.46511627906976744
+---------------------2/10------DBA:
+AI_answer_after_cut:
++ 1 User associate 0..1 Player
++ 1 User associate 0..1 Admin
++ 1 Admin associate 1 Game
++ 1 Game associate 1 HallOfFame
++ 1 Game associate 1 Level
++ 1 Level associate 1 BlockAssignment
++ 1 Level associate 1 Ball
++ 1 Level associate 1 Paddle
++ 1 Level associate 1 PlayedBlockAssignment
++ 1 Level associate 1 PlayedBall
++ 1 Level associate 1 PlayedPaddle
++ 1 Game associate 1 PlayedGame
++ 1 PlayedGame associate 1 PlayedBall
++ 1 PlayedGame associate 1 PlayedPaddle
++ 1 PlayedGame associate 1 PlayedBlockAssignment
++ 1 Player associate 1 PlayedGame
+
+
++ 1 DestroyBlock contain * User
++ 1 DestroyBlock contain * BlockAssignment
++ 1 DestroyBlock contain * Level
++ 1 DestroyBlock contain * Game
++ 1 Game contain * Block
++ 1 Game contain * Paddle
++ 1 Game contain * Ball
++ 1 Game contain * HallOfFame
++ 1 Game contain * PlayedGame
++ 1 Level contain * BlockAssignment
++ 1 Level contain * Ball
++ 1 Level contain * Paddle
++ 1 Level contain * PlayedBlockAssignment
++ 1 Level contain * PlayedBall
++ 1 Level contain * PlayedPaddle
++ 1 PlayedGame contain * PlayedBlockAssignment
++ 1 PlayedGame contain * PlayedBall
++ 1 PlayedGame contain * PlayedPaddle
+AI_answer_after_cut:
++ User extends Player
++ User extends Admin
++ Game extends BlockAssignment
++ Game extends Level
++ BlockAssignment extends Block
++ Paddle extends PlayedPaddle
++ Ball extends PlayedBall
++ HallOfFameEntry extends PlayedGame
+
+#Description
+The DestroyBlock application first allows a game admin to design a DestroyBlock game and then players to play the game and compete for an entry in the game's hall of fame.
+result_presicion = 0.34375
+result_recall = 0.5789473684210527
+result_F1 = 0.4313725490196078
+---------------------3/10------DBA:
+AI_answer_after_cut:
++ 1 User associate 1..* PlayedGame
++ 1 User associate 1..* PlayedBall
++ 1 User associate 1..* PlayedPaddle
++ 1 User associate 1..* PlayedBlockAssignment
++ 1 Admin associate 1 Game
++ 1 Game associate 1..* Level
++ 1 Game associate 1..* Block
++ 1 Game associate 1 Paddle
++ 1 Game associate 1 Ball
++ 1 Game associate 1 HallOfFameEntry
++ 1 Game associate 1..* BlockAssignment
++ 1 PlayedGame associate 1..* PlayedBlockAssignment
++ 1 PlayedGame associate 1 PlayedPaddle
++ 1 PlayedGame associate 1 PlayedBall
++ 1 PlayedGame associate 1 Level
++ 1 PlayedGame associate 1 User
++ 1 PlayedGame associate 1 Game
+
+
++ 1 DestroyBlock contain 1..* User
++ 1 DestroyBlock contain 1..* BlockAssignment
++ 1 DestroyBlock contain 1..* Level
++ 1 DestroyBlock contain 1..* Game
++ 1 DestroyBlock contain 1..* Block
++ 1 DestroyBlock contain 1 Paddle
++ 1 DestroyBlock contain 1 Ball
++ 1 DestroyBlock contain 1 HallOfFameEntry
++ 1 DestroyBlock contain 1..* PlayedGame
++ 1 DestroyBlock contain 1..* PlayedBlockAssignment
++ 1 DestroyBlock contain 1..* PlayedBall
++ 1 DestroyBlock contain 1..* PlayedPaddle
+AI_answer_after_cut:
++ User extends DestroyBlock
++ Player extends User
++ Admin extends User
++ Game extends BlockAssignment
++ Level extends BlockAssignment
++ BlockAssignment extends Game
++ Block extends BlockAssignment
++ Paddle extends BlockAssignment
++ Ball extends BlockAssignment
++ HallOfFameEntry extends BlockAssignment
++ PlayedGame extends BlockAssignment
++ PlayedBall extends BlockAssignment
++ PlayedPaddle extends BlockAssignment
++ PlayedBlockAssignment extends BlockAssignment
+result_presicion = 0.4482758620689655
+result_recall = 0.6842105263157895
+result_F1 = 0.5416666666666666
+---------------------4/10------DBA:
+AI_answer_after_cut:
++ 1 User associate 0..* PlayedGame
++ 1 User associate 0..* PlayedGame
++ 1 Admin associate 1 Game
++ 1 Game associate 1 HallOfFameEntry
++ 1 Game associate 1 Level
++ 1 Level associate 0..* BlockAssignment
++ 1 Level associate 1 PlayedBlockAssignment
++ 1 PlayedGame associate 1 PlayedBall
++ 1 PlayedGame associate 1 PlayedPaddle
++ 1 PlayedGame associate 1 PlayedBlockAssignment
++ 1 Player associate 0..* PlayedGame
+
+
++ 1 DestroyBlock contain * User
++ 1 DestroyBlock contain * Game
++ 1 DestroyBlock contain * Block
++ 1 DestroyBlock contain * Paddle
++ 1 DestroyBlock contain * Ball
++ 1 DestroyBlock contain * HallOfFameEntry
++ 1 Game contain * Level
++ 1 Game contain * BlockAssignment
++ 1 PlayedGame contain * PlayedBall
++ 1 PlayedGame contain * PlayedPaddle
++ 1 PlayedGame contain * PlayedBlockAssignment
+AI_answer_after_cut:
++ User extends Player
++ User extends Admin
++ Game extends BlockAssignment
++ Game extends Level
++ Game extends Block
++ Game extends Paddle
++ Game extends Ball
++ Game extends HallOfFameEntry
++ PlayedGame extends Game
++ PlayedBall extends Ball
++ PlayedPaddle extends Paddle
++ PlayedBlockAssignment extends BlockAssignment
++ Player extends User
++ Admin extends User
+
+#Description
+The DestroyBlock application involves a hierarchy where User can be both a Player and an Admin, with Game inheriting attributes from various components like BlockAssignment, Level, Block, Paddle, Ball, and HallOfFameEntry. PlayedGame, PlayedBall, PlayedPaddle, and PlayedBlockAssignment extend their respective base classes. The inheritance relationships ensure a structured approach to modeling the game's functionality and interactions.
+result_presicion = 0.4090909090909091
+result_recall = 0.47368421052631576
+result_F1 = 0.43902439024390244
+---------------------5/10------DBA:
+AI_answer_after_cut:
++ 1 User associate 0..1 Admin
++ 1 User associate 1 Player
++ 1 Admin associate 1 Game
++ 1 Game associate 1 HallOfFame
++ 1 Game associate 1..* Level
++ 1 Level associate 1..* BlockAssignment
++ 1 Level associate 1 Paddle
++ 1 Level associate 1 Ball
++ 1 Player associate 1 PlayedGame
++ 1 PlayedGame associate 1..* PlayedBlockAssignment
++ 1 PlayedGame associate 1 PlayedBall
++ 1 PlayedGame associate 1 PlayedPaddle
++ 1 PlayedGame associate 1 HallOfFameEntry
+
+
++ 1 DestroyBlock contain * User
++ 1 DestroyBlock contain * Game
++ 1 Game contain * Level
++ 1 Level contain * BlockAssignment
++ 1 Level contain 1 Paddle
++ 1 Level contain 1 Ball
++ 1 PlayedGame contain * PlayedBlockAssignment
++ 1 PlayedGame contain 1 PlayedBall
++ 1 PlayedGame contain 1 PlayedPaddle
++ 1 PlayedGame contain 1 HallOfFameEntry
+AI_answer_after_cut:
++ User extends Player
++ User extends Admin
++ Game extends BlockAssignment
++ Game extends Level
++ BlockAssignment extends Block
++ Paddle extends PlayedPaddle
++ Ball extends PlayedBall
++ HallOfFameEntry extends PlayedGame
+
+# Description
+The DestroyBlock application involves a User who can act as both a Player and an Admin. The Game class inherits properties from BlockAssignment and Level. BlockAssignment is a subclass of Block, while Paddle, Ball, and HallOfFameEntry have their respective played versions (PlayedPaddle, PlayedBall, PlayedGame).
+result_presicion = 0.3181818181818182
+result_recall = 0.3684210526315789
+result_F1 = 0.3414634146341463
+---------------------6/10------DBA:
+AI_answer_after_cut:
++ 1 User associate 0..* PlayedGame
++ 1 User associate 0..* PlayedBall
++ 1 User associate 0..* PlayedPaddle
++ 1 User associate 0..* PlayedBlockAssignment
++ 1 Admin associate 1 Game
++ 1 Game associate 1 HallOfFameEntry
++ 1 Game associate 1 BlockAssignment
++ 1 Game associate 1 Level
+
+
++ 1 DestroyBlock contain * User
++ 1 DestroyBlock contain * Block
++ 1 DestroyBlock contain * Paddle
++ 1 DestroyBlock contain * Ball
++ 1 DestroyBlock contain * HallOfFameEntry
++ 1 DestroyBlock contain * PlayedGame
++ 1 DestroyBlock contain * PlayedBall
++ 1 DestroyBlock contain * PlayedPaddle
++ 1 DestroyBlock contain * PlayedBlockAssignment
++ 1 DestroyBlock contain * Player
++ 1 Game contain * Level
+AI_answer_after_cut:
++ User extends Player
++ User extends Admin
++ Game extends BlockAssignment
++ Game extends Level
++ BlockAssignment extends Block
++ Level extends BlockAssignment
++ Paddle extends PlayedPaddle
++ Ball extends PlayedBall
++ BlockAssignment extends PlayedBlockAssignment
++ Player extends PlayedGame
++ Admin extends Game
+
+# Description
+The DestroyBlock application involves a hierarchy where a User can be both a Player and an Admin, with specific functionalities and permissions associated with each role. Games are designed through a Game class which includes BlockAssignments and Levels. Players interact with the game elements such as Paddle, Ball, and BlockAssignments during gameplay. The inheritance relationships reflect the structure and behavior of the entities involved in the DestroyBlock application.
+result_presicion = 0.2631578947368421
+result_recall = 0.2631578947368421
+result_F1 = 0.2631578947368421
+---------------------7/10------DBA:
+AI_answer_after_cut:
++ 1 User associate 0..1 Admin
++ 1 User associate 1 Player
++ 1 Admin associate 1 Game
++ 1 Game associate * Level
++ 1 Game associate * Block
++ 1 Game associate 1 HallOfFameEntry
++ 1 Game associate * PlayedGame
++ 1 PlayedGame associate * PlayedBall
++ 1 PlayedGame associate * PlayedPaddle
++ 1 PlayedGame associate * PlayedBlockAssignment
++ 1 Player associate * PlayedGame
+
+
++ 1 DestroyBlock contain * User
++ 1 DestroyBlock contain * BlockAssignment
++ 1 DestroyBlock contain * Level
++ 1 DestroyBlock contain * Game
++ 1 Game contain * Block
++ 1 Game contain * Paddle
++ 1 Game contain * Ball
++ 1 Game contain * HallOfFameEntry
++ 1 Game contain * PlayedGame
++ 1 PlayedGame contain * PlayedBall
++ 1 PlayedGame contain * PlayedPaddle
++ 1 PlayedGame contain * PlayedBlockAssignment
+AI_answer_after_cut:
++ User extends DestroyBlock
++ Player extends User
++ Admin extends User
++ Game extends BlockAssignment
++ Level extends BlockAssignment
++ BlockAssignment extends Game
++ BlockAssignment extends Level
++ BlockAssignment extends Block
++ BlockAssignment extends Paddle
++ BlockAssignment extends Ball
++ HallOfFameEntry extends Game
++ PlayedGame extends Game
++ PlayedBall extends Ball
++ PlayedPaddle extends Paddle
++ PlayedBlockAssignment extends BlockAssignment
+result_presicion = 0.4782608695652174
+result_recall = 0.5789473684210527
+result_F1 = 0.5238095238095238
+---------------------8/10------DBA:
+AI_answer_after_cut:
++ 1 User associate 1..* PlayedGame
++ 1 User associate 1..* PlayedBall
++ 1 User associate 1..* PlayedPaddle
++ 1 User associate 1..* PlayedBlockAssignment
++ 1 Admin associate 1 Game
++ 1 Game associate 1..* Level
++ 1 Game associate 1 HallOfFameEntry
++ 1 Level associate 1..* BlockAssignment
++ 1 Level associate 1 Paddle
++ 1 Level associate 1 Ball
++ 1 Level associate 1 PlayedGame
++ 1 BlockAssignment associate 1 Block
++ 1 PlayedGame associate 1 PlayedBall
++ 1 PlayedGame associate 1 PlayedPaddle
++ 1 PlayedGame associate 1 PlayedBlockAssignment
++ 1 PlayedGame associate 1 HallOfFameEntry
+
+
++ 1 DestroyBlock contain 1..* User
++ 1 DestroyBlock contain 1..* PlayedGame
++ 1 DestroyBlock contain 1..* PlayedBall
++ 1 DestroyBlock contain 1..* PlayedPaddle
++ 1 DestroyBlock contain 1..* PlayedBlockAssignment
++ 1 Game contain 1..* Level
++ 1 Game contain 1 HallOfFameEntry
++ 1 Level contain 1..* BlockAssignment
++ 1 Level contain 1 Paddle
++ 1 Level contain 1 Ball
++ 1 PlayedGame contain 1 PlayedBall
++ 1 PlayedGame contain 1 PlayedPaddle
++ 1 PlayedGame contain 1 PlayedBlockAssignment
++ 1 PlayedGame contain 1 HallOfFameEntry
+AI_answer_after_cut:
++ User extends Player
++ User extends Admin
++ Game extends BlockAssignment
++ Game extends Level
++ Game extends Block
++ Game extends Paddle
++ Game extends Ball
++ Game extends HallOfFameEntry
++ PlayedGame extends Game
++ PlayedBall extends Ball
++ PlayedPaddle extends Paddle
++ PlayedBlockAssignment extends BlockAssignment
++ Player extends User
++ Admin extends User
+
+#Description
+The DestroyBlock application involves a hierarchical structure where various classes inherit properties and behaviors from their parent classes. The relationships defined above reflect the "is-a" relationships between the classes in the system, ensuring a clear and organized design for the game application.
+result_presicion = 0.3
+result_recall = 0.47368421052631576
+result_F1 = 0.3673469387755102
+---------------------9/10------DBA:
+AI_answer_after_cut:
++ 1 User associate 1..* PlayedGame
++ 1 User associate 1..* HallOfFameEntry
++ 1 Admin associate 1 Game
++ 1 Game associate 1..* Level
++ 1 Game associate 1 HallOfFameEntry
++ 1 Level associate 1..* BlockAssignment
++ 1 Level associate 1 Paddle
++ 1 Level associate 1 Ball
++ 1 PlayedGame associate 1..* PlayedBlockAssignment
++ 1 PlayedGame associate 1 PlayedPaddle
++ 1 PlayedGame associate 1 PlayedBall
+
+
++ 1 DestroyBlock contain * User
++ 1 DestroyBlock contain * Game
++ 1 DestroyBlock contain * Block
++ 1 DestroyBlock contain * Paddle
++ 1 DestroyBlock contain * Ball
++ 1 DestroyBlock contain * HallOfFameEntry
++ 1 Game contain * Level
++ 1 Level contain * BlockAssignment
++ 1 Level contain 1 Paddle
++ 1 Level contain 1 Ball
++ 1 PlayedGame contain * PlayedBlockAssignment
++ 1 PlayedGame contain 1 PlayedPaddle
++ 1 PlayedGame contain 1 PlayedBall
+AI_answer_after_cut:
++ User extends Player
++ User extends Admin
++ Game extends BlockAssignment
++ Game extends Level
++ BlockAssignment extends Block
++ Level extends BlockAssignment
++ Paddle extends PlayedPaddle
++ Ball extends PlayedBall
++ Block extends PlayedBlockAssignment
++ HallOfFameEntry extends PlayedGame
+
+#Description
+The DestroyBlock application allows users to interact with the game through various classes representing different aspects of the game design and gameplay. The inheritance relationships outlined above showcase how these classes are structured in a hierarchical manner, inheriting attributes and methods from their parent classes to maintain a cohesive design for the game system.
+result_presicion = 0.4166666666666667
+result_recall = 0.5263157894736842
+result_F1 = 0.46511627906976744
+---------------------10/10------DBA:
+AI_answer_after_cut:
++ 1 User associate 1..* PlayedGame
++ 1 Game associate 1..* Level
++ 1 Game associate 1..* Block
++ 1 Game associate 1 Paddle
++ 1 Game associate 1 Ball
++ 1 Game associate 1 HallOfFameEntry
++ 1 PlayedGame associate 1..* PlayedBlockAssignment
++ 1 PlayedGame associate 1 PlayedBall
++ 1 PlayedGame associate 1 PlayedPaddle
++ 1 PlayedGame associate 1 HallOfFameEntry
++ 1 Player associate 1..* PlayedGame
++ 1 Admin associate 1 Game
+
+
++ 1 DestroyBlock contain * User
++ 1 DestroyBlock contain * BlockAssignment
++ 1 Game contain * Level
++ 1 Game contain * Block
++ 1 Game contain 1 Paddle
++ 1 Game contain 1 Ball
++ 1 Game contain * HallOfFameEntry
++ 1 PlayedGame contain * PlayedBlockAssignment
++ 1 PlayedGame contain 1 PlayedBall
++ 1 PlayedGame contain 1 PlayedPaddle
++ 1 PlayedGame contain 1 HallOfFameEntry
++ 1 Player contain * PlayedGame
++ 1 Admin contain 1 Game
+AI_answer_after_cut:
++ User extends Player
++ User extends Admin
++ Game extends BlockAssignment
++ Game extends Level
++ BlockAssignment extends Block
++ Paddle extends PlayedPaddle
++ Ball extends PlayedBall
++ BlockAssignment extends PlayedBlockAssignment
++ Player extends PlayedGame
++ Admin extends Game
++ HallOfFameEntry extends PlayedGame
+result_presicion = 0.36
+result_recall = 0.47368421052631576
+result_F1 = 0.40909090909090906
+average_result_presicion = 0.3754050686977085
+average_result_recall = 0.4947368421052632
+average_result_F1 = 0.4247164845116643

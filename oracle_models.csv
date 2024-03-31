@@ -1,0 +1,472 @@
+﻿Name,Description,Classes,Associations
+TSS,"The Team Sports Scouting System is used by various employees of the club, including the head coach, the director of the club and the scouts. It is the role of the head coach to identify designated player profiles for future signings, which includes designated target positions for a player (e.g. GK for goalkeeper, LB for left back, etc.), and other player attributes (identified by a name and a value).
+
+Scouts may note players a long list who seem to match a designated target profile at any time. This long list is periodically evaluated by the head scout when setting up scouting assignments for his team to investigate a specific player more thoroughly. As the completion of a scouting assignment, the scout submits a scouting report about the player, which includes the pros and cons of the player as well as a recommendation (e.g. key player, first team player, reserve team player, prospective player, not a good signing). 
+
+After comparing first scouting results for a designated player profile, the head coach and the head scout decide upon which players to move to the short list. Several other rounds of scouting can be carried out for each short-listed player as part of scouting assignments – some of which is carried out by the head scout himself. If a player is finally recommended for signing by the head scout, the director makes an official offer for the player. ","Enumeration:
+Position(GK, LB)
+Recommendation(KEY_PLAYER, FIRST_TEAM_PLAYER, RESERVE_TEAM_PLAYER, PROSPECTIVE_PLAYER, NOT_RECOMMENDED)
+ScoutingStatus(LONG_LISTED, SHORT_LISTED, RECOMMENDED_FOR_SIGNING, OFFER_MADE)
+ScoutKind(REGULAR_SCOUNT, HEAD_SCOUT)
+
+Classes:
+TSS()
+abstract Person(string firstName, string lastName)
+Player(ScoutingStatus status)
+HeadCoach()
+Director()
+Scout(ScoutKind scoutKind)
+Club()
+Offer(int value)
+ScoutingAssignmnet()
+ScoutReport(string pro, string con, Recommendation recommendation)
+PlayerProfile(Position position)
+PlayerAttribute(string name, int value)","1 TSS contain *Person
+1 TSS contain *ScoutingAssignment
+1 TSS contain *PlayerProfile
+1 TSS contain *Club
+1 Director contain *Offer
+1 Club contain 0..1 Director
+1 Club contain 0..1 HeadCoach
+1 Club contain *Player
+1 Club contain *Scout
+1 Scout contain *ScoutingAssignment
+1 ScoutingAssignment contain 0..1 ScoutReport 
+1 HeadCoach contain *PlayerProfile
+1 PlayerProfile contain * PlayerAttribute
+
+1 Player inherit Person
+1 HeadCoach inherit Person
+1 Director inherit Person
+1 Scout inherit Person
+
+*Offer associate 0..1 Player
+0..1 Player associate 0..1 PlayerProfile
+1 Player associate *ScoutingAssignment
+1 ScoutReport associate 1 ScoutReport (self association)
+"
+CeIO,"The CelO application helps families and groups of friends to organize birthday celebrations and other events. Organizers can keep track of which tasks have been completed and who attends. Attendees can indicate what they are bringing to the event.
+
+For a small event, there is typically one organizer, but larger events require several organizers. An organizer provides their first and last name, their email address (which is also used as their username), their postal address, their phone number, and their password. Furthermore, an organizer indicates the kind of event that needs to be planned by selecting from a list of events (e.g., birthday party, graduation party…) or creating a new kind of event. The start date/time and end date/time of the event must be specified as well as the occasion and location of the event. The location can again be selected from a list, or a new one can be created by specifying the name of the location and its address. An organizer then invites the attendees by entering their first and last names as well as their email addresses. Sometimes, an organizer is only managing the event but not attending the event. Sometimes, an organizer also attends the event. When an attendee receives the email invitation, the attendee can create an account (if they do not yet have an account) with a new password and their email address from the invitation as their username. Afterwards, the attendee can indicate whether they will attend the event, maybe will attend the event, or cannot attend the event. An organizer can view the invitation status of an event, e.g., how many attendees have replied or have not yet replied and who is coming for sure or maybe will be coming.
+
+When an organizer selects an event, an event-specific checklist is presented to the organizer. For example, a birthday party may have a task to bring a birthday cake. For each task on the checklist, an organizer can indicate that the task needs to be done, has been done, or is not applicable for the event. An organizer can also add new tasks to the list, which will then also be available for the next event. For example, an organizer can add to bring birthday candles to the list for a birthday party and this task will then be available for the next birthday party, too. An organizer can also designate a task on the checklist for attendees to accomplish. For example, an organizer can indicate that the birthday cake should be brought to the event by an attendee. If this is the case, then the list of tasks to be accomplished by attendees is shown to attendees that have confirmed their attendance to the event. An attendee can then select their tasks, so that the organizer can see who is bringing what to the event.","Enumeration:
+AttendeeStatus(Yes, Maybe, No, NoResponse)
+CompletionStatus(ToBeDone, Done, NotApplicable, Attendee)
+
+Classes:
+CelO()
+Person(string lastName, string firstName, string emailAddress, string password)
+abstract PersonRole()
+Organizer(string address, string phoneNumber)
+Attendee()
+TaskStatus(CompletionStatus status)
+Registration(AttendeeStatus status)
+CheckList(string description)
+Location(string name, string address)
+Event(string occasion, date startTime, date endTime)
+EventType(string name)","1 CelO contain *Person
+1 CelO contain *PersonRole
+1 CelO contain *TaskStatus
+1 CelO contain *Registration
+1 CelO contain *CheckListTask
+1 CelO contain *Location
+1 CelO contain *Event
+1 CelO contain *EventType
+
+1 Organizer inherit PersonRole
+1 Attendee inherit PersonRole
+
+1..* Organizer associate *Event
+0..1 Attendee associate *TaskStatus
+*Event associate *TaskStatus
+*TaskStatus associate *CheckListTask
+*Attendee associate *Registration
+*Registration associate *Event
+1 Location associate *Event
+1 EventType associate *Event
+1 EventType associate * CheckListTask "
+BTMS,"A city is using the Bus Transportation Management System (BTMS) to simplify the day-to-day activities related to the city?? public bus system.
+
+The BTMS keeps track of a driver?? name and automatically assigns a unique ID to each driver. A bus route is identified by a unique number that is determined by city staff, while a bus is identified by its unique licence plate. The highest possible number for a bus route is 9999, while a licence plate number may be up to 10 characters long, inclusive. For up to a year in advance, city staff assigns buses to routes. Several buses may be assigned to a route per day. Each bus serves at the most one route per day but may be assigned to different routes on different days. Similarly, for up to a year in advance, city staff posts the schedule for its bus drivers. For each route, there is a morning shift, an afternoon shift, and a night shift. A driver is assigned by city staff to a shift for a particular bus on a particular day. The BTMS offers city staff great flexibility, i.e., there are no restrictions in terms of how many shifts a bus driver has per day. It is even possible to assign a bus driver to two shifts at the same time.
+
+The current version of BTMS does not support the information of bus drivers or buses to be updated ??only adding and deleting is supported. However, BTMS does support indicating whether a bus driver is on sick leave and whether a bus is in the repair shop. If that is the case, the driver cannot be scheduled or the bus cannot be assigned to a route. For a given day, an overview shows ??for each route number ??the licence plate number of each assigned bus, the entered shifts and the IDs and names of the assigned drivers. If a driver is currently sick or a bus is in the repair shop, the driver or bus, respectively, is highlighted in the overview.","Enumeration: 
+Shift(morning, afternoon, night)
+Classes: 
+BTMS()
+BusVehicle(string licencePlate, boolean inRepairShop)
+Route(int number)
+RouteAssignment(Date date)
+Driver(string name, string id, boolean onSickLeave)
+DriverSchedule(Shift shit)","1 BTMS contain * BusVehicle 
+1 BTMS contain * Route
+1 BTMS contain * RouteAssignment
+1 BTMS contain * Driver
+1 BTMS contain * DriverSchedule
+
+* RouteAssignment associate 1 BusVehicle
+* RouteAssignment associate 1 Route
+
+* DriverSchedule associate 1 Driver
+* DriverSchedule associate 1 RouteAssignment"
+H2S,"The Helping Hand Store (H2S) collects second hand articles and non-perishable foods from residents of the city and distributes them to those in need. H2S also operates in other cities, but each location is run independently. To increase the number of items available for distribution, H2S is seeking to offer a Pickup and Delivery Service to its customers, which would allow a resident to schedule a pickup of items from a street address online at the H2S website.
+
+A resident enters a name, street address, phone number, optional email address, as well as a description of the items to be picked up. The resident places the items just outside the front door of the building at the stated street address in the morning of the weekday requested for pickup.
+
+H2S has a fleet of pickup vehicles, which it uses to collect items from residents. At the beginning of every weekday, a pickup route for that day is determined for each vehicle for which a volunteer driver is available. Volunteer drivers indicate their available days on the H2S website. The route takes into account the available storage space of a vehicle and the dimensions and weights of scheduled items. A scheduled pickup may occur anytime between 8:00 and 14:00. After completing all scheduled pickups, the driver drops off all collected second hand articles at H2S’s distribution center. Non-perishable foods, on the other hand, are directly dropped off at the X food bank, which then deals with these items without further involvement from H2S.
+
+At H2S’s distribution center, an H2S employee examines the quality of the received second hand articles. Those articles that can still be used are tagged with an RFID device. The H2S employee double checks the description of the article given by the resident and makes any corrections as needed. In addition, the H2S employee assigns a category to the article from a standard list of 134 categories (e.g., baby clothing, women’s winter boots, fridge, microwave…).
+
+In some cities in which H2S operates, the distribution center offers an additional service for clients who receive second hand articles from H2S but are not able to personally visit the H2S distribution center. Instead, H2S allows those clients to indicate which categories of articles they need. At the end of each day, an H2S employee calls them to let them know about the relevant articles that were dropped off that day. If the client still needs an article, the H2S employee arranges delivery of the article to the client’s home address. Delivery of such articles is made by a volunteer driver before picking up items according to the pickup route.","Enumeration:
+ItemCategory(Baby Clothing, Fridge, ...)
+Classes:
+H2S()
+Person(string name, string address, string phoneNumber, string emailAddress)
+abstract UserRole()
+Client(ItemCategory[] neededCategories)
+Volunteer() 
+Resident()
+Date()
+FoodItem()
+SecondHandArticle(string codeRFID, boolean discarded, ItemCategory category)
+Vehicle(string dimension, int weightRestriction)
+abstract item(string description, string dimension, int weight, Date requestedPickedDate)
+Route(Date date)","1 H2S contain *Item
+1 H2S contain *Vehicle
+1 H2S contain *Route
+1 H2S contain *UserRole
+1 H2S contain *Person
+1 Volunteer contain *Date
+
+1 Client inherit UserRole
+1 Volunteer inherit UserRole
+1 Resident inherit UserRole
+1 SecondHandArticle inherit Item
+1 FoodItem inherit Item
+
+1 Person associate *UserRole
+0..1 Client associate *SecondHandArticle
+1 Volunteer associate * Route
+1 Vehicle associate * Route
+0..1 Route associate *Item
+0..1 Route associate *SecondHandArticle
+1 Resident associate *Item
+"
+Lab Requisition Management System,"The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably. 
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient?? information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor. 
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests. 
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern. 
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report. 
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample). 
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab?? address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day?? start time to its end time, i.e., there are no breaks. ","Enumeration:
+Interval(weekly, monthly, everyHalfYear, yearly)
+AccessType(reservable, walkIn, dropOff)
+DayOfWeek(Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday)
+
+Classes:
+LabTracker()
+Person(string lastName, string firstName, string address, string phoneNumber)
+abstract PersonRole(idNumber)
+Patient(string dateOfBirth)
+Doctor(string signature)
+Requisition(string effectiveDate, int repetitionCount, Interval repetitionInterval)
+TestResult(boolean negative, string report)
+SpecificTest(Data date)
+Appointment(string confirmation, Date date, string startTime, string endTime)
+BusinessHour(DayOfWeek: dayOfWeek, string startTime, string endTime)
+Lab(string registrationNumber, string name, string address, boolean changeCancelFee)
+Test(string name, string duration)
+TestType(string name, string durationAdditive, AccessType access)
+","1 LabTracker contain *Person
+1 LabTracker contain *PersonRole
+1 LabTracker contain *Requisition
+1 LabTracker contain *TestResult
+1 Lab Tracker contain *SpecificTest
+1 LabTracker contain *Appointment
+1 LabTracker contain *BusinessHour 
+1 LabTracker contain *Lab
+1 LabTracker contain *Test
+1 LabTracker contain *TestType
+
+1 Patient inherit PersonRole
+1 Doctor inherit PersonRole
+
+1 Person associate 0..2 PersonRole
+1 Patient associate * Requisition
+* Requisition associate *Appointment
+* Appointment associate 1 Lab (Association class?)
+1 Docter associate * Requisition
+1 Requsition associate *SpecificTest
+0..1 TestResult associate *SpecificTest
+1 Lab associate 7 Business
+1 Test associate *SpecificTest
+1 TestType associate * Test"
+Hotel Booking Management System (HBMS),"Hotel Booking Management System (HBMS)
+
+Business travellers use HMBS for booking special accommodation deals offered by participating hotels. Travellers register to HBMS by providing their name, billing information (incl. company name and address) and optional travel preferences (e.g. breakfast included, free wifi, 24/7 front desk, etc.).
+
+When searching for accommodation, the traveller specifies the city, the date of arrival and departure, the number of needed rooms and the type of rooms (e.g. single, double, twin), minimum hotel rating (stars), a tentative budget (max. cost per night), and optionally, further travel preferences to filter offers in the search results. HBMS lists all available offers of hotels for the given travel period, and the traveller can either create a preliminary booking or complete a booking in the regular way.
+
+In case of a preliminary booking, HBMS forwards the key parameters of the booking information (i.e. price, city area, hotel rating and key preferences and a unique booking identifier) to other hotels so that they can compete for the traveller with special offers provided within the next 24 hours. After 24-hour deadline, HBMS sends the five best special offers to the traveller who can switch to the new offer or proceed with the original preliminary booking.
+
+In both cases, the traveller needs to provide credit card information to finalize a booking. Each finalized booking can be either pre-paid (i.e. paid immediately when it cannot be reimbursed), or paid at hotel (when the traveller pays during his/her stay). A finalized booking needs to be confirmed by the hotel within 24 hours. A booking may also contain a cancellation deadline: if the traveller cancels a confirmed booking before this deadline, then there are no further consequences. However, if a confirmed booking is cancelled after this deadline, then 1-night accommodation is charged for the traveller. HBMS stores all past booking information for a traveller to calculate a reliability rating.
+
+Each hotel is located in a city at a particular address, and possibly run by a hotel chain. A hotel may announce its available types of rooms for a given period in HBMS, and may also inform HBMS when a particular type of room is fully booked. HBMS sends information about the preliminary booking information to competitor hotels together with the traveller?? preferences and his/her reliability rating. The competitor hotels may then provide a special offer. Once a booking is finalized, the hotel needs to send a confirmation to the traveller. If a completed booking is not confirmed by the hotel within 24 hours, then HBMS needs to cancel it, and reimburse the traveller in case of a pre-paid booking. If the hotel needs to cancel a confirmed booking, then financial compensation must be offered to the traveller.","Enumeration:
+RoomType(SINGLE, DOUBLE, TWIN)
+BookingStatus(FINALIZED, CONFIRMED, CANCELLED_BY_HBMS, PRELIMINARY, CANCELLED_BY_TRAVELLER, CANCELLED_BY_HOTEL)
+PaymentType(PREPAID, PAID_AT_HOTEL)
+
+Classes:
+HBMS()
+HotelChain()
+HotelBookingManager()
+Traveller(string name, int reliabilityRating)
+BillingInformation(string companyName, string address)
+TravelPreference(string preference, string value)
+Hotel(string city, string country, string area, RoomAvailability availability)
+abstract Offer()
+SpecialOffer()
+RegularOffer()
+TravelSearch()
+SearchInfo()
+RoomAvailability()
+abstract TripInfo(int numberOfRooms, RoomType roomType, date arrivalDate, date departureDate, float budgetPerNight)
+BookingInfo()
+Booking(int bookingId, date cancellationDeadline, string creditCardNumber, BookingStatus bookingStatus, PaymentType paymentType, date confirmationDate, float paidAmount)","1 HotelChain contain *Hotel
+1 HotelBookingManager contain *HotelChain
+1 HotelBookingManager contain *Traveller
+1 Hotel contain *Offer
+1 Hotel contain *RoomAvailability
+1 Traveller contain *TravelSearch
+1 Traveller contain *TravelPreference
+1 Traveller contain 1 BillingInformation
+1 TravelSearch contain 1 SearchInfo
+1 TravelSearch contain *TravelPreference
+
+1 SpecialOffer inherit Offer
+1 RegularOffer inherit Offer
+1 RoomAvailability inherit TripInfo
+1 SearchInfo inherit TripInfo
+
+*RegularOffer associate * TravelSearch"
+SHAS,"A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+","Enumeration:
+DeviceStatus(Activated, Deactivated)
+CommandType (lockDoor, turnOnHeating)
+CommandStatus (Requested, Completed, Failed)
+RuleStatus (created, edited, activated, deactivated )
+BinaryOp (AND, OR )
+Classes:
+SHAS()
+SmartHome()
+User(string name)
+Address(string city, string postalCode, string street, string aptNumber)
+Room()
+abstract Device(DeviceStatus deviceStatus, int deviceID)
+SensorDevice()
+ActuatorDevice()
+ActvityLog()
+abstract RuntimeElement(time timestamp)
+SensorReading(double value)
+ControlCommand(CommandType commandType, CommandStatus commandStatus)
+AlertRule(RuleStatus ruleStatus)
+abstract BooleanExpression()
+RelationalTerm()
+NotExpression()
+BinaryExpression(BinaryOp binaryOp)
+CommandSequence() ","0..1 SHAS contain * SmartHome
+1 SHAS contain * User
+
+1 SmartHome contain 0..1 Address
+1 SmartHome contain 0..* Room
+1 SmartHome contain 0..1 ActivityLog
+* SmartHome associate * User
+
+1 Room contain * SensorDevice
+1 Room contain * ActuatorDevice
+
+1 ActivityLog contain * SensorReading
+1 ActivityLog contain * ControlCommand
+
+* SensorReading associate 1 SensorDevice
+
+* ControlCommand associate 1 ActuatorDevice
+
+1 D contain 0..1 BooleanExpression
+1 AlertRule contain * CommandSequence
+
+* RelationalTerm associate 0..1  Room
+* RelationalTerm associate 0..1  SensorDevice
+* RelationalTerm associate 0..1  ActuatorDevice
+* RelationalTerm associate 0..1  SensorReading
+* RelationalTerm associate 0..1  ControlCommand
+
+0..1 NotExpression associate 1 BooleanExpression
+
+0..1 BinaryExpression associate 1 BooleanExpreesion
+0..1 BinaryExpression associate 1 BooleanExpreesion
+
+* CommandSequence associate 0..1 CommandSequence
+1 CommandSequence contain 0..1 ControlCommand
+
+SensorDevice inherit Device
+ActuatorDevice inherit Device
+SensorReading inherit RuntimeElement"
+OTS,"The OTS is used by students and tutors where a tutor may also be a student. At registration, tutors need to provide their name, email address and bank account. After that, tutors may offer online tutoring in different subjects (e.g. mathematics, science, literature, etc.) by providing their level of expertise (e.g. primary school level, high school level, university level) in the given subject and their hourly price of a tutoring session (which may again be subject specific). Tutors may specify their weekly availability for tutoring sessions (e.g. Thursdays from 10:00 to 11:30).
+Registered students (with a name and an email address) may browse available tutoring offers in a specific subject and then make a tutoring request from the designated tutor by specifying the level of tutoring. This request should suggest the target date and time of the first tutoring session. The tutor may confirm the requested tutoring session or offer a session at another slot. Once the session is agreed, the tutor and the student is expected to turn up at the given time for tutoring. During the tutoring session, the student and the tutor may agree upon to schedule follow-up a tutoring session. After the actual tutoring session, the student pays for the session (with a credit card or wire transfer).
+A tutoring session may be cancelled by either the student or the tutor. However, if the student cancels less than 24 hours prior to the session then 75% of the session’s price has to be paid. If the tutor cancels within 24 hours then he/she needs to offer a 25% discount for his/her next session to the same student.","Enumeration:
+LevelOfTutoring(PrimarySchool, HighSchool, University)
+SessionStatus(Proposed, Confirmed, Completed, Paid, Cancelled)
+PaymentKind(CreditCard, WireTransfer)
+
+Classes:
+OTS()
+User(string name, string email)
+BestTutorAward(int year, int month)
+Tutor(string bankAccount)
+TutoringOffer(float hourlyPrice)
+Subject(string name)
+TutorAvailability(Date startTime, Time endTime)
+abstract TutoringRole()
+abstract TutoringElement(LevelOfTutoring tutoringLevel)
+Student()
+TutoringRequest()
+TutoringSession(Date sessionDate, float totalPrice, SessionStatus sessionStatus)
+Payment(PaymentKind paymentForm, date paymentDate)
+","1 OTS contain *Subject
+1 OTS contain *User
+1 OTS contain *BestTutorAward
+1 Tutor contain *TutoringOffer
+1 Tutor contain *TutorAvailability
+1 User contain 0..2 TutoringRole
+1 Student contain *TutoringRequest
+1 TutoringRequest contain *TutoringSession
+1 TutoringSession contain 0..1 Payment
+
+Tutor inherit TutoringRole
+Student inherit TutoringRole
+TutoringRequest inherit TutoringElement
+TutoringOffer inherit TutoringElement
+
+1 Subject associate *TutoringOffer
+0..1 TutoringOffer associate *TutoringRequest
+1 TutoringRequest associate 0..1 TutoringSession
+1 TutoringSession associate 0..1 TutoringSession
+1 Subject associate * TutoringOffer
+1 Subject associate *TutoringRequest
+1 Tutor associate *BestTutorAward"
+DBA,"The DestroyBlockapplication first allows a game admin to design a DestroyBlockgame and then players to play the game and compete for an entry in the game’s hall of fame.
+
+DESIGN GAME:A user has a unique username. A user is always a player and optionally an admin. A user has the same password as a player and as an admin and chooses the admin mode or play mode when logging into the application. Only an admin may create a game.
+
+Each game has a unique name and its own hall of fame. The admin designs a game by defining a set of blocks. Each block has a color and is worth a certain number of points between 1 and 1000 as specified by the admin.
+
+A game has several levels as defined by the admin. Levels are numbered starting with Level 1 and the maximum number of levels is 99. For each level, the admin specifies the starting arrangement of blocks. Each block is placed in one cell of a grid system. The block at the top left corner is in grid position 1/1, the one to the right of it is in grid position 2/1, the one below it is in grid position 1/2, and so on. The admin may also define a level as random, i.e., the blocks at the top are randomly selected for the level from the set of blocks defined by the admin.
+
+The number of blocks shown at the beginning of each level is the same and is also defined by the admin. With each level, the speed of the ball increases starting at its minimum speed and the length of the paddle is reduced gradually from its maximum length to its minimum length. The minimum speed, speed increase factor, maximum length, and minimum length are all specified by the admin for the game.
+
+PLAY GAME: A player can play a game when it is published by the game admin. At the beginning of a game or level, the DestroyBlockapplication places the blocks at the top of the play area as specified by the admin in the design phase. The ball is placed in the center of the play area and drops in a straight line towards the bottom. The paddle of the player is positioned in the middle at the bottom of the play area. The player moves the paddle to the right or left at the bottom of the play area while trying to bounce the ball towards the blocks. The ball moves at a certain speed in a certain direction. The ball bounces back from the wall at the top as well as the two side walls on the right and left. If the ball hits a block, the ball bounces back, the block disappears, and the player scores the points of the hit block.
+
+When the ball hits the last block, the player advances to the next level. If the ball reaches the bottom wall, the ball is out-of-bounds and the player loses one life. The player starts a game with three lives. When the player has lost all three lives or the player has finished the last level, the game ends and the total score is displayed in the game’s hall of fame.
+
+At the end of a level or when the player pauses the game, the game is saved. A paused game can be resumed by the player. The next level of a game does not start automatically but only upon player confirmation.
+
+A user may be a player for one game and an admin for another game but cannot be both for the same game. There is only one admin per game. Players compete against each other for the high score in the game’s hall of fame. A player may play different games and the same game multiple times. However, only one game may be played at any point in time, i.e., games are not played in parallel.","Class:
+
+DestroyBlock()
+User(string username, string password)
+BlockAssignment(int gridHorizontalPosition, int gridVerticalPosition)
+Level(boolean isRandom)
+Game(string name, int nrBlocksPerLevel)
+Block(int id, int red, int green, int blue, int points)
+Paddle(int amxPaddleLength, int minPaddleLength)
+Ball(int minBallSpeedX, int minBallSpeedY)
+HallOfFameEntry(int score)
+PlayedGame(int id, int score, int lives, int currentLevel)
+PlayedBall(double ballDirectionX, double ballDirectionY, double currentBallX, double currentBallY)
+PlayedPaddle(double currentPaddleLength, double currentPaddleX, double currentPaddleY)
+PlayedBlockAssignment(int x, int y)
+Player()
+Admin()","1 DestroyBlock contain * User
+1 DestroyBlock contain * Game
+1 DestroyBlock contain * PlayedGame
+1 DestroyBlock contain * HallOfFameEntry
+
+1 Game contain * Block
+1 Game contain 1 Paddle
+1 Game contain 1 Ball
+1 Game contain 1..* Level
+1 Level contain * BlockAssignment
+
+1 User associate * Game (admin)
+1 User associate * Game (player)
+* BlockAssignment associate 1 Block
+1 User associate * HallOfFameEntry
+* HallOfFameEntry associate 1 Game
+1 Game associate * PlayedGame
+1 Block associate * PlayedBlockAssignment
+
+1 PlayedGame contain * PlayedBlockAssignment
+1 PlayedGame contain 1 PlayedPaddle
+1 PlayedGame contain 1 PlayedBall"
+TiOA,"The Tile-O application first allows a game designer to design a board game and then allows players to play the game. Only one game can be played at a time and it cannot be paused or saved. The objective of the game is to find a hidden tile on the board. Two to four players take turns by moving their playing pieces along connected tiles based on the roll of a die. Each playing piece has a different color. 
+
+A designer first defines the whole game including the layout of the game board. The designer places the tiles on the board and connects them with connection pieces. A tile can be connected to other tiles on its right side, left side, top side, and bottom side. At the most one tile can be connected on each side. In addition, the designer indicates the hidden tile, the starting positions of each player, as well as the location of action tiles. 
+
+The designer also defines a deck of 32 action cards by choosing from the following predefined choices: (i) roll the die for an extra turn, (ii) connect two adjacent tiles with a connection piece from the pile of 32 spare connection pieces, (iii) remove a connection piece from the board and place it in the pile of spare connection pieces, (iv) move your playing piece to an arbitrary tile that is not your current tile, and (v) lose your next turn. 
+
+Players take turns, with Player 1 starting the game, followed by Player 2, Player 3 (if applicable), and Player 4 (if applicable). The player whose turn it is rolls the die and them moves their playing piece along connected tiles. If the player lands on any tile, the color of the tile changes from white to black to indicate that the tile has been visited during the game. If the player lands on the hidden tile, the game ends and the player wins the game. If the player lands on an action tile, the player takes the first action card from the deck of action cards and follows the instructions on the action card. In addition, the action tile turns into a regular tile for a number of turns as specified by the game designer. Players do not know whether a tile is an action tile until a player lands on it. 
+
+","Enumeration:
+Mode(design, game)
+Color(red, blue, green, yellow)
+
+Class:
+TileO()
+Game(int currentConnectionPieces, Mode mode, const int spaceConnectionPieces=32, const int numberOfActionCards=32)
+Connection()
+WinTile()
+Die()
+Deck()
+abstract Tile(int x, int y)
+abstract ActionCard(string instructions)
+RollDieActionCard()
+ConnectTilesActionCard()
+RemoveConnectionActionCard()
+TeleportActionCard()
+LoseTurnActionCard()
+WinTile()
+ActionTile()
+NormalTile()
+Player(int number, int turnsUntilActive, Color color)","1 TileO contain *Game
+1 Game contain *Tile
+1 Game contain *Connection
+1 Game contain 1 Die
+1 Game contain 1 Deck
+1 Game contain 0..1 Player
+1 Deck contain 0..3 ActionCard
+
+1 WinTile inherit Tile
+1 ActionTile inherit Tile
+1 NormalTile inherit Tile
+1 RollDieActionCard inherit ActionCard
+1 ConnectTilesActionCard inherit ActionCard 
+1 RemoveConnectionActionCard inherit ActionCard
+1 TeleportActionCard inherit ActionCard
+1 LoseTurnActionCard inherit ActionCard
+
+1 Game associate 0..1 WinTile
+0..4 Connection associate 2 Tile
+1 Player associate 0..1 Tile
+0..4 Player associate 0..1 Tile
+1 Deck associate 0..1 ActionCard"

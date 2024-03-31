@@ -1,0 +1,1399 @@
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------1/10------CeIO:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The CelO application helps families and groups of friends to organize birthday celebrations and other events. Organizers can keep track of which tasks have been completed and who attends. Attendees can indicate what they are bringing to the event.
+
+For a small event, there is typically one organizer, but larger events require several organizers. An organizer provides their first and last name, their email address (which is also used as their username), their postal address, their phone number, and their password. Furthermore, an organizer indicates the kind of event that needs to be planned by selecting from a list of events (e.g., birthday party, graduation party…) or creating a new kind of event. The start date/time and end date/time of the event must be specified as well as the occasion and location of the event. The location can again be selected from a list, or a new one can be created by specifying the name of the location and its address. An organizer then invites the attendees by entering their first and last names as well as their email addresses. Sometimes, an organizer is only managing the event but not attending the event. Sometimes, an organizer also attends the event. When an attendee receives the email invitation, the attendee can create an account (if they do not yet have an account) with a new password and their email address from the invitation as their username. Afterwards, the attendee can indicate whether they will attend the event, maybe will attend the event, or cannot attend the event. An organizer can view the invitation status of an event, e.g., how many attendees have replied or have not yet replied and who is coming for sure or maybe will be coming.
+
+When an organizer selects an event, an event-specific checklist is presented to the organizer. For example, a birthday party may have a task to bring a birthday cake. For each task on the checklist, an organizer can indicate that the task needs to be done, has been done, or is not applicable for the event. An organizer can also add new tasks to the list, which will then also be available for the next event. For example, an organizer can add to bring birthday candles to the list for a birthday party and this task will then be available for the next birthday party, too. An organizer can also designate a task on the checklist for attendees to accomplish. For example, an organizer can indicate that the birthday cake should be brought to the event by an attendee. If this is the case, then the list of tasks to be accomplished by attendees is shown to attendees that have confirmed their attendance to the event. An attendee can then select their tasks, so that the organizer can see who is bringing what to the event.
+
+AI:### Enumerations:
+1. EventTypes {BirthdayParty, GraduationParty, ...}
+2. EventStatus {Planned, InProgress, Completed}
+3. AttendanceStatus {Attending, MaybeAttending, NotAttending}
+4. TaskStatus {ToDo, Done, NotApplicable}
+
+### Classes:
+1. Organizer
+   - Attributes:
+     - firstName: String
+     - lastName: String
+     - email: String
+     - address: String
+     - phone: String
+     - password: String
+     - events: List<Event>
+
+2. Event
+   - Attributes:
+     - eventType: EventType
+     - startDate: Date
+     - endDate: Date
+     - occasion: String
+     - location: Location
+     - attendees: List<Attendee>
+     - tasks: List<Task>
+     - organizer: Organizer
+
+3. Location
+   - Attributes:
+     - name: String
+     - address: String
+
+4. Attendee
+   - Attributes:
+     - firstName: String
+     - lastName: String
+     - email: String
+     - password: String
+     - attendanceStatus: AttendanceStatus
+     - tasks: List<Task>
+
+5. Task
+   - Attributes:
+     - description: String
+     - status: TaskStatus
+     - assignedTo: Attendee
+
+### Associations:
+- Organizer has 1-to-many relationship with Event
+- Event has 1-to-many relationship with Attendee
+- Event has 1-to-many relationship with Task
+- Event has 1-to-1 relationship with Organizer
+- Attendee has 1-to-many relationship with Task"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. EventTypes {BirthdayParty, GraduationParty, ...}: Represents the different types of events that can be planned.
+2. EventStatus {Planned, InProgress, Completed}: Indicates the status of an event, whether it is planned, in progress, or completed.
+3. AttendanceStatus {Attending, MaybeAttending, NotAttending}: Represents the different statuses of attendees regarding their attendance to an event.
+4. TaskStatus {ToDo, Done, NotApplicable}: Represents the status of a task, whether it needs to be done, has been done, or is not applicable.
+
+Classes:
+1. Organizer(firstName: String, lastName: String, email: String, address: String, phone: String, password: String, events: List<Event>): Represents an organizer who plans events and manages attendees.
+2. Event(eventType: EventType, startDate: Date, endDate: Date, occasion: String, location: Location, attendees: List<Attendee>, tasks: List<Task>, organizer: Organizer): Represents an event with its details, attendees, tasks, and organizer.
+3. Location(name: String, address: String): Represents a location where an event is held.
+4. Attendee(firstName: String, lastName: String, email: String, password: String, attendanceStatus: AttendanceStatus, tasks: List<Task>): Represents an attendee who can confirm attendance and select tasks to bring to the event.
+5. Task(description: String, status: TaskStatus, assignedTo: Attendee): Represents a task to be completed for an event, with its status and assignee."
+"
+"
+------------------------------------------------------------
+ O  Class:Organizer  Oracle:Organizer
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   X  Attribute:email 
+   O  Attribute:address  Oracle:address 
+   X  Attribute:phone 
+   X  Attribute:password 
+   X  Attribute:events 
+ O  Class:Event  Oracle:Event
+   X  Attribute:eventType 
+   X  Attribute:startDate 
+   X  Attribute:endDate 
+   O  Attribute:occasion  Oracle:occasion 
+   X  Attribute:location 
+   X  Attribute:attendees 
+   X  Attribute:tasks 
+   X  Attribute:organizer 
+ O  Class:Location  Oracle:Location
+   O  Attribute:name  Oracle:name 
+   O  Attribute:address  Oracle:address 
+ O  Class:Attendee  Oracle:Attendee
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   X  Attribute:email 
+   X  Attribute:password 
+   X  Attribute:attendanceStatus 
+   X  Attribute:tasks 
+ X  Class:Task
+   X  Attribute:description 
+   X  Attribute:status 
+   X  Attribute:assignedTo 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------2/10------CeIO:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The CelO application helps families and groups of friends to organize birthday celebrations and other events. Organizers can keep track of which tasks have been completed and who attends. Attendees can indicate what they are bringing to the event.
+
+For a small event, there is typically one organizer, but larger events require several organizers. An organizer provides their first and last name, their email address (which is also used as their username), their postal address, their phone number, and their password. Furthermore, an organizer indicates the kind of event that needs to be planned by selecting from a list of events (e.g., birthday party, graduation party…) or creating a new kind of event. The start date/time and end date/time of the event must be specified as well as the occasion and location of the event. The location can again be selected from a list, or a new one can be created by specifying the name of the location and its address. An organizer then invites the attendees by entering their first and last names as well as their email addresses. Sometimes, an organizer is only managing the event but not attending the event. Sometimes, an organizer also attends the event. When an attendee receives the email invitation, the attendee can create an account (if they do not yet have an account) with a new password and their email address from the invitation as their username. Afterwards, the attendee can indicate whether they will attend the event, maybe will attend the event, or cannot attend the event. An organizer can view the invitation status of an event, e.g., how many attendees have replied or have not yet replied and who is coming for sure or maybe will be coming.
+
+When an organizer selects an event, an event-specific checklist is presented to the organizer. For example, a birthday party may have a task to bring a birthday cake. For each task on the checklist, an organizer can indicate that the task needs to be done, has been done, or is not applicable for the event. An organizer can also add new tasks to the list, which will then also be available for the next event. For example, an organizer can add to bring birthday candles to the list for a birthday party and this task will then be available for the next birthday party, too. An organizer can also designate a task on the checklist for attendees to accomplish. For example, an organizer can indicate that the birthday cake should be brought to the event by an attendee. If this is the case, then the list of tasks to be accomplished by attendees is shown to attendees that have confirmed their attendance to the event. An attendee can then select their tasks, so that the organizer can see who is bringing what to the event.
+
+AI:### Enumerations:
+1. EventTypes (e.g., birthday party, graduation party)
+2. InvitationStatus (e.g., replied, not yet replied, coming for sure, maybe will be coming, cannot attend)
+
+### Classes:
+1. Organizer
+   - Attributes:
+     - firstName: String
+     - lastName: String
+     - email: String
+     - postalAddress: String
+     - phoneNumber: String
+     - password: String
+
+2. Event
+   - Attributes:
+     - eventType: EventType
+     - startDate: Date
+     - endDate: Date
+     - occasion: String
+     - location: Location
+
+3. Location
+   - Attributes:
+     - name: String
+     - address: String
+
+4. Attendee
+   - Attributes:
+     - firstName: String
+     - lastName: String
+     - email: String
+
+5. Task
+   - Attributes:
+     - description: String
+     - status: TaskStatus
+
+### Attributes:
+1. Organizer
+   - isAttending: boolean
+   - eventsOrganizing: List<Event>
+
+2. Event
+   - organizer: Organizer
+   - attendees: List<Attendee>
+   - tasks: List<Task>
+
+3. Location
+   - eventsAtLocation: List<Event>
+
+4. Attendee
+   - isAttending: boolean
+   - tasksSelected: List<Task>
+
+5. Task
+   - isApplicable: boolean
+   - isDone: boolean
+   - assignedToAttendee: Attendee"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. EventTypes (e.g., birthday party, graduation party): Represents the different types of events that can be organized.
+2. InvitationStatus (e.g., replied, not yet replied, coming for sure, maybe will be coming, cannot attend): Represents the status of the invitation response from attendees.
+
+### Classes:
+1. Organizer(firstName: String, lastName: String, email: String, postalAddress: String, phoneNumber: String, password: String, isAttending: boolean, eventsOrganizing: List<Event>): Represents an organizer who plans and manages events.
+2. Event(eventType: EventType, startDate: Date, endDate: Date, occasion: String, location: Location, organizer: Organizer, attendees: List<Attendee>, tasks: List<Task>): Represents an event being organized with details like type, dates, location, and attendees.
+3. Location(name: String, address: String, eventsAtLocation: List<Event>): Represents a location where events can take place.
+4. Attendee(firstName: String, lastName: String, email: String, isAttending: boolean, tasksSelected: List<Task>): Represents an attendee who responds to event invitations and selects tasks to contribute.
+5. Task(description: String, status: TaskStatus, isApplicable: boolean, isDone: boolean, assignedToAttendee: Attendee): Represents a task to be completed for an event with details like description and status."
+"
+"
+------------------------------------------------------------
+ O  Class:EventTypes   Oracle:EventType
+   X  Attribute:e.g. 
+   X  Attribute:party 
+   X  Attribute:party 
+ O  Class:Organizer  Oracle:Organizer
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   X  Attribute:email 
+   X  Attribute:postalAddress 
+   O  Attribute:phoneNumber  Oracle:phoneNumber 
+   X  Attribute:password 
+   X  Attribute:isAttending 
+   X  Attribute:eventsOrganizing 
+ O  Class:Event  Oracle:Event
+   X  Attribute:eventType 
+   X  Attribute:startDate 
+   X  Attribute:endDate 
+   O  Attribute:occasion  Oracle:occasion 
+   X  Attribute:location 
+   X  Attribute:organizer 
+   X  Attribute:attendees 
+   X  Attribute:tasks 
+ O  Class:Location  Oracle:Location
+   O  Attribute:name  Oracle:name 
+   O  Attribute:address  Oracle:address 
+   X  Attribute:eventsAtLocation 
+ O  Class:Attendee  Oracle:Attendee
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   X  Attribute:email 
+   X  Attribute:isAttending 
+   X  Attribute:tasksSelected 
+ X  Class:InvitationStatus 
+   X  Attribute:e.g. 
+   X  Attribute:replied 
+   X  Attribute:yet 
+   X  Attribute:for 
+   X  Attribute:will 
+   X  Attribute:attend 
+ X  Class:Task
+   X  Attribute:description 
+   X  Attribute:status 
+   X  Attribute:isApplicable 
+   X  Attribute:isDone 
+   X  Attribute:assignedToAttendee 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------3/10------CeIO:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The CelO application helps families and groups of friends to organize birthday celebrations and other events. Organizers can keep track of which tasks have been completed and who attends. Attendees can indicate what they are bringing to the event.
+
+For a small event, there is typically one organizer, but larger events require several organizers. An organizer provides their first and last name, their email address (which is also used as their username), their postal address, their phone number, and their password. Furthermore, an organizer indicates the kind of event that needs to be planned by selecting from a list of events (e.g., birthday party, graduation party…) or creating a new kind of event. The start date/time and end date/time of the event must be specified as well as the occasion and location of the event. The location can again be selected from a list, or a new one can be created by specifying the name of the location and its address. An organizer then invites the attendees by entering their first and last names as well as their email addresses. Sometimes, an organizer is only managing the event but not attending the event. Sometimes, an organizer also attends the event. When an attendee receives the email invitation, the attendee can create an account (if they do not yet have an account) with a new password and their email address from the invitation as their username. Afterwards, the attendee can indicate whether they will attend the event, maybe will attend the event, or cannot attend the event. An organizer can view the invitation status of an event, e.g., how many attendees have replied or have not yet replied and who is coming for sure or maybe will be coming.
+
+When an organizer selects an event, an event-specific checklist is presented to the organizer. For example, a birthday party may have a task to bring a birthday cake. For each task on the checklist, an organizer can indicate that the task needs to be done, has been done, or is not applicable for the event. An organizer can also add new tasks to the list, which will then also be available for the next event. For example, an organizer can add to bring birthday candles to the list for a birthday party and this task will then be available for the next birthday party, too. An organizer can also designate a task on the checklist for attendees to accomplish. For example, an organizer can indicate that the birthday cake should be brought to the event by an attendee. If this is the case, then the list of tasks to be accomplished by attendees is shown to attendees that have confirmed their attendance to the event. An attendee can then select their tasks, so that the organizer can see who is bringing what to the event.
+
+AI:### Enumerations:
+1. EventTypes (e.g., birthday party, graduation party)
+2. AttendanceStatus (e.g., attending, maybe attending, not attending)
+3. TaskStatus (e.g., to do, done, not applicable)
+
+### Classes:
+1. Organizer
+   - Attributes:
+     - firstName: String
+     - lastName: String
+     - email: String
+     - postalAddress: String
+     - phoneNumber: String
+     - password: String
+     - eventTypes: List<EventTypes>
+     - events: List<Event>
+   
+2. Attendee
+   - Attributes:
+     - firstName: String
+     - lastName: String
+     - email: String
+     - password: String
+     - attendanceStatus: AttendanceStatus
+     - tasks: List<Task>
+
+3. Event
+   - Attributes:
+     - eventName: String
+     - startDate: DateTime
+     - endDate: DateTime
+     - location: Location
+     - organizer: Organizer
+     - attendees: List<Attendee>
+     - tasks: List<Task>
+
+4. Location
+   - Attributes:
+     - name: String
+     - address: String
+
+5. Task
+   - Attributes:
+     - description: String
+     - taskStatus: TaskStatus
+     - assignedTo: Attendee
+
+### Associations:
+- Organizer has multiple events
+- Organizer creates events
+- Organizer invites attendees
+- Attendee attends events
+- Attendee completes tasks
+- Event has multiple attendees
+- Event has multiple tasks
+- Task is assigned to an attendee"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. EventTypes (e.g., birthday party, graduation party): Represents different types of events that can be planned.
+2. AttendanceStatus (e.g., attending, maybe attending, not attending): Indicates the status of an attendee's attendance to an event.
+3. TaskStatus (e.g., to do, done, not applicable): Represents the status of a task in the checklist.
+
+### Classes:
+1. Organizer(firstName: String, lastName: String, email: String, postalAddress: String, phoneNumber: String, password: String, eventTypes: List<EventTypes>, events: List<Event>): Represents an organizer who plans and manages events.
+2. Attendee(firstName: String, lastName: String, email: String, password: String, attendanceStatus: AttendanceStatus, tasks: List<Task>): Represents an attendee who can indicate their attendance status and tasks for an event.
+3. Event(eventName: String, startDate: DateTime, endDate: DateTime, location: Location, organizer: Organizer, attendees: List<Attendee>, tasks: List<Task>): Represents an event being organized with details like dates, location, and participants.
+4. Location(name: String, address: String): Represents a physical location for an event.
+5. Task(description: String, taskStatus: TaskStatus, assignedTo: Attendee): Represents a task in the checklist with its status and assignment to an attendee."
+"
+"
+------------------------------------------------------------
+ O  Class:EventTypes   Oracle:EventType
+   X  Attribute:e.g. 
+   X  Attribute:party 
+   X  Attribute:party 
+ O  Class:TaskStatus   Oracle:TaskStatus
+   X  Attribute:e.g. 
+   X  Attribute:do 
+   X  Attribute:done 
+   X  Attribute:applicable 
+ O  Class:Organizer  Oracle:Organizer
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   X  Attribute:email 
+   X  Attribute:postalAddress 
+   O  Attribute:phoneNumber  Oracle:phoneNumber 
+   X  Attribute:password 
+   X  Attribute:eventTypes 
+   X  Attribute:events 
+ O  Class:Attendee  Oracle:Attendee
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   X  Attribute:email 
+   X  Attribute:password 
+   X  Attribute:attendanceStatus 
+   X  Attribute:tasks 
+ O  Class:Event  Oracle:Event
+   X  Attribute:eventName 
+   X  Attribute:startDate 
+   X  Attribute:endDate 
+   X  Attribute:location 
+   X  Attribute:organizer 
+   X  Attribute:attendees 
+   X  Attribute:tasks 
+ O  Class:Location  Oracle:Location
+   O  Attribute:name  Oracle:name 
+   O  Attribute:address  Oracle:address 
+ X  Class:AttendanceStatus 
+   X  Attribute:e.g. 
+   X  Attribute:attending 
+   X  Attribute:attending 
+   X  Attribute:attending 
+ X  Class:Task
+   X  Attribute:description 
+   X  Attribute:taskStatus 
+   X  Attribute:assignedTo 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------4/10------CeIO:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The CelO application helps families and groups of friends to organize birthday celebrations and other events. Organizers can keep track of which tasks have been completed and who attends. Attendees can indicate what they are bringing to the event.
+
+For a small event, there is typically one organizer, but larger events require several organizers. An organizer provides their first and last name, their email address (which is also used as their username), their postal address, their phone number, and their password. Furthermore, an organizer indicates the kind of event that needs to be planned by selecting from a list of events (e.g., birthday party, graduation party…) or creating a new kind of event. The start date/time and end date/time of the event must be specified as well as the occasion and location of the event. The location can again be selected from a list, or a new one can be created by specifying the name of the location and its address. An organizer then invites the attendees by entering their first and last names as well as their email addresses. Sometimes, an organizer is only managing the event but not attending the event. Sometimes, an organizer also attends the event. When an attendee receives the email invitation, the attendee can create an account (if they do not yet have an account) with a new password and their email address from the invitation as their username. Afterwards, the attendee can indicate whether they will attend the event, maybe will attend the event, or cannot attend the event. An organizer can view the invitation status of an event, e.g., how many attendees have replied or have not yet replied and who is coming for sure or maybe will be coming.
+
+When an organizer selects an event, an event-specific checklist is presented to the organizer. For example, a birthday party may have a task to bring a birthday cake. For each task on the checklist, an organizer can indicate that the task needs to be done, has been done, or is not applicable for the event. An organizer can also add new tasks to the list, which will then also be available for the next event. For example, an organizer can add to bring birthday candles to the list for a birthday party and this task will then be available for the next birthday party, too. An organizer can also designate a task on the checklist for attendees to accomplish. For example, an organizer can indicate that the birthday cake should be brought to the event by an attendee. If this is the case, then the list of tasks to be accomplished by attendees is shown to attendees that have confirmed their attendance to the event. An attendee can then select their tasks, so that the organizer can see who is bringing what to the event.
+
+AI:### Enumerations:
+1. EventStatus
+   - Attending
+   - MaybeAttending
+   - NotAttending
+
+2. TaskStatus
+   - ToBeDone
+   - Done
+   - NotApplicable
+
+### Classes:
+1. Organizer
+   - Attributes:
+     - firstName: String
+     - lastName: String
+     - email: String
+     - postalAddress: String
+     - phoneNumber: String
+     - password: String
+     - eventKind: String
+     - eventsPlanned: List<Event>
+     - tasksAssigned: List<Task>
+
+2. Event
+   - Attributes:
+     - startDate: Date
+     - endDate: Date
+     - occasion: String
+     - location: Location
+     - attendees: List<Attendee>
+     - invitationStatus: Map<Attendee, EventStatus>
+     - checklist: List<Task>
+
+3. Location
+   - Attributes:
+     - name: String
+     - address: String
+
+4. Attendee
+   - Attributes:
+     - firstName: String
+     - lastName: String
+     - email: String
+     - password: String
+     - RSVPStatus: EventStatus
+     - tasksSelected: List<Task>
+
+5. Task
+   - Attributes:
+     - description: String
+     - status: TaskStatus
+     - assignedTo: Attendee
+
+### Associations:
+- Organizer has 1-to-many relationship with Event (organizing multiple events)
+- Event has 1-to-many relationship with Attendee (multiple attendees for an event)
+- Event has 1-to-many relationship with Task (checklist tasks for an event)
+- Organizer can assign tasks to Attendees for an Event
+- Attendee can select tasks for an Event
+
+This class model captures the essential entities and their relationships for the CelO application."
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. EventStatus (Attending, MaybeAttending, NotAttending): Represents the status of attendee's response to an event invitation.
+
+2. TaskStatus (ToBeDone, Done, NotApplicable): Represents the status of a task in the checklist for an event.
+
+### Classes:
+1. Organizer(firstName: String, lastName: String, email: String, postalAddress: String, phoneNumber: String, password: String, eventKind: String, eventsPlanned: List<Event>, tasksAssigned: List<Task): Represents an organizer who plans and manages events.
+
+2. Event(startDate: Date, endDate: Date, occasion: String, location: Location, attendees: List<Attendee>, invitationStatus: Map<Attendee, EventStatus>, checklist: List<Task): Represents an event with details such as date, location, attendees, and tasks.
+
+3. Location(name: String, address: String): Represents a location for an event.
+
+4. Attendee(firstName: String, lastName: String, email: String, password: String, RSVPStatus: EventStatus, tasksSelected: List<Task): Represents an attendee who responds to event invitations and selects tasks.
+
+5. Task(description: String, status: TaskStatus, assignedTo: Attendee): Represents a task in the checklist for an event with its description, status, and assignment.
+
+This structured format provides a clear overview of the enumerations and classes involved in the CelO application."
+"
+"
+------------------------------------------------------------
+ O  Class:TaskStatus   Oracle:TaskStatus
+   X  Attribute:ToBeDone 
+   X  Attribute:Done 
+   X  Attribute:NotApplicable 
+ O  Class:Organizer  Oracle:Organizer
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   X  Attribute:email 
+   X  Attribute:postalAddress 
+   O  Attribute:phoneNumber  Oracle:phoneNumber 
+   X  Attribute:password 
+   X  Attribute:eventKind 
+   X  Attribute:eventsPlanned 
+   X  Attribute:tasksAssigned 
+ O  Class:Event  Oracle:Event
+   X  Attribute:startDate 
+   X  Attribute:endDate 
+   O  Attribute:occasion  Oracle:occasion 
+   X  Attribute:location 
+   X  Attribute:attendees 
+   X  Attribute:invitationStatus 
+   X  Attribute:EventStatus> 
+   X  Attribute:checklist 
+ O  Class:Location  Oracle:Location
+   O  Attribute:name  Oracle:name 
+   O  Attribute:address  Oracle:address 
+ O  Class:Attendee  Oracle:Attendee
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   X  Attribute:email 
+   X  Attribute:password 
+   X  Attribute:RSVPStatus 
+   X  Attribute:tasksSelected 
+ X  Class:EventStatus 
+   X  Attribute:Attending 
+   X  Attribute:MaybeAttending 
+   X  Attribute:NotAttending 
+ X  Class:Task
+   X  Attribute:description 
+   X  Attribute:status 
+   X  Attribute:assignedTo 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------5/10------CeIO:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The CelO application helps families and groups of friends to organize birthday celebrations and other events. Organizers can keep track of which tasks have been completed and who attends. Attendees can indicate what they are bringing to the event.
+
+For a small event, there is typically one organizer, but larger events require several organizers. An organizer provides their first and last name, their email address (which is also used as their username), their postal address, their phone number, and their password. Furthermore, an organizer indicates the kind of event that needs to be planned by selecting from a list of events (e.g., birthday party, graduation party…) or creating a new kind of event. The start date/time and end date/time of the event must be specified as well as the occasion and location of the event. The location can again be selected from a list, or a new one can be created by specifying the name of the location and its address. An organizer then invites the attendees by entering their first and last names as well as their email addresses. Sometimes, an organizer is only managing the event but not attending the event. Sometimes, an organizer also attends the event. When an attendee receives the email invitation, the attendee can create an account (if they do not yet have an account) with a new password and their email address from the invitation as their username. Afterwards, the attendee can indicate whether they will attend the event, maybe will attend the event, or cannot attend the event. An organizer can view the invitation status of an event, e.g., how many attendees have replied or have not yet replied and who is coming for sure or maybe will be coming.
+
+When an organizer selects an event, an event-specific checklist is presented to the organizer. For example, a birthday party may have a task to bring a birthday cake. For each task on the checklist, an organizer can indicate that the task needs to be done, has been done, or is not applicable for the event. An organizer can also add new tasks to the list, which will then also be available for the next event. For example, an organizer can add to bring birthday candles to the list for a birthday party and this task will then be available for the next birthday party, too. An organizer can also designate a task on the checklist for attendees to accomplish. For example, an organizer can indicate that the birthday cake should be brought to the event by an attendee. If this is the case, then the list of tasks to be accomplished by attendees is shown to attendees that have confirmed their attendance to the event. An attendee can then select their tasks, so that the organizer can see who is bringing what to the event.
+
+AI:### Enumerations:
+1. Event Type (e.g., birthday party, graduation party)
+2. Invitation Status (e.g., replied, not replied, attending, maybe attending, not attending)
+
+### Classes:
+1. Organizer
+   - Attributes:
+     - First Name
+     - Last Name
+     - Email (username)
+     - Postal Address
+     - Phone Number
+     - Password
+     - Event Type (selected or created)
+     - Events (list of events organized)
+     
+2. Event
+   - Attributes:
+     - Start Date/Time
+     - End Date/Time
+     - Occasion
+     - Location
+     - Attendees (list of attendees)
+     - Checklist (list of tasks)
+     
+3. Location
+   - Attributes:
+     - Name
+     - Address
+
+4. Attendee
+   - Attributes:
+     - First Name
+     - Last Name
+     - Email (username)
+     - Password
+     - Invitation Status
+     - Tasks (list of tasks assigned)
+
+5. Task
+   - Attributes:
+     - Description
+     - Status (to do, done, not applicable)
+     - Assigned To (organizer or attendee)
+
+### Note:
+This class model is a high-level representation based on the description provided. Depending on the detailed requirements and functionalities, additional classes, attributes, and relationships may be needed."
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. EventType (e.g., birthday party, graduation party): Represents different types of events that can be organized.
+2. InvitationStatus (e.g., replied, not replied, attending, maybe attending, not attending): Indicates the status of the event invitation for attendees.
+
+### Classes:
+1. Organizer(firstName: String, lastName: String, email: String, postalAddress: String, phoneNumber: String, password: String, eventType: EventType, events: List<Event>): Represents an organizer who plans and manages events.
+2. Event(startDate: DateTime, endDate: DateTime, occasion: String, location: Location, attendees: List<Attendee>, checklist: List<Task>): Represents an event with details like date, occasion, location, attendees, and tasks checklist.
+3. Location(name: String, address: String): Represents a physical location for an event.
+4. Attendee(firstName: String, lastName: String, email: String, password: String, invitationStatus: InvitationStatus, tasks: List<Task>): Represents an attendee who responds to event invitations and completes assigned tasks.
+5. Task(description: String, status: TaskStatus, assignedTo: Assignee): Represents a task to be done for an event with status and assignee information.
+
+### Note:
+This class model provides a structured representation of the entities involved in organizing and managing events using the CelO application."
+"
+"
+------------------------------------------------------------
+ O  Class:EventType   Oracle:EventType
+   X  Attribute:e.g. 
+   X  Attribute:party 
+   X  Attribute:party 
+ O  Class:Organizer  Oracle:Organizer
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   X  Attribute:email 
+   X  Attribute:postalAddress 
+   O  Attribute:phoneNumber  Oracle:phoneNumber 
+   X  Attribute:password 
+   X  Attribute:eventType 
+   X  Attribute:events 
+ O  Class:Event  Oracle:Event
+   X  Attribute:startDate 
+   X  Attribute:endDate 
+   O  Attribute:occasion  Oracle:occasion 
+   X  Attribute:location 
+   X  Attribute:attendees 
+   X  Attribute:checklist 
+ O  Class:Location  Oracle:Location
+   O  Attribute:name  Oracle:name 
+   O  Attribute:address  Oracle:address 
+ O  Class:Attendee  Oracle:Attendee
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   X  Attribute:email 
+   X  Attribute:password 
+   X  Attribute:invitationStatus 
+   X  Attribute:tasks 
+ X  Class:InvitationStatus 
+   X  Attribute:e.g. 
+   X  Attribute:replied 
+   X  Attribute:replied 
+   X  Attribute:attending 
+   X  Attribute:attending 
+   X  Attribute:attending 
+ X  Class:Task
+   X  Attribute:description 
+   X  Attribute:status 
+   X  Attribute:assignedTo 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------6/10------CeIO:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The CelO application helps families and groups of friends to organize birthday celebrations and other events. Organizers can keep track of which tasks have been completed and who attends. Attendees can indicate what they are bringing to the event.
+
+For a small event, there is typically one organizer, but larger events require several organizers. An organizer provides their first and last name, their email address (which is also used as their username), their postal address, their phone number, and their password. Furthermore, an organizer indicates the kind of event that needs to be planned by selecting from a list of events (e.g., birthday party, graduation party…) or creating a new kind of event. The start date/time and end date/time of the event must be specified as well as the occasion and location of the event. The location can again be selected from a list, or a new one can be created by specifying the name of the location and its address. An organizer then invites the attendees by entering their first and last names as well as their email addresses. Sometimes, an organizer is only managing the event but not attending the event. Sometimes, an organizer also attends the event. When an attendee receives the email invitation, the attendee can create an account (if they do not yet have an account) with a new password and their email address from the invitation as their username. Afterwards, the attendee can indicate whether they will attend the event, maybe will attend the event, or cannot attend the event. An organizer can view the invitation status of an event, e.g., how many attendees have replied or have not yet replied and who is coming for sure or maybe will be coming.
+
+When an organizer selects an event, an event-specific checklist is presented to the organizer. For example, a birthday party may have a task to bring a birthday cake. For each task on the checklist, an organizer can indicate that the task needs to be done, has been done, or is not applicable for the event. An organizer can also add new tasks to the list, which will then also be available for the next event. For example, an organizer can add to bring birthday candles to the list for a birthday party and this task will then be available for the next birthday party, too. An organizer can also designate a task on the checklist for attendees to accomplish. For example, an organizer can indicate that the birthday cake should be brought to the event by an attendee. If this is the case, then the list of tasks to be accomplished by attendees is shown to attendees that have confirmed their attendance to the event. An attendee can then select their tasks, so that the organizer can see who is bringing what to the event.
+
+AI:### Enumerations:
+1. EventStatus (Attending, MaybeAttending, NotAttending)
+2. TaskStatus (ToBeDone, Done, NotApplicable)
+
+### Classes:
+1. Organizer
+   - Attributes:
+     - firstName: String
+     - lastName: String
+     - email: String
+     - postalAddress: String
+     - phoneNumber: String
+     - password: String
+     - eventKind: String
+     - eventsPlanned: List<Event>
+     - tasksAssigned: List<Task>
+
+2. Event
+   - Attributes:
+     - startDate: Date
+     - endDate: Date
+     - occasion: String
+     - location: Location
+     - attendees: List<Attendee>
+     - invitationStatus: List<AttendeeInvitationStatus>
+     - checklist: List<Task>
+
+3. Location
+   - Attributes:
+     - name: String
+     - address: String
+
+4. Attendee
+   - Attributes:
+     - firstName: String
+     - lastName: String
+     - email: String
+     - password: String
+     - eventStatus: EventStatus
+     - tasksSelected: List<Task>
+
+5. Task
+   - Attributes:
+     - description: String
+     - status: TaskStatus
+     - assignedTo: Attendee
+
+6. AttendeeInvitationStatus
+   - Attributes:
+     - attendee: Attendee
+     - status: EventStatus
+
+### Relationships:
+- Organizer can plan multiple events (1-to-many with Event)
+- Organizer can assign multiple tasks (1-to-many with Task)
+- Event has multiple attendees (1-to-many with Attendee)
+- Event has multiple invitation statuses (1-to-many with AttendeeInvitationStatus)
+- Event has multiple tasks in the checklist (1-to-many with Task)
+- Task can be assigned to an attendee (many-to-1 with Attendee)"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. EventStatus (Attending, MaybeAttending, NotAttending): Represents the status of attendee's response to an event invitation.
+2. TaskStatus (ToBeDone, Done, NotApplicable): Represents the status of a task in the checklist.
+
+### Classes:
+1. Organizer(firstName: String, lastName: String, email: String, postalAddress: String, phoneNumber: String, password: String, eventKind: String, eventsPlanned: List<Event>, tasksAssigned: List<Task): Represents an individual organizing an event with their details and associated events and tasks.
+   
+2. Event(startDate: Date, endDate: Date, occasion: String, location: Location, attendees: List<Attendee>, invitationStatus: List<AttendeeInvitationStatus>, checklist: List<Task): Represents an event with its details, attendees, invitation statuses, and checklist of tasks.
+
+3. Location(name: String, address: String): Represents a location for an event with its name and address.
+
+4. Attendee(firstName: String, lastName: String, email: String, password: String, eventStatus: EventStatus, tasksSelected: List<Task): Represents an attendee with their details, event status, and selected tasks.
+
+5. Task(description: String, status: TaskStatus, assignedTo: Attendee): Represents a task in the checklist with its description, status, and assigned attendee.
+
+6. AttendeeInvitationStatus(attendee: Attendee, status: EventStatus): Represents the invitation status of an attendee for an event."
+"
+"
+------------------------------------------------------------
+ O  Class:TaskStatus   Oracle:TaskStatus
+   X  Attribute:ToBeDone 
+   X  Attribute:Done 
+   X  Attribute:NotApplicable 
+ O  Class:Organizer  Oracle:Organizer
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   X  Attribute:email 
+   X  Attribute:postalAddress 
+   O  Attribute:phoneNumber  Oracle:phoneNumber 
+   X  Attribute:password 
+   X  Attribute:eventKind 
+   X  Attribute:eventsPlanned 
+   X  Attribute:tasksAssigned 
+ O  Class:Event  Oracle:Event
+   X  Attribute:startDate 
+   X  Attribute:endDate 
+   O  Attribute:occasion  Oracle:occasion 
+   X  Attribute:location 
+   X  Attribute:attendees 
+   X  Attribute:invitationStatus 
+   X  Attribute:checklist 
+ O  Class:Location  Oracle:Location
+   O  Attribute:name  Oracle:name 
+   O  Attribute:address  Oracle:address 
+ O  Class:Attendee  Oracle:Attendee
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   X  Attribute:email 
+   X  Attribute:password 
+   X  Attribute:eventStatus 
+   X  Attribute:tasksSelected 
+ X  Class:EventStatus 
+   X  Attribute:Attending 
+   X  Attribute:MaybeAttending 
+   X  Attribute:NotAttending 
+ X  Class:Task
+   X  Attribute:description 
+   X  Attribute:status 
+   X  Attribute:assignedTo 
+ X  Class:AttendeeInvitationStatus
+   X  Attribute:attendee 
+   X  Attribute:status 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------7/10------CeIO:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The CelO application helps families and groups of friends to organize birthday celebrations and other events. Organizers can keep track of which tasks have been completed and who attends. Attendees can indicate what they are bringing to the event.
+
+For a small event, there is typically one organizer, but larger events require several organizers. An organizer provides their first and last name, their email address (which is also used as their username), their postal address, their phone number, and their password. Furthermore, an organizer indicates the kind of event that needs to be planned by selecting from a list of events (e.g., birthday party, graduation party…) or creating a new kind of event. The start date/time and end date/time of the event must be specified as well as the occasion and location of the event. The location can again be selected from a list, or a new one can be created by specifying the name of the location and its address. An organizer then invites the attendees by entering their first and last names as well as their email addresses. Sometimes, an organizer is only managing the event but not attending the event. Sometimes, an organizer also attends the event. When an attendee receives the email invitation, the attendee can create an account (if they do not yet have an account) with a new password and their email address from the invitation as their username. Afterwards, the attendee can indicate whether they will attend the event, maybe will attend the event, or cannot attend the event. An organizer can view the invitation status of an event, e.g., how many attendees have replied or have not yet replied and who is coming for sure or maybe will be coming.
+
+When an organizer selects an event, an event-specific checklist is presented to the organizer. For example, a birthday party may have a task to bring a birthday cake. For each task on the checklist, an organizer can indicate that the task needs to be done, has been done, or is not applicable for the event. An organizer can also add new tasks to the list, which will then also be available for the next event. For example, an organizer can add to bring birthday candles to the list for a birthday party and this task will then be available for the next birthday party, too. An organizer can also designate a task on the checklist for attendees to accomplish. For example, an organizer can indicate that the birthday cake should be brought to the event by an attendee. If this is the case, then the list of tasks to be accomplished by attendees is shown to attendees that have confirmed their attendance to the event. An attendee can then select their tasks, so that the organizer can see who is bringing what to the event.
+
+AI:## Enumerations:
+1. EventTypes (e.g., birthday party, graduation party...)
+2. InvitationStatus (e.g., replied, not yet replied, attending, maybe attending, cannot attend)
+
+## Classes:
+1. Organizer
+   - Attributes:
+     - firstName: String
+     - lastName: String
+     - email: String
+     - postalAddress: String
+     - phoneNumber: String
+     - password: String
+     - events: List<Event>
+     - tasks: List<Task>
+
+2. Event
+   - Attributes:
+     - eventType: EventType
+     - startDate: Date
+     - endDate: Date
+     - occasion: String
+     - location: Location
+     - attendees: List<Attendee>
+     - tasks: List<Task>
+
+3. Location
+   - Attributes:
+     - name: String
+     - address: String
+
+4. Attendee
+   - Attributes:
+     - firstName: String
+     - lastName: String
+     - email: String
+     - password: String
+     - event: Event
+     - tasks: List<Task>
+     - attendanceStatus: InvitationStatus
+
+5. Task
+   - Attributes:
+     - description: String
+     - status: TaskStatus
+     - assignedTo: Attendee
+
+## Note:
+- TaskStatus can be an enumeration with values like ""to do"", ""done"", ""not applicable"".
+- You may need to add more attributes or methods to the classes based on additional requirements or functionalities."
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. EventTypes (e.g., birthday party, graduation party...): Represents the different types of events that can be organized.
+2. InvitationStatus (e.g., replied, not yet replied, attending, maybe attending, cannot attend): Represents the status of the invitation response for attendees.
+
+Classes:
+1. Organizer(firstName: String, lastName: String, email: String, postalAddress: String, phoneNumber: String, password: String, events: List<Event>, tasks: List<Task>): Represents an organizer who plans and manages events.
+2. Event(eventType: EventType, startDate: Date, endDate: Date, occasion: String, location: Location, attendees: List<Attendee>, tasks: List<Task>): Represents an event with details such as type, dates, location, attendees, and tasks.
+3. Location(name: String, address: String): Represents a location where an event can take place.
+4. Attendee(firstName: String, lastName: String, email: String, password: String, event: Event, tasks: List<Task>, attendanceStatus: InvitationStatus): Represents an attendee who responds to event invitations and may have tasks assigned.
+5. Task(description: String, status: TaskStatus, assignedTo: Attendee): Represents a task to be completed for an event with its status and assignment information."
+"
+"
+------------------------------------------------------------
+ O  Class:EventTypes   Oracle:EventType
+   X  Attribute:e.g. 
+   X  Attribute:party 
+ O  Class:Organizer  Oracle:Organizer
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   X  Attribute:email 
+   X  Attribute:postalAddress 
+   O  Attribute:phoneNumber  Oracle:phoneNumber 
+   X  Attribute:password 
+   X  Attribute:events 
+   X  Attribute:tasks 
+ O  Class:Event  Oracle:Event
+   X  Attribute:eventType 
+   X  Attribute:startDate 
+   X  Attribute:endDate 
+   O  Attribute:occasion  Oracle:occasion 
+   X  Attribute:location 
+   X  Attribute:attendees 
+   X  Attribute:tasks 
+ O  Class:Location  Oracle:Location
+   O  Attribute:name  Oracle:name 
+   O  Attribute:address  Oracle:address 
+ O  Class:Attendee  Oracle:Attendee
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   X  Attribute:email 
+   X  Attribute:password 
+   X  Attribute:event 
+   X  Attribute:tasks 
+   X  Attribute:attendanceStatus 
+ X  Class:InvitationStatus 
+   X  Attribute:e.g. 
+   X  Attribute:replied 
+   X  Attribute:yet 
+   X  Attribute:attending 
+   X  Attribute:attending 
+   X  Attribute:attend 
+ X  Class:Task
+   X  Attribute:description 
+   X  Attribute:status 
+   X  Attribute:assignedTo 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------8/10------CeIO:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The CelO application helps families and groups of friends to organize birthday celebrations and other events. Organizers can keep track of which tasks have been completed and who attends. Attendees can indicate what they are bringing to the event.
+
+For a small event, there is typically one organizer, but larger events require several organizers. An organizer provides their first and last name, their email address (which is also used as their username), their postal address, their phone number, and their password. Furthermore, an organizer indicates the kind of event that needs to be planned by selecting from a list of events (e.g., birthday party, graduation party…) or creating a new kind of event. The start date/time and end date/time of the event must be specified as well as the occasion and location of the event. The location can again be selected from a list, or a new one can be created by specifying the name of the location and its address. An organizer then invites the attendees by entering their first and last names as well as their email addresses. Sometimes, an organizer is only managing the event but not attending the event. Sometimes, an organizer also attends the event. When an attendee receives the email invitation, the attendee can create an account (if they do not yet have an account) with a new password and their email address from the invitation as their username. Afterwards, the attendee can indicate whether they will attend the event, maybe will attend the event, or cannot attend the event. An organizer can view the invitation status of an event, e.g., how many attendees have replied or have not yet replied and who is coming for sure or maybe will be coming.
+
+When an organizer selects an event, an event-specific checklist is presented to the organizer. For example, a birthday party may have a task to bring a birthday cake. For each task on the checklist, an organizer can indicate that the task needs to be done, has been done, or is not applicable for the event. An organizer can also add new tasks to the list, which will then also be available for the next event. For example, an organizer can add to bring birthday candles to the list for a birthday party and this task will then be available for the next birthday party, too. An organizer can also designate a task on the checklist for attendees to accomplish. For example, an organizer can indicate that the birthday cake should be brought to the event by an attendee. If this is the case, then the list of tasks to be accomplished by attendees is shown to attendees that have confirmed their attendance to the event. An attendee can then select their tasks, so that the organizer can see who is bringing what to the event.
+
+AI:### Enumerations:
+1. EventTypes (e.g., birthday party, graduation party...)
+2. InvitationStatus (e.g., replied, not replied, coming for sure, maybe will be coming)
+
+### Classes:
+1. Organizer
+   - Attributes:
+     - firstName: String
+     - lastName: String
+     - email: String
+     - postalAddress: String
+     - phoneNumber: String
+     - password: String
+     - eventTypes: List<EventTypes>
+     - events: List<Event>
+     - tasks: List<Task>
+     - invitedAttendees: List<Attendee>
+
+2. Attendee
+   - Attributes:
+     - firstName: String
+     - lastName: String
+     - email: String
+     - password: String
+     - attendingStatus: String
+     - tasks: List<Task>
+
+3. Event
+   - Attributes:
+     - eventType: EventTypes
+     - startDate: Date
+     - endDate: Date
+     - occasion: String
+     - location: Location
+     - checklist: List<Task>
+     - attendeeTasks: List<Task>
+
+4. Location
+   - Attributes:
+     - name: String
+     - address: String
+
+5. Task
+   - Attributes:
+     - description: String
+     - status: String
+     - assignedTo: Attendee
+
+### Note:
+- The attributes and their data types may need further refinement based on the specific requirements and design decisions."
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. EventTypes (e.g., birthday party, graduation party...): Represents different types of events that can be organized.
+2. InvitationStatus (e.g., replied, not replied, coming for sure, maybe will be coming): Represents the status of invitations for an event.
+
+### Classes:
+1. Organizer(firstName: String, lastName: String, email: String, postalAddress: String, phoneNumber: String, password: String, eventTypes: List<EventTypes>, events: List<Event>, tasks: List<Task>, invitedAttendees: List<Attendee>): Represents an organizer who plans and manages events.
+   
+2. Attendee(firstName: String, lastName: String, email: String, password: String, attendingStatus: String, tasks: List<Task>): Represents an attendee who can confirm attendance and select tasks for an event.
+
+3. Event(eventType: EventTypes, startDate: Date, endDate: Date, occasion: String, location: Location, checklist: List<Task>, attendeeTasks: List<Task>): Represents an event with details such as type, dates, location, and tasks.
+
+4. Location(name: String, address: String): Represents a location where an event can take place.
+
+5. Task(description: String, status: String, assignedTo: Attendee): Represents a task to be completed for an event, with status and assignment information."
+"
+"
+------------------------------------------------------------
+ O  Class:EventTypes   Oracle:EventType
+   X  Attribute:e.g. 
+   X  Attribute:party 
+ O  Class:Organizer  Oracle:Organizer
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   X  Attribute:email 
+   X  Attribute:postalAddress 
+   O  Attribute:phoneNumber  Oracle:phoneNumber 
+   X  Attribute:password 
+   X  Attribute:eventTypes 
+   X  Attribute:events 
+   X  Attribute:tasks 
+   X  Attribute:invitedAttendees 
+ O  Class:Attendee  Oracle:Attendee
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   X  Attribute:email 
+   X  Attribute:password 
+   X  Attribute:attendingStatus 
+   X  Attribute:tasks 
+ O  Class:Event  Oracle:Event
+   X  Attribute:eventType 
+   X  Attribute:startDate 
+   X  Attribute:endDate 
+   O  Attribute:occasion  Oracle:occasion 
+   X  Attribute:location 
+   X  Attribute:checklist 
+   X  Attribute:attendeeTasks 
+ O  Class:Location  Oracle:Location
+   O  Attribute:name  Oracle:name 
+   O  Attribute:address  Oracle:address 
+ X  Class:InvitationStatus 
+   X  Attribute:e.g. 
+   X  Attribute:replied 
+   X  Attribute:replied 
+   X  Attribute:for 
+   X  Attribute:will 
+ X  Class:Task
+   X  Attribute:description 
+   X  Attribute:status 
+   X  Attribute:assignedTo 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------9/10------CeIO:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The CelO application helps families and groups of friends to organize birthday celebrations and other events. Organizers can keep track of which tasks have been completed and who attends. Attendees can indicate what they are bringing to the event.
+
+For a small event, there is typically one organizer, but larger events require several organizers. An organizer provides their first and last name, their email address (which is also used as their username), their postal address, their phone number, and their password. Furthermore, an organizer indicates the kind of event that needs to be planned by selecting from a list of events (e.g., birthday party, graduation party…) or creating a new kind of event. The start date/time and end date/time of the event must be specified as well as the occasion and location of the event. The location can again be selected from a list, or a new one can be created by specifying the name of the location and its address. An organizer then invites the attendees by entering their first and last names as well as their email addresses. Sometimes, an organizer is only managing the event but not attending the event. Sometimes, an organizer also attends the event. When an attendee receives the email invitation, the attendee can create an account (if they do not yet have an account) with a new password and their email address from the invitation as their username. Afterwards, the attendee can indicate whether they will attend the event, maybe will attend the event, or cannot attend the event. An organizer can view the invitation status of an event, e.g., how many attendees have replied or have not yet replied and who is coming for sure or maybe will be coming.
+
+When an organizer selects an event, an event-specific checklist is presented to the organizer. For example, a birthday party may have a task to bring a birthday cake. For each task on the checklist, an organizer can indicate that the task needs to be done, has been done, or is not applicable for the event. An organizer can also add new tasks to the list, which will then also be available for the next event. For example, an organizer can add to bring birthday candles to the list for a birthday party and this task will then be available for the next birthday party, too. An organizer can also designate a task on the checklist for attendees to accomplish. For example, an organizer can indicate that the birthday cake should be brought to the event by an attendee. If this is the case, then the list of tasks to be accomplished by attendees is shown to attendees that have confirmed their attendance to the event. An attendee can then select their tasks, so that the organizer can see who is bringing what to the event.
+
+AI:### Enumerations:
+1. **Event Type**:
+   - Birthday Party
+   - Graduation Party
+   - Custom
+
+2. **Attendee Response**:
+   - Attending
+   - Maybe Attending
+   - Not Attending
+
+3. **Task Status**:
+   - To Do
+   - Completed
+   - Not Applicable
+
+### Classes:
+1. **Organizer**:
+   - Attributes:
+     - First Name
+     - Last Name
+     - Email Address (Username)
+     - Postal Address
+     - Phone Number
+     - Password
+     - Event Type (Event Type)
+     - Start Date/Time
+     - End Date/Time
+     - Occasion
+     - Location (Location)
+     - Invited Attendees (List of Attendee)
+     - Attending (Boolean)
+  
+2. **Location**:
+   - Attributes:
+     - Name
+     - Address
+
+3. **Attendee**:
+   - Attributes:
+     - First Name
+     - Last Name
+     - Email Address (Username)
+     - Password
+     - Response (Attendee Response)
+     - Tasks (List of Task)
+
+4. **Task**:
+   - Attributes:
+     - Description
+     - Status (Task Status)
+     - Assigned To (Attendee)
+
+### Additional Classes:
+1. **Checklist**:
+   - Attributes:
+     - Event Type
+     - Tasks (List of Task)
+
+2. **Event**:
+   - Attributes:
+     - Organizer
+     - Guests (List of Attendee)
+     - Checklist (Checklist)
+
+3. **TaskAssignment**:
+   - Attributes:
+     - Task
+     - Assignee (Attendee)
+
+### Note:
+This is a high-level class model based on the provided description. Depending on the implementation details and requirements, additional classes, methods, and relationships may be needed."
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. EventType(Birthday Party, Graduation Party, Custom): Represents the type of event that can be planned by organizers.
+2. AttendeeResponse(Attending, Maybe Attending, Not Attending): Indicates the response of an attendee towards attending an event.
+3. TaskStatus(To Do, Completed, Not Applicable): Represents the status of a task on the checklist.
+
+### Classes:
+1. Organizer(firstName: String, lastName: String, emailAddress: String, postalAddress: String, phoneNumber: String, password: String, eventType: EventType, startDate: DateTime, endDate: DateTime, occasion: String, location: Location, invitedAttendees: List<Attendee>, attending: Boolean): Represents the organizer who plans and manages the event.
+   
+2. Location(name: String, address: String): Represents the physical location where the event will take place.
+
+3. Attendee(firstName: String, lastName: String, emailAddress: String, password: String, response: AttendeeResponse, tasks: List<Task>): Represents an attendee who responds to event invitations and completes tasks.
+
+4. Task(description: String, status: TaskStatus, assignedTo: Attendee): Represents a task on the checklist with its status and assignment.
+
+5. Checklist(eventType: EventType, tasks: List<Task>): Represents the checklist specific to an event type.
+
+6. Event(organizer: Organizer, guests: List<Attendee>, checklist: Checklist): Represents an event with its organizer, guests, and checklist.
+
+7. TaskAssignment(task: Task, assignee: Attendee): Represents the assignment of a task to an attendee."
+"
+"
+------------------------------------------------------------
+ O  Class:EventType  Oracle:EventType
+   X  Attribute:Party 
+   X  Attribute:Party 
+   X  Attribute:Custom 
+ O  Class:TaskStatus  Oracle:TaskStatus
+   X  Attribute:Do 
+   X  Attribute:Completed 
+   X  Attribute:Applicable 
+ O  Class:Organizer  Oracle:Organizer
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   X  Attribute:emailAddress 
+   X  Attribute:postalAddress 
+   O  Attribute:phoneNumber  Oracle:phoneNumber 
+   X  Attribute:password 
+   X  Attribute:eventType 
+   X  Attribute:startDate 
+   X  Attribute:endDate 
+   X  Attribute:occasion 
+   X  Attribute:location 
+   X  Attribute:invitedAttendees 
+   X  Attribute:attending 
+ O  Class:Location  Oracle:Location
+   O  Attribute:name  Oracle:name 
+   O  Attribute:address  Oracle:address 
+ O  Class:Attendee  Oracle:Attendee
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   X  Attribute:emailAddress 
+   X  Attribute:password 
+   X  Attribute:response 
+   X  Attribute:tasks 
+ O  Class:Checklist  Oracle:CheckList
+   X  Attribute:eventType 
+   X  Attribute:tasks 
+ O  Class:Event  Oracle:Event
+   X  Attribute:organizer 
+   X  Attribute:guests 
+   X  Attribute:checklist 
+ X  Class:AttendeeResponse
+   X  Attribute:Attending 
+   X  Attribute:Attending 
+   X  Attribute:Attending 
+ X  Class:Task
+   X  Attribute:description 
+   X  Attribute:status 
+   X  Attribute:assignedTo 
+ X  Class:TaskAssignment
+   X  Attribute:task 
+   X  Attribute:assignee 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------10/10------CeIO:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The CelO application helps families and groups of friends to organize birthday celebrations and other events. Organizers can keep track of which tasks have been completed and who attends. Attendees can indicate what they are bringing to the event.
+
+For a small event, there is typically one organizer, but larger events require several organizers. An organizer provides their first and last name, their email address (which is also used as their username), their postal address, their phone number, and their password. Furthermore, an organizer indicates the kind of event that needs to be planned by selecting from a list of events (e.g., birthday party, graduation party…) or creating a new kind of event. The start date/time and end date/time of the event must be specified as well as the occasion and location of the event. The location can again be selected from a list, or a new one can be created by specifying the name of the location and its address. An organizer then invites the attendees by entering their first and last names as well as their email addresses. Sometimes, an organizer is only managing the event but not attending the event. Sometimes, an organizer also attends the event. When an attendee receives the email invitation, the attendee can create an account (if they do not yet have an account) with a new password and their email address from the invitation as their username. Afterwards, the attendee can indicate whether they will attend the event, maybe will attend the event, or cannot attend the event. An organizer can view the invitation status of an event, e.g., how many attendees have replied or have not yet replied and who is coming for sure or maybe will be coming.
+
+When an organizer selects an event, an event-specific checklist is presented to the organizer. For example, a birthday party may have a task to bring a birthday cake. For each task on the checklist, an organizer can indicate that the task needs to be done, has been done, or is not applicable for the event. An organizer can also add new tasks to the list, which will then also be available for the next event. For example, an organizer can add to bring birthday candles to the list for a birthday party and this task will then be available for the next birthday party, too. An organizer can also designate a task on the checklist for attendees to accomplish. For example, an organizer can indicate that the birthday cake should be brought to the event by an attendee. If this is the case, then the list of tasks to be accomplished by attendees is shown to attendees that have confirmed their attendance to the event. An attendee can then select their tasks, so that the organizer can see who is bringing what to the event.
+
+AI:### Enumerations:
+1. EventTypes (e.g., birthday party, graduation party)
+2. InvitationStatus (e.g., replied, not replied, coming for sure, maybe will be coming)
+3. TaskStatus (e.g., to be done, has been done, not applicable)
+
+### Classes:
+1. Organizer
+   - Attributes:
+     - firstName: String
+     - lastName: String
+     - email: String
+     - postalAddress: String
+     - phoneNumber: String
+     - password: String
+     - eventTypes: List\<EventTypes\>
+     - events: List\<Event\>
+     
+2. Event
+   - Attributes:
+     - startDate: Date
+     - endDate: Date
+     - occasion: String
+     - location: Location
+     - attendees: List\<Attendee\>
+     - tasks: List\<Task\>
+     
+3. Location
+   - Attributes:
+     - name: String
+     - address: String
+
+4. Attendee
+   - Attributes:
+     - firstName: String
+     - lastName: String
+     - email: String
+     - password: String
+     - attendingStatus: InvitationStatus
+     - tasks: List\<Task\>
+
+5. Task
+   - Attributes:
+     - description: String
+     - status: TaskStatus
+     - assignedToAttendee: Attendee
+
+### Note:
+- The relationships between the classes (e.g., Organizer has events, Event has attendees) are not explicitly defined in this list of classes and attributes. Depending on the design requirements, these relationships can be represented using associations, aggregations, or compositions in the class diagram."
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. EventTypes (e.g., birthday party, graduation party): Represents different types of events that can be planned.
+2. InvitationStatus (e.g., replied, not replied, coming for sure, maybe will be coming): Indicates the status of the invitation for an event.
+3. TaskStatus (e.g., to be done, has been done, not applicable): Represents the status of a task on the checklist.
+
+### Classes:
+1. Organizer(firstName: String, lastName: String, email: String, postalAddress: String, phoneNumber: String, password: String, eventTypes: List<EventTypes>, events: List<Event>): Represents an organizer who plans and manages events.
+   
+2. Event(startDate: Date, endDate: Date, occasion: String, location: Location, attendees: List<Attendee>, tasks: List<Task>): Represents an event with its details, attendees, and tasks to be completed.
+
+3. Location(name: String, address: String): Represents a location where an event can take place.
+
+4. Attendee(firstName: String, lastName: String, email: String, password: String, attendingStatus: InvitationStatus, tasks: List<Task>): Represents an attendee who can confirm their attendance and select tasks to complete.
+
+5. Task(description: String, status: TaskStatus, assignedToAttendee: Attendee): Represents a task on the checklist with its description, status, and assignment to an attendee for completion."
+"
+"
+------------------------------------------------------------
+ O  Class:EventTypes   Oracle:EventType
+   X  Attribute:e.g. 
+   X  Attribute:party 
+   X  Attribute:party 
+ O  Class:TaskStatus   Oracle:TaskStatus
+   X  Attribute:e.g. 
+   X  Attribute:be 
+   X  Attribute:been 
+   X  Attribute:applicable 
+ O  Class:Organizer  Oracle:Organizer
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   X  Attribute:email 
+   X  Attribute:postalAddress 
+   O  Attribute:phoneNumber  Oracle:phoneNumber 
+   X  Attribute:password 
+   X  Attribute:eventTypes 
+   X  Attribute:events 
+ O  Class:Event  Oracle:Event
+   X  Attribute:startDate 
+   X  Attribute:endDate 
+   O  Attribute:occasion  Oracle:occasion 
+   X  Attribute:location 
+   X  Attribute:attendees 
+   X  Attribute:tasks 
+ O  Class:Location  Oracle:Location
+   O  Attribute:name  Oracle:name 
+   O  Attribute:address  Oracle:address 
+ O  Class:Attendee  Oracle:Attendee
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   X  Attribute:email 
+   X  Attribute:password 
+   X  Attribute:attendingStatus 
+   X  Attribute:tasks 
+ X  Class:InvitationStatus 
+   X  Attribute:e.g. 
+   X  Attribute:replied 
+   X  Attribute:replied 
+   X  Attribute:for 
+   X  Attribute:will 
+ X  Class:Task
+   X  Attribute:description 
+   X  Attribute:status 
+   X  Attribute:assignedToAttendee 

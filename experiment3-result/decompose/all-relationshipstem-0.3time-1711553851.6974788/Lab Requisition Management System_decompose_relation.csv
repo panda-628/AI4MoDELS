@@ -1,0 +1,590 @@
+---------------------1/10------Lab Requisition Management System:
+AI_answer_after_cut:
++ 1 Requisition associate 1 Doctor
++ 1 Requisition associate 1 Patient
++ 1 Requisition associate * SpecificTest
++ 1 SpecificTest associate 1 Test
++ 1 Patient associate * Appointment
++ 1 Appointment associate 1 Lab
++ 1 TestResult associate 1 SpecificTest
++ 1 TestResult associate 1 Person
+
+
++ 1 LabTracker contain * Lab
++ 1 LabTracker contain * BusinessHour
++ 1 LabTracker contain * TestType
++ 1 Person contain * TestResult
++ 1 Person contain * Appointment
++ 1 Person contain * Requisition
++ 1 Requisition contain * SpecificTest
++ 1 SpecificTest contain * Test
+AI_answer_after_cut:
++ Person extends PersonRole
++ Patient extends Person
++ Doctor extends Person
++ Requisition extends TestResult
++ SpecificTest extends Test
++ Appointment extends BusinessHour
++ Lab extends LabTracker
+
+#Description
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably. 
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient?? information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor. 
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests. 
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern. 
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report. 
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample). 
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab?? address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day?? start time to its end time, i.e., there are no breaks.
+result_presicion = 0.375
+result_recall = 0.2727272727272727
+result_F1 = 0.3157894736842105
+---------------------2/10------Lab Requisition Management System:
+AI_answer_after_cut:
++ 1 Requisition associate 1 Doctor
++ 1 Requisition associate 1 Patient
++ 1 Requisition associate * SpecificTest
++ 1 SpecificTest associate 1 Test
++ 1 SpecificTest associate * TestResult
++ 1 Patient associate * Appointment
++ 1 Appointment associate 1 Lab
+
+
++ 1 LabTracker contain * Lab
++ 1 LabTracker contain * BusinessHour
++ 1 Lab contain * Test
++ 1 Lab contain * Appointment
++ 1 Lab contain * TestResult
++ 1 Lab contain * SpecificTest
++ 1 Lab contain * Requisition
++ 1 Person contain * Requisition
++ 1 Person contain * Appointment
++ 1 Requisition contain * SpecificTest
+AI_answer_after_cut:
++ Person extends PersonRole
++ Patient extends Person
++ Doctor extends Person
++ Requisition extends Test
++ TestResult extends Test
++ SpecificTest extends Test
++ Appointment extends Test
++ BusinessHour extends DayOfWeek
++ Lab extends AccessType
+
+#Description
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably.
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient's information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor.
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests.
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern.
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report.
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample).
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab's address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day's start time to its end time, i.e., there are no breaks.
+
+#Classes
++ Interval()
++ AccessType()
++ DayOfWeek()
++ LabTracker()
++ Person()
++ abstract PersonRole()
++ Patient()
++ Doctor()
++ Requisition()
++ TestResult()
++ SpecificTest()
++ Appointment()
++ BusinessHour()
++ Lab()
++ Test()
++ TestType()
+result_presicion = 0.29411764705882354
+result_recall = 0.22727272727272727
+result_F1 = 0.25641025641025644
+---------------------3/10------Lab Requisition Management System:
+AI_answer_after_cut:
++ 1 Requisition associate 1 Doctor
++ 1 Requisition associate 1 Patient
++ 1 Requisition associate * SpecificTest
++ 1 SpecificTest associate 1 Test
++ 1 SpecificTest associate 1 Interval
++ 1 SpecificTest associate 1 AccessType
++ 1 SpecificTest associate * TestResult
++ 1 Patient associate * Appointment
++ 1 Appointment associate 1 Lab
++ 1 Lab associate * BusinessHour
+
+
++ 1 LabTracker contain * Lab
++ 1 LabTracker contain * TestType
++ 1 LabTracker contain * Test
++ 1 LabTracker contain * Person
++ 1 LabTracker contain * Requisition
++ 1 LabTracker contain * Appointment
++ 1 LabTracker contain * BusinessHour
+AI_answer_after_cut:
++ Person extends PersonRole
++ Patient extends Person
++ Doctor extends Person
++ Requisition extends TestResult
++ SpecificTest extends Test
++ Appointment extends AccessType
++ Lab extends LabTracker
+
+#Description
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably. 
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient?? information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor. 
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests. 
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern. 
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report. 
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample). 
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab?? address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day?? start time to its end time, i.e., there are no breaks. 
+
+#Classes
++Interval()
++AccessType()
++DayOfWeek()
++LabTracker()
++Person()
++abstract PersonRole()
++Patient()
++Doctor()
++Requisition()
++TestResult()
++SpecificTest()
++Appointment()
++BusinessHour()
++Lab()
++Test()
++TestType()
+result_presicion = 0.5882352941176471
+result_recall = 0.45454545454545453
+result_F1 = 0.5128205128205129
+---------------------4/10------Lab Requisition Management System:
+AI_answer_after_cut:
++ 1 Requisition associate 1 Doctor
++ 1 Requisition associate 1 Patient
++ 1 Requisition associate * SpecificTest
++ 1 SpecificTest associate 1 Test
++ 1 SpecificTest associate * TestResult
++ 1 Patient associate * Appointment
++ 1 Appointment associate 1 Lab
++ 1 Lab associate * BusinessHour
+
+
++ 1 LabTracker contain * Lab
++ 1 LabTracker contain * TestType
++ 1 LabTracker contain * Test
++ 1 LabTracker contain * BusinessHour
++ 1 LabTracker contain * Requisition
++ 1 LabTracker contain * Doctor
++ 1 LabTracker contain * Patient
++ 1 LabTracker contain * Appointment
++ 1 Requisition contain * SpecificTest
++ 1 Appointment contain * TestResult
+AI_answer_after_cut:
++ Person extends PersonRole
++ Patient extends Person
++ Doctor extends Person
++ Requisition extends TestResult
++ SpecificTest extends Test
++ Appointment extends AccessType
++ BusinessHour extends DayOfWeek
++ Lab extends LabTracker
+
+#Description
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably. 
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient?? information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor. 
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests. 
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern. 
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report. 
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample). 
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab?? address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day?? start time to its end time, i.e., there are no breaks. 
+
+#Classes
++Interval()
++AccessType()
++DayOfWeek()
++LabTracker()
++Person()
++abstract PersonRole()
++Patient()
++Doctor()
++Requisition()
++TestResult()
++SpecificTest()
++Appointment()
++BusinessHour()
++Lab()
++Test()
++TestType()
+result_presicion = 0.5
+result_recall = 0.4090909090909091
+result_F1 = 0.45
+---------------------5/10------Lab Requisition Management System:
+AI_answer_after_cut:
++ 1 Requisition associate 1 Doctor
++ 1 Requisition associate 1 Patient
++ 0..* Requisition associate 1..* SpecificTest
++ 1 Requisition associate 1 Interval
++ 1 Requisition associate 1 AccessType
++ 1 Requisition associate 1 TestResult
++ 1 Appointment associate 1 Requisition
++ 1 Appointment associate 1 Lab
++ 1 Appointment associate 1 BusinessHour
++ 1 Appointment associate 1 DayOfWeek
+
+
++ 1 LabTracker contain * Lab
++ 1 LabTracker contain * Person
++ 1 LabTracker contain * Requisition
++ 1 LabTracker contain * Appointment
++ 1 LabTracker contain * BusinessHour
++ 1 Person contain * TestResult
++ 1 Person contain * Appointment
++ 1 Person contain * Requisition
++ 1 Person contain * Test
++ 1 Person contain * TestType
++ 1 Person contain * Interval
+AI_answer_after_cut:
++ Person extends PersonRole
++ Patient extends Person
++ Doctor extends Person
++ Requisition extends TestResult
++ Test extends SpecificTest
++ Appointment extends Interval
++ Lab extends AccessType
++ TestType extends AccessType
+
+#Description
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably. 
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient?? information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor. 
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests. 
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern. 
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report. 
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample). 
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab?? address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day?? start time to its end time, i.e., there are no breaks. 
+
+#Classes
++Interval()
++AccessType()
++DayOfWeek()
++LabTracker()
++Person()
++abstract PersonRole()
++Patient()
++Doctor()
++Requisition()
++TestResult()
++SpecificTest()
++Appointment()
++BusinessHour()
++Lab()
++Test()
++TestType()
+result_presicion = 0.3333333333333333
+result_recall = 0.3181818181818182
+result_F1 = 0.3255813953488372
+---------------------6/10------Lab Requisition Management System:
+AI_answer_after_cut:
++ 1 Requisition associate 1 Doctor
++ 1 Requisition associate 1 Patient
++ 1 Requisition associate * SpecificTest
++ 1 SpecificTest associate 1 Test
++ 1 Requisition associate 1 Interval
++ 1 Appointment associate 1 Patient
++ 1 Appointment associate 1 Lab
++ 1 Appointment associate 1 Requisition
++ 1 TestResult associate 1 SpecificTest
+
+
++ 1 LabTracker contain * Lab
++ 1 LabTracker contain * BusinessHour
++ 1 LabTracker contain * TestType
++ 1 Lab contain * Test
++ 1 Lab contain * Appointment
++ 1 Lab contain * TestResult
++ 1 Lab contain * Requisition
++ 1 Lab contain * SpecificTest
++ 1 Patient contain * Appointment
+AI_answer_after_cut:
++ Person extends PersonRole
++ Patient extends Person
++ Doctor extends Person
++ Requisition extends TestResult
++ SpecificTest extends Test
++ Appointment extends AccessType
++ Lab extends LabTracker
++ Test extends TestType
+
+#Description
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably. 
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient?? information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor. 
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests. 
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern. 
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report. 
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample). 
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab?? address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day?? start time to its end time, i.e., there are no breaks. 
+
+#Classes
++ Interval()
++ AccessType()
++ DayOfWeek()
++ LabTracker()
++ Person()
++ abstract PersonRole()
++ Patient()
++ Doctor()
++ Requisition()
++ TestResult()
++ SpecificTest()
++ Appointment()
++ BusinessHour()
++ Lab()
++ Test()
++ TestType()
+result_presicion = 0.3888888888888889
+result_recall = 0.3181818181818182
+result_F1 = 0.35000000000000003
+---------------------7/10------Lab Requisition Management System:
+AI_answer_after_cut:
++ 1 Requisition associate 1 Doctor
++ 1 Requisition associate 1 Patient
++ 0..* Requisition associate 1..* SpecificTest
++ 1 Requisition associate 1 Interval
++ 1 Requisition associate 1 AccessType
++ 1 Requisition associate 1 TestResult
++ 1 Appointment associate 1 Requisition
++ 1 Appointment associate 1 Lab
++ 1 Appointment associate 1 BusinessHour
++ 1 Lab associate 1 Test
++ 1 Lab associate 1 TestType
+
+
++ 1 LabTracker contain * Lab
++ 1 LabTracker contain * Person
++ 1 LabTracker contain * Requisition
++ 1 LabTracker contain * Appointment
++ 1 LabTracker contain * BusinessHour
++ 1 Person contain 1 PersonRole
+AI_answer_after_cut:
++ Person extends PersonRole
++ Patient extends Person
++ Doctor extends Person
++ Requisition extends TestResult
++ Test extends SpecificTest
++ Appointment extends BusinessHour
++ Lab extends LabTracker
+
+#Description
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably. 
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient?? information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor. 
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests. 
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern. 
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report. 
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample). 
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab?? address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day?? start time to its end time, i.e., there are no breaks.
+result_presicion = 0.4375
+result_recall = 0.3181818181818182
+result_F1 = 0.3684210526315789
+---------------------8/10------Lab Requisition Management System:
+AI_answer_after_cut:
++ 1 Requisition associate 1 Doctor
++ 1 Requisition associate 1 Patient
++ 1 Requisition associate * SpecificTest
++ 1 SpecificTest associate 1 Test
++ 1 SpecificTest associate * TestResult
++ 1 Patient associate * Appointment
++ 1 Appointment associate 1 Lab
++ 1 Lab associate * BusinessHour
+
+
++ 1 LabTracker contain * Lab
++ 1 LabTracker contain * TestType
++ 1 Lab contain * Test
++ 1 Lab contain * BusinessHour
++ 1 Person contain * Requisition
++ 1 Person contain * Appointment
++ 1 Test contain * SpecificTest
++ 1 Requisition contain * SpecificTest
++ 1 Requisition contain * TestResult
+AI_answer_after_cut:
++ Person extends PersonRole
++ Patient extends Person
++ Doctor extends Person
++ Requisition extends TestResult
++ SpecificTest extends Test
++ Appointment extends AccessType
++ Lab extends LabTracker
++ TestType extends Test
+
+#Description
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably. 
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient?? information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor. 
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests. 
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern. 
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report. 
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample). 
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab?? address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day?? start time to its end time, i.e., there are no breaks.
+result_presicion = 0.29411764705882354
+result_recall = 0.22727272727272727
+result_F1 = 0.25641025641025644
+---------------------9/10------Lab Requisition Management System:
+AI_answer_after_cut:
++ 1 Requisition associate 1 Doctor
++ 1 Requisition associate 1 Patient
++ 1 Requisition associate * SpecificTest
++ 1 SpecificTest associate 1 Test
++ 1 SpecificTest associate 1 Interval
++ 1 SpecificTest associate 1 AccessType
++ 1 TestResult associate 1 SpecificTest
++ 1 TestResult associate 1 Person
++ 1 Appointment associate 1 Requisition
++ 1 Appointment associate 1 Lab
++ 1 Appointment associate 1 BusinessHour
+
+
++ 1 LabTracker contain * Lab
++ 1 LabTracker contain * BusinessHour
++ 1 LabTracker contain * TestType
++ 1 Lab contain * Appointment
+AI_answer_after_cut:
++ Person extends PersonRole
++ Patient extends Person
++ Doctor extends Person
++ Requisition extends TestResult
++ TestResult extends SpecificTest
++ SpecificTest extends Test
++ Appointment extends BusinessHour
++ Lab extends LabTracker
+
+#Description
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably. 
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient?? information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor. 
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests. 
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern. 
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report. 
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample). 
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab?? address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day?? start time to its end time, i.e., there are no breaks.
+result_presicion = 0.4666666666666667
+result_recall = 0.3181818181818182
+result_F1 = 0.3783783783783784
+---------------------10/10------Lab Requisition Management System:
+AI_answer_after_cut:
++ 1 Requisition associate 1 Doctor
++ 1 Requisition associate 1 Patient
++ 1 Requisition associate * SpecificTest
++ 1 SpecificTest associate 1 Test
++ 1 SpecificTest associate 1 TestResult
++ 1 Patient associate * Appointment
++ 1 Appointment associate 1 Lab
++ 1 Appointment associate 1 Requisition
+
+
++ 1 LabTracker contain * Lab
++ 1 LabTracker contain * BusinessHour
++ 1 Lab contain * Test
++ 1 Lab contain * Appointment
++ 1 Lab contain * TestResult
++ 1 Lab contain * Requisition
++ 1 Lab contain * SpecificTest
++ 1 Test contain * TestType
+AI_answer_after_cut:
++ Person extends PersonRole
++ Patient extends Person
++ Doctor extends Person
++ Requisition extends TestResult
++ SpecificTest extends Test
++ Appointment extends BusinessHour
++ Lab extends LabTracker
+
+#Description
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably. 
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient?? information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor. 
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests. 
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern. 
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report. 
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample). 
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab?? address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day?? start time to its end time, i.e., there are no breaks. 
+
+#Classes
++Interval()
++AccessType()
++DayOfWeek()
++LabTracker()
++Person()
++abstract PersonRole()
++Patient()
++Doctor()
++Requisition()
++TestResult()
++SpecificTest()
++Appointment()
++BusinessHour()
++Lab()
++Test()
++TestType()
+result_presicion = 0.375
+result_recall = 0.2727272727272727
+result_F1 = 0.3157894736842105
+average_result_presicion = 0.4052859477124183
+average_result_recall = 0.31363636363636366
+average_result_F1 = 0.3529600799368241

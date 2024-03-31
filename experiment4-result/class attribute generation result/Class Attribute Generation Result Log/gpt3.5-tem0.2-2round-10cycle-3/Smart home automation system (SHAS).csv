@@ -1,0 +1,1726 @@
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------1/10------Smart home automation system (SHAS):
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+AI:### Enumerations:
+1. DeviceType
+   - TemperatureSensor
+   - MovementSensor
+   - LightController
+   - LockController
+
+2. CommandStatus
+   - Requested
+   - Completed
+   - Failed
+
+### Classes:
+1. SmartHomeAutomationSystem
+   - Attributes:
+     - address: String
+     - infrastructureMap: Map<Room, List<Device>>
+     - activityLog: List<ActivityLog>
+
+2. Room
+   - Attributes:
+     - roomName: String
+
+3. Device
+   - Attributes:
+     - deviceId: String
+     - deviceType: DeviceType
+
+4. SensorDevice
+   - Attributes:
+     - deviceId: String
+     - sensorReadings: List<SensorReading>
+
+5. ActuatorDevice
+   - Attributes:
+     - deviceId: String
+     - commandHistory: List<ControlCommand>
+
+6. SensorReading
+   - Attributes:
+     - measuredValue: Double
+     - timestamp: Date
+
+7. ControlCommand
+   - Attributes:
+     - commandType: String
+     - timestamp: Date
+     - status: CommandStatus
+
+8. ActivityLog
+   - Attributes:
+     - logEntries: List<LogEntry>
+
+9. AutomationRule
+   - Attributes:
+     - precondition: String
+     - action: List<String>
+     - isActive: Boolean
+     - dependentRules: List<AutomationRule>
+     - conflictingRules: List<AutomationRule>
+     - lastTriggeredTimestamp: Date
+
+10. LogEntry
+    - Attributes:
+      - logMessage: String
+      - timestamp: Date
+
+### Note:
+- The classes and attributes mentioned above are based on the description provided and may need further refinement based on specific requirements and design decisions."
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. DeviceType (TemperatureSensor, MovementSensor, LightController, LockController): Represents the different types of sensor and actuator devices in a smart home automation system.
+2. CommandStatus (Requested, Completed, Failed): Represents the status of a control command sent to an actuator device.
+
+Classes:
+1. SmartHomeAutomationSystem(address: String, infrastructureMap: Map<Room, List<Device>>, activityLog: List<ActivityLog): Represents a smart home automation system with its address, infrastructure map, and activity log.
+2. Room(roomName: String): Represents a room in a smart home.
+3. Device(deviceId: String, deviceType: DeviceType): Represents a generic device with a unique identifier and device type.
+4. SensorDevice(deviceId: String, sensorReadings: List<SensorReading>): Represents a sensor device with a unique identifier and a list of sensor readings.
+5. ActuatorDevice(deviceId: String, commandHistory: List<ControlCommand>): Represents an actuator device with a unique identifier and a history of control commands.
+6. SensorReading(measuredValue: Double, timestamp: Date): Represents a sensor reading with a measured value and timestamp.
+7. ControlCommand(commandType: String, timestamp: Date, status: CommandStatus): Represents a control command with a type, timestamp, and status.
+8. ActivityLog(logEntries: List<LogEntry>): Represents an activity log with a list of log entries.
+9. AutomationRule(precondition: String, action: List<String>, isActive: Boolean, dependentRules: List<AutomationRule>, conflictingRules: List<AutomationRule>, lastTriggeredTimestamp: Date): Represents an automation rule with a precondition, action, activation status, dependencies, conflicts, and last triggered timestamp.
+10. LogEntry(logMessage: String, timestamp: Date): Represents a log entry with a log message and timestamp."
+"
+"
+------------------------------------------------------------
+ O  Class:CommandStatus   Oracle:CommandStatus 
+   O  Attribute:Requested  Oracle:Requested 
+   O  Attribute:Completed  Oracle:Completed 
+   O  Attribute:Failed  Oracle:Failed 
+ O  Class:Room  Oracle:Room
+   X  Attribute:roomName 
+ O  Class:SensorDevice  Oracle:SensorDevice
+   X  Attribute:deviceId 
+   X  Attribute:sensorReadings 
+ O  Class:ActuatorDevice  Oracle:ActuatorDevice
+   X  Attribute:deviceId 
+   X  Attribute:commandHistory 
+ O  Class:SensorReading  Oracle:SensorReading
+   X  Attribute:measuredValue 
+   X  Attribute:timestamp 
+ O  Class:ControlCommand  Oracle:ControlCommand
+   O  Attribute:commandType  Oracle:commandType 
+   X  Attribute:timestamp 
+   X  Attribute:status 
+ O  Class:ActivityLog  Oracle:ActvityLog
+   X  Attribute:logEntries 
+ X  Class:DeviceType 
+   X  Attribute:TemperatureSensor 
+   X  Attribute:MovementSensor 
+   X  Attribute:LightController 
+   X  Attribute:LockController 
+ X  Class:SmartHomeAutomationSystem
+   X  Attribute:address 
+   X  Attribute:infrastructureMap 
+   X  Attribute:List<Device>> 
+   X  Attribute:activityLog 
+ X  Class:Device
+   X  Attribute:deviceId 
+   X  Attribute:deviceType 
+ X  Class:AutomationRule
+   X  Attribute:precondition 
+   X  Attribute:action 
+   X  Attribute:isActive 
+   X  Attribute:dependentRules 
+   X  Attribute:conflictingRules 
+   X  Attribute:lastTriggeredTimestamp 
+ X  Class:LogEntry
+   X  Attribute:logMessage 
+   X  Attribute:timestamp 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------2/10------Smart home automation system (SHAS):
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+AI:### Enumerations:
+1. DeviceType
+   - TemperatureSensor
+   - MovementSensor
+   - LightController
+   - LockController
+
+2. CommandStatus
+   - Requested
+   - Completed
+   - Failed
+
+### Classes:
+1. SmartHome
+   - address: String
+   - rooms: List<Room>
+
+2. Room
+   - sensors: List<SensorDevice>
+   - actuators: List<ActuatorDevice>
+
+3. SensorDevice
+   - deviceId: String
+   - readings: List<SensorReading>
+
+4. ActuatorDevice
+   - deviceId: String
+   - commands: List<ControlCommand>
+
+5. SensorReading
+   - value: Double
+   - timestamp: Date
+
+6. ControlCommand
+   - command: String
+   - timestamp: Date
+   - status: CommandStatus
+
+7. ActivityLog
+   - smartHome: SmartHome
+   - sensorReadings: List<SensorReading>
+   - controlCommands: List<ControlCommand>
+
+8. AutomationRule
+   - precondition: String
+   - action: List<String>
+   - isActive: Boolean
+   - isEditable: Boolean
+   - dependentRules: List<AutomationRule>
+   - conflictingRules: List<AutomationRule>
+   - lastTriggeredTimestamp: Date
+
+### Attributes:
+- SmartHome
+  - address
+  - rooms
+
+- Room
+  - sensors
+  - actuators
+
+- SensorDevice
+  - deviceId
+  - readings
+
+- ActuatorDevice
+  - deviceId
+  - commands
+
+- SensorReading
+  - value
+  - timestamp
+
+- ControlCommand
+  - command
+  - timestamp
+  - status
+
+- ActivityLog
+  - smartHome
+  - sensorReadings
+  - controlCommands
+
+- AutomationRule
+  - precondition
+  - action
+  - isActive
+  - isEditable
+  - dependentRules
+  - conflictingRules
+  - lastTriggeredTimestamp"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. DeviceType (TemperatureSensor, MovementSensor, LightController, LockController): Represents the different types of sensor and actuator devices in a smart home automation system.
+2. CommandStatus (Requested, Completed, Failed): Represents the status of a control command in the system.
+
+Classes:
+1. SmartHome(address: String, rooms: List<Room): Represents a smart home with an address and a list of rooms containing sensor and actuator devices.
+2. Room(sensors: List<SensorDevice>, actuators: List<ActuatorDevice): Represents a room in a smart home with sensor and actuator devices.
+3. SensorDevice(deviceId: String, readings: List<SensorReading): Represents a sensor device with a unique identifier and sensor readings.
+4. ActuatorDevice(deviceId: String, commands: List<ControlCommand): Represents an actuator device with a unique identifier and control commands.
+5. SensorReading(value: Double, timestamp: Date): Represents a sensor reading with a measured value and timestamp.
+6. ControlCommand(command: String, timestamp: Date, status: CommandStatus): Represents a control command with a command string, timestamp, and status.
+7. ActivityLog(smartHome: SmartHome, sensorReadings: List<SensorReading>, controlCommands: List<ControlCommand): Represents the activity log of sensor readings and control commands in a smart home.
+8. AutomationRule(precondition: String, action: List<String>, isActive: Boolean, isEditable: Boolean, dependentRules: List<AutomationRule>, conflictingRules: List<AutomationRule>, lastTriggeredTimestamp: Date): Represents an automation rule with a precondition, action, status, dependencies, conflicts, and last triggered timestamp."
+"
+"
+------------------------------------------------------------
+ O  Class:CommandStatus   Oracle:CommandStatus 
+   O  Attribute:Requested  Oracle:Requested 
+   O  Attribute:Completed  Oracle:Completed 
+   O  Attribute:Failed  Oracle:Failed 
+ O  Class:SmartHome  Oracle:SmartHome
+   X  Attribute:address 
+   X  Attribute:rooms 
+ O  Class:Room  Oracle:Room
+   X  Attribute:sensors 
+   X  Attribute:actuators 
+ O  Class:SensorDevice  Oracle:SensorDevice
+   X  Attribute:deviceId 
+   X  Attribute:readings 
+ O  Class:ActuatorDevice  Oracle:ActuatorDevice
+   X  Attribute:deviceId 
+   X  Attribute:commands 
+ O  Class:SensorReading  Oracle:SensorReading
+   O  Attribute:value  Oracle:value 
+   X  Attribute:timestamp 
+ O  Class:ControlCommand  Oracle:ControlCommand
+   X  Attribute:command 
+   X  Attribute:timestamp 
+   X  Attribute:status 
+ O  Class:ActivityLog  Oracle:ActvityLog
+   X  Attribute:smartHome 
+   X  Attribute:sensorReadings 
+   X  Attribute:controlCommands 
+ X  Class:DeviceType 
+   X  Attribute:TemperatureSensor 
+   X  Attribute:MovementSensor 
+   X  Attribute:LightController 
+   X  Attribute:LockController 
+ X  Class:AutomationRule
+   X  Attribute:precondition 
+   X  Attribute:action 
+   X  Attribute:isActive 
+   X  Attribute:isEditable 
+   X  Attribute:dependentRules 
+   X  Attribute:conflictingRules 
+   X  Attribute:lastTriggeredTimestamp 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------3/10------Smart home automation system (SHAS):
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+AI:### Enumerations:
+1. DeviceType
+   - TemperatureSensor
+   - MovementSensor
+   - LightController
+   - LockController
+
+2. CommandStatus
+   - Requested
+   - Completed
+   - Failed
+
+### Classes:
+1. SmartHome
+   - address: String
+   - rooms: List<Room>
+
+2. Room
+   - sensors: List<SensorDevice>
+   - actuators: List<ActuatorDevice>
+
+3. SensorDevice
+   - deviceId: String
+   - readings: List<SensorReading>
+
+4. ActuatorDevice
+   - deviceId: String
+   - commands: List<ControlCommand>
+
+5. SensorReading
+   - value: double
+   - timestamp: Date
+
+6. ControlCommand
+   - command: String
+   - timestamp: Date
+   - status: CommandStatus
+
+7. ActivityLog
+   - sensorReadings: List<SensorReading>
+   - controlCommands: List<ControlCommand>
+
+8. AutomationRule
+   - precondition: String
+   - action: List<String>
+   - isActive: boolean
+   - dependsOn: List<AutomationRule>
+   - conflictsWith: List<AutomationRule>
+   - lastTriggeredTimestamp: Date
+
+### Attributes:
+- SmartHome
+  - address
+  - rooms
+
+- Room
+  - sensors
+  - actuators
+
+- SensorDevice
+  - deviceId
+  - readings
+
+- ActuatorDevice
+  - deviceId
+  - commands
+
+- SensorReading
+  - value
+  - timestamp
+
+- ControlCommand
+  - command
+  - timestamp
+  - status
+
+- ActivityLog
+  - sensorReadings
+  - controlCommands
+
+- AutomationRule
+  - precondition
+  - action
+  - isActive
+  - dependsOn
+  - conflictsWith
+  - lastTriggeredTimestamp"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. DeviceType (TemperatureSensor, MovementSensor, LightController, LockController): Represents the different types of sensor and actuator devices that can be present in a smart home.
+2. CommandStatus (Requested, Completed, Failed): Represents the status of a control command sent to an actuator device.
+
+Classes:
+1. SmartHome(address: String, rooms: List<Room>): Represents a smart home with an address and a list of rooms containing sensor and actuator devices.
+2. Room(sensors: List<SensorDevice>, actuators: List<ActuatorDevice): Represents a room in a smart home with sensor and actuator devices.
+3. SensorDevice(deviceId: String, readings: List<SensorReading): Represents a sensor device with a unique identifier and a list of sensor readings.
+4. ActuatorDevice(deviceId: String, commands: List<ControlCommand): Represents an actuator device with a unique identifier and a list of control commands.
+5. SensorReading(value: double, timestamp: Date): Represents a sensor reading with a measured value and timestamp.
+6. ControlCommand(command: String, timestamp: Date, status: CommandStatus): Represents a control command with a command string, timestamp, and status.
+7. ActivityLog(sensorReadings: List<SensorReading>, controlCommands: List<ControlCommand): Represents the activity log recording sensor readings and control commands.
+8. AutomationRule(precondition: String, action: List<String>, isActive: boolean, dependsOn: List<AutomationRule>, conflictsWith: List<AutomationRule>, lastTriggeredTimestamp: Date): Represents an automation rule with a precondition, action, activation status, dependencies, conflicts, and last triggered timestamp."
+"
+"
+------------------------------------------------------------
+ O  Class:CommandStatus   Oracle:CommandStatus 
+   O  Attribute:Requested  Oracle:Requested 
+   O  Attribute:Completed  Oracle:Completed 
+   O  Attribute:Failed  Oracle:Failed 
+ O  Class:SmartHome  Oracle:SmartHome
+   X  Attribute:address 
+   X  Attribute:rooms 
+ O  Class:Room  Oracle:Room
+   X  Attribute:sensors 
+   X  Attribute:actuators 
+ O  Class:SensorDevice  Oracle:SensorDevice
+   X  Attribute:deviceId 
+   X  Attribute:readings 
+ O  Class:ActuatorDevice  Oracle:ActuatorDevice
+   X  Attribute:deviceId 
+   X  Attribute:commands 
+ O  Class:SensorReading  Oracle:SensorReading
+   O  Attribute:value  Oracle:value 
+   X  Attribute:timestamp 
+ O  Class:ControlCommand  Oracle:ControlCommand
+   X  Attribute:command 
+   X  Attribute:timestamp 
+   X  Attribute:status 
+ O  Class:ActivityLog  Oracle:ActvityLog
+   X  Attribute:sensorReadings 
+   X  Attribute:controlCommands 
+ X  Class:DeviceType 
+   X  Attribute:TemperatureSensor 
+   X  Attribute:MovementSensor 
+   X  Attribute:LightController 
+   X  Attribute:LockController 
+ X  Class:AutomationRule
+   X  Attribute:precondition 
+   X  Attribute:action 
+   X  Attribute:isActive 
+   X  Attribute:dependsOn 
+   X  Attribute:conflictsWith 
+   X  Attribute:lastTriggeredTimestamp 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------4/10------Smart home automation system (SHAS):
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+AI:### Enumerations:
+1. DeviceType
+   - TemperatureSensor
+   - MovementSensor
+   - LightController
+   - LockController
+
+2. CommandStatus
+   - Requested
+   - Completed
+   - Failed
+
+### Classes:
+1. SmartHome
+   - address: String
+   - rooms: List<Room>
+
+2. Room
+   - sensors: List<SensorDevice>
+   - actuators: List<ActuatorDevice>
+
+3. SensorDevice
+   - deviceId: String
+   - readings: List<SensorReading>
+
+4. ActuatorDevice
+   - deviceId: String
+   - commands: List<ControlCommand>
+
+5. SensorReading
+   - value: Double
+   - timestamp: Date
+
+6. ControlCommand
+   - commandType: String
+   - timestamp: Date
+   - status: CommandStatus
+
+7. ActivityLog
+   - sensorReadings: List<SensorReading>
+   - controlCommands: List<ControlCommand>
+
+8. AutomationRule
+   - precondition: String
+   - action: List<ControlCommand>
+   - isActive: Boolean
+   - dependsOn: List<AutomationRule>
+   - conflictsWith: List<AutomationRule>
+   - lastTriggeredTimestamp: Date
+
+### Attributes:
+- SmartHome
+  - address
+  - rooms
+
+- Room
+  - sensors
+  - actuators
+
+- SensorDevice
+  - deviceId
+  - readings
+
+- ActuatorDevice
+  - deviceId
+  - commands
+
+- SensorReading
+  - value
+  - timestamp
+
+- ControlCommand
+  - commandType
+  - timestamp
+  - status
+
+- ActivityLog
+  - sensorReadings
+  - controlCommands
+
+- AutomationRule
+  - precondition
+  - action
+  - isActive
+  - dependsOn
+  - conflictsWith
+  - lastTriggeredTimestamp"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. DeviceType (TemperatureSensor, MovementSensor, LightController, LockController): Represents the different types of sensor and actuator devices that can be present in a smart home.
+
+2. CommandStatus (Requested, Completed, Failed): Indicates the status of a control command sent to an actuator device.
+
+### Classes:
+1. SmartHome(address: String, rooms: List<Room>): Represents a smart home with a physical address and a list of rooms containing sensor and actuator devices.
+
+2. Room(sensors: List<SensorDevice>, actuators: List<ActuatorDevice): Represents a room in a smart home with sensor devices and actuator devices.
+
+3. SensorDevice(deviceId: String, readings: List<SensorReading): Represents a sensor device with a unique identifier and a list of sensor readings.
+
+4. ActuatorDevice(deviceId: String, commands: List<ControlCommand): Represents an actuator device with a unique identifier and a list of control commands.
+
+5. SensorReading(value: Double, timestamp: Date): Represents a sensor reading with a measured value and a timestamp.
+
+6. ControlCommand(commandType: String, timestamp: Date, status: CommandStatus): Represents a control command with a type, timestamp, and status.
+
+7. ActivityLog(sensorReadings: List<SensorReading>, controlCommands: List<ControlCommand): Represents the activity log recording sensor readings and control commands in a smart home.
+
+8. AutomationRule(precondition: String, action: List<ControlCommand>, isActive: Boolean, dependsOn: List<AutomationRule>, conflictsWith: List<AutomationRule>, lastTriggeredTimestamp: Date): Represents an automation rule with a precondition, action, activation status, dependencies, conflicts, and last triggered timestamp."
+"
+"
+------------------------------------------------------------
+ O  Class:CommandStatus   Oracle:CommandStatus 
+   O  Attribute:Requested  Oracle:Requested 
+   O  Attribute:Completed  Oracle:Completed 
+   O  Attribute:Failed  Oracle:Failed 
+ O  Class:SmartHome  Oracle:SmartHome
+   X  Attribute:address 
+   X  Attribute:rooms 
+ O  Class:Room  Oracle:Room
+   X  Attribute:sensors 
+   X  Attribute:actuators 
+ O  Class:SensorDevice  Oracle:SensorDevice
+   X  Attribute:deviceId 
+   X  Attribute:readings 
+ O  Class:ActuatorDevice  Oracle:ActuatorDevice
+   X  Attribute:deviceId 
+   X  Attribute:commands 
+ O  Class:SensorReading  Oracle:SensorReading
+   O  Attribute:value  Oracle:value 
+   X  Attribute:timestamp 
+ O  Class:ControlCommand  Oracle:ControlCommand
+   O  Attribute:commandType  Oracle:commandType 
+   X  Attribute:timestamp 
+   X  Attribute:status 
+ O  Class:ActivityLog  Oracle:ActvityLog
+   X  Attribute:sensorReadings 
+   X  Attribute:controlCommands 
+ X  Class:DeviceType 
+   X  Attribute:TemperatureSensor 
+   X  Attribute:MovementSensor 
+   X  Attribute:LightController 
+   X  Attribute:LockController 
+ X  Class:AutomationRule
+   X  Attribute:precondition 
+   X  Attribute:action 
+   X  Attribute:isActive 
+   X  Attribute:dependsOn 
+   X  Attribute:conflictsWith 
+   X  Attribute:lastTriggeredTimestamp 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------5/10------Smart home automation system (SHAS):
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+AI:### Enumerations:
+1. DeviceType
+   - TemperatureSensor
+   - MovementSensor
+   - LightController
+   - LockController
+
+2. CommandStatus
+   - Requested
+   - Completed
+   - Failed
+
+### Classes:
+1. SmartHome
+   - address: String
+   - rooms: List<Room>
+
+2. Room
+   - sensors: List<SensorDevice>
+   - actuators: List<ActuatorDevice>
+
+3. SensorDevice
+   - deviceId: String
+   - readings: List<SensorReading>
+
+4. ActuatorDevice
+   - deviceId: String
+   - commands: List<ControlCommand>
+
+5. SensorReading
+   - value: Double
+   - timestamp: Date
+
+6. ControlCommand
+   - command: String
+   - timestamp: Date
+   - status: CommandStatus
+
+7. ActivityLog
+   - sensorReadings: List<SensorReading>
+   - controlCommands: List<ControlCommand>
+
+8. AutomationRule
+   - precondition: String
+   - action: List<String>
+   - isActive: Boolean
+   - dependentRules: List<AutomationRule>
+   - conflictingRules: List<AutomationRule>
+   - lastTriggeredTimestamp: Date
+
+### Attributes:
+- SmartHome
+  - address
+- Room
+  - sensors
+  - actuators
+- SensorDevice
+  - deviceId
+- ActuatorDevice
+  - deviceId
+- SensorReading
+  - value
+  - timestamp
+- ControlCommand
+  - command
+  - timestamp
+  - status
+- AutomationRule
+  - precondition
+  - action
+  - isActive
+  - dependentRules
+  - conflictingRules
+  - lastTriggeredTimestamp"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. DeviceType (TemperatureSensor, MovementSensor, LightController, LockController): Represents the different types of sensor and actuator devices in a smart home automation system.
+2. CommandStatus (Requested, Completed, Failed): Represents the status of a control command in the system.
+
+Classes:
+1. SmartHome(address: String, rooms: List<Room): Represents a smart home with an address and a list of rooms containing sensor and actuator devices.
+2. Room(sensors: List<SensorDevice>, actuators: List<ActuatorDevice): Represents a room in a smart home with sensor devices and actuator devices.
+3. SensorDevice(deviceId: String, readings: List<SensorReading): Represents a sensor device with a unique identifier and a list of sensor readings.
+4. ActuatorDevice(deviceId: String, commands: List<ControlCommand): Represents an actuator device with a unique identifier and a list of control commands.
+5. SensorReading(value: Double, timestamp: Date): Represents a sensor reading with a measured value and a timestamp.
+6. ControlCommand(command: String, timestamp: Date, status: CommandStatus): Represents a control command with a command string, timestamp, and status.
+7. ActivityLog(sensorReadings: List<SensorReading>, controlCommands: List<ControlCommand): Represents an activity log recording sensor readings and control commands.
+8. AutomationRule(precondition: String, action: List<String>, isActive: Boolean, dependentRules: List<AutomationRule>, conflictingRules: List<AutomationRule>, lastTriggeredTimestamp: Date): Represents an automation rule with a precondition, action, activation status, dependencies, conflicts, and last triggered timestamp."
+"
+"
+------------------------------------------------------------
+ O  Class:CommandStatus   Oracle:CommandStatus 
+   O  Attribute:Requested  Oracle:Requested 
+   O  Attribute:Completed  Oracle:Completed 
+   O  Attribute:Failed  Oracle:Failed 
+ O  Class:SmartHome  Oracle:SmartHome
+   X  Attribute:address 
+   X  Attribute:rooms 
+ O  Class:Room  Oracle:Room
+   X  Attribute:sensors 
+   X  Attribute:actuators 
+ O  Class:SensorDevice  Oracle:SensorDevice
+   X  Attribute:deviceId 
+   X  Attribute:readings 
+ O  Class:ActuatorDevice  Oracle:ActuatorDevice
+   X  Attribute:deviceId 
+   X  Attribute:commands 
+ O  Class:SensorReading  Oracle:SensorReading
+   O  Attribute:value  Oracle:value 
+   X  Attribute:timestamp 
+ O  Class:ControlCommand  Oracle:ControlCommand
+   X  Attribute:command 
+   X  Attribute:timestamp 
+   X  Attribute:status 
+ O  Class:ActivityLog  Oracle:ActvityLog
+   X  Attribute:sensorReadings 
+   X  Attribute:controlCommands 
+ X  Class:DeviceType 
+   X  Attribute:TemperatureSensor 
+   X  Attribute:MovementSensor 
+   X  Attribute:LightController 
+   X  Attribute:LockController 
+ X  Class:AutomationRule
+   X  Attribute:precondition 
+   X  Attribute:action 
+   X  Attribute:isActive 
+   X  Attribute:dependentRules 
+   X  Attribute:conflictingRules 
+   X  Attribute:lastTriggeredTimestamp 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------6/10------Smart home automation system (SHAS):
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+AI:### Enumerations:
+1. DeviceType
+   - TemperatureSensor
+   - MovementSensor
+   - LightController
+   - LockController
+
+2. CommandStatus
+   - Requested
+   - Completed
+   - Failed
+
+### Classes:
+1. SmartHome
+   - address: String
+   - rooms: List<Room>
+
+2. Room
+   - sensors: List<SensorDevice>
+   - actuators: List<ActuatorDevice>
+
+3. SensorDevice
+   - deviceId: String
+   - readings: List<SensorReading>
+
+4. ActuatorDevice
+   - deviceId: String
+   - commands: List<ControlCommand>
+
+5. SensorReading
+   - value: double
+   - timestamp: Date
+
+6. ControlCommand
+   - command: String
+   - timestamp: Date
+   - status: CommandStatus
+
+7. ActivityLog
+   - sensorReadings: List<SensorReading>
+   - controlCommands: List<ControlCommand>
+
+8. AutomationRule
+   - precondition: String
+   - action: List<String>
+   - isActive: boolean
+   - isEditable: boolean
+   - dependentRules: List<AutomationRule>
+   - conflictingRules: List<AutomationRule>
+   - triggeredTimestamps: List<Date>
+
+### Attributes:
+- SmartHome
+  - address
+  - rooms
+
+- Room
+  - sensors
+  - actuators
+
+- SensorDevice
+  - deviceId
+  - readings
+
+- ActuatorDevice
+  - deviceId
+  - commands
+
+- SensorReading
+  - value
+  - timestamp
+
+- ControlCommand
+  - command
+  - timestamp
+  - status
+
+- AutomationRule
+  - precondition
+  - action
+  - isActive
+  - isEditable
+  - dependentRules
+  - conflictingRules
+  - triggeredTimestamps"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. DeviceType (TemperatureSensor, MovementSensor, LightController, LockController): Represents the different types of sensor and actuator devices that can be present in a smart home.
+
+2. CommandStatus (Requested, Completed, Failed): Represents the status of a control command sent to an actuator device.
+
+### Classes:
+1. SmartHome(address: String, rooms: List<Room): Represents a smart home with a physical address and a list of rooms containing sensor and actuator devices.
+
+2. Room(sensors: List<SensorDevice>, actuators: List<ActuatorDevice): Represents a room in a smart home that contains sensor devices and actuator devices.
+
+3. SensorDevice(deviceId: String, readings: List<SensorReading): Represents a sensor device with a unique identifier and a list of sensor readings.
+
+4. ActuatorDevice(deviceId: String, commands: List<ControlCommand): Represents an actuator device with a unique identifier and a list of control commands.
+
+5. SensorReading(value: double, timestamp: Date): Represents a sensor reading with a measured value and a timestamp.
+
+6. ControlCommand(command: String, timestamp: Date, status: CommandStatus): Represents a control command with a command string, timestamp, and status.
+
+7. ActivityLog(sensorReadings: List<SensorReading>, controlCommands: List<ControlCommand): Represents an activity log that records sensor readings and control commands in a smart home.
+
+8. AutomationRule(precondition: String, action: List<String>, isActive: boolean, isEditable: boolean, dependentRules: List<AutomationRule>, conflictingRules: List<AutomationRule>, triggeredTimestamps: List<Date): Represents an automation rule with a precondition, action, status, editability, dependencies, conflicts, and triggered timestamps."
+"
+"
+------------------------------------------------------------
+ O  Class:CommandStatus   Oracle:CommandStatus 
+   O  Attribute:Requested  Oracle:Requested 
+   O  Attribute:Completed  Oracle:Completed 
+   O  Attribute:Failed  Oracle:Failed 
+ O  Class:SmartHome  Oracle:SmartHome
+   X  Attribute:address 
+   X  Attribute:rooms 
+ O  Class:Room  Oracle:Room
+   X  Attribute:sensors 
+   X  Attribute:actuators 
+ O  Class:SensorDevice  Oracle:SensorDevice
+   X  Attribute:deviceId 
+   X  Attribute:readings 
+ O  Class:ActuatorDevice  Oracle:ActuatorDevice
+   X  Attribute:deviceId 
+   X  Attribute:commands 
+ O  Class:SensorReading  Oracle:SensorReading
+   O  Attribute:value  Oracle:value 
+   X  Attribute:timestamp 
+ O  Class:ControlCommand  Oracle:ControlCommand
+   X  Attribute:command 
+   X  Attribute:timestamp 
+   X  Attribute:status 
+ O  Class:ActivityLog  Oracle:ActvityLog
+   X  Attribute:sensorReadings 
+   X  Attribute:controlCommands 
+ X  Class:DeviceType 
+   X  Attribute:TemperatureSensor 
+   X  Attribute:MovementSensor 
+   X  Attribute:LightController 
+   X  Attribute:LockController 
+ X  Class:AutomationRule
+   X  Attribute:precondition 
+   X  Attribute:action 
+   X  Attribute:isActive 
+   X  Attribute:isEditable 
+   X  Attribute:dependentRules 
+   X  Attribute:conflictingRules 
+   X  Attribute:triggeredTimestamps 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------7/10------Smart home automation system (SHAS):
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+AI:### Enumerations:
+1. DeviceType
+   - TemperatureSensor
+   - MovementSensor
+   - LightController
+   - LockController
+
+2. CommandStatus
+   - Requested
+   - Completed
+   - Failed
+
+### Classes:
+1. SmartHome
+   - address: String
+   - rooms: List<Room>
+
+2. Room
+   - sensors: List<SensorDevice>
+   - actuators: List<ActuatorDevice>
+
+3. SensorDevice
+   - deviceId: String
+   - readings: List<SensorReading>
+
+4. ActuatorDevice
+   - deviceId: String
+   - commands: List<ControlCommand>
+
+5. SensorReading
+   - value: Double
+   - timestamp: Date
+
+6. ControlCommand
+   - commandType: String
+   - timestamp: Date
+   - status: CommandStatus
+
+7. ActivityLog
+   - sensorReadings: List<SensorReading>
+   - controlCommands: List<ControlCommand>
+
+8. AutomationRule
+   - precondition: String
+   - action: List<ControlCommand>
+   - isActive: Boolean
+   - dependsOn: List<AutomationRule>
+   - conflictsWith: List<AutomationRule>
+   - lastTriggeredTimestamp: Date
+
+### Attributes:
+- SmartHome
+  - address
+  - rooms
+
+- Room
+  - sensors
+  - actuators
+
+- SensorDevice
+  - deviceId
+  - readings
+
+- ActuatorDevice
+  - deviceId
+  - commands
+
+- SensorReading
+  - value
+  - timestamp
+
+- ControlCommand
+  - commandType
+  - timestamp
+  - status
+
+- ActivityLog
+  - sensorReadings
+  - controlCommands
+
+- AutomationRule
+  - precondition
+  - action
+  - isActive
+  - dependsOn
+  - conflictsWith
+  - lastTriggeredTimestamp"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. DeviceType (TemperatureSensor, MovementSensor, LightController, LockController): Represents the different types of sensor and actuator devices that can be present in a smart home.
+
+2. CommandStatus (Requested, Completed, Failed): Represents the status of a control command sent to an actuator device.
+
+### Classes:
+1. SmartHome(address: String, rooms: List<Room): Represents a smart home with a physical address and a list of rooms containing sensor and actuator devices.
+
+2. Room(sensors: List<SensorDevice>, actuators: List<ActuatorDevice): Represents a room in a smart home that contains sensor devices and actuator devices.
+
+3. SensorDevice(deviceId: String, readings: List<SensorReading): Represents a sensor device with a unique identifier and a list of sensor readings.
+
+4. ActuatorDevice(deviceId: String, commands: List<ControlCommand): Represents an actuator device with a unique identifier and a list of control commands.
+
+5. SensorReading(value: Double, timestamp: Date): Represents a sensor reading with a measured value and a timestamp.
+
+6. ControlCommand(commandType: String, timestamp: Date, status: CommandStatus): Represents a control command with a type, timestamp, and status.
+
+7. ActivityLog(sensorReadings: List<SensorReading>, controlCommands: List<ControlCommand): Represents an activity log that records sensor readings and control commands in a smart home.
+
+8. AutomationRule(precondition: String, action: List<ControlCommand>, isActive: Boolean, dependsOn: List<AutomationRule>, conflictsWith: List<AutomationRule>, lastTriggeredTimestamp: Date): Represents an automation rule with a precondition, action, activation status, dependencies, conflicts, and last triggered timestamp."
+"
+"
+------------------------------------------------------------
+ O  Class:CommandStatus   Oracle:CommandStatus 
+   O  Attribute:Requested  Oracle:Requested 
+   O  Attribute:Completed  Oracle:Completed 
+   O  Attribute:Failed  Oracle:Failed 
+ O  Class:SmartHome  Oracle:SmartHome
+   X  Attribute:address 
+   X  Attribute:rooms 
+ O  Class:Room  Oracle:Room
+   X  Attribute:sensors 
+   X  Attribute:actuators 
+ O  Class:SensorDevice  Oracle:SensorDevice
+   X  Attribute:deviceId 
+   X  Attribute:readings 
+ O  Class:ActuatorDevice  Oracle:ActuatorDevice
+   X  Attribute:deviceId 
+   X  Attribute:commands 
+ O  Class:SensorReading  Oracle:SensorReading
+   O  Attribute:value  Oracle:value 
+   X  Attribute:timestamp 
+ O  Class:ControlCommand  Oracle:ControlCommand
+   O  Attribute:commandType  Oracle:commandType 
+   X  Attribute:timestamp 
+   X  Attribute:status 
+ O  Class:ActivityLog  Oracle:ActvityLog
+   X  Attribute:sensorReadings 
+   X  Attribute:controlCommands 
+ X  Class:DeviceType 
+   X  Attribute:TemperatureSensor 
+   X  Attribute:MovementSensor 
+   X  Attribute:LightController 
+   X  Attribute:LockController 
+ X  Class:AutomationRule
+   X  Attribute:precondition 
+   X  Attribute:action 
+   X  Attribute:isActive 
+   X  Attribute:dependsOn 
+   X  Attribute:conflictsWith 
+   X  Attribute:lastTriggeredTimestamp 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------8/10------Smart home automation system (SHAS):
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+AI:### Enumerations:
+1. DeviceType
+   - TemperatureSensor
+   - MovementSensor
+   - LightController
+   - LockController
+
+2. CommandStatus
+   - Requested
+   - Completed
+   - Failed
+
+### Classes:
+1. SmartHome
+   - address: String
+   - rooms: List<Room>
+
+2. Room
+   - sensors: List<SensorDevice>
+   - actuators: List<ActuatorDevice>
+
+3. SensorDevice
+   - deviceId: String
+   - readings: List<SensorReading>
+
+4. ActuatorDevice
+   - deviceId: String
+   - commands: List<ControlCommand>
+
+5. SensorReading
+   - value: Double
+   - timestamp: Date
+
+6. ControlCommand
+   - command: String
+   - timestamp: Date
+   - status: CommandStatus
+
+7. ActivityLog
+   - sensorReadings: List<SensorReading>
+   - controlCommands: List<ControlCommand>
+
+8. AutomationRule
+   - precondition: String
+   - action: List<String>
+   - isActive: Boolean
+   - isEditable: Boolean
+   - dependentRules: List<AutomationRule>
+   - conflictingRules: List<AutomationRule>
+
+9. Alert
+   - rule: AutomationRule
+   - timestamp: Date
+
+### Attributes:
+- SmartHome
+  - address
+  - rooms
+
+- Room
+  - sensors
+  - actuators
+
+- SensorDevice
+  - deviceId
+  - readings
+
+- ActuatorDevice
+  - deviceId
+  - commands
+
+- SensorReading
+  - value
+  - timestamp
+
+- ControlCommand
+  - command
+  - timestamp
+  - status
+
+- AutomationRule
+  - precondition
+  - action
+  - isActive
+  - isEditable
+  - dependentRules
+  - conflictingRules
+
+- Alert
+  - rule
+  - timestamp"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. DeviceType (TemperatureSensor, MovementSensor, LightController, LockController): Represents the different types of sensor and actuator devices that can be present in a smart home.
+
+2. CommandStatus (Requested, Completed, Failed): Represents the status of a control command sent to an actuator device.
+
+### Classes:
+1. SmartHome(address: String, rooms: List<Room>): Represents a smart home with a physical address and a list of rooms containing sensor and actuator devices.
+
+2. Room(sensors: List<SensorDevice>, actuators: List<ActuatorDevice): Represents a room in a smart home that contains sensor devices and actuator devices.
+
+3. SensorDevice(deviceId: String, readings: List<SensorReading): Represents a sensor device with a unique identifier and a list of sensor readings.
+
+4. ActuatorDevice(deviceId: String, commands: List<ControlCommand): Represents an actuator device with a unique identifier and a list of control commands.
+
+5. SensorReading(value: Double, timestamp: Date): Represents a sensor reading recording the measured value and timestamp.
+
+6. ControlCommand(command: String, timestamp: Date, status: CommandStatus): Represents a control command with the command itself, timestamp, and status.
+
+7. ActivityLog(sensorReadings: List<SensorReading>, controlCommands: List<ControlCommand): Represents the activity log recording sensor readings and control commands in a smart home.
+
+8. AutomationRule(precondition: String, action: List<String>, isActive: Boolean, isEditable: Boolean, dependentRules: List<AutomationRule>, conflictingRules: List<AutomationRule): Represents an automation rule with a precondition, action, and related rule dependencies.
+
+9. Alert(rule: AutomationRule, timestamp: Date): Represents a relevant alert triggered by an automation rule at a specific timestamp."
+"
+"
+------------------------------------------------------------
+ O  Class:CommandStatus   Oracle:CommandStatus 
+   O  Attribute:Requested  Oracle:Requested 
+   O  Attribute:Completed  Oracle:Completed 
+   O  Attribute:Failed  Oracle:Failed 
+ O  Class:SmartHome  Oracle:SmartHome
+   X  Attribute:address 
+   X  Attribute:rooms 
+ O  Class:Room  Oracle:Room
+   X  Attribute:sensors 
+   X  Attribute:actuators 
+ O  Class:SensorDevice  Oracle:SensorDevice
+   X  Attribute:deviceId 
+   X  Attribute:readings 
+ O  Class:ActuatorDevice  Oracle:ActuatorDevice
+   X  Attribute:deviceId 
+   X  Attribute:commands 
+ O  Class:SensorReading  Oracle:SensorReading
+   O  Attribute:value  Oracle:value 
+   X  Attribute:timestamp 
+ O  Class:ControlCommand  Oracle:ControlCommand
+   X  Attribute:command 
+   X  Attribute:timestamp 
+   X  Attribute:status 
+ O  Class:ActivityLog  Oracle:ActvityLog
+   X  Attribute:sensorReadings 
+   X  Attribute:controlCommands 
+ X  Class:DeviceType 
+   X  Attribute:TemperatureSensor 
+   X  Attribute:MovementSensor 
+   X  Attribute:LightController 
+   X  Attribute:LockController 
+ X  Class:AutomationRule
+   X  Attribute:precondition 
+   X  Attribute:action 
+   X  Attribute:isActive 
+   X  Attribute:isEditable 
+   X  Attribute:dependentRules 
+   X  Attribute:conflictingRules 
+ X  Class:Alert
+   X  Attribute:rule 
+   X  Attribute:timestamp 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------9/10------Smart home automation system (SHAS):
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+AI:### Enumerations:
+1. DeviceType
+   - TemperatureSensor
+   - MovementSensor
+   - LightController
+   - LockController
+
+2. CommandStatus
+   - Requested
+   - Completed
+   - Failed
+
+### Classes:
+1. SmartHome
+   - address: String
+   - rooms: List<Room>
+
+2. Room
+   - roomId: String
+   - sensors: List<SensorDevice>
+   - actuators: List<ActuatorDevice>
+
+3. SensorDevice
+   - deviceId: String
+   - deviceType: DeviceType
+   - readings: List<SensorReading>
+
+4. ActuatorDevice
+   - deviceId: String
+   - deviceType: DeviceType
+   - commands: List<ControlCommand>
+
+5. SensorReading
+   - value: Double
+   - timestamp: Date
+
+6. ControlCommand
+   - command: String
+   - timestamp: Date
+   - status: CommandStatus
+
+7. ActivityLog
+   - sensorReadings: List<SensorReading>
+   - controlCommands: List<ControlCommand>
+
+8. AutomationRule
+   - precondition: String
+   - action: List<String>
+   - isActive: Boolean
+   - isEditable: Boolean
+   - dependentRules: List<AutomationRule>
+   - conflictingRules: List<AutomationRule>
+   - triggeredTimestamps: List<Date>
+
+### Attributes:
+- SmartHome
+  - address
+  - rooms
+
+- Room
+  - roomId
+  - sensors
+  - actuators
+
+- SensorDevice
+  - deviceId
+  - deviceType
+  - readings
+
+- ActuatorDevice
+  - deviceId
+  - deviceType
+  - commands
+
+- SensorReading
+  - value
+  - timestamp
+
+- ControlCommand
+  - command
+  - timestamp
+  - status
+
+- ActivityLog
+  - sensorReadings
+  - controlCommands
+
+- AutomationRule
+  - precondition
+  - action
+  - isActive
+  - isEditable
+  - dependentRules
+  - conflictingRules
+  - triggeredTimestamps"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. DeviceType (TemperatureSensor, MovementSensor, LightController, LockController): Represents the different types of sensor and actuator devices in a smart home automation system.
+
+2. CommandStatus (Requested, Completed, Failed): Represents the status of a control command sent to an actuator device.
+
+### Classes:
+1. SmartHome(address: String, rooms: List<Room>): Represents a smart home with a physical address and multiple rooms containing sensor and actuator devices.
+
+2. Room(roomId: String, sensors: List<SensorDevice>, actuators: List<ActuatorDevice): Represents a room in a smart home with sensor and actuator devices.
+
+3. SensorDevice(deviceId: String, deviceType: DeviceType, readings: List<SensorReading): Represents a sensor device with a unique identifier, device type, and sensor readings.
+
+4. ActuatorDevice(deviceId: String, deviceType: DeviceType, commands: List<ControlCommand): Represents an actuator device with a unique identifier, device type, and control commands.
+
+5. SensorReading(value: Double, timestamp: Date): Represents a sensor reading with a measured value and timestamp.
+
+6. ControlCommand(command: String, timestamp: Date, status: CommandStatus): Represents a control command with a command string, timestamp, and status.
+
+7. ActivityLog(sensorReadings: List<SensorReading>, controlCommands: List<ControlCommand): Represents the activity log recording sensor readings and control commands in a smart home.
+
+8. AutomationRule(precondition: String, action: List<String>, isActive: Boolean, isEditable: Boolean, dependentRules: List<AutomationRule>, conflictingRules: List<AutomationRule>, triggeredTimestamps: List<Date): Represents an automation rule with a precondition, action, status, dependencies, conflicts, and triggered timestamps."
+"
+"
+------------------------------------------------------------
+ O  Class:CommandStatus   Oracle:CommandStatus 
+   O  Attribute:Requested  Oracle:Requested 
+   O  Attribute:Completed  Oracle:Completed 
+   O  Attribute:Failed  Oracle:Failed 
+ O  Class:SmartHome  Oracle:SmartHome
+   X  Attribute:address 
+   X  Attribute:rooms 
+ O  Class:Room  Oracle:Room
+   X  Attribute:roomId 
+   X  Attribute:sensors 
+   X  Attribute:actuators 
+ O  Class:SensorDevice  Oracle:SensorDevice
+   X  Attribute:deviceId 
+   X  Attribute:deviceType 
+   X  Attribute:readings 
+ O  Class:ActuatorDevice  Oracle:ActuatorDevice
+   X  Attribute:deviceId 
+   X  Attribute:deviceType 
+   X  Attribute:commands 
+ O  Class:SensorReading  Oracle:SensorReading
+   O  Attribute:value  Oracle:value 
+   X  Attribute:timestamp 
+ O  Class:ControlCommand  Oracle:ControlCommand
+   X  Attribute:command 
+   X  Attribute:timestamp 
+   X  Attribute:status 
+ O  Class:ActivityLog  Oracle:ActvityLog
+   X  Attribute:sensorReadings 
+   X  Attribute:controlCommands 
+ X  Class:DeviceType 
+   X  Attribute:TemperatureSensor 
+   X  Attribute:MovementSensor 
+   X  Attribute:LightController 
+   X  Attribute:LockController 
+ X  Class:AutomationRule
+   X  Attribute:precondition 
+   X  Attribute:action 
+   X  Attribute:isActive 
+   X  Attribute:isEditable 
+   X  Attribute:dependentRules 
+   X  Attribute:conflictingRules 
+   X  Attribute:triggeredTimestamps 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------10/10------Smart home automation system (SHAS):
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+AI:### Enumerations:
+1. DeviceType
+   - TemperatureSensor
+   - MovementSensor
+   - LightController
+   - LockController
+
+2. CommandStatus
+   - Requested
+   - Completed
+   - Failed
+
+### Classes:
+1. SmartHome
+   - address: String
+   - rooms: List<Room>
+
+2. Room
+   - name: String
+   - sensors: List<SensorDevice>
+   - actuators: List<ActuatorDevice>
+
+3. SensorDevice
+   - deviceId: String
+   - readings: List<SensorReading>
+
+4. ActuatorDevice
+   - deviceId: String
+   - commands: List<ControlCommand>
+
+5. SensorReading
+   - value: Double
+   - timestamp: Date
+
+6. ControlCommand
+   - command: String
+   - timestamp: Date
+   - status: CommandStatus
+
+7. ActivityLog
+   - sensorReadings: List<SensorReading>
+   - controlCommands: List<ControlCommand>
+
+8. AutomationRule
+   - precondition: String
+   - action: List<String>
+   - isActive: Boolean
+   - dependentRules: List<AutomationRule>
+   - conflictingRules: List<AutomationRule>
+   - lastTriggeredTimestamp: Date
+
+### Attributes:
+- SmartHome
+  - address
+  - rooms
+
+- Room
+  - name
+  - sensors
+  - actuators
+
+- SensorDevice
+  - deviceId
+  - readings
+
+- ActuatorDevice
+  - deviceId
+  - commands
+
+- SensorReading
+  - value
+  - timestamp
+
+- ControlCommand
+  - command
+  - timestamp
+  - status
+
+- ActivityLog
+  - sensorReadings
+  - controlCommands
+
+- AutomationRule
+  - precondition
+  - action
+  - isActive
+  - dependentRules
+  - conflictingRules
+  - lastTriggeredTimestamp"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. DeviceType (TemperatureSensor, MovementSensor, LightController, LockController): Represents the different types of sensor and actuator devices that can be present in a smart home.
+2. CommandStatus (Requested, Completed, Failed): Represents the status of a control command sent to an actuator device.
+
+### Classes:
+1. SmartHome(address: String, rooms: List<Room>): Represents a smart home with an address and a list of rooms containing sensor and actuator devices.
+2. Room(name: String, sensors: List<SensorDevice>, actuators: List<ActuatorDevice): Represents a room in a smart home with sensor and actuator devices.
+3. SensorDevice(deviceId: String, readings: List<SensorReading): Represents a sensor device with a unique identifier and sensor readings.
+4. ActuatorDevice(deviceId: String, commands: List<ControlCommand): Represents an actuator device with a unique identifier and control commands.
+5. SensorReading(value: Double, timestamp: Date): Represents a sensor reading with a measured value and timestamp.
+6. ControlCommand(command: String, timestamp: Date, status: CommandStatus): Represents a control command with a command string, timestamp, and status.
+7. ActivityLog(sensorReadings: List<SensorReading>, controlCommands: List<ControlCommand): Represents an activity log recording sensor readings and control commands.
+8. AutomationRule(precondition: String, action: List<String>, isActive: Boolean, dependentRules: List<AutomationRule>, conflictingRules: List<AutomationRule>, lastTriggeredTimestamp: Date): Represents an automation rule with a precondition, action, activation status, dependencies, conflicts, and last triggered timestamp."
+"
+"
+------------------------------------------------------------
+ O  Class:CommandStatus   Oracle:CommandStatus 
+   O  Attribute:Requested  Oracle:Requested 
+   O  Attribute:Completed  Oracle:Completed 
+   O  Attribute:Failed  Oracle:Failed 
+ O  Class:SmartHome  Oracle:SmartHome
+   X  Attribute:address 
+   X  Attribute:rooms 
+ O  Class:Room  Oracle:Room
+   X  Attribute:name 
+   X  Attribute:sensors 
+   X  Attribute:actuators 
+ O  Class:SensorDevice  Oracle:SensorDevice
+   X  Attribute:deviceId 
+   X  Attribute:readings 
+ O  Class:ActuatorDevice  Oracle:ActuatorDevice
+   X  Attribute:deviceId 
+   X  Attribute:commands 
+ O  Class:SensorReading  Oracle:SensorReading
+   O  Attribute:value  Oracle:value 
+   X  Attribute:timestamp 
+ O  Class:ControlCommand  Oracle:ControlCommand
+   X  Attribute:command 
+   X  Attribute:timestamp 
+   X  Attribute:status 
+ O  Class:ActivityLog  Oracle:ActvityLog
+   X  Attribute:sensorReadings 
+   X  Attribute:controlCommands 
+ X  Class:DeviceType 
+   X  Attribute:TemperatureSensor 
+   X  Attribute:MovementSensor 
+   X  Attribute:LightController 
+   X  Attribute:LockController 
+ X  Class:AutomationRule
+   X  Attribute:precondition 
+   X  Attribute:action 
+   X  Attribute:isActive 
+   X  Attribute:dependentRules 
+   X  Attribute:conflictingRules 
+   X  Attribute:lastTriggeredTimestamp 

@@ -1,0 +1,1651 @@
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------1/10------H2S:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The Helping Hand Store (H2S) collects second hand articles and non-perishable foods from residents of the city of and distributes them to those in need. H2S also operates in other cities, but each location is run independently. To increase the number of items available for distribution, H2S is seeking to offer a Pickup and Delivery Service to its customers, which would allow a resident to schedule a pickup of items from a street address online at the H2S website.
+
+A resident enters a name, street address, phone number, optional email address, as well as a description of the items to be picked up. The resident places the items just outside the front door of the building at the stated street address in the morning of the weekday requested for pickup.
+
+H2S has a fleet of pickup vehicles, which it uses to collect items from residents. At the beginning of every weekday, a pickup route for that day is determined for each vehicle for which a volunteer driver is available. Volunteer drivers indicate their available days on the H2S website. The route takes into account the available storage space of a vehicle and the dimensions and weights of scheduled items. A scheduled pickup may occur anytime between 8:00 and 14:00. After completing all scheduled pickups, the driver drops off all collected second hand articles at H2S's distribution center. Non-perishable foods, on the other hand, are directly dropped off at the   food bank, which then deals with these items without further involvement from H2S.
+
+At H2S's distribution center, an H2S employee examines the quality of the received second hand articles. Those articles that can still be used are tagged with an RFID device. The H2S employee double checks the description of the article given by the resident and makes any corrections as needed. In addition, the H2S employee assigns a category to the article from a standard list of 134 categories (e.g., baby clothing, women's winter boots, fridge, microwave...).
+
+In some cities in which H2S operates, the distribution center offers an additional service for clients who receive second hand articles from H2S but are not able to personally visit the H2S distribution center. Instead, H2S allows those clients to indicate which categories of articles they need. At the end of each day, an H2S employee calls them to let them know about the relevant articles that were dropped off that day. If the client still needs an article, the H2S employee arranges delivery of the article to the client's home address. Delivery of such articles is made by a volunteer driver before picking up items according to the pickup route.
+
+AI:### Enumerations:
+1. Category (e.g., baby clothing, women's winter boots, fridge, microwave...)
+2. PickupTimeRange (e.g., 8:00 - 14:00)
+
+### Classes:
+1. HelpingHandStore
+2. Resident
+3. PickupRequest
+4. PickupVehicle
+5. VolunteerDriver
+6. SecondHandArticle
+7. FoodBank
+8. Employee
+9. RFIDTag
+10. DistributionCenter
+11. Client
+12. ArticleDelivery
+
+### Attributes:
+1. HelpingHandStore
+   - Name: String
+   - Locations: List<Location>
+   - PickupServiceEnabled: Boolean
+
+2. Resident
+   - Name: String
+   - StreetAddress: String
+   - PhoneNumber: String
+   - EmailAddress: String
+   - ItemsDescription: String
+
+3. PickupRequest
+   - Resident: Resident
+   - PickupDate: Date
+   - PickupTime: PickupTimeRange
+   - ItemsDescription: String
+
+4. PickupVehicle
+   - VehicleNumber: String
+   - AvailableStorageSpace: Integer
+
+5. VolunteerDriver
+   - Name: String
+   - AvailableDays: List<DayOfWeek>
+
+6. SecondHandArticle
+   - Description: String
+   - Category: Category
+   - Usable: Boolean
+
+7. FoodBank
+   - Name: String
+   - Location: Location
+
+8. Employee
+   - Name: String
+   - Role: String
+
+9. RFIDTag
+   - TagId: String
+
+10. DistributionCenter
+    - Location: Location
+
+11. Client
+    - Name: String
+    - Address: String
+    - NeededCategories: List<Category>
+
+12. ArticleDelivery
+    - Client: Client
+    - Article: SecondHandArticle
+    - DeliveryDate: Date"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. Category (e.g., baby clothing, women's winter boots, fridge, microwave...): Represents the different categories of articles that can be donated or requested.
+2. PickupTimeRange (e.g., 8:00 - 14:00): Represents the time range for scheduling pickups.
+
+Classes:
+1. HelpingHandStore(Name: String, Locations: List<Location>, PickupServiceEnabled: Boolean): Represents the organization collecting and distributing second-hand articles and non-perishable foods.
+2. Resident(Name: String, StreetAddress: String, PhoneNumber: String, EmailAddress: String, ItemsDescription: String): Represents a resident donating items for pickup.
+3. PickupRequest(Resident: Resident, PickupDate: Date, PickupTime: PickupTimeRange, ItemsDescription: String): Represents a request for pickup made by a resident.
+4. PickupVehicle(VehicleNumber: String, AvailableStorageSpace: Integer): Represents a vehicle used for collecting items.
+5. VolunteerDriver(Name: String, AvailableDays: List<DayOfWeek>): Represents a volunteer driver available for pickups.
+6. SecondHandArticle(Description: String, Category: Category, Usable: Boolean): Represents a second-hand article donated by a resident.
+7. FoodBank(Name: String, Location: Location): Represents the entity receiving non-perishable foods.
+8. Employee(Name: String, Role: String): Represents an employee of the Helping Hand Store.
+9. RFIDTag(TagId: String): Represents an RFID tag used to label usable articles.
+10. DistributionCenter(Location: Location): Represents the center where collected articles are examined and stored.
+11. Client(Name: String, Address: String, NeededCategories: List<Category>): Represents a client in need of specific article categories.
+12. ArticleDelivery(Client: Client, Article: SecondHandArticle, DeliveryDate: Date): Represents the delivery of articles to clients in need."
+"
+"
+------------------------------------------------------------
+ O  Class:Resident  Oracle:Resident
+   X  Attribute:Name 
+   X  Attribute:StreetAddress 
+   X  Attribute:PhoneNumber 
+   X  Attribute:EmailAddress 
+   X  Attribute:ItemsDescription 
+ O  Class:SecondHandArticle  Oracle:SecondHandArticle
+   X  Attribute:Description 
+   O  Attribute:Category  Oracle:category 
+   X  Attribute:Usable 
+ O  Class:Client  Oracle:Client
+   X  Attribute:Name 
+   X  Attribute:Address 
+   O  Attribute:NeededCategories  Oracle:neededCategories 
+ X  Class:Category 
+   X  Attribute:e.g. 
+   X  Attribute:clothing 
+   X  Attribute:winter 
+   X  Attribute:fridge 
+   X  Attribute:microwave... 
+ X  Class:PickupTimeRange 
+   X  Attribute:e.g. 
+   X  Attribute:8:00 - 14 
+ X  Class:HelpingHandStore
+   X  Attribute:Name 
+   X  Attribute:Locations 
+   X  Attribute:PickupServiceEnabled 
+ X  Class:PickupRequest
+   X  Attribute:Resident 
+   X  Attribute:PickupDate 
+   X  Attribute:PickupTime 
+   X  Attribute:ItemsDescription 
+ X  Class:PickupVehicle
+   X  Attribute:VehicleNumber 
+   X  Attribute:AvailableStorageSpace 
+ X  Class:VolunteerDriver
+   X  Attribute:Name 
+   X  Attribute:AvailableDays 
+ X  Class:FoodBank
+   X  Attribute:Name 
+   X  Attribute:Location 
+ X  Class:Employee
+   X  Attribute:Name 
+   X  Attribute:Role 
+ X  Class:RFIDTag
+   X  Attribute:TagId 
+ X  Class:DistributionCenter
+   X  Attribute:Location 
+ X  Class:ArticleDelivery
+   X  Attribute:Client 
+   X  Attribute:Article 
+   X  Attribute:DeliveryDate 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------2/10------H2S:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The Helping Hand Store (H2S) collects second hand articles and non-perishable foods from residents of the city of and distributes them to those in need. H2S also operates in other cities, but each location is run independently. To increase the number of items available for distribution, H2S is seeking to offer a Pickup and Delivery Service to its customers, which would allow a resident to schedule a pickup of items from a street address online at the H2S website.
+
+A resident enters a name, street address, phone number, optional email address, as well as a description of the items to be picked up. The resident places the items just outside the front door of the building at the stated street address in the morning of the weekday requested for pickup.
+
+H2S has a fleet of pickup vehicles, which it uses to collect items from residents. At the beginning of every weekday, a pickup route for that day is determined for each vehicle for which a volunteer driver is available. Volunteer drivers indicate their available days on the H2S website. The route takes into account the available storage space of a vehicle and the dimensions and weights of scheduled items. A scheduled pickup may occur anytime between 8:00 and 14:00. After completing all scheduled pickups, the driver drops off all collected second hand articles at H2S's distribution center. Non-perishable foods, on the other hand, are directly dropped off at the   food bank, which then deals with these items without further involvement from H2S.
+
+At H2S's distribution center, an H2S employee examines the quality of the received second hand articles. Those articles that can still be used are tagged with an RFID device. The H2S employee double checks the description of the article given by the resident and makes any corrections as needed. In addition, the H2S employee assigns a category to the article from a standard list of 134 categories (e.g., baby clothing, women's winter boots, fridge, microwave...).
+
+In some cities in which H2S operates, the distribution center offers an additional service for clients who receive second hand articles from H2S but are not able to personally visit the H2S distribution center. Instead, H2S allows those clients to indicate which categories of articles they need. At the end of each day, an H2S employee calls them to let them know about the relevant articles that were dropped off that day. If the client still needs an article, the H2S employee arranges delivery of the article to the client's home address. Delivery of such articles is made by a volunteer driver before picking up items according to the pickup route.
+
+AI:### Enumerations:
+1. Category (e.g., baby clothing, women's winter boots, fridge, microwave...)
+2. Day of the Week (e.g., Monday, Tuesday, Wednesday, Thursday, Friday)
+
+### Classes:
+1. HelpingHandStore
+2. Resident
+3. PickupRequest
+4. PickupVehicle
+5. VolunteerDriver
+6. Item
+7. FoodItem
+8. SecondHandArticle
+9. RFIDTag
+10. DistributionCenter
+11. H2SEmployee
+12. Client
+13. Delivery
+
+### Attributes:
+1. HelpingHandStore
+   - Name: String
+   - Locations: List<Location>
+
+2. Resident
+   - Name: String
+   - StreetAddress: String
+   - PhoneNumber: String
+   - EmailAddress: String
+   - ItemsDescription: String
+
+3. PickupRequest
+   - Resident: Resident
+   - PickupDate: Date
+   - PickupTime: Time
+
+4. PickupVehicle
+   - VehicleID: String
+   - AvailableStorageSpace: Double
+
+5. VolunteerDriver
+   - Name: String
+   - AvailableDays: List<DayOfWeek>
+
+6. Item
+   - Description: String
+   - Weight: Double
+   - Dimensions: Dimensions
+
+7. FoodItem
+   - ExpiryDate: Date
+
+8. SecondHandArticle
+   - Item: Item
+   - Quality: String
+
+9. RFIDTag
+   - TagID: String
+
+10. DistributionCenter
+    - Location: Location
+
+11. H2SEmployee
+    - Name: String
+
+12. Client
+    - Name: String
+    - Address: String
+    - NeededCategories: List<Category>
+
+13. Delivery
+    - Item: Item
+    - Client: Client
+    - DeliveryDate: Date"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. Category (e.g., baby clothing, women's winter boots, fridge, microwave...): Represents the different categories of items that can be collected and distributed by the Helping Hand Store.
+2. DayOfWeek (e.g., Monday, Tuesday, Wednesday, Thursday, Friday): Represents the days of the week for scheduling pickups and deliveries.
+
+### Classes:
+1. HelpingHandStore(name: String, locations: List<Location>): Represents the organization that collects and distributes second-hand articles and non-perishable foods.
+2. Resident(name: String, streetAddress: String, phoneNumber: String, emailAddress: String, itemsDescription: String): Represents a resident who requests a pickup of items from their address.
+3. PickupRequest(resident: Resident, pickupDate: Date, pickupTime: Time): Represents a request made by a resident for a pickup of items.
+4. PickupVehicle(vehicleID: String, availableStorageSpace: Double): Represents a vehicle used by the Helping Hand Store for pickups.
+5. VolunteerDriver(name: String, availableDays: List<DayOfWeek>): Represents a volunteer driver who indicates their availability for driving pickups.
+6. Item(description: String, weight: Double, dimensions: Dimensions): Represents an item to be picked up and distributed.
+7. FoodItem(description: String, expiryDate: Date): Represents a non-perishable food item.
+8. SecondHandArticle(item: Item, quality: String): Represents a second-hand article received by the Helping Hand Store.
+9. RFIDTag(tagID: String): Represents an RFID tag used to label second-hand articles.
+10. DistributionCenter(location: Location): Represents the center where collected items are processed and distributed.
+11. H2SEmployee(name: String): Represents an employee of the Helping Hand Store.
+12. Client(name: String, address: String, neededCategories: List<Category>): Represents a client who receives items from the store and may need additional items delivered.
+13. Delivery(item: Item, client: Client, deliveryDate: Date): Represents a delivery of items to a client's address."
+"
+"
+------------------------------------------------------------
+ O  Class:Resident  Oracle:Resident
+   X  Attribute:name 
+   X  Attribute:streetAddress 
+   X  Attribute:phoneNumber 
+   X  Attribute:emailAddress 
+   X  Attribute:itemsDescription 
+ O  Class:FoodItem  Oracle:FoodItem
+   X  Attribute:description 
+   X  Attribute:expiryDate 
+ O  Class:SecondHandArticle  Oracle:SecondHandArticle
+   X  Attribute:item 
+   X  Attribute:quality 
+ O  Class:Client  Oracle:Client
+   X  Attribute:name 
+   X  Attribute:address 
+   O  Attribute:neededCategories  Oracle:neededCategories 
+ X  Class:Category 
+   X  Attribute:e.g. 
+   X  Attribute:clothing 
+   X  Attribute:winter 
+   X  Attribute:fridge 
+   X  Attribute:microwave... 
+ X  Class:DayOfWeek 
+   X  Attribute:e.g. 
+   X  Attribute:Monday 
+   X  Attribute:Tuesday 
+   X  Attribute:Wednesday 
+   X  Attribute:Thursday 
+   X  Attribute:Friday 
+ X  Class:HelpingHandStore
+   X  Attribute:name 
+   X  Attribute:locations 
+ X  Class:PickupRequest
+   X  Attribute:resident 
+   X  Attribute:pickupDate 
+   X  Attribute:pickupTime 
+ X  Class:PickupVehicle
+   X  Attribute:vehicleID 
+   X  Attribute:availableStorageSpace 
+ X  Class:VolunteerDriver
+   X  Attribute:name 
+   X  Attribute:availableDays 
+ O  Class:Item  Oracle:abstract item 
+   O  Attribute:description  Oracle:description 
+   O  Attribute:weight  Oracle:weight 
+   O  Attribute:dimensions  Oracle:dimension 
+ X  Class:RFIDTag
+   X  Attribute:tagID 
+ X  Class:DistributionCenter
+   X  Attribute:location 
+ X  Class:H2SEmployee
+   X  Attribute:name 
+ X  Class:Delivery
+   X  Attribute:item 
+   X  Attribute:client 
+   X  Attribute:deliveryDate 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------3/10------H2S:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The Helping Hand Store (H2S) collects second hand articles and non-perishable foods from residents of the city of and distributes them to those in need. H2S also operates in other cities, but each location is run independently. To increase the number of items available for distribution, H2S is seeking to offer a Pickup and Delivery Service to its customers, which would allow a resident to schedule a pickup of items from a street address online at the H2S website.
+
+A resident enters a name, street address, phone number, optional email address, as well as a description of the items to be picked up. The resident places the items just outside the front door of the building at the stated street address in the morning of the weekday requested for pickup.
+
+H2S has a fleet of pickup vehicles, which it uses to collect items from residents. At the beginning of every weekday, a pickup route for that day is determined for each vehicle for which a volunteer driver is available. Volunteer drivers indicate their available days on the H2S website. The route takes into account the available storage space of a vehicle and the dimensions and weights of scheduled items. A scheduled pickup may occur anytime between 8:00 and 14:00. After completing all scheduled pickups, the driver drops off all collected second hand articles at H2S's distribution center. Non-perishable foods, on the other hand, are directly dropped off at the   food bank, which then deals with these items without further involvement from H2S.
+
+At H2S's distribution center, an H2S employee examines the quality of the received second hand articles. Those articles that can still be used are tagged with an RFID device. The H2S employee double checks the description of the article given by the resident and makes any corrections as needed. In addition, the H2S employee assigns a category to the article from a standard list of 134 categories (e.g., baby clothing, women's winter boots, fridge, microwave...).
+
+In some cities in which H2S operates, the distribution center offers an additional service for clients who receive second hand articles from H2S but are not able to personally visit the H2S distribution center. Instead, H2S allows those clients to indicate which categories of articles they need. At the end of each day, an H2S employee calls them to let them know about the relevant articles that were dropped off that day. If the client still needs an article, the H2S employee arranges delivery of the article to the client's home address. Delivery of such articles is made by a volunteer driver before picking up items according to the pickup route.
+
+AI:### Enumerations:
+1. Category (e.g., baby clothing, women's winter boots, fridge, microwave...)
+2. PickupTime (e.g., 8:00, 9:00, 10:00, 11:00, 12:00, 13:00, 14:00)
+
+### Classes:
+1. HelpingHandStore
+2. Resident
+3. PickupRequest
+4. Item
+5. PickupVehicle
+6. VolunteerDriver
+7. DistributionCenter
+8. Employee
+9. FoodBank
+
+### Attributes:
+1. HelpingHandStore
+   - locations
+   - pickupServiceAvailable
+   - website
+
+2. Resident
+   - name
+   - streetAddress
+   - phoneNumber
+   - emailAddress
+   - itemsDescription
+
+3. PickupRequest
+   - resident
+   - pickupTime
+   - pickupAddress
+   - items
+
+4. Item
+   - description
+   - RFIDTag
+   - category
+
+5. PickupVehicle
+   - storageSpace
+   - availableDays
+
+6. VolunteerDriver
+   - availableDays
+
+7. DistributionCenter
+   - additionalServiceAvailable
+   - categoriesList
+
+8. Employee
+   - role
+   - RFIDTagging
+   - categoryAssignment
+
+9. FoodBank
+   - receivedItems"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. Category (literals): [Represents the different categories of articles that can be donated or requested.]
+2. PickupTime (literals): [Represents the different time slots available for scheduling pickups.]
+
+### Classes:
+1. HelpingHandStore(locations: List<Location>, pickupServiceAvailable: boolean, website: String): [Represents the organization that collects and distributes donated items, with information about its locations and services.]
+2. Resident(name: String, streetAddress: String, phoneNumber: String, emailAddress: String, itemsDescription: String): [Represents a resident who requests a pickup service, providing personal and pickup information.]
+3. PickupRequest(resident: Resident, pickupTime: PickupTime, pickupAddress: String, items: List<Item>): [Represents a pickup request made by a resident, including details of the pickup.]
+4. Item(description: String, RFIDTag: boolean, category: Category): [Represents an item to be donated, with a description, RFID tagging status, and category.]
+5. PickupVehicle(storageSpace: int, availableDays: List<DayOfWeek>): [Represents a vehicle used for pickups, with storage capacity and availability information.]
+6. VolunteerDriver(availableDays: List<DayOfWeek>): [Represents a volunteer driver who indicates availability for pickup routes.]
+7. DistributionCenter(additionalServiceAvailable: boolean, categoriesList: List<Category>): [Represents the center where donated items are examined and distributed, with information about additional services and categories.]
+8. Employee(role: String, RFIDTagging: boolean, categoryAssignment: Category): [Represents an employee at the distribution center, with roles related to RFID tagging and category assignment.]
+9. FoodBank(receivedItems: List<Item>): [Represents a facility where non-perishable food items are directly dropped off for distribution.]"
+"
+"
+------------------------------------------------------------
+ O  Class:Resident  Oracle:Resident
+   X  Attribute:name 
+   X  Attribute:streetAddress 
+   X  Attribute:phoneNumber 
+   X  Attribute:emailAddress 
+   X  Attribute:itemsDescription 
+ X  Class:Category 
+   X  Attribute:literals 
+ X  Class:PickupTime 
+   X  Attribute:literals 
+ X  Class:HelpingHandStore
+   X  Attribute:locations 
+   X  Attribute:pickupServiceAvailable 
+   X  Attribute:website 
+ X  Class:PickupRequest
+   X  Attribute:resident 
+   X  Attribute:pickupTime 
+   X  Attribute:pickupAddress 
+   X  Attribute:items 
+ X  Class:Item
+   X  Attribute:description 
+   X  Attribute:RFIDTag 
+   X  Attribute:category 
+ X  Class:PickupVehicle
+   X  Attribute:storageSpace 
+   X  Attribute:availableDays 
+ X  Class:VolunteerDriver
+   X  Attribute:availableDays 
+ X  Class:DistributionCenter
+   X  Attribute:additionalServiceAvailable 
+   X  Attribute:categoriesList 
+ X  Class:Employee
+   X  Attribute:role 
+   X  Attribute:RFIDTagging 
+   X  Attribute:categoryAssignment 
+ X  Class:FoodBank
+   X  Attribute:receivedItems 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------4/10------H2S:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The Helping Hand Store (H2S) collects second hand articles and non-perishable foods from residents of the city of and distributes them to those in need. H2S also operates in other cities, but each location is run independently. To increase the number of items available for distribution, H2S is seeking to offer a Pickup and Delivery Service to its customers, which would allow a resident to schedule a pickup of items from a street address online at the H2S website.
+
+A resident enters a name, street address, phone number, optional email address, as well as a description of the items to be picked up. The resident places the items just outside the front door of the building at the stated street address in the morning of the weekday requested for pickup.
+
+H2S has a fleet of pickup vehicles, which it uses to collect items from residents. At the beginning of every weekday, a pickup route for that day is determined for each vehicle for which a volunteer driver is available. Volunteer drivers indicate their available days on the H2S website. The route takes into account the available storage space of a vehicle and the dimensions and weights of scheduled items. A scheduled pickup may occur anytime between 8:00 and 14:00. After completing all scheduled pickups, the driver drops off all collected second hand articles at H2S's distribution center. Non-perishable foods, on the other hand, are directly dropped off at the   food bank, which then deals with these items without further involvement from H2S.
+
+At H2S's distribution center, an H2S employee examines the quality of the received second hand articles. Those articles that can still be used are tagged with an RFID device. The H2S employee double checks the description of the article given by the resident and makes any corrections as needed. In addition, the H2S employee assigns a category to the article from a standard list of 134 categories (e.g., baby clothing, women's winter boots, fridge, microwave...).
+
+In some cities in which H2S operates, the distribution center offers an additional service for clients who receive second hand articles from H2S but are not able to personally visit the H2S distribution center. Instead, H2S allows those clients to indicate which categories of articles they need. At the end of each day, an H2S employee calls them to let them know about the relevant articles that were dropped off that day. If the client still needs an article, the H2S employee arranges delivery of the article to the client's home address. Delivery of such articles is made by a volunteer driver before picking up items according to the pickup route.
+
+AI:### Enumerations:
+1. Category (e.g., baby clothing, women's winter boots, fridge, microwave...)
+2. Day of the Week (e.g., Monday, Tuesday, Wednesday, Thursday, Friday)
+
+### Classes:
+1. HelpingHandStore
+2. Resident
+3. PickupService
+4. PickupVehicle
+5. VolunteerDriver
+6. PickupRoute
+7. SecondHandArticle
+8. NonPerishableFood
+9. DistributionCenterEmployee
+10. FoodBank
+11. RFIDDevice
+
+### Attributes:
+1. HelpingHandStore
+   - Name: String
+   - Locations: List<Location>
+   - PickupService: PickupService
+
+2. Resident
+   - Name: String
+   - StreetAddress: String
+   - PhoneNumber: String
+   - EmailAddress: String (optional)
+   - ItemsDescription: String
+
+3. PickupService
+   - PickupVehicles: List<PickupVehicle>
+
+4. PickupVehicle
+   - Driver: VolunteerDriver
+   - AvailableDays: List<DayOfWeek>
+   - StorageSpace: Integer
+
+5. VolunteerDriver
+   - Name: String
+   - AvailableDays: List<DayOfWeek>
+
+6. PickupRoute
+   - Vehicle: PickupVehicle
+   - ScheduledItems: List<SecondHandArticle>
+   - PickupTime: TimeRange
+
+7. SecondHandArticle
+   - Description: String
+   - Quality: Boolean
+   - RFIDTag: RFIDDevice
+   - Category: Category
+
+8. NonPerishableFood
+   - Description: String
+   - Category: Category
+
+9. DistributionCenterEmployee
+   - Name: String
+
+10. FoodBank
+   - Name: String
+
+11. RFIDDevice
+   - ID: String"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. Category (e.g., baby clothing, women's winter boots, fridge, microwave...): Represents the different categories of items collected and distributed by Helping Hand Store.
+2. DayOfWeek (Monday, Tuesday, Wednesday, Thursday, Friday): Represents the days of the week for scheduling pickups and deliveries.
+
+### Classes:
+1. HelpingHandStore(Name: String, Locations: List<Location>, PickupService: PickupService): Represents the main entity managing the collection and distribution operations.
+2. Resident(Name: String, StreetAddress: String, PhoneNumber: String, EmailAddress: String, ItemsDescription: String): Represents a resident who schedules pickups for donation items.
+3. PickupService(PickupVehicles: List<PickupVehicle>): Manages the pickup vehicles and routes for collecting items.
+4. PickupVehicle(Driver: VolunteerDriver, AvailableDays: List<DayOfWeek>, StorageSpace: Integer): Represents a vehicle used for pickups with driver and availability information.
+5. VolunteerDriver(Name: String, AvailableDays: List<DayOfWeek>): Represents a volunteer driver available for pickup routes.
+6. PickupRoute(Vehicle: PickupVehicle, ScheduledItems: List<SecondHandArticle>, PickupTime: TimeRange): Represents a scheduled route for pickups with items and time information.
+7. SecondHandArticle(Description: String, Quality: Boolean, RFIDTag: RFIDDevice, Category: Category): Represents a second-hand article with description, quality, RFID tagging, and category.
+8. NonPerishableFood(Description: String, Category: Category): Represents a non-perishable food item with description and category.
+9. DistributionCenterEmployee(Name: String): Represents an employee at the distribution center.
+10. FoodBank(Name: String): Represents the entity where non-perishable foods are dropped off.
+11. RFIDDevice(ID: String): Represents an RFID device used for tagging second-hand articles."
+"
+"
+------------------------------------------------------------
+ O  Class:Resident  Oracle:Resident
+   X  Attribute:Name 
+   X  Attribute:StreetAddress 
+   X  Attribute:PhoneNumber 
+   X  Attribute:EmailAddress 
+   X  Attribute:ItemsDescription 
+ O  Class:SecondHandArticle  Oracle:SecondHandArticle
+   X  Attribute:Description 
+   X  Attribute:Quality 
+   X  Attribute:RFIDTag 
+   O  Attribute:Category  Oracle:category 
+ X  Class:Category 
+   X  Attribute:e.g. 
+   X  Attribute:clothing 
+   X  Attribute:winter 
+   X  Attribute:fridge 
+   X  Attribute:microwave... 
+ X  Class:DayOfWeek 
+   X  Attribute:Monday 
+   X  Attribute:Tuesday 
+   X  Attribute:Wednesday 
+   X  Attribute:Thursday 
+   X  Attribute:Friday 
+ X  Class:HelpingHandStore
+   X  Attribute:Name 
+   X  Attribute:Locations 
+   X  Attribute:PickupService 
+ X  Class:PickupService
+   X  Attribute:PickupVehicles 
+ X  Class:PickupVehicle
+   X  Attribute:Driver 
+   X  Attribute:AvailableDays 
+   X  Attribute:StorageSpace 
+ X  Class:VolunteerDriver
+   X  Attribute:Name 
+   X  Attribute:AvailableDays 
+ X  Class:PickupRoute
+   X  Attribute:Vehicle 
+   X  Attribute:ScheduledItems 
+   X  Attribute:PickupTime 
+ X  Class:NonPerishableFood
+   X  Attribute:Description 
+   X  Attribute:Category 
+ X  Class:DistributionCenterEmployee
+   X  Attribute:Name 
+ X  Class:FoodBank
+   X  Attribute:Name 
+ X  Class:RFIDDevice
+   X  Attribute:ID 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------5/10------H2S:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The Helping Hand Store (H2S) collects second hand articles and non-perishable foods from residents of the city of and distributes them to those in need. H2S also operates in other cities, but each location is run independently. To increase the number of items available for distribution, H2S is seeking to offer a Pickup and Delivery Service to its customers, which would allow a resident to schedule a pickup of items from a street address online at the H2S website.
+
+A resident enters a name, street address, phone number, optional email address, as well as a description of the items to be picked up. The resident places the items just outside the front door of the building at the stated street address in the morning of the weekday requested for pickup.
+
+H2S has a fleet of pickup vehicles, which it uses to collect items from residents. At the beginning of every weekday, a pickup route for that day is determined for each vehicle for which a volunteer driver is available. Volunteer drivers indicate their available days on the H2S website. The route takes into account the available storage space of a vehicle and the dimensions and weights of scheduled items. A scheduled pickup may occur anytime between 8:00 and 14:00. After completing all scheduled pickups, the driver drops off all collected second hand articles at H2S's distribution center. Non-perishable foods, on the other hand, are directly dropped off at the   food bank, which then deals with these items without further involvement from H2S.
+
+At H2S's distribution center, an H2S employee examines the quality of the received second hand articles. Those articles that can still be used are tagged with an RFID device. The H2S employee double checks the description of the article given by the resident and makes any corrections as needed. In addition, the H2S employee assigns a category to the article from a standard list of 134 categories (e.g., baby clothing, women's winter boots, fridge, microwave...).
+
+In some cities in which H2S operates, the distribution center offers an additional service for clients who receive second hand articles from H2S but are not able to personally visit the H2S distribution center. Instead, H2S allows those clients to indicate which categories of articles they need. At the end of each day, an H2S employee calls them to let them know about the relevant articles that were dropped off that day. If the client still needs an article, the H2S employee arranges delivery of the article to the client's home address. Delivery of such articles is made by a volunteer driver before picking up items according to the pickup route.
+
+AI:### Enumerations:
+1. Category (e.g., baby clothing, women's winter boots, fridge, microwave...)
+2. Weekday (e.g., Monday, Tuesday, Wednesday, Thursday, Friday)
+
+### Classes:
+1. HelpingHandStore
+2. Resident
+3. PickupRequest
+4. PickupVehicle
+5. VolunteerDriver
+6. PickupRoute
+7. SecondHandArticle
+8. FoodBank
+9. Employee
+10. RFIDTag
+
+### Attributes:
+1. HelpingHandStore
+   - Name: String
+   - Locations: List<Location>
+
+2. Resident
+   - Name: String
+   - StreetAddress: String
+   - PhoneNumber: String
+   - EmailAddress: String (optional)
+   - ItemsDescription: String
+
+3. PickupRequest
+   - Resident: Resident
+   - RequestedWeekday: Weekday
+   - PickupTime: Time
+   - PickupCompleted: Boolean
+
+4. PickupVehicle
+   - VehicleID: String
+   - StorageSpace: Integer
+
+5. VolunteerDriver
+   - Name: String
+   - AvailableDays: List<Weekday>
+
+6. PickupRoute
+   - Vehicle: PickupVehicle
+   - Driver: VolunteerDriver
+   - ScheduledPickups: List<PickupRequest>
+
+7. SecondHandArticle
+   - Description: String
+   - Category: Category
+   - Usable: Boolean
+
+8. FoodBank
+   - Location: String
+
+9. Employee
+   - Name: String
+   - Role: String
+
+10. RFIDTag
+   - TagID: String
+   - Article: SecondHandArticle"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. Category (literals: baby clothing, women's winter boots, fridge, microwave...): Represents the different categories of articles that can be donated or received.
+2. Weekday (literals: Monday, Tuesday, Wednesday, Thursday, Friday): Represents the days of the week for scheduling pickups and deliveries.
+
+### Classes:
+1. HelpingHandStore(Name: String, Locations: List<Location>): Represents the organization that collects and distributes donated items.
+2. Resident(Name: String, StreetAddress: String, PhoneNumber: String, EmailAddress: String, ItemsDescription: String): Represents a resident who requests a pickup of items.
+3. PickupRequest(Resident: Resident, RequestedWeekday: Weekday, PickupTime: Time, PickupCompleted: Boolean): Represents a request made by a resident for item pickup.
+4. PickupVehicle(VehicleID: String, StorageSpace: Integer): Represents a vehicle used for collecting items from residents.
+5. VolunteerDriver(Name: String, AvailableDays: List<Weekday>): Represents a volunteer driver who is available on specific weekdays.
+6. PickupRoute(Vehicle: PickupVehicle, Driver: VolunteerDriver, ScheduledPickups: List<PickupRequest]): Represents a route for pickups scheduled for a particular day.
+7. SecondHandArticle(Description: String, Category: Category, Usable: Boolean): Represents a donated article with its description and category.
+8. FoodBank(Location: String): Represents the location where non-perishable foods are dropped off.
+9. Employee(Name: String, Role: String): Represents an employee of the Helping Hand Store.
+10. RFIDTag(TagID: String, Article: SecondHandArticle): Represents an RFID tag assigned to a second-hand article."
+"
+"
+------------------------------------------------------------
+ O  Class:Resident  Oracle:Resident
+   X  Attribute:Name 
+   X  Attribute:StreetAddress 
+   X  Attribute:PhoneNumber 
+   X  Attribute:EmailAddress 
+   X  Attribute:ItemsDescription 
+ O  Class:SecondHandArticle  Oracle:SecondHandArticle
+   X  Attribute:Description 
+   O  Attribute:Category  Oracle:category 
+   X  Attribute:Usable 
+ X  Class:Category 
+   X  Attribute:literals 
+   X  Attribute:winter 
+   X  Attribute:fridge 
+   X  Attribute:microwave... 
+ X  Class:Weekday 
+   X  Attribute:literals 
+   X  Attribute:Tuesday 
+   X  Attribute:Wednesday 
+   X  Attribute:Thursday 
+   X  Attribute:Friday 
+ X  Class:HelpingHandStore
+   X  Attribute:Name 
+   X  Attribute:Locations 
+ X  Class:PickupRequest
+   X  Attribute:Resident 
+   X  Attribute:RequestedWeekday 
+   X  Attribute:PickupTime 
+   X  Attribute:PickupCompleted 
+ X  Class:PickupVehicle
+   X  Attribute:VehicleID 
+   X  Attribute:StorageSpace 
+ X  Class:VolunteerDriver
+   X  Attribute:Name 
+   X  Attribute:AvailableDays 
+ X  Class:PickupRoute
+   X  Attribute:Vehicle 
+   X  Attribute:Driver 
+   X  Attribute:ScheduledPickups 
+ X  Class:FoodBank
+   X  Attribute:Location 
+ X  Class:Employee
+   X  Attribute:Name 
+   X  Attribute:Role 
+ X  Class:RFIDTag
+   X  Attribute:TagID 
+   X  Attribute:Article 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------6/10------H2S:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The Helping Hand Store (H2S) collects second hand articles and non-perishable foods from residents of the city of and distributes them to those in need. H2S also operates in other cities, but each location is run independently. To increase the number of items available for distribution, H2S is seeking to offer a Pickup and Delivery Service to its customers, which would allow a resident to schedule a pickup of items from a street address online at the H2S website.
+
+A resident enters a name, street address, phone number, optional email address, as well as a description of the items to be picked up. The resident places the items just outside the front door of the building at the stated street address in the morning of the weekday requested for pickup.
+
+H2S has a fleet of pickup vehicles, which it uses to collect items from residents. At the beginning of every weekday, a pickup route for that day is determined for each vehicle for which a volunteer driver is available. Volunteer drivers indicate their available days on the H2S website. The route takes into account the available storage space of a vehicle and the dimensions and weights of scheduled items. A scheduled pickup may occur anytime between 8:00 and 14:00. After completing all scheduled pickups, the driver drops off all collected second hand articles at H2S's distribution center. Non-perishable foods, on the other hand, are directly dropped off at the   food bank, which then deals with these items without further involvement from H2S.
+
+At H2S's distribution center, an H2S employee examines the quality of the received second hand articles. Those articles that can still be used are tagged with an RFID device. The H2S employee double checks the description of the article given by the resident and makes any corrections as needed. In addition, the H2S employee assigns a category to the article from a standard list of 134 categories (e.g., baby clothing, women's winter boots, fridge, microwave...).
+
+In some cities in which H2S operates, the distribution center offers an additional service for clients who receive second hand articles from H2S but are not able to personally visit the H2S distribution center. Instead, H2S allows those clients to indicate which categories of articles they need. At the end of each day, an H2S employee calls them to let them know about the relevant articles that were dropped off that day. If the client still needs an article, the H2S employee arranges delivery of the article to the client's home address. Delivery of such articles is made by a volunteer driver before picking up items according to the pickup route.
+
+AI:### Enumerations:
+1. Category (e.g., baby clothing, women's winter boots, fridge, microwave...)
+2. Weekday (e.g., Monday, Tuesday, Wednesday, Thursday, Friday)
+
+### Classes:
+1. HelpingHandStore
+2. Resident
+3. PickupRequest
+4. PickupVehicle
+5. VolunteerDriver
+6. SecondHandArticle
+7. NonPerishableFood
+8. DistributionCenter
+9. Employee
+10. RFIDTag
+
+### Attributes:
+1. HelpingHandStore
+   - Name: String
+   - Locations: List<Location>
+   - PickupServiceEnabled: Boolean
+
+2. Resident
+   - Name: String
+   - StreetAddress: String
+   - PhoneNumber: String
+   - EmailAddress: String
+   - ItemsDescription: String
+
+3. PickupRequest
+   - Resident: Resident
+   - PickupDate: Date
+   - PickupTime: Time
+   - PickupAddress: String
+   - ItemsDescription: String
+
+4. PickupVehicle
+   - VehicleNumber: String
+   - AvailableStorageSpace: Integer
+   - AvailableDays: List<Weekday>
+
+5. VolunteerDriver
+   - Name: String
+   - AvailableDays: List<Weekday>
+
+6. SecondHandArticle
+   - Description: String
+   - Quality: Enum{Usable, NotUsable}
+   - Category: Category
+   - RFIDTag: RFIDTag
+
+7. NonPerishableFood
+   - Description: String
+   - FoodBank: String
+
+8. DistributionCenter
+   - Location: Location
+   - AdditionalServiceEnabled: Boolean
+
+9. Employee
+   - Name: String
+   - Role: String
+
+10. RFIDTag
+   - TagID: String"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. Category (e.g., baby clothing, women's winter boots, fridge, microwave...): Represents the different categories of articles that can be donated or received by Helping Hand Store.
+2. Weekday (e.g., Monday, Tuesday, Wednesday, Thursday, Friday): Represents the days of the week for scheduling pickups and deliveries.
+
+### Classes:
+1. HelpingHandStore(Name: String, Locations: List<Location>, PickupServiceEnabled: Boolean): Represents the organization that collects and distributes second-hand articles and non-perishable foods.
+2. Resident(Name: String, StreetAddress: String, PhoneNumber: String, EmailAddress: String, ItemsDescription: String): Represents a resident who requests a pickup of items from their address.
+3. PickupRequest(Resident: Resident, PickupDate: Date, PickupTime: Time, PickupAddress: String, ItemsDescription: String): Represents a request made by a resident for a pickup service.
+4. PickupVehicle(VehicleNumber: String, AvailableStorageSpace: Integer, AvailableDays: List<Weekday>): Represents a vehicle used for collecting items from residents.
+5. VolunteerDriver(Name: String, AvailableDays: List<Weekday>): Represents a volunteer driver who is available on specific days for pickup routes.
+6. SecondHandArticle(Description: String, Quality: Enum{Usable, NotUsable}, Category: Category, RFIDTag: RFIDTag): Represents a second-hand article donated by a resident.
+7. NonPerishableFood(Description: String, FoodBank: String): Represents a non-perishable food item donated to Helping Hand Store.
+8. DistributionCenter(Location: Location, AdditionalServiceEnabled: Boolean): Represents the center where collected items are examined and distributed.
+9. Employee(Name: String, Role: String): Represents an employee of Helping Hand Store.
+10. RFIDTag(TagID: String): Represents an RFID tag used to identify and track donated articles."
+"
+"
+------------------------------------------------------------
+ O  Class:Resident  Oracle:Resident
+   X  Attribute:Name 
+   X  Attribute:StreetAddress 
+   X  Attribute:PhoneNumber 
+   X  Attribute:EmailAddress 
+   X  Attribute:ItemsDescription 
+ O  Class:SecondHandArticle  Oracle:SecondHandArticle
+   X  Attribute:Description 
+   X  Attribute:Quality 
+   X  Attribute:NotUsable} 
+   O  Attribute:Category  Oracle:category 
+   X  Attribute:RFIDTag 
+ X  Class:Category 
+   X  Attribute:e.g. 
+   X  Attribute:clothing 
+   X  Attribute:winter 
+   X  Attribute:fridge 
+   X  Attribute:microwave... 
+ X  Class:Weekday 
+   X  Attribute:e.g. 
+   X  Attribute:Monday 
+   X  Attribute:Tuesday 
+   X  Attribute:Wednesday 
+   X  Attribute:Thursday 
+   X  Attribute:Friday 
+ X  Class:HelpingHandStore
+   X  Attribute:Name 
+   X  Attribute:Locations 
+   X  Attribute:PickupServiceEnabled 
+ X  Class:PickupRequest
+   X  Attribute:Resident 
+   X  Attribute:PickupDate 
+   X  Attribute:PickupTime 
+   X  Attribute:PickupAddress 
+   X  Attribute:ItemsDescription 
+ X  Class:PickupVehicle
+   X  Attribute:VehicleNumber 
+   X  Attribute:AvailableStorageSpace 
+   X  Attribute:AvailableDays 
+ X  Class:VolunteerDriver
+   X  Attribute:Name 
+   X  Attribute:AvailableDays 
+ X  Class:NonPerishableFood
+   X  Attribute:Description 
+   X  Attribute:FoodBank 
+ X  Class:DistributionCenter
+   X  Attribute:Location 
+   X  Attribute:AdditionalServiceEnabled 
+ X  Class:Employee
+   X  Attribute:Name 
+   X  Attribute:Role 
+ X  Class:RFIDTag
+   X  Attribute:TagID 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------7/10------H2S:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The Helping Hand Store (H2S) collects second hand articles and non-perishable foods from residents of the city of and distributes them to those in need. H2S also operates in other cities, but each location is run independently. To increase the number of items available for distribution, H2S is seeking to offer a Pickup and Delivery Service to its customers, which would allow a resident to schedule a pickup of items from a street address online at the H2S website.
+
+A resident enters a name, street address, phone number, optional email address, as well as a description of the items to be picked up. The resident places the items just outside the front door of the building at the stated street address in the morning of the weekday requested for pickup.
+
+H2S has a fleet of pickup vehicles, which it uses to collect items from residents. At the beginning of every weekday, a pickup route for that day is determined for each vehicle for which a volunteer driver is available. Volunteer drivers indicate their available days on the H2S website. The route takes into account the available storage space of a vehicle and the dimensions and weights of scheduled items. A scheduled pickup may occur anytime between 8:00 and 14:00. After completing all scheduled pickups, the driver drops off all collected second hand articles at H2S's distribution center. Non-perishable foods, on the other hand, are directly dropped off at the   food bank, which then deals with these items without further involvement from H2S.
+
+At H2S's distribution center, an H2S employee examines the quality of the received second hand articles. Those articles that can still be used are tagged with an RFID device. The H2S employee double checks the description of the article given by the resident and makes any corrections as needed. In addition, the H2S employee assigns a category to the article from a standard list of 134 categories (e.g., baby clothing, women's winter boots, fridge, microwave...).
+
+In some cities in which H2S operates, the distribution center offers an additional service for clients who receive second hand articles from H2S but are not able to personally visit the H2S distribution center. Instead, H2S allows those clients to indicate which categories of articles they need. At the end of each day, an H2S employee calls them to let them know about the relevant articles that were dropped off that day. If the client still needs an article, the H2S employee arranges delivery of the article to the client's home address. Delivery of such articles is made by a volunteer driver before picking up items according to the pickup route.
+
+AI:### Enumerations:
+1. Category (e.g., baby clothing, women's winter boots, fridge, microwave...)
+2. Day of the Week (Monday, Tuesday, Wednesday, Thursday, Friday)
+
+### Classes:
+1. HelpingHandStore
+2. Resident
+3. PickupRequest
+4. PickupVehicle
+5. VolunteerDriver
+6. PickupRoute
+7. SecondHandArticle
+8. NonPerishableFood
+9. DistributionCenter
+10. H2SEmployee
+
+### Attributes:
+1. HelpingHandStore
+   - Name: String
+   - Locations: List<Location>
+
+2. Resident
+   - Name: String
+   - StreetAddress: String
+   - PhoneNumber: String
+   - EmailAddress: String (optional)
+   - ItemsDescription: String
+
+3. PickupRequest
+   - Resident: Resident
+   - ScheduledDay: DayOfWeek
+   - ScheduledTime: Time
+   - PickupAddress: String
+
+4. PickupVehicle
+   - VehicleID: String
+   - AvailableStorageSpace: Integer
+
+5. VolunteerDriver
+   - Name: String
+   - AvailableDays: List<DayOfWeek>
+
+6. PickupRoute
+   - Vehicle: PickupVehicle
+   - Driver: VolunteerDriver
+   - ScheduledPickups: List<PickupRequest>
+
+7. SecondHandArticle
+   - Description: String
+   - RFIDTag: String
+   - Category: Category
+
+8. NonPerishableFood
+   - Description: String
+
+9. DistributionCenter
+   - Location: String
+
+10. H2SEmployee
+    - Name: String
+    - Role: String"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. Category (e.g., baby clothing, women's winter boots, fridge, microwave...): Represents the different categories of items collected by the Helping Hand Store.
+2. DayOfWeek (Monday, Tuesday, Wednesday, Thursday, Friday): Represents the days of the week for scheduling pickups and deliveries.
+
+### Classes:
+1. HelpingHandStore(Name: String, Locations: List<Location>): Represents the organization that collects and distributes second-hand articles and non-perishable foods.
+2. Resident(Name: String, StreetAddress: String, PhoneNumber: String, EmailAddress: String, ItemsDescription: String): Represents a resident who schedules a pickup of items.
+3. PickupRequest(Resident: Resident, ScheduledDay: DayOfWeek, ScheduledTime: Time, PickupAddress: String): Represents a request made by a resident for pickup of items.
+4. PickupVehicle(VehicleID: String, AvailableStorageSpace: Integer): Represents a vehicle used for collecting items from residents.
+5. VolunteerDriver(Name: String, AvailableDays: List<DayOfWeek>): Represents a volunteer driver who drives the pickup vehicle.
+6. PickupRoute(Vehicle: PickupVehicle, Driver: VolunteerDriver, ScheduledPickups: List<PickupRequest>): Represents a route planned for pickups on a specific day.
+7. SecondHandArticle(Description: String, RFIDTag: String, Category: Category): Represents a second-hand article collected by the Helping Hand Store.
+8. NonPerishableFood(Description: String): Represents a non-perishable food item collected by the Helping Hand Store.
+9. DistributionCenter(Location: String): Represents the center where collected items are processed and distributed.
+10. H2SEmployee(Name: String, Role: String): Represents an employee of the Helping Hand Store involved in processing items."
+"
+"
+------------------------------------------------------------
+ O  Class:Resident  Oracle:Resident
+   X  Attribute:Name 
+   X  Attribute:StreetAddress 
+   X  Attribute:PhoneNumber 
+   X  Attribute:EmailAddress 
+   X  Attribute:ItemsDescription 
+ O  Class:SecondHandArticle  Oracle:SecondHandArticle
+   X  Attribute:Description 
+   X  Attribute:RFIDTag 
+   O  Attribute:Category  Oracle:category 
+ X  Class:Category 
+   X  Attribute:e.g. 
+   X  Attribute:clothing 
+   X  Attribute:winter 
+   X  Attribute:fridge 
+   X  Attribute:microwave... 
+ X  Class:DayOfWeek 
+   X  Attribute:Monday 
+   X  Attribute:Tuesday 
+   X  Attribute:Wednesday 
+   X  Attribute:Thursday 
+   X  Attribute:Friday 
+ X  Class:HelpingHandStore
+   X  Attribute:Name 
+   X  Attribute:Locations 
+ X  Class:PickupRequest
+   X  Attribute:Resident 
+   X  Attribute:ScheduledDay 
+   X  Attribute:ScheduledTime 
+   X  Attribute:PickupAddress 
+ X  Class:PickupVehicle
+   X  Attribute:VehicleID 
+   X  Attribute:AvailableStorageSpace 
+ X  Class:VolunteerDriver
+   X  Attribute:Name 
+   X  Attribute:AvailableDays 
+ X  Class:PickupRoute
+   X  Attribute:Vehicle 
+   X  Attribute:Driver 
+   X  Attribute:ScheduledPickups 
+ X  Class:NonPerishableFood
+   X  Attribute:Description 
+ X  Class:DistributionCenter
+   X  Attribute:Location 
+ X  Class:H2SEmployee
+   X  Attribute:Name 
+   X  Attribute:Role 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------8/10------H2S:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The Helping Hand Store (H2S) collects second hand articles and non-perishable foods from residents of the city of and distributes them to those in need. H2S also operates in other cities, but each location is run independently. To increase the number of items available for distribution, H2S is seeking to offer a Pickup and Delivery Service to its customers, which would allow a resident to schedule a pickup of items from a street address online at the H2S website.
+
+A resident enters a name, street address, phone number, optional email address, as well as a description of the items to be picked up. The resident places the items just outside the front door of the building at the stated street address in the morning of the weekday requested for pickup.
+
+H2S has a fleet of pickup vehicles, which it uses to collect items from residents. At the beginning of every weekday, a pickup route for that day is determined for each vehicle for which a volunteer driver is available. Volunteer drivers indicate their available days on the H2S website. The route takes into account the available storage space of a vehicle and the dimensions and weights of scheduled items. A scheduled pickup may occur anytime between 8:00 and 14:00. After completing all scheduled pickups, the driver drops off all collected second hand articles at H2S's distribution center. Non-perishable foods, on the other hand, are directly dropped off at the   food bank, which then deals with these items without further involvement from H2S.
+
+At H2S's distribution center, an H2S employee examines the quality of the received second hand articles. Those articles that can still be used are tagged with an RFID device. The H2S employee double checks the description of the article given by the resident and makes any corrections as needed. In addition, the H2S employee assigns a category to the article from a standard list of 134 categories (e.g., baby clothing, women's winter boots, fridge, microwave...).
+
+In some cities in which H2S operates, the distribution center offers an additional service for clients who receive second hand articles from H2S but are not able to personally visit the H2S distribution center. Instead, H2S allows those clients to indicate which categories of articles they need. At the end of each day, an H2S employee calls them to let them know about the relevant articles that were dropped off that day. If the client still needs an article, the H2S employee arranges delivery of the article to the client's home address. Delivery of such articles is made by a volunteer driver before picking up items according to the pickup route.
+
+AI:### Enumerations:
+1. Category (e.g., baby clothing, women's winter boots, fridge, microwave...)
+2. Day of the Week (e.g., Monday, Tuesday, Wednesday, Thursday, Friday)
+
+### Classes:
+1. HelpingHandStore
+2. Resident
+3. PickupRequest
+4. PickupVehicle
+5. VolunteerDriver
+6. PickupRoute
+7. SecondHandArticle
+8. NonPerishableFood
+9. DistributionCenter
+10. Employee
+11. RFIDTag
+12. Client
+13. ArticleCategory
+
+### Attributes:
+1. HelpingHandStore
+   - Name: String
+   - Locations: List<Location>
+   - PickupServiceEnabled: Boolean
+
+2. Resident
+   - Name: String
+   - StreetAddress: String
+   - PhoneNumber: String
+   - EmailAddress: String
+   - ItemsDescription: String
+
+3. PickupRequest
+   - Resident: Resident
+   - PickupDate: Date
+   - PickupTime: Time
+
+4. PickupVehicle
+   - VehicleID: String
+   - StorageSpace: Integer
+
+5. VolunteerDriver
+   - Name: String
+   - AvailableDays: List<DayOfWeek>
+
+6. PickupRoute
+   - Vehicle: PickupVehicle
+   - Driver: VolunteerDriver
+   - ScheduledPickups: List<PickupRequest>
+
+7. SecondHandArticle
+   - Description: String
+   - Quality: Enum{Usable, NotUsable}
+   - RFIDTag: RFIDTag
+   - Category: ArticleCategory
+
+8. NonPerishableFood
+   - Description: String
+   - FoodBank: String
+
+9. DistributionCenter
+   - Location: Location
+   - ServicesOffered: List<Service>
+
+10. Employee
+    - Name: String
+    - Role: String
+
+11. RFIDTag
+    - TagID: String
+
+12. Client
+    - Name: String
+    - Address: String
+    - NeededCategories: List<Category>
+
+13. ArticleCategory
+    - Name: String"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. Category (e.g., baby clothing, women's winter boots, fridge, microwave...): Represents the different categories of articles that can be donated or requested.
+2. DayOfWeek (e.g., Monday, Tuesday, Wednesday, Thursday, Friday): Represents the days of the week for scheduling pickups and deliveries.
+
+### Classes:
+1. HelpingHandStore(Name: String, Locations: List<Location>, PickupServiceEnabled: Boolean): Represents the organization that collects and distributes donated items.
+2. Resident(Name: String, StreetAddress: String, PhoneNumber: String, EmailAddress: String, ItemsDescription: String): Represents a resident who requests a pickup of items.
+3. PickupRequest(Resident: Resident, PickupDate: Date, PickupTime: Time): Represents a request made by a resident for a pickup of items.
+4. PickupVehicle(VehicleID: String, StorageSpace: Integer): Represents a vehicle used for pickups.
+5. VolunteerDriver(Name: String, AvailableDays: List<DayOfWeek>): Represents a volunteer driver available for pickups.
+6. PickupRoute(Vehicle: PickupVehicle, Driver: VolunteerDriver, ScheduledPickups: List<PickupRequest>): Represents a route for pickups scheduled for a vehicle.
+7. SecondHandArticle(Description: String, Quality: Enum{Usable, NotUsable}, RFIDTag: RFIDTag, Category: ArticleCategory): Represents a second-hand article donated by a resident.
+8. NonPerishableFood(Description: String, FoodBank: String): Represents non-perishable food items donated.
+9. DistributionCenter(Location: Location, ServicesOffered: List<Service>): Represents the center where donated items are processed and distributed.
+10. Employee(Name: String, Role: String): Represents an employee of the Helping Hand Store.
+11. RFIDTag(TagID: String): Represents an RFID tag used to identify donated articles.
+12. Client(Name: String, Address: String, NeededCategories: List<Category>): Represents a client who receives articles from the distribution center.
+13. ArticleCategory(Name: String): Represents a category assigned to a donated article."
+"
+"
+------------------------------------------------------------
+ O  Class:Resident  Oracle:Resident
+   X  Attribute:Name 
+   X  Attribute:StreetAddress 
+   X  Attribute:PhoneNumber 
+   X  Attribute:EmailAddress 
+   X  Attribute:ItemsDescription 
+ O  Class:SecondHandArticle  Oracle:SecondHandArticle
+   X  Attribute:Description 
+   X  Attribute:Quality 
+   X  Attribute:NotUsable} 
+   X  Attribute:RFIDTag 
+   O  Attribute:Category  Oracle:category 
+ O  Class:Client  Oracle:Client
+   X  Attribute:Name 
+   X  Attribute:Address 
+   O  Attribute:NeededCategories  Oracle:neededCategories 
+ X  Class:Category 
+   X  Attribute:e.g. 
+   X  Attribute:clothing 
+   X  Attribute:winter 
+   X  Attribute:fridge 
+   X  Attribute:microwave... 
+ X  Class:DayOfWeek 
+   X  Attribute:e.g. 
+   X  Attribute:Monday 
+   X  Attribute:Tuesday 
+   X  Attribute:Wednesday 
+   X  Attribute:Thursday 
+   X  Attribute:Friday 
+ X  Class:HelpingHandStore
+   X  Attribute:Name 
+   X  Attribute:Locations 
+   X  Attribute:PickupServiceEnabled 
+ X  Class:PickupRequest
+   X  Attribute:Resident 
+   X  Attribute:PickupDate 
+   X  Attribute:PickupTime 
+ X  Class:PickupVehicle
+   X  Attribute:VehicleID 
+   X  Attribute:StorageSpace 
+ X  Class:VolunteerDriver
+   X  Attribute:Name 
+   X  Attribute:AvailableDays 
+ X  Class:PickupRoute
+   X  Attribute:Vehicle 
+   X  Attribute:Driver 
+   X  Attribute:ScheduledPickups 
+ X  Class:NonPerishableFood
+   X  Attribute:Description 
+   X  Attribute:FoodBank 
+ X  Class:DistributionCenter
+   X  Attribute:Location 
+   X  Attribute:ServicesOffered 
+ X  Class:Employee
+   X  Attribute:Name 
+   X  Attribute:Role 
+ X  Class:RFIDTag
+   X  Attribute:TagID 
+ X  Class:ArticleCategory
+   X  Attribute:Name 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------9/10------H2S:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The Helping Hand Store (H2S) collects second hand articles and non-perishable foods from residents of the city of and distributes them to those in need. H2S also operates in other cities, but each location is run independently. To increase the number of items available for distribution, H2S is seeking to offer a Pickup and Delivery Service to its customers, which would allow a resident to schedule a pickup of items from a street address online at the H2S website.
+
+A resident enters a name, street address, phone number, optional email address, as well as a description of the items to be picked up. The resident places the items just outside the front door of the building at the stated street address in the morning of the weekday requested for pickup.
+
+H2S has a fleet of pickup vehicles, which it uses to collect items from residents. At the beginning of every weekday, a pickup route for that day is determined for each vehicle for which a volunteer driver is available. Volunteer drivers indicate their available days on the H2S website. The route takes into account the available storage space of a vehicle and the dimensions and weights of scheduled items. A scheduled pickup may occur anytime between 8:00 and 14:00. After completing all scheduled pickups, the driver drops off all collected second hand articles at H2S's distribution center. Non-perishable foods, on the other hand, are directly dropped off at the   food bank, which then deals with these items without further involvement from H2S.
+
+At H2S's distribution center, an H2S employee examines the quality of the received second hand articles. Those articles that can still be used are tagged with an RFID device. The H2S employee double checks the description of the article given by the resident and makes any corrections as needed. In addition, the H2S employee assigns a category to the article from a standard list of 134 categories (e.g., baby clothing, women's winter boots, fridge, microwave...).
+
+In some cities in which H2S operates, the distribution center offers an additional service for clients who receive second hand articles from H2S but are not able to personally visit the H2S distribution center. Instead, H2S allows those clients to indicate which categories of articles they need. At the end of each day, an H2S employee calls them to let them know about the relevant articles that were dropped off that day. If the client still needs an article, the H2S employee arranges delivery of the article to the client's home address. Delivery of such articles is made by a volunteer driver before picking up items according to the pickup route.
+
+AI:### Enumerations:
+1. Category (e.g., baby clothing, women's winter boots, fridge, microwave...)
+2. Weekday (e.g., Monday, Tuesday, Wednesday, Thursday, Friday)
+
+### Classes:
+1. HelpingHandStore
+2. Resident
+3. PickupRequest
+4. PickupVehicle
+5. VolunteerDriver
+6. SecondHandArticle
+7. FoodBank
+8. Employee
+9. RFIDTag
+10. DistributionCenter
+11. Client
+
+### Attributes:
+1. HelpingHandStore
+   - Name: String
+   - Locations: List<Location>
+   - PickupServiceEnabled: Boolean
+
+2. Resident
+   - Name: String
+   - StreetAddress: String
+   - PhoneNumber: String
+   - EmailAddress: String
+   - ItemsDescription: String
+
+3. PickupRequest
+   - Resident: Resident
+   - PickupDate: Date
+   - PickupTime: Time
+   - PickupAddress: String
+   - ItemsDescription: String
+
+4. PickupVehicle
+   - VehicleNumber: String
+   - AvailableStorageSpace: Double
+   - AvailableDays: List<Weekday>
+
+5. VolunteerDriver
+   - Name: String
+   - AvailableDays: List<Weekday>
+
+6. SecondHandArticle
+   - Description: String
+   - Quality: Enum{Usable, NotUsable}
+   - Category: Category
+   - RFIDTag: RFIDTag
+
+7. FoodBank
+   - Location: String
+
+8. Employee
+   - Name: String
+   - Role: String
+
+9. RFIDTag
+   - TagID: String
+
+10. DistributionCenter
+    - Location: String
+    - ServicesOffered: List<String>
+
+11. Client
+    - Name: String
+    - Address: String
+    - NeededCategories: List<Category>"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. Category (e.g., baby clothing, women's winter boots, fridge, microwave...): Represents the different categories of items that can be donated or received by Helping Hand Store.
+2. Weekday (e.g., Monday, Tuesday, Wednesday, Thursday, Friday): Represents the days of the week for scheduling pickups and deliveries.
+
+### Classes:
+1. HelpingHandStore(Name: String, Locations: List<Location>, PickupServiceEnabled: Boolean): Represents the organization that collects and distributes donated items, with the ability to offer a Pickup Service.
+2. Resident(Name: String, StreetAddress: String, PhoneNumber: String, EmailAddress: String, ItemsDescription: String): Represents a resident who donates items for pickup.
+3. PickupRequest(Resident: Resident, PickupDate: Date, PickupTime: Time, PickupAddress: String, ItemsDescription: String): Represents a request made by a resident for pickup of donated items.
+4. PickupVehicle(VehicleNumber: String, AvailableStorageSpace: Double, AvailableDays: List<Weekday>): Represents a vehicle used for pickups, with details on storage space and availability.
+5. VolunteerDriver(Name: String, AvailableDays: List<Weekday>): Represents a volunteer driver who can operate a pickup vehicle on specific days.
+6. SecondHandArticle(Description: String, Quality: Enum{Usable, NotUsable}, Category: Category, RFIDTag: RFIDTag): Represents a donated article, with quality assessment, category assignment, and RFID tagging.
+7. FoodBank(Location: String): Represents a facility where non-perishable foods are dropped off for distribution.
+8. Employee(Name: String, Role: String): Represents an employee of Helping Hand Store with a specific role.
+9. RFIDTag(TagID: String): Represents an RFID tag used to track donated articles.
+10. DistributionCenter(Location: String, ServicesOffered: List<String>): Represents a center where donated items are processed and distributed, with additional services offered.
+11. Client(Name: String, Address: String, NeededCategories: List<Category>): Represents a client who receives donated items and may request specific categories for delivery."
+"
+"
+------------------------------------------------------------
+ O  Class:Resident  Oracle:Resident
+   X  Attribute:Name 
+   X  Attribute:StreetAddress 
+   X  Attribute:PhoneNumber 
+   X  Attribute:EmailAddress 
+   X  Attribute:ItemsDescription 
+ O  Class:SecondHandArticle  Oracle:SecondHandArticle
+   X  Attribute:Description 
+   X  Attribute:Quality 
+   X  Attribute:NotUsable} 
+   O  Attribute:Category  Oracle:category 
+   X  Attribute:RFIDTag 
+ O  Class:Client  Oracle:Client
+   X  Attribute:Name 
+   X  Attribute:Address 
+   O  Attribute:NeededCategories  Oracle:neededCategories 
+ X  Class:Category 
+   X  Attribute:e.g. 
+   X  Attribute:clothing 
+   X  Attribute:winter 
+   X  Attribute:fridge 
+   X  Attribute:microwave... 
+ X  Class:Weekday 
+   X  Attribute:e.g. 
+   X  Attribute:Monday 
+   X  Attribute:Tuesday 
+   X  Attribute:Wednesday 
+   X  Attribute:Thursday 
+   X  Attribute:Friday 
+ X  Class:HelpingHandStore
+   X  Attribute:Name 
+   X  Attribute:Locations 
+   X  Attribute:PickupServiceEnabled 
+ X  Class:PickupRequest
+   X  Attribute:Resident 
+   X  Attribute:PickupDate 
+   X  Attribute:PickupTime 
+   X  Attribute:PickupAddress 
+   X  Attribute:ItemsDescription 
+ X  Class:PickupVehicle
+   X  Attribute:VehicleNumber 
+   X  Attribute:AvailableStorageSpace 
+   X  Attribute:AvailableDays 
+ X  Class:VolunteerDriver
+   X  Attribute:Name 
+   X  Attribute:AvailableDays 
+ X  Class:FoodBank
+   X  Attribute:Location 
+ X  Class:Employee
+   X  Attribute:Name 
+   X  Attribute:Role 
+ X  Class:RFIDTag
+   X  Attribute:TagID 
+ X  Class:DistributionCenter
+   X  Attribute:Location 
+   X  Attribute:ServicesOffered 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------10/10------H2S:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The Helping Hand Store (H2S) collects second hand articles and non-perishable foods from residents of the city of and distributes them to those in need. H2S also operates in other cities, but each location is run independently. To increase the number of items available for distribution, H2S is seeking to offer a Pickup and Delivery Service to its customers, which would allow a resident to schedule a pickup of items from a street address online at the H2S website.
+
+A resident enters a name, street address, phone number, optional email address, as well as a description of the items to be picked up. The resident places the items just outside the front door of the building at the stated street address in the morning of the weekday requested for pickup.
+
+H2S has a fleet of pickup vehicles, which it uses to collect items from residents. At the beginning of every weekday, a pickup route for that day is determined for each vehicle for which a volunteer driver is available. Volunteer drivers indicate their available days on the H2S website. The route takes into account the available storage space of a vehicle and the dimensions and weights of scheduled items. A scheduled pickup may occur anytime between 8:00 and 14:00. After completing all scheduled pickups, the driver drops off all collected second hand articles at H2S's distribution center. Non-perishable foods, on the other hand, are directly dropped off at the   food bank, which then deals with these items without further involvement from H2S.
+
+At H2S's distribution center, an H2S employee examines the quality of the received second hand articles. Those articles that can still be used are tagged with an RFID device. The H2S employee double checks the description of the article given by the resident and makes any corrections as needed. In addition, the H2S employee assigns a category to the article from a standard list of 134 categories (e.g., baby clothing, women's winter boots, fridge, microwave...).
+
+In some cities in which H2S operates, the distribution center offers an additional service for clients who receive second hand articles from H2S but are not able to personally visit the H2S distribution center. Instead, H2S allows those clients to indicate which categories of articles they need. At the end of each day, an H2S employee calls them to let them know about the relevant articles that were dropped off that day. If the client still needs an article, the H2S employee arranges delivery of the article to the client's home address. Delivery of such articles is made by a volunteer driver before picking up items according to the pickup route.
+
+AI:### Enumerations:
+1. Category (e.g., baby clothing, women's winter boots, fridge, microwave...)
+2. PickupTimeSlot (e.g., 8:00-9:00, 9:00-10:00, 10:00-11:00, 11:00-12:00, 12:00-13:00, 13:00-14:00)
+
+### Classes:
+1. Resident
+2. PickupRequest
+3. PickupVehicle
+4. VolunteerDriver
+5. SecondHandArticle
+6. FoodItem
+7. DistributionCenter
+8. H2SEmployee
+9. FoodBank
+
+### Attributes:
+1. Resident:
+   - name: String
+   - streetAddress: String
+   - phoneNumber: String
+   - emailAddress: String (optional)
+   
+2. PickupRequest:
+   - resident: Resident
+   - itemsDescription: String
+   - pickupDate: Date
+   - pickupTimeSlot: PickupTimeSlot
+
+3. PickupVehicle:
+   - vehicleNumber: String
+   - availableStorageSpace: double
+
+4. VolunteerDriver:
+   - name: String
+   - availableDays: List<DayOfWeek>
+
+5. SecondHandArticle:
+   - description: String
+   - quality: Enum {usable, not_usable}
+   - RFIDTag: String
+   - category: Category
+
+6. FoodItem:
+   - description: String
+   - category: Category
+
+7. DistributionCenter:
+   - location: String
+
+8. H2SEmployee:
+   - name: String
+
+9. FoodBank:
+   - location: String
+
+10. DeliveryRequest:
+    - client: Resident
+    - requestedCategories: List<Category>
+    - relevantArticles: List<SecondHandArticle>
+    - deliveryAddress: String"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. Category (e.g., baby clothing, women's winter boots, fridge, microwave...): Represents the different categories of items that can be donated or requested.
+2. PickupTimeSlot (e.g., 8:00-9:00, 9:00-10:00, 10:00-11:00, 11:00-12:00, 12:00-13:00, 13:00-14:00): Represents the time slots available for scheduling pickups.
+
+### Classes:
+1. Resident(name: String, streetAddress: String, phoneNumber: String, emailAddress: String): Represents a resident who can request a pickup service.
+2. PickupRequest(resident: Resident, itemsDescription: String, pickupDate: Date, pickupTimeSlot: PickupTimeSlot): Represents a request made by a resident for item pickup.
+3. PickupVehicle(vehicleNumber: String, availableStorageSpace: double): Represents a vehicle used for collecting items from residents.
+4. VolunteerDriver(name: String, availableDays: List<DayOfWeek>): Represents a volunteer driver who can drive the pickup vehicle.
+5. SecondHandArticle(description: String, quality: Enum {usable, not_usable}, RFIDTag: String, category: Category): Represents a second-hand article donated by a resident.
+6. FoodItem(description: String, category: Category): Represents a non-perishable food item.
+7. DistributionCenter(location: String): Represents the center where collected items are stored before distribution.
+8. H2SEmployee(name: String): Represents an employee of the Helping Hand Store.
+9. FoodBank(location: String): Represents a location where non-perishable food items are directly dropped off.
+10. DeliveryRequest(client: Resident, requestedCategories: List<Category>, relevantArticles: List<SecondHandArticle>, deliveryAddress: String): Represents a request for delivering specific articles to a client's home address."
+"
+"
+------------------------------------------------------------
+ O  Class:Resident  Oracle:Resident
+   X  Attribute:name 
+   X  Attribute:streetAddress 
+   X  Attribute:phoneNumber 
+   X  Attribute:emailAddress 
+ O  Class:SecondHandArticle  Oracle:SecondHandArticle
+   X  Attribute:description 
+   X  Attribute:quality 
+   X  Attribute:not_usable} 
+   X  Attribute:RFIDTag 
+   O  Attribute:category  Oracle:category 
+ O  Class:FoodItem  Oracle:FoodItem
+   X  Attribute:description 
+   X  Attribute:category 
+ X  Class:Category 
+   X  Attribute:e.g. 
+   X  Attribute:clothing 
+   X  Attribute:winter 
+   X  Attribute:fridge 
+   X  Attribute:microwave... 
+ X  Class:PickupTimeSlot 
+   X  Attribute:e.g. 
+   X  Attribute:8:00-9 
+   X  Attribute:9:00-10 
+   X  Attribute:10:00-11 
+   X  Attribute:11:00-12 
+   X  Attribute:12:00-13 
+   X  Attribute:13:00-14 
+ X  Class:PickupRequest
+   X  Attribute:resident 
+   X  Attribute:itemsDescription 
+   X  Attribute:pickupDate 
+   X  Attribute:pickupTimeSlot 
+ X  Class:PickupVehicle
+   X  Attribute:vehicleNumber 
+   X  Attribute:availableStorageSpace 
+ X  Class:VolunteerDriver
+   X  Attribute:name 
+   X  Attribute:availableDays 
+ X  Class:DistributionCenter
+   X  Attribute:location 
+ X  Class:H2SEmployee
+   X  Attribute:name 
+ X  Class:FoodBank
+   X  Attribute:location 
+ X  Class:DeliveryRequest
+   X  Attribute:client 
+   X  Attribute:requestedCategories 
+   X  Attribute:relevantArticles 
+   X  Attribute:deliveryAddress 

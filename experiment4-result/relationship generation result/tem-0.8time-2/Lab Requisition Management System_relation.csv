@@ -1,0 +1,288 @@
+---------------------1/10------Lab Requisition Management System:
+AI_answer_after_cut:
++ 1 Doctor associate 1..* Requisition
++ 1 Doctor associate 1..* TestResult
++ 1 Patient associate 1..* Requisition
++ 1 Patient associate 0..* Appointment
++ 1 Lab associate 0..* Requisition
++ 1 Lab associate 1..* Test
++ 1 Lab associate 0..* Appointment
+
+
++ 1 Requisition contain 1 Doctor
++ 1 Requisition contain 1 Patient
++ 1 Requisition contain 0..* SpecificTest
++ 1 Requisition contain 1 Interval
++ 1 Test contain 1 TestType
++ 1 Test contain 1 Interval
++ 1 Test contain 0..* TestResult
++ 1 Patient contain 1 Person
++ 1 Appointment contain 1 Lab
++ 1 Appointment contain 1 Requisition
++ 1 Lab contain 0..* BusinessHour
+presicion = 0.05555555555555555
+recall = 0.05
+F1 = 0.052631578947368425
+---------------------2/10------Lab Requisition Management System:
+AI_answer_after_cut:
++ 1 LabTracker associate * Doctor
++ 1 LabTracker associate * Patient
++ 1 Doctor associate * Requisition
++ 1 Requisition associate * Test
++ 1 Requisition associate * Patient
++ 1 Requisition associate * Doctor
++ 1 Test associate 1 TestType
++ 1 SpecificTest associate * Test
++ 1 Patient associate * Appointment
++ 1 Appointment associate 1 Lab
++ 1 Appointment associate 1 Requisition
++ 1 TestResult associate 1 SpecificTest
+
+
++ 1 Requisition contain * SpecificTest
++ 1 Lab contain * BusinessHour
++ 1 Lab contain * Test
++ 1 Lab contain * Appointment
++ 1 Test contain * TestResult
+
+# Note: The redundant bidirectional associations have been removed, and the derived relationships have been identified and deleted.
+presicion = 0.29411764705882354
+recall = 0.25
+F1 = 0.27027027027027023
+---------------------3/10------Lab Requisition Management System:
+AI_answer_after_cut:
++ 1 Doctor associate 1..* Requisition
++ 0..* Test associate 1 Requisition
++ 1 Patient associate 0..* Appointment
++ 1..* TestResult associate 1 SpecificTest
++ 1 Patient associate 0..* TestResult
+
+
++ 1 Requisition contain 0..* Test
++ 1 Requisition contain 1 Patient
++ 1 Requisition contain 1 Doctor
++ 1 Requisition contain 1 Interval
++ 1 Requisition contain 1 AccessType
++ 1 Requisition contain 1 DayOfWeek
++ 1 SpecificTest contain 1 Test
++ 1 Appointment contain 1 Lab
++ 1 Appointment contain 1 Requisition
++ 1 Lab contain 1 BusinessHour
++ 1 Lab contain 1..* TestType
+presicion = 0.0625
+recall = 0.05
+F1 = 0.05555555555555556
+---------------------4/10------Lab Requisition Management System:
+AI_answer_after_cut:
++ [mul1] [class1] associate [mul2] [class2] (class1 and 2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+
++ [mul1] [class1] contain [mul2] [class2] (class1 and 2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+
+#Description
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably.
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient's information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor.
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests.
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern.
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report.
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample).
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab's address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day's start time to its end time, i.e., there are no breaks.
+
+#Classes
++ Interval()
++ AccessType()
++ DayOfWeek()
++ LabTracker()
++ Person()
++ abstract PersonRole()
++ Patient()
++ Doctor()
++ Requisition()
++ TestResult()
++ SpecificTest()
++ Appointment()
++ BusinessHour()
++ Lab()
++ Test()
++ TestType()
+presicion = 0
+recall = 0.0
+F1 = 0
+---------------------5/10------Lab Requisition Management System:
+AI_answer_after_cut:
++ 1 Doctor associate 1..* Requisition
++ 0..* Requisition associate 1 Patient
++ 1 Requisition associate 1..* SpecificTest
++ 1 Requisition associate 1 Interval
++ 1 Requisition associate 1 AccessType
++ 1 Requisition associate 1 DayOfWeek
++ 1 Patient associate 1..* Appointment
++ 1 Appointment associate 1 Lab
++ 1 Appointment associate 1 BusinessHour
++ 1 Lab associate 1..* Test
++ 1 Test associate 1 TestType
++ 1 Test associate 1 Interval
++ 1 Test associate 1 AccessType
++ 1 Test associate 1 AccessType
++ 1 Test associate 1..* TestResult
++ 1 TestResult associate 1 Person
+
+
++ 1 Doctor contain 1..* TestResult
++ 1 Patient contain 1..* TestResult
++ 1 Lab contain 1..* BusinessHour
++ 1 Lab contain 1..* Appointment
++ 1 Lab contain 1..* Test
+presicion = 0.09523809523809523
+recall = 0.1
+F1 = 0.0975609756097561
+---------------------6/10------Lab Requisition Management System:
+AI_answer_after_cut:
++ [mul1] [class1] associate [mul2] [class2] (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+
++ [mul1] [class1] contain [mul2] [class2] (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+
+#Description
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably.
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient?? information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor.
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests.
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern.
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report.
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample).
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab?? address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day?? start time to its end time, i.e., there are no breaks.
+
+#Classes
++Interval()
++AccessType()
++DayOfWeek()
++LabTracker()
++Person()
++abstract PersonRole()
++Patient()
++Doctor()
++Requisition()
++TestResult()
++SpecificTest()
++Appointment()
++BusinessHour()
++Lab()
++Test()
++TestType()
+presicion = 0
+recall = 0.0
+F1 = 0
+---------------------7/10------Lab Requisition Management System:
+AI_answer_after_cut:
++ 1 Doctor associate 1..* Requisition
++ 1 Requisition associate 1 Patient
++ 1 Requisition associate 0..* SpecificTest
++ 0..* SpecificTest associate 1 Test
++ 1 Patient associate 1..* Appointment
++ 1 Lab associate 1..* BusinessHour
++ 1 Lab associate 1..* Test
++ 1 Lab associate 1..* Appointment
+
+
++ 1 Requisition contain 1 Doctor
++ 1 Requisition contain 1 Patient
++ 1 Appointment contain 1 Patient
++ 1 Appointment contain 1 Lab
+presicion = 0.16666666666666666
+recall = 0.1
+F1 = 0.125
+---------------------8/10------Lab Requisition Management System:
+AI_answer_after_cut:
++ 1 LabTracker associate * Doctor
++ 1 LabTracker associate * Patient
++ * Doctor associate 1..* Requisition
++ * Patient associate 1..* Requisition
++ * Requisition associate * SpecificTest
++ * Requisition associate * Appointment
++ * Requisition associate * TestResult
++ * SpecificTest associate 0..* Test
++ * Test associate 1 TestType
++ * Appointment associate 1 Lab
++ * Appointment associate 1 Interval
++ * Appointment associate 1 BusinessHour
++ * BusinessHour associate 1 DayOfWeek
+
+
++ * Requisition contain 1 Doctor
++ * Requisition contain 1 Patient
++ * Requisition contain * SpecificTest
++ * Patient contain * Appointment
+presicion = 0.23529411764705882
+recall = 0.2
+F1 = 0.2162162162162162
+---------------------9/10------Lab Requisition Management System:
+AI_answer_after_cut:
++ [mul1] [class1] associate [mul2] [class2] (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+
++ [mul1] [class1] contain [mul2] [class2] (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+
+#Description
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably.
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient?? information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor.
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests.
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern.
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report.
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample).
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab?? address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day?? start time to its end time, i.e., there are no breaks.
+
+#Classes
++ Interval()
++ AccessType()
++ DayOfWeek()
++ LabTracker()
++ Person()
++ abstract PersonRole()
++ Patient()
++ Doctor()
++ Requisition()
++ TestResult()
++ SpecificTest()
++ Appointment()
++ BusinessHour()
++ Lab()
++ Test()
++ TestType()
+presicion = 0
+recall = 0.0
+F1 = 0
+---------------------10/10------Lab Requisition Management System:
+AI_answer_after_cut:
++ 1 Doctor associate 1..* Requisition
++ 1 Patient associate 1..* Requisition
++ 1 Requisition associate * SpecificTest
++ 1 Requisition associate * TestResult
++ 1 Patient associate * Appointment
++ 1 Lab associate * Appointment
++ 1 Lab associate * BusinessHour
++ * Lab associate 1..* Test
++ * Lab contain 0..* Appointment
+
+
++ * Requisition contain * Doctor
++ * Requisition contain * Patient
+presicion = 0.09090909090909091
+recall = 0.05
+F1 = 0.06451612903225806
+average_presicion = 0.10002811730752906
+average_recall = 0.08
+average_F1 = 0.08817507256314246

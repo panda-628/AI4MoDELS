@@ -1,0 +1,1815 @@
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------1/10------Lab Requisition Management System:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably. 
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient's information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor. 
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests. 
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern. 
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report. 
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample). 
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab's address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day's start time to its end time, i.e., there are no breaks.
+
+AI:### Enumerations:
+1. **RepetitionInterval**: weekly, monthly, half yearly, yearly
+2. **TestType**: Blood, Ultrasound, X-Ray, Other
+
+### Classes:
+1. **Doctor**
+   - Attributes:
+     - practitionerNumber: Numeric
+     - fullName: String
+     - address: String
+     - phoneNumber: String
+     - signature: Image
+2. **Patient**
+   - Attributes:
+     - healthNumber: Alpha-numeric
+     - firstName: String
+     - lastName: String
+     - dateOfBirth: Date
+     - address: String
+     - phoneNumber: String
+3. **Requisition**
+   - Attributes:
+     - doctor: Doctor
+     - patient: Patient
+     - tests: List<Test>
+     - validFromDate: Date
+     - repeatTimes: Integer
+     - repeatInterval: RepetitionInterval
+4. **Test**
+   - Attributes:
+     - type: TestType
+     - duration: Duration
+     - results: String
+     - report: String
+5. **Lab**
+   - Attributes:
+     - address: String
+     - businessHours: List<BusinessHour>
+     - testsOffered: List<TestType>
+     - registrationNumber: String
+6. **Appointment**
+   - Attributes:
+     - patient: Patient
+     - lab: Lab
+     - confirmationNumber: String
+     - date: Date
+     - startTime: Time
+     - endTime: Time
+     - changeCancellationFee: Double
+
+### Attributes (Global):
+- **Duration**
+- **BusinessHour**
+- **Time**"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. RepetitionInterval (weekly, monthly, half yearly, yearly): Represents the intervals at which tests on a requisition can be repeated.
+2. TestType (Blood, Ultrasound, X-Ray, Other): Represents different types of tests that can be prescribed.
+
+### Classes:
+1. Doctor(practitionerNumber: Numeric, fullName: String, address: String, phoneNumber: String, signature: Image): Represents a doctor managing requisitions for tests.
+2. Patient(healthNumber: Alpha-numeric, firstName: String, lastName: String, dateOfBirth: Date, address: String, phoneNumber: String): Represents a patient booking appointments for tests.
+3. Requisition(doctor: Doctor, patient: Patient, tests: List<Test>, validFromDate: Date, repeatTimes: Integer, repeatInterval: RepetitionInterval): Represents a requisition for tests and examinations.
+4. Test(type: TestType, duration: Duration, results: String, report: String): Represents a test to be conducted.
+5. Lab(address: String, businessHours: List<BusinessHour>, testsOffered: List<TestType>, registrationNumber: String): Represents a lab where tests can be performed.
+6. Appointment(patient: Patient, lab: Lab, confirmationNumber: String, date: Date, startTime: Time, endTime: Time, changeCancellationFee: Double): Represents an appointment for tests at a lab."
+"
+"
+------------------------------------------------------------
+ O  Class:TestType   Oracle:TestType
+   X  Attribute:Blood 
+   X  Attribute:Ultrasound 
+   X  Attribute:X-Ray 
+   X  Attribute:Other 
+ O  Class:Doctor  Oracle:Doctor
+   X  Attribute:practitionerNumber 
+   X  Attribute:fullName 
+   X  Attribute:address 
+   X  Attribute:phoneNumber 
+   O  Attribute:signature  Oracle:signature 
+ O  Class:Patient  Oracle:Patient
+   X  Attribute:healthNumber 
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   O  Attribute:dateOfBirth  Oracle:dateOfBirth 
+   X  Attribute:address 
+   X  Attribute:phoneNumber 
+ O  Class:Requisition  Oracle:Requisition
+   X  Attribute:doctor 
+   X  Attribute:patient 
+   X  Attribute:tests 
+   X  Attribute:validFromDate 
+   X  Attribute:repeatTimes 
+   X  Attribute:repeatInterval 
+ O  Class:Test  Oracle:Test
+   X  Attribute:type 
+   O  Attribute:duration  Oracle:duration 
+   X  Attribute:results 
+   X  Attribute:report 
+ O  Class:Lab  Oracle:Lab
+   O  Attribute:address  Oracle:address 
+   X  Attribute:businessHours 
+   X  Attribute:testsOffered 
+   O  Attribute:registrationNumber  Oracle:registrationNumber 
+ O  Class:Appointment  Oracle:Appointment
+   X  Attribute:patient 
+   X  Attribute:lab 
+   X  Attribute:confirmationNumber 
+   O  Attribute:date  Oracle:date 
+   O  Attribute:startTime  Oracle:startTime 
+   O  Attribute:endTime  Oracle:endTime 
+   X  Attribute:changeCancellationFee 
+ O  Class:RepetitionInterval   Oracle:Interval 
+   O  Attribute:weekly  Oracle:weekly 
+   O  Attribute:monthly  Oracle:monthly 
+   O  Attribute:yearly  Oracle:yearly 
+   X  Attribute:yearly 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------2/10------Lab Requisition Management System:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably. 
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient's information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor. 
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests. 
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern. 
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report. 
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample). 
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab's address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day's start time to its end time, i.e., there are no breaks.
+
+AI:### Enumerations:
+1. TestType
+   - BLOOD
+   - ULTRASOUND
+   - XRAY
+   - URINE
+   - STOOL
+
+2. RepetitionInterval
+   - WEEKLY
+   - MONTHLY
+   - HALF_YEARLY
+   - YEARLY
+
+3. TestResult
+   - NEGATIVE
+   - POSITIVE
+
+### Classes:
+1. Doctor
+   - Attributes:
+     - practitionerNumber: int
+     - signature: Image
+     - fullName: string
+     - address: string
+     - phoneNumber: string
+
+2. Patient
+   - Attributes:
+     - healthNumber: string
+     - firstName: string
+     - lastName: string
+     - dateOfBirth: Date
+     - address: string
+     - phoneNumber: string
+
+3. Requisition
+   - Attributes:
+     - doctor: Doctor
+     - patient: Patient
+     - tests: List<Test>
+     - repetitionTimes: int
+     - repetitionInterval: RepetitionInterval
+
+4. Test
+   - Attributes:
+     - type: TestType
+     - duration: Duration
+     - result: TestResult
+     - report: string
+
+5. Appointment
+   - Attributes:
+     - lab: Lab
+     - confirmationNumber: string
+     - date: Date
+     - startTime: Time
+     - endTime: Time
+     - appointmentType: AppointmentType
+
+6. Lab
+   - Attributes:
+     - address: string
+     - businessHours: BusinessHours
+     - registrationNumber: string
+     - testsOffered: List<TestType>
+     - fees: Map<TestType, double>
+
+7. BusinessHours
+   - Attributes:
+     - startTime: Time
+     - endTime: Time
+
+### Notes:
+- The <Test> class can have additional attributes based on the specific requirements for each test type.
+- The attributes in the classes are derived from the given description and may need further refinement based on the actual implementation needs."
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. TestType(BLOOD, ULTRASOUND, XRAY, URINE, STOOL): Represents different types of tests that can be requisitioned based on the description.
+2. RepetitionInterval(WEEKLY, MONTHLY, HALF_YEARLY, YEARLY): Specifies the intervals at which tests are to be repeated according to the description.
+3. TestResult(NEGATIVE, POSITIVE): Denotes the possible results of a test as described in the scenario.
+
+### Classes:
+1. Doctor(practitionerNumber: int, signature: Image, fullName: string, address: string, phoneNumber: string): Represents a doctor providing requisitions with necessary information and verification.
+2. Patient(healthNumber: string, firstName: string, lastName: string, dateOfBirth: Date, address: string, phoneNumber: string): Describes a patient who is required to provide information for requisitions and appointments.
+3. Requisition(doctor: Doctor, patient: Patient, tests: List<Test>, repetitionTimes: int, repetitionInterval: RepetitionInterval): Represents a requisition made by a doctor for tests to be conducted on a patient.
+4. Test(type: TestType, duration: Duration, result: TestResult, report: string): Represents individual tests with specific attributes such as type, duration, result, and report.
+5. Appointment(lab: Lab, confirmationNumber: string, date: Date, startTime: Time, endTime: Time, appointmentType: AppointmentType): Describes an appointment made by a patient at a lab for a specific test.
+6. Lab(address: string, businessHours: BusinessHours, registrationNumber: string, testsOffered: List<TestType>, fees: Map<TestType, double>): Represents a lab where tests can be conducted with details such as address, business hours, and fees. 
+7. BusinessHours(startTime: Time, endTime: Time): Defines the start and end times of business hours for a lab."
+"
+"
+------------------------------------------------------------
+ O  Class:TestType  Oracle:TestType
+   X  Attribute:BLOOD 
+   X  Attribute:ULTRASOUND 
+   X  Attribute:XRAY 
+   X  Attribute:URINE 
+   X  Attribute:STOOL 
+ O  Class:TestResult  Oracle:TestResult
+   O  Attribute:NEGATIVE  Oracle:negative 
+   X  Attribute:POSITIVE 
+ O  Class:Doctor  Oracle:Doctor
+   X  Attribute:practitionerNumber 
+   O  Attribute:signature  Oracle:signature 
+   X  Attribute:fullName 
+   X  Attribute:address 
+   X  Attribute:phoneNumber 
+ O  Class:Patient  Oracle:Patient
+   X  Attribute:healthNumber 
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   O  Attribute:dateOfBirth  Oracle:dateOfBirth 
+   X  Attribute:address 
+   X  Attribute:phoneNumber 
+ O  Class:Requisition  Oracle:Requisition
+   X  Attribute:doctor 
+   X  Attribute:patient 
+   X  Attribute:tests 
+   X  Attribute:repetitionTimes 
+   O  Attribute:repetitionInterval  Oracle:repetitionInterval 
+ O  Class:Test  Oracle:Test
+   X  Attribute:type 
+   O  Attribute:duration  Oracle:duration 
+   X  Attribute:result 
+   X  Attribute:report 
+ O  Class:Appointment  Oracle:Appointment
+   X  Attribute:lab 
+   X  Attribute:confirmationNumber 
+   O  Attribute:date  Oracle:date 
+   O  Attribute:startTime  Oracle:startTime 
+   O  Attribute:endTime  Oracle:endTime 
+   X  Attribute:appointmentType 
+ O  Class:Lab  Oracle:Lab
+   O  Attribute:address  Oracle:address 
+   X  Attribute:businessHours 
+   O  Attribute:registrationNumber  Oracle:registrationNumber 
+   X  Attribute:testsOffered 
+   X  Attribute:fees 
+   X  Attribute:double> 
+ O  Class:BusinessHours  Oracle:BusinessHour
+   O  Attribute:startTime  Oracle:startTime 
+   O  Attribute:endTime  Oracle:endTime 
+ O  Class:RepetitionInterval  Oracle:Interval 
+   O  Attribute:WEEKLY  Oracle:weekly 
+   O  Attribute:MONTHLY  Oracle:monthly 
+   X  Attribute:HALF_YEARLY 
+   O  Attribute:YEARLY  Oracle:yearly 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------3/10------Lab Requisition Management System:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably. 
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient's information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor. 
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests. 
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern. 
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report. 
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample). 
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab's address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day's start time to its end time, i.e., there are no breaks.
+
+AI:### Enumerations:
+1. **RepetitionInterval**:
+   - WEEKLY
+   - MONTHLY
+   - EVERY_HALF_YEAR
+   - YEARLY
+
+### Classes:
+1. **Doctor**
+   - Attributes:
+     - practitionerNumber: numeric
+     - signature: image
+     - fullName: string
+     - address: string
+     - phoneNumber: string
+
+2. **Patient**
+   - Attributes:
+     - healthNumber: alpha-numeric
+     - firstName: string
+     - lastName: string
+     - dateOfBirth: date
+     - address: string
+     - phoneNumber: string
+
+3. **LabTest**
+   - Attributes:
+     - group: string
+     - duration: time
+
+4. **Requisition**
+   - Attributes:
+     - doctor: Doctor
+     - patient: Patient
+     - tests: list of LabTest
+     - repeatTimes: int
+     - repeatInterval: RepetitionInterval
+
+5. **TestResult**
+   - Attributes:
+     - test: LabTest
+     - result: string
+     - report: string
+
+6. **Appointment**
+   - Attributes:
+     - lab: string
+     - address: string
+     - businessHours: string
+     - confirmationNumber: string
+     - date: date
+     - startTime: time
+     - endTime: time
+
+7. **Lab**
+   - Attributes:
+     - registrationNumber: string
+     - fees: decimal
+     - businessHours: string
+
+### Note:
+- In the above classes, the attributes are defined based on the information provided in the description. 
+- Additional methods and relationships between classes might be needed based on further requirements or functionality."
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. **RepetitionInterval**(WEEKLY, MONTHLY, EVERY_HALF_YEAR, YEARLY): Represents the intervals at which tests on a requisition can be repeated according to the description.
+
+### Classes:
+1. **Doctor**(practitionerNumber: numeric, signature: image, fullName: string, address: string, phoneNumber: string): Represents a doctor and their information required for requisitions in the LabTracker software.
+
+2. **Patient**(healthNumber: alpha-numeric, firstName: string, lastName: string, dateOfBirth: date, address: string, phoneNumber: string): Represents a patient and their essential information for appointments and requisitions.
+
+3. **LabTest**(group: string, duration: time): Represents a type of test that can be included in a requisition with its group and duration information.
+
+4. **Requisition**(doctor: Doctor, patient: Patient, tests: list of LabTest, repeatTimes: int, repeatInterval: RepetitionInterval): Represents a requisition containing tests prescribed by a doctor for a patient, including repetition details.
+
+5. **TestResult**(test: LabTest, result: string, report: string): Represents the result and accompanying report of a test in LabTracker software.
+
+6. **Appointment**(lab: string, address: string, businessHours: string, confirmationNumber: string, date: date, startTime: time, endTime: time): Represents an appointment made by a patient at a lab with confirmation details and lab information.
+
+7. **Lab**(registrationNumber: string, fees: decimal, businessHours: string): Represents a lab where tests and examinations are conducted, including registration, fees, and business hour details."
+"
+"
+------------------------------------------------------------
+ O  Class:Doctor  Oracle:Doctor
+   X  Attribute:practitionerNumber 
+   O  Attribute:signature  Oracle:signature 
+   X  Attribute:fullName 
+   X  Attribute:address 
+   X  Attribute:phoneNumber 
+ O  Class:Patient  Oracle:Patient
+   X  Attribute:healthNumber 
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   O  Attribute:dateOfBirth  Oracle:dateOfBirth 
+   X  Attribute:address 
+   X  Attribute:phoneNumber 
+ O  Class:Requisition  Oracle:Requisition
+   X  Attribute:doctor 
+   X  Attribute:patient 
+   X  Attribute:tests 
+   X  Attribute:repeatTimes 
+   X  Attribute:repeatInterval 
+ O  Class:TestResult  Oracle:TestResult
+   X  Attribute:test 
+   X  Attribute:result 
+   O  Attribute:report  Oracle:report 
+ O  Class:Appointment  Oracle:Appointment
+   X  Attribute:lab 
+   X  Attribute:address 
+   X  Attribute:businessHours 
+   X  Attribute:confirmationNumber 
+   O  Attribute:date  Oracle:date 
+   O  Attribute:startTime  Oracle:startTime 
+   O  Attribute:endTime  Oracle:endTime 
+ O  Class:Lab  Oracle:Lab
+   O  Attribute:registrationNumber  Oracle:registrationNumber 
+   X  Attribute:fees 
+   X  Attribute:businessHours 
+ O  Class:RepetitionInterval  Oracle:Interval 
+   O  Attribute:WEEKLY  Oracle:weekly 
+   O  Attribute:MONTHLY  Oracle:monthly 
+   O  Attribute:EVERY_HALF_YEAR  Oracle:everyHalfYear 
+   O  Attribute:YEARLY  Oracle:yearly 
+ X  Class:LabTest
+   X  Attribute:group 
+   X  Attribute:duration 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------4/10------Lab Requisition Management System:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably. 
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient's information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor. 
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests. 
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern. 
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report. 
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample). 
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab's address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day's start time to its end time, i.e., there are no breaks.
+
+AI:### Enumerations:
+1. **RepetitionInterval**:
+   - Weekly
+   - Monthly
+   - HalfYearly
+   - Yearly
+
+### Classes:
+1. **LabTracker**:
+   - Attributes:
+     - doctors: List\<Doctor\>
+     - labs: List\<Lab\>
+
+2. **Doctor**:
+   - Attributes:
+     - practitionerNumber: int
+     - signature: Image
+     - fullName: String
+     - address: String
+     - phoneNumber: String
+
+3. **Patient**:
+   - Attributes:
+     - healthNumber: String
+     - firstName: String
+     - lastName: String
+     - dateOfBirth: Date
+     - address: String
+     - phoneNumber: String
+
+4. **Requisition**:
+   - Attributes:
+     - doctor: Doctor
+     - patient: Patient
+     - tests: List\<Test\>
+     - duration: Duration
+     - repetition: int
+     - repetitionInterval: RepetitionInterval
+
+5. **Test**:
+   - Attributes:
+     - type: TestType
+     - result: TestResult
+     - report: String
+
+6. **Lab**:
+   - Attributes:
+     - address: String
+     - businessHours: BusinessHours
+     - registrationNumber: int
+
+7. **Appointment**:
+   - Attributes:
+     - patient: Patient
+     - lab: Lab
+     - confirmationNumber: String
+     - date: Date
+     - startTime: Time
+     - endTime: Time
+     - changeCancellationFee: double
+
+8. **TestType**:
+   - Attributes:
+     - name: String
+     - group: String
+
+9. **TestResult**:
+   - Attributes:
+     - resultType: ResultType
+     - report: String
+
+10. **Duration**:
+    - Attributes:
+      - time: Time
+
+11. **BusinessHours**:
+    - Attributes:
+      - startDayTime: Time
+      - endDayTime: Time
+
+12. **ResultType**:
+    - Attributes:
+      - Negative
+      - Positive
+
+13. **Time**:
+    - Attributes:
+      - hour: int
+      - minute: int
+
+### Attributes:
+- **Doctor**:
+  - canPrescribeToDoctor: boolean
+- **Patient**:
+  - hasAppointment: boolean
+- **Requisition**:
+  - validFrom: Date
+- **Test**:
+  - group: String"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. RepetitionInterval(Weekly, Monthly, HalfYearly, Yearly): Represents the intervals at which tests on a requisition can be repeated.
+
+Classes:
+1. LabTracker(doctors: List<Doctor>, labs: List<Lab>): Represents the main system that manages doctors and labs in the system.
+2. Doctor(practitionerNumber: int, signature: Image, fullName: String, address: String, phoneNumber: String): Represents a doctor with personal and contact information required for requisitions.
+3. Patient(healthNumber: String, firstName: String, lastName: String, dateOfBirth: Date, address: String, phoneNumber: String): Represents a patient with personal and contact information.
+4. Requisition(doctor: Doctor, patient: Patient, tests: List<Test>, duration: Duration, repetition: int, repetitionInterval: RepetitionInterval): Represents a requisition for tests with associated doctor, patient, tests, and repetition details.
+5. Test(type: TestType, result: TestResult, report: String): Represents a test with type information, result, and associated report.
+6. Lab(address: String, businessHours: BusinessHours, registrationNumber: int): Represents a lab with address, business hours, and registration details.
+7. Appointment(patient: Patient, lab: Lab, confirmationNumber: String, date: Date, startTime: Time, endTime: Time, changeCancellationFee: double): Represents an appointment for a patient at a lab with relevant details.
+8. TestType(name: String, group: String): Represents the type of a test with a name and group information.
+9. TestResult(resultType: ResultType, report: String): Represents the result of a test with result type and associated report.
+10. Duration(time: Time): Represents the duration of a test.
+11. BusinessHours(startDayTime: Time, endDayTime: Time): Represents the business hours of a lab.
+12. ResultType(Negative, Positive): Represents the possible result types of a test.
+13. Time(hour: int, minute: int): Represents a time in hours and minutes."
+"
+"
+------------------------------------------------------------
+ O  Class:LabTracker  Oracle:LabTracker
+   X  Attribute:doctors 
+   X  Attribute:labs 
+ O  Class:Doctor  Oracle:Doctor
+   X  Attribute:practitionerNumber 
+   O  Attribute:signature  Oracle:signature 
+   X  Attribute:fullName 
+   X  Attribute:address 
+   X  Attribute:phoneNumber 
+ O  Class:Patient  Oracle:Patient
+   X  Attribute:healthNumber 
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   O  Attribute:dateOfBirth  Oracle:dateOfBirth 
+   X  Attribute:address 
+   X  Attribute:phoneNumber 
+ O  Class:Requisition  Oracle:Requisition
+   X  Attribute:doctor 
+   X  Attribute:patient 
+   X  Attribute:tests 
+   X  Attribute:duration 
+   X  Attribute:repetition 
+   O  Attribute:repetitionInterval  Oracle:repetitionInterval 
+ O  Class:Test  Oracle:Test
+   X  Attribute:type 
+   X  Attribute:result 
+   X  Attribute:report 
+ O  Class:Lab  Oracle:Lab
+   O  Attribute:address  Oracle:address 
+   X  Attribute:businessHours 
+   O  Attribute:registrationNumber  Oracle:registrationNumber 
+ O  Class:Appointment  Oracle:Appointment
+   X  Attribute:patient 
+   X  Attribute:lab 
+   X  Attribute:confirmationNumber 
+   O  Attribute:date  Oracle:date 
+   O  Attribute:startTime  Oracle:startTime 
+   O  Attribute:endTime  Oracle:endTime 
+   X  Attribute:changeCancellationFee 
+ O  Class:TestType  Oracle:TestType
+   O  Attribute:name  Oracle:name 
+   X  Attribute:group 
+ O  Class:TestResult  Oracle:TestResult
+   X  Attribute:resultType 
+   O  Attribute:report  Oracle:report 
+ O  Class:BusinessHours  Oracle:BusinessHour
+   X  Attribute:startDayTime 
+   X  Attribute:endDayTime 
+ O  Class:RepetitionInterval  Oracle:Interval 
+   O  Attribute:Weekly  Oracle:weekly 
+   O  Attribute:Monthly  Oracle:monthly 
+   X  Attribute:HalfYearly 
+   O  Attribute:Yearly  Oracle:yearly 
+ X  Class:Duration
+   X  Attribute:time 
+ X  Class:ResultType
+   X  Attribute:Negative 
+   X  Attribute:Positive 
+ X  Class:Time
+   X  Attribute:hour 
+   X  Attribute:minute 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------5/10------Lab Requisition Management System:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably. 
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient's information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor. 
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests. 
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern. 
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report. 
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample). 
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab's address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day's start time to its end time, i.e., there are no breaks.
+
+AI:### Enumerations:
+1. TestType
+   - BLOOD
+   - ULTRASOUND
+   - X_RAY
+   - URINE
+   - STOOL
+
+2. RepetitionInterval
+   - WEEKLY
+   - MONTHLY
+   - HALF_YEARLY
+   - YEARLY
+
+### Classes:
+1. Doctor
+   - Attributes:
+     - practitionerNumber: Integer
+     - signature: Image
+     - fullName: String
+     - address: String
+     - phoneNumber: String
+
+2. Patient
+   - Attributes:
+     - healthNumber: String
+     - firstName: String
+     - lastName: String
+     - dateOfBirth: Date
+     - address: String
+     - phoneNumber: String
+
+3. Requisition
+   - Attributes:
+     - doctor: Doctor
+     - patient: Patient
+     - tests: List<TestType>
+     - duration: Integer
+     - repeatTimes: Integer
+     - repeatInterval: RepetitionInterval
+
+4. TestResult
+   - Attributes:
+     - test: TestType
+     - result: String
+     - report: String
+
+5. Lab
+   - Attributes:
+     - address: String
+     - businessHours: String
+     - registrationNumber: String
+     - fees: Double
+
+6. Appointment
+   - Attributes:
+     - patient: Patient
+     - lab: Lab
+     - confirmationNumber: String
+     - date: Date
+     - startTime: Time
+     - endTime: Time
+     - changeCancellationFee: Double
+
+### Attributes:
+- Test
+  - type: TestType
+  - duration: Integer
+
+- Appointment
+  - isWalkIn: Boolean
+
+- Lab
+  - isOpenEveryday: Boolean
+
+These are the enumerations, classes, and attributes extracted from the given description."
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. TestType(BLOOD, ULTRASOUND, X_RAY, URINE, STOOL): Represents different types of tests that can be requested by doctors based on the description.
+2. RepetitionInterval(WEEKLY, MONTHLY, HALF_YEARLY, YEARLY): Represents the intervals at which tests can be repeated as specified by the doctor.
+
+Classes:
+1. Doctor(practitionerNumber: Integer, signature: Image, fullName: String, address: String, phoneNumber: String): Represents a doctor who can create requisitions for tests.
+2. Patient(healthNumber: String, firstName: String, lastName: String, dateOfBirth: Date, address: String, phoneNumber: String): Represents a patient who can book appointments for tests.
+3. Requisition(doctor: Doctor, patient: Patient, tests: List<TestType>, duration: Integer, repeatTimes: Integer, repeatInterval: RepetitionInterval): Represents a requisition created by a doctor for tests to be performed on a patient.
+4. TestResult(test: TestType, result: String, report: String): Represents the result and report associated with a specific test.
+5. Lab(address: String, businessHours: String, registrationNumber: String, fees: Double): Represents a lab where tests can be conducted with specific attributes such as address and fees.
+6. Appointment(patient: Patient, lab: Lab, confirmationNumber: String, date: Date, startTime: Time, endTime: Time, changeCancellationFee: Double): Represents an appointment made by a patient at a lab for a specific test.
+
+These are the classes and enumerations identified based on the given description."
+"
+"
+------------------------------------------------------------
+ O  Class:TestType  Oracle:TestType
+   X  Attribute:BLOOD 
+   X  Attribute:ULTRASOUND 
+   X  Attribute:X_RAY 
+   X  Attribute:URINE 
+   X  Attribute:STOOL 
+ O  Class:Doctor  Oracle:Doctor
+   X  Attribute:practitionerNumber 
+   O  Attribute:signature  Oracle:signature 
+   X  Attribute:fullName 
+   X  Attribute:address 
+   X  Attribute:phoneNumber 
+ O  Class:Patient  Oracle:Patient
+   X  Attribute:healthNumber 
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   O  Attribute:dateOfBirth  Oracle:dateOfBirth 
+   X  Attribute:address 
+   X  Attribute:phoneNumber 
+ O  Class:Requisition  Oracle:Requisition
+   X  Attribute:doctor 
+   X  Attribute:patient 
+   X  Attribute:tests 
+   X  Attribute:duration 
+   X  Attribute:repeatTimes 
+   X  Attribute:repeatInterval 
+ O  Class:TestResult  Oracle:TestResult
+   X  Attribute:test 
+   X  Attribute:result 
+   O  Attribute:report  Oracle:report 
+ O  Class:Lab  Oracle:Lab
+   O  Attribute:address  Oracle:address 
+   X  Attribute:businessHours 
+   O  Attribute:registrationNumber  Oracle:registrationNumber 
+   X  Attribute:fees 
+ O  Class:Appointment  Oracle:Appointment
+   X  Attribute:patient 
+   X  Attribute:lab 
+   X  Attribute:confirmationNumber 
+   O  Attribute:date  Oracle:date 
+   O  Attribute:startTime  Oracle:startTime 
+   O  Attribute:endTime  Oracle:endTime 
+   X  Attribute:changeCancellationFee 
+ O  Class:RepetitionInterval  Oracle:Interval 
+   O  Attribute:WEEKLY  Oracle:weekly 
+   O  Attribute:MONTHLY  Oracle:monthly 
+   X  Attribute:HALF_YEARLY 
+   O  Attribute:YEARLY  Oracle:yearly 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------6/10------Lab Requisition Management System:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably. 
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient's information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor. 
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests. 
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern. 
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report. 
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample). 
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab's address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day's start time to its end time, i.e., there are no breaks.
+
+AI:### Enumerations:
+1. **RepetitionInterval**:
+   - Weekly
+   - Monthly
+   - EveryHalfYear
+   - Yearly
+
+### Classes:
+1. **Doctor**:
+   - Attributes:
+     - practitionerNumber: numeric
+     - signature: Image
+     - fullName: String
+     - address: String
+     - phoneNumber: String
+
+2. **Patient**:
+   - Attributes:
+     - healthNumber: alpha-numeric
+     - firstName: String
+     - lastName: String
+     - dateOfBirth: Date
+     - address: String
+     - phoneNumber: String
+
+3. **TestRequisition**:
+   - Attributes:
+     - doctor: Doctor
+     - patient: Patient
+     - tests: List<Test>
+     - repeatTimes: int
+     - repeatInterval: RepetitionInterval
+     - appointment: Appointment
+
+4. **Test**:
+   - Attributes:
+     - type: TestType
+     - duration: Duration
+
+5. **Appointment**:
+   - Attributes:
+     - confirmationNumber: String
+     - date: Date
+     - startTime: Time
+     - endTime: Time
+     - lab: Lab
+
+6. **Lab**:
+   - Attributes:
+     - address: String
+     - businessHours: BusinessHours
+     - registrationNumber: String
+     - testsOffered: List<Test>
+     - fees: Map<Test, Fee>
+
+7. **BusinessHours**:
+   - Attributes:
+     - startTime: Time
+     - endTime: Time
+
+8. **TestType**:
+   - Attributes:
+     - name: String
+     - group: TestGroup
+
+9. **TestGroup**:
+   - Attributes:
+     - name: String
+
+10. **Fee**:
+    - Attributes:
+      - amount: double
+
+### Attributes:
+- **Test**:
+  - group: TestGroup
+- **Doctor**:
+  - cannotPrescribeToSelf: boolean
+- **Patient**:
+  - testsRequiringAppointment: List<Test>
+  - testsWalkInOnly: List<Test>
+  - testsDropOffSample: List<Test>
+- **TestRequisition**:
+  - validFromDate: Date
+- **Appointment**:
+  - changeCancellationFee: Fee"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. RepetitionInterval(Weekly, Monthly, EveryHalfYear, Yearly): Represents the different intervals at which tests on a requisition can be repeated.
+
+Classes:
+1. Doctor(practitionerNumber: numeric, signature: Image, fullName: String, address: String, phoneNumber: String): Represents a doctor managing requisitions with required verification details.
+2. Patient(healthNumber: alpha-numeric, firstName: String, lastName: String, dateOfBirth: Date, address: String, phoneNumber: String): Represents a patient with personal information and appointment-related details.
+3. TestRequisition(doctor: Doctor, patient: Patient, tests: List<Test>, repeatTimes: int, repeatInterval: RepetitionInterval, appointment: Appointment): Manages the requisition of tests/examinations for patients with repeat and appointment details.
+4. Test(type: TestType, duration: Duration): Represents a test or examination with its type and duration definition.
+5. Appointment(confirmationNumber: String, date: Date, startTime: Time, endTime: Time, lab: Lab): Represents an appointment with details including lab information.
+6. Lab(address: String, businessHours: BusinessHours, registrationNumber: String, testsOffered: List<Test>, fees: Map<Test, Fee>): Represents a lab with address, operating hours, tests offered, and fees.
+7. BusinessHours(startTime: Time, endTime: Time): Represents the business hours of a lab.
+8. TestType(name: String, group: TestGroup): Represents the type of a test and its group classification.
+9. TestGroup(name: String): Represents a group of related tests.
+10. Fee(amount: double): Represents the fee associated with a test or service."
+"
+"
+------------------------------------------------------------
+ O  Class:Doctor  Oracle:Doctor
+   X  Attribute:practitionerNumber 
+   O  Attribute:signature  Oracle:signature 
+   X  Attribute:fullName 
+   X  Attribute:address 
+   X  Attribute:phoneNumber 
+ O  Class:Patient  Oracle:Patient
+   X  Attribute:healthNumber 
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   O  Attribute:dateOfBirth  Oracle:dateOfBirth 
+   X  Attribute:address 
+   X  Attribute:phoneNumber 
+ O  Class:Test  Oracle:Test
+   X  Attribute:type 
+   O  Attribute:duration  Oracle:duration 
+ O  Class:Appointment  Oracle:Appointment
+   X  Attribute:confirmationNumber 
+   O  Attribute:date  Oracle:date 
+   O  Attribute:startTime  Oracle:startTime 
+   O  Attribute:endTime  Oracle:endTime 
+   X  Attribute:lab 
+ O  Class:Lab  Oracle:Lab
+   O  Attribute:address  Oracle:address 
+   X  Attribute:businessHours 
+   O  Attribute:registrationNumber  Oracle:registrationNumber 
+   X  Attribute:testsOffered 
+   X  Attribute:fees 
+   X  Attribute:Fee> 
+ O  Class:BusinessHours  Oracle:BusinessHour
+   O  Attribute:startTime  Oracle:startTime 
+   O  Attribute:endTime  Oracle:endTime 
+ O  Class:TestType  Oracle:TestType
+   O  Attribute:name  Oracle:name 
+   X  Attribute:group 
+ O  Class:RepetitionInterval  Oracle:Interval 
+   O  Attribute:Weekly  Oracle:weekly 
+   O  Attribute:Monthly  Oracle:monthly 
+   O  Attribute:EveryHalfYear  Oracle:everyHalfYear 
+   O  Attribute:Yearly  Oracle:yearly 
+ X  Class:TestRequisition
+   X  Attribute:doctor 
+   X  Attribute:patient 
+   X  Attribute:tests 
+   X  Attribute:repeatTimes 
+   X  Attribute:repeatInterval 
+   X  Attribute:appointment 
+ X  Class:TestGroup
+   X  Attribute:name 
+ X  Class:Fee
+   X  Attribute:amount 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------7/10------Lab Requisition Management System:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably. 
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient's information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor. 
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests. 
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern. 
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report. 
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample). 
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab's address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day's start time to its end time, i.e., there are no breaks.
+
+AI:### Enumerations:
+1. **RequisitionRepetitionInterval**:
+   - Weekly
+   - Monthly
+   - EveryHalfYear
+   - Yearly
+
+### Classes:
+1. **Doctor**
+   - Attributes:
+     - practitionerNumber: int
+     - signature: Image
+     - fullName: String
+     - address: String
+     - phoneNumber: String
+
+2. **Patient**
+   - Attributes:
+     - healthNumber: String
+     - firstName: String
+     - lastName: String
+     - dateOfBirth: Date
+     - address: String
+     - phoneNumber: String
+
+3. **Requisition**
+   - Attributes:
+     - doctor: Doctor
+     - patient: Patient
+     - tests: List<Test>
+     - validFromDate: Date
+     - repetitionInterval: RequisitionRepetitionInterval
+     - repetitionTimes: int
+
+4. **Test**
+   - Attributes:
+     - type: TestType
+     - duration: Duration
+
+5. **Lab**
+   - Attributes:
+     - address: String
+     - businessHours: BusinessHours
+     - registrationNumber: int
+     - testsOffered: List<Test>
+
+6. **Appointment**
+   - Attributes:
+     - lab: Lab
+     - confirmationNumber: String
+     - date: Date
+     - startTime: Time
+     - endTime: Time
+
+7. **BusinessHours**
+   - Attributes:
+     - startTime: Time
+     - endTime: Time
+
+8. **Confirmation**
+   - Attributes:
+     - appointment: Appointment
+     - cancellationFee: Double
+
+9. **TestResult**
+   - Attributes:
+     - test: Test
+     - result: TestResultType
+     - report: String
+
+### Attributes:
+- **TestType**:
+  - BloodTest
+  - Ultrasound
+  - XRay
+  - UrineTest
+  - StoolTest
+
+- **Duration**:
+  - DurationValue
+
+- **TestResultType**:
+  - Negative
+  - Positive"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. RequisitionRepetitionInterval(Weekly, Monthly, EveryHalfYear, Yearly): Defines the intervals at which tests on a requisition are to be repeated.
+
+Classes:
+1. Doctor(practitionerNumber: int, signature: Image, fullName: String, address: String, phoneNumber: String): Represents a doctor managing requisitions of tests for patients.
+   
+2. Patient(healthNumber: String, firstName: String, lastName: String, dateOfBirth: Date, address: String, phoneNumber: String): Represents a patient booking appointments for tests at a lab.
+
+3. Requisition(doctor: Doctor, patient: Patient, tests: List<Test>, validFromDate: Date, repetitionInterval: RequisitionRepetitionInterval, repetitionTimes: int): Represents a requisition of tests and examinations for a patient by a doctor.
+
+4. Test(type: TestType, duration: Duration): Represents a test or examination that can be included in a requisition.
+
+5. Lab(address: String, businessHours: BusinessHours, registrationNumber: int, testsOffered: List<Test>): Represents a lab where tests and examinations are conducted.
+
+6. Appointment(lab: Lab, confirmationNumber: String, date: Date, startTime: Time, endTime: Time): Represents an appointment made by a patient for a test at a lab.
+
+7. BusinessHours(startTime: Time, endTime: Time): Represents the business hours of a lab.
+
+8. Confirmation(appointment: Appointment, cancellationFee: Double): Represents the confirmation of an appointment and associated cancellation fee.
+
+9. TestResult(test: Test, result: TestResultType, report: String): Represents the result of a test, indicating whether it is negative or positive."
+"
+"
+------------------------------------------------------------
+ O  Class:Doctor  Oracle:Doctor
+   X  Attribute:practitionerNumber 
+   O  Attribute:signature  Oracle:signature 
+   X  Attribute:fullName 
+   X  Attribute:address 
+   X  Attribute:phoneNumber 
+ O  Class:Patient  Oracle:Patient
+   X  Attribute:healthNumber 
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   O  Attribute:dateOfBirth  Oracle:dateOfBirth 
+   X  Attribute:address 
+   X  Attribute:phoneNumber 
+ O  Class:Requisition  Oracle:Requisition
+   X  Attribute:doctor 
+   X  Attribute:patient 
+   X  Attribute:tests 
+   X  Attribute:validFromDate 
+   O  Attribute:repetitionInterval  Oracle:repetitionInterval 
+   X  Attribute:repetitionTimes 
+ O  Class:Test  Oracle:Test
+   X  Attribute:type 
+   O  Attribute:duration  Oracle:duration 
+ O  Class:Lab  Oracle:Lab
+   O  Attribute:address  Oracle:address 
+   X  Attribute:businessHours 
+   O  Attribute:registrationNumber  Oracle:registrationNumber 
+   X  Attribute:testsOffered 
+ O  Class:Appointment  Oracle:Appointment
+   X  Attribute:lab 
+   X  Attribute:confirmationNumber 
+   O  Attribute:date  Oracle:date 
+   O  Attribute:startTime  Oracle:startTime 
+   O  Attribute:endTime  Oracle:endTime 
+ O  Class:BusinessHours  Oracle:BusinessHour
+   O  Attribute:startTime  Oracle:startTime 
+   O  Attribute:endTime  Oracle:endTime 
+ O  Class:TestResult  Oracle:TestResult
+   X  Attribute:test 
+   X  Attribute:result 
+   O  Attribute:report  Oracle:report 
+ O  Class:RequisitionRepetitionInterval  Oracle:Interval 
+   O  Attribute:Weekly  Oracle:weekly 
+   O  Attribute:Monthly  Oracle:monthly 
+   O  Attribute:EveryHalfYear  Oracle:everyHalfYear 
+   O  Attribute:Yearly  Oracle:yearly 
+ X  Class:Confirmation
+   X  Attribute:appointment 
+   X  Attribute:cancellationFee 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------8/10------Lab Requisition Management System:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably. 
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient's information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor. 
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests. 
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern. 
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report. 
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample). 
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab's address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day's start time to its end time, i.e., there are no breaks.
+
+AI:### Enumerations:
+1. TestType
+   - BLOOD
+   - ULTRASOUND
+   - XRAY
+   - URINE
+   - STOOL
+   
+2. RepeatInterval
+   - WEEKLY
+   - MONTHLY
+   - HALF_YEARLY
+   - YEARLY
+
+3. TestResult
+   - NEGATIVE
+   - POSITIVE
+
+### Classes:
+1. Doctor
+    - Attributes:
+        - practitionerNumber: int
+        - signature: Image
+        - fullName: string
+        - address: string
+        - phoneNumber: string
+
+2. Patient
+    - Attributes:
+        - healthNumber: string
+        - firstName: string
+        - lastName: string
+        - dateOfBirth: date
+        - address: string
+        - phoneNumber: string
+
+3. TestRequisition
+    - Attributes:
+        - doctor: Doctor
+        - patient: Patient
+        - tests: List<Test>
+        - repeatTimes: int
+        - repeatInterval: RepeatInterval
+        
+4. Test
+    - Attributes:
+        - type: TestType
+        - durationInMinutes: int
+
+5. Appointment
+    - Attributes:
+        - patient: Patient
+        - lab: Lab
+        - confirmationNumber: string
+        - date: date
+        - startTime: time
+        - endTime: time
+
+6. Lab
+    - Attributes:
+        - address: string
+        - businessHours: List<BusinessHour>
+        - registrationNumber: int
+        - testsOffered: List<TestType>
+        - appointmentFee: double
+
+7. BusinessHour
+    - Attributes:
+        - dayOfWeek: DayOfWeek
+        - startTime: time
+        - endTime: time
+
+### Note:
+- Additional classes and attributes may be required as the model gets more detailed or as the requirements evolve.
+- Consider adding appropriate methods to these classes for behavior implementation."
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. TestType(BLOOD, ULTRASOUND, XRAY, URINE, STOOL):Defines the different types of tests that can be requisitioned by a doctor.
+2. RepeatInterval(WEEKLY, MONTHLY, HALF_YEARLY, YEARLY):Represents the intervals at which tests can be repeated on a requisition.
+3. TestResult(NEGATIVE, POSITIVE):Denotes the possible results of each test.
+
+### Classes:
+1. Doctor(practitionerNumber: int, signature: Image, fullName: string, address: string, phoneNumber: string):Represents a medical practitioner who can requisition tests for patients.
+2. Patient(healthNumber: string, firstName: string, lastName: string, dateOfBirth: date, address: string, phoneNumber: string):Represents a patient for whom tests can be requisitioned.
+3. TestRequisition(doctor: Doctor, patient: Patient, tests: List<Test>, repeatTimes: int, repeatInterval: RepeatInterval):Represents a requisition of tests by a doctor for a patient.
+4. Test(type: TestType, durationInMinutes: int):Represents an individual test with its type and duration.
+5. Appointment(patient: Patient, lab: Lab, confirmationNumber: string, date: date, startTime: time, endTime: time):Represents an appointment made by a patient for a test at a lab.
+6. Lab(address: string, businessHours: List<BusinessHour>, registrationNumber: int, testsOffered: List<TestType>, appointmentFee: double):Represents a laboratory where tests can be conducted.
+7. BusinessHour(dayOfWeek: DayOfWeek, startTime: time, endTime: time):Defines the business hours for a lab on a specific day of the week.
+
+### Note:
+- The model provided is based on the requirements described in the given description.
+- Additional attributes or classes may be needed depending on the detailed implementation requirements."
+"
+"
+------------------------------------------------------------
+ O  Class:TestType  Oracle:TestType
+   X  Attribute:BLOOD 
+   X  Attribute:ULTRASOUND 
+   X  Attribute:XRAY 
+   X  Attribute:URINE 
+   X  Attribute:STOOL 
+ O  Class:TestResult  Oracle:TestResult
+   O  Attribute:NEGATIVE  Oracle:negative 
+   X  Attribute:POSITIVE 
+ O  Class:Doctor  Oracle:Doctor
+   X  Attribute:practitionerNumber 
+   O  Attribute:signature  Oracle:signature 
+   X  Attribute:fullName 
+   X  Attribute:address 
+   X  Attribute:phoneNumber 
+ O  Class:Patient  Oracle:Patient
+   X  Attribute:healthNumber 
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   O  Attribute:dateOfBirth  Oracle:dateOfBirth 
+   X  Attribute:address 
+   X  Attribute:phoneNumber 
+ O  Class:Test  Oracle:Test
+   X  Attribute:type 
+   X  Attribute:durationInMinutes 
+ O  Class:Appointment  Oracle:Appointment
+   X  Attribute:patient 
+   X  Attribute:lab 
+   X  Attribute:confirmationNumber 
+   O  Attribute:date  Oracle:date 
+   O  Attribute:startTime  Oracle:startTime 
+   O  Attribute:endTime  Oracle:endTime 
+ O  Class:Lab  Oracle:Lab
+   O  Attribute:address  Oracle:address 
+   X  Attribute:businessHours 
+   O  Attribute:registrationNumber  Oracle:registrationNumber 
+   X  Attribute:testsOffered 
+   X  Attribute:appointmentFee 
+ O  Class:BusinessHour  Oracle:BusinessHour
+   O  Attribute:dayOfWeek  Oracle:dayOfWeek 
+   O  Attribute:startTime  Oracle:startTime 
+   O  Attribute:endTime  Oracle:endTime 
+ O  Class:RepeatInterval  Oracle:Interval 
+   O  Attribute:WEEKLY  Oracle:weekly 
+   O  Attribute:MONTHLY  Oracle:monthly 
+   X  Attribute:HALF_YEARLY 
+   O  Attribute:YEARLY  Oracle:yearly 
+ X  Class:TestRequisition
+   X  Attribute:doctor 
+   X  Attribute:patient 
+   X  Attribute:tests 
+   X  Attribute:repeatTimes 
+   X  Attribute:repeatInterval 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------9/10------Lab Requisition Management System:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably. 
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient's information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor. 
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests. 
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern. 
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report. 
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample). 
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab's address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day's start time to its end time, i.e., there are no breaks.
+
+AI:### Enumerations:
+1. **RepetitionInterval**
+   - Weekly
+   - Monthly
+   - EveryHalfYear
+   - Yearly
+
+2. **TestResult**
+   - Negative
+   - Positive
+
+### Classes:
+1. **Doctor**
+   - Attributes:
+     - practitionerNumber: numeric
+     - signature: image
+     - fullName: string
+     - address: string
+     - phoneNumber: string
+
+2. **Patient**
+   - Attributes:
+     - healthNumber: alphanumeric
+     - firstName: string
+     - lastName: string
+     - dateOfBirth: date
+     - address: string
+     - phoneNumber: string
+
+3. **Requisition**
+   - Attributes:
+     - doctor: Doctor
+     - patient: Patient
+     - tests: List<Test>
+     - validFromDate: date
+     - repeatTimes: int
+     - repeatInterval: RepetitionInterval
+
+4. **Test**
+   - Attributes:
+     - type: TestType
+     - duration: int
+
+5. **TestType**
+   - Attributes:
+     - name: string
+     - group: TestGroup
+
+6. **TestGroup**
+   - Attributes:
+     - name: string
+
+7. **Lab**
+   - Attributes:
+     - address: string
+     - businessHours: List<BusinessHour>
+     - registrationNumber: string
+     - testsOffered: List<TestType>
+     - appointmentTypes: List<AppointmentType>
+     - dropOffTypes: List<TestType>
+
+8. **Appointment**
+   - Attributes:
+     - patient: Patient
+     - lab: Lab
+     - confirmationNumber: string
+     - date: date
+     - startTime: time
+     - endTime: time
+     - changeCancellationFee: double
+
+9. **BusinessHour**
+   - Attributes:
+     - openingTime: time
+     - closingTime: time
+
+10. **AppointmentType**
+    - Attributes:
+      - name: string
+
+### Attributes:
+- **LabTracker Software**
+  - doctor: Doctor
+  - patient: Patient
+  - tests: List<Test>
+  - testResults: Map<Test, TestResult>
+  - reports: Map<Test, string>"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. RepetitionInterval(Weekly, Monthly, EveryHalfYear, Yearly):Defines the intervals at which tests on a requisition can be repeated.
+
+2. TestResult(Negative, Positive):Represents the possible results of each test.
+
+### Classes:
+1. Doctor(practitionerNumber: numeric, signature: image, fullName: string, address: string, phoneNumber: string):Represents a doctor with specific information required for verification on requisitions.
+
+2. Patient(healthNumber: alphanumeric, firstName: string, lastName: string, dateOfBirth: date, address: string, phoneNumber: string):Models a patient with personal details for requisitions and appointments.
+
+3. Requisition(doctor: Doctor, patient: Patient, tests: List<Test>, validFromDate: date, repeatTimes: int, repeatInterval: RepetitionInterval):Represents a requisition for tests with associated doctor and patient information.
+
+4. Test(type: TestType, duration: int):Represents a specific test with its type and duration.
+
+5. TestType(name: string, group: TestGroup):Represents the type of a test with reference to its group.
+
+6. TestGroup(name: string):Categorizes tests into groups for combination on requisitions.
+
+7. Lab(address: string, businessHours: List<BusinessHour>, registrationNumber: string, testsOffered: List<TestType>, appointmentTypes: List<AppointmentType>, dropOffTypes: List<TestType>):Models the lab with details like address, services offered, and business hours.
+
+8. Appointment(patient: Patient, lab: Lab, confirmationNumber: string, date: date, startTime: time, endTime: time, changeCancellationFee: double):Represents an appointment made by a patient at a lab.
+
+9. BusinessHour(openingTime: time, closingTime: time):Defines the business hours for a lab.
+
+10. AppointmentType(name: string):Categorizes different types of appointments at a lab."
+"
+"
+------------------------------------------------------------
+ O  Class:TestResult  Oracle:TestResult
+   O  Attribute:Negative  Oracle:negative 
+   X  Attribute:Positive 
+ O  Class:Doctor  Oracle:Doctor
+   X  Attribute:practitionerNumber 
+   O  Attribute:signature  Oracle:signature 
+   X  Attribute:fullName 
+   X  Attribute:address 
+   X  Attribute:phoneNumber 
+ O  Class:Patient  Oracle:Patient
+   X  Attribute:healthNumber 
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   O  Attribute:dateOfBirth  Oracle:dateOfBirth 
+   X  Attribute:address 
+   X  Attribute:phoneNumber 
+ O  Class:Requisition  Oracle:Requisition
+   X  Attribute:doctor 
+   X  Attribute:patient 
+   X  Attribute:tests 
+   X  Attribute:validFromDate 
+   X  Attribute:repeatTimes 
+   X  Attribute:repeatInterval 
+ O  Class:Test  Oracle:Test
+   X  Attribute:type 
+   O  Attribute:duration  Oracle:duration 
+ O  Class:TestType  Oracle:TestType
+   O  Attribute:name  Oracle:name 
+   X  Attribute:group 
+ O  Class:Lab  Oracle:Lab
+   O  Attribute:address  Oracle:address 
+   X  Attribute:businessHours 
+   O  Attribute:registrationNumber  Oracle:registrationNumber 
+   X  Attribute:testsOffered 
+   X  Attribute:appointmentTypes 
+   X  Attribute:dropOffTypes 
+ O  Class:Appointment  Oracle:Appointment
+   X  Attribute:patient 
+   X  Attribute:lab 
+   X  Attribute:confirmationNumber 
+   O  Attribute:date  Oracle:date 
+   O  Attribute:startTime  Oracle:startTime 
+   O  Attribute:endTime  Oracle:endTime 
+   X  Attribute:changeCancellationFee 
+ O  Class:BusinessHour  Oracle:BusinessHour
+   X  Attribute:openingTime 
+   X  Attribute:closingTime 
+ O  Class:RepetitionInterval  Oracle:Interval 
+   O  Attribute:Weekly  Oracle:weekly 
+   O  Attribute:Monthly  Oracle:monthly 
+   O  Attribute:EveryHalfYear  Oracle:everyHalfYear 
+   O  Attribute:Yearly  Oracle:yearly 
+ X  Class:TestGroup
+   X  Attribute:name 
+ X  Class:AppointmentType
+   X  Attribute:name 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------10/10------Lab Requisition Management System:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The LabTracker software helps (i) doctors manage the requisition of tests and examinations for patients and (ii) patients book appointments for tests and examinations at a lab. For the remainder of this description, tests and examinations are used interchangeably. 
+
+For a requisition, a doctor must provide their numeric practitioner number and signature for verification as well as their full name, their address, and their phone number. The signature is a digital signature, i.e., an image of the actual signature of the doctor. Furthermore, the doctor indicates the date from which the requisition is valid. The requisition must also show the patient's information including their alpha-numeric health number, first name and last name, date of birth, address, and phone number. A doctor cannot prescribe a test for themselves but can prescribe tests to someone else who is a doctor. 
+
+Several tests can be combined on one requisition but only if they belong to the same group of tests. For example, only blood tests can be combined on one requisition or only ultrasound examinations can be combined. It is not possible to have a blood test and an ultrasound examination on the same requisition. For each test, its duration is defined by the lab network, so that it is possible to schedule appointments accordingly. The duration of a test is the same at each lab. For some kinds of tests, it does not matter how many tests are performed. They take as long as a single test. For example, several blood tests can be performed on a blood sample, i.e., it takes as long to draw the blood sample for a single blood test as it does for several blood tests. 
+
+A doctor may also indicate that the tests on a requisition are to be repeated for a specified number of times and interval. The interval is either weekly, monthly, every half year, or yearly. All tests on a requisition are following the same repetition pattern. 
+
+The doctor and the patient can view the results of each test (either negative or positive) as well as the accompanying report. 
+
+A patient is required to make an appointment for some tests while others are walk-in only. For example, x-ray examinations require an appointment, but blood tests are walk-in only (i.e., it is not possible to make an appointment for a blood test). On the other hand, some tests only require a sample to be dropped off (e.g., a urine or stool sample). 
+
+To make an appointment for a requisition, a patient selects the desired lab based on the lab's address and business hours. For requisitions with repeated tests, a patient is only allowed to make one appointment at a time. The confirmation for an appointment also shows a confirmation number, the date as well as start/end times, and the name of the lab as well as its registration number. It is possible to change or cancel an appointment at any time but doing so within 24 hours of the appointment incurs a change/cancellation fee. Each lab determines its own fee and business hours. All labs are open every day of the year and offer all tests. The business hours of a lab do not change from one week to the next. Each day a lab is open from the day's start time to its end time, i.e., there are no breaks.
+
+AI:**Enumerations:**
+1. TestType (e.g., BloodTest, Ultrasound, XRay, UrineTest, StoolTest)
+2. RepetitionInterval (e.g., Weekly, Monthly, HalfYearly, Yearly)
+3. TestResult (e.g., Negative, Positive)
+
+**Classes:**
+1. Doctor
+   - Attributes:
+     - practitionerNumber: Integer
+     - signature: Image
+     - fullName: String
+     - address: String
+     - phoneNumber: String
+
+2. Patient
+   - Attributes:
+     - healthNumber: String
+     - firstName: String
+     - lastName: String
+     - dateOfBirth: Date
+     - address: String
+     - phoneNumber: String
+
+3. Requisition
+   - Attributes:
+     - doctor: Doctor
+     - patient: Patient
+     - tests: List<Test>
+     - repetitionCount: Integer
+     - repetitionInterval: RepetitionInterval
+     - results: List<TestResult>
+     - report: String
+
+4. Test
+   - Attributes:
+     - type: TestType
+     - duration: Duration
+
+5. Appointment
+   - Attributes:
+     - patient: Patient
+     - lab: Lab
+     - confirmationNumber: String
+     - date: Date
+     - startTime: Time
+     - endTime: Time
+     - changeCancellationFee: Double
+
+6. Lab
+   - Attributes:
+     - address: String
+     - businessHours: List<BusinessHour>
+     - registrationNumber: String
+     - appointmentFee: Double
+
+7. BusinessHour
+   - Attributes:
+     - dayOfWeek: DayOfWeek
+     - startTime: Time
+     - endTime: Time
+
+**Attributes of other classes:**
+- Doctor: dateOfRequisition (Date)
+- Patient: appointments (List<Appointment>)
+- Test: group (TestGroup)
+- TestGroup: typeName (String)
+- Lab: testsOffered (List<TestType>)
+
+Note: Additional classes and attributes may be required based on the specific implementation needs."
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:**Enumerations:**
+1. TestType(BloodTest, Ultrasound, XRay, UrineTest, StoolTest): Represents different types of tests that can be prescribed in the system.
+2. RepetitionInterval(Weekly, Monthly, HalfYearly, Yearly): Represents the intervals at which tests can be repeated.
+3. TestResult(Negative, Positive): Represents the possible results of a test.
+
+**Classes:**
+1. Doctor(practitionerNumber: Integer, signature: Image, fullName: String, address: String, phoneNumber: String, dateOfRequisition: Date): Represents a doctor in the system and includes necessary personal and requisition-related information.
+2. Patient(healthNumber: String, firstName: String, lastName: String, dateOfBirth: Date, address: String, phoneNumber: String, appointments: List<Appointment): Represents a patient and includes personal details and a list of appointments.
+3. Requisition(doctor: Doctor, patient: Patient, tests: List<Test>, repetitionCount: Integer, repetitionInterval: RepetitionInterval, results: List<TestResult>, report: String): Represents a requisition including doctor, patient, tests, repetition information, results, and report.
+4. Test(type: TestType, duration: Duration, group: TestGroup): Represents a test with type, duration, and group information.
+5. Appointment(patient: Patient, lab: Lab, confirmationNumber: String, date: Date, startTime: Time, endTime: Time, changeCancellationFee: Double): Represents an appointment made by a patient at a lab with relevant details.
+6. Lab(address: String, businessHours: List<BusinessHour>, registrationNumber: String, appointmentFee: Double, testsOffered: List<TestType>): Represents a lab with address, business hours, registration details, fee, and tests offered.
+7. BusinessHour(dayOfWeek: DayOfWeek, startTime: Time, endTime: Time): Represents the business hours of a lab for a specific day with start and end times.
+
+Note: Additional classes and attributes may be added based on the specific requirements and implementation details."
+"
+"
+------------------------------------------------------------
+ O  Class:TestType  Oracle:TestType
+   X  Attribute:BloodTest 
+   X  Attribute:Ultrasound 
+   X  Attribute:XRay 
+   X  Attribute:UrineTest 
+   X  Attribute:StoolTest 
+ O  Class:TestResult  Oracle:TestResult
+   O  Attribute:Negative  Oracle:negative 
+   X  Attribute:Positive 
+ O  Class:Doctor  Oracle:Doctor
+   X  Attribute:practitionerNumber 
+   O  Attribute:signature  Oracle:signature 
+   X  Attribute:fullName 
+   X  Attribute:address 
+   X  Attribute:phoneNumber 
+   X  Attribute:dateOfRequisition 
+ O  Class:Patient  Oracle:Patient
+   X  Attribute:healthNumber 
+   X  Attribute:firstName 
+   X  Attribute:lastName 
+   O  Attribute:dateOfBirth  Oracle:dateOfBirth 
+   X  Attribute:address 
+   X  Attribute:phoneNumber 
+   X  Attribute:appointments 
+ O  Class:Requisition  Oracle:Requisition
+   X  Attribute:doctor 
+   X  Attribute:patient 
+   X  Attribute:tests 
+   O  Attribute:repetitionCount  Oracle:repetitionCount 
+   O  Attribute:repetitionInterval  Oracle:repetitionInterval 
+   X  Attribute:results 
+   X  Attribute:report 
+ O  Class:Test  Oracle:Test
+   X  Attribute:type 
+   O  Attribute:duration  Oracle:duration 
+   X  Attribute:group 
+ O  Class:Appointment  Oracle:Appointment
+   X  Attribute:patient 
+   X  Attribute:lab 
+   X  Attribute:confirmationNumber 
+   O  Attribute:date  Oracle:date 
+   O  Attribute:startTime  Oracle:startTime 
+   O  Attribute:endTime  Oracle:endTime 
+   X  Attribute:changeCancellationFee 
+ O  Class:Lab  Oracle:Lab
+   O  Attribute:address  Oracle:address 
+   X  Attribute:businessHours 
+   O  Attribute:registrationNumber  Oracle:registrationNumber 
+   X  Attribute:appointmentFee 
+   X  Attribute:testsOffered 
+ O  Class:BusinessHour  Oracle:BusinessHour
+   O  Attribute:dayOfWeek  Oracle:dayOfWeek 
+   O  Attribute:startTime  Oracle:startTime 
+   O  Attribute:endTime  Oracle:endTime 
+ O  Class:RepetitionInterval  Oracle:Interval 
+   O  Attribute:Weekly  Oracle:weekly 
+   O  Attribute:Monthly  Oracle:monthly 
+   X  Attribute:HalfYearly 
+   O  Attribute:Yearly  Oracle:yearly 

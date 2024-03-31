@@ -1,0 +1,1796 @@
+------------------------------------------------------------
+
+------------------------------------------------------------
+
+---------------------1/10------Online Tutoring System (OTS):
+
+------------------------------------------------------------
+
+---------------------Prediction AI:
+
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The OTS is used by students and tutors where a tutor may also be a student. At registration, tutors need to provide their name, email address and bank account. After that, tutors may offer online tutoring in different subjects (e.g. mathematics, science, literature, etc.) by providing their level of expertise (e.g. primary school level, high school level, university level) in the given subject and their hourly price of a tutoring session (which may again be subject specific). Tutors may specify their weekly availability for tutoring sessions (e.g. Thursdays from 10:00 to 11:30).
+Registered students (with a name and an email address) may browse available tutoring offers in a specific subject and then make a tutoring request from the designated tutor by specifying the level of tutoring. This request should suggest the target date and time of the first tutoring session. The tutor may confirm the requested tutoring session or offer a session at another slot. Once the session is agreed, the tutor and the student is expected to turn up at the given time for tutoring. During the tutoring session, the student and the tutor may agree upon to schedule follow-up a tutoring session. After the actual tutoring session, the student pays for the session (with a credit card or wire transfer).
+A tutoring session may be cancelled by either the student or the tutor. However, if the student cancels less than 24 hours prior to the session then 75% of the session's price has to be paid. If the tutor cancels within 24 hours then he/she needs to offer a 25% discount for his/her next session to the same student.
+
+AI:### Enumerations:
+1. LevelOfExpertise
+   - PrimarySchool
+   - HighSchool
+   - University
+
+2. Subject
+   - Mathematics
+   - Science
+   - Literature
+   - Others
+
+### Classes:
+1. Person
+   - Attributes:
+     - name: String
+     - email: String
+
+2. Tutor
+   - Attributes:
+     - bankAccount: String
+     - expertise: LevelOfExpertise
+     - hourlyPricePerSubject: Map<Subject, Double>
+     - weeklyAvailability: Map<DayOfWeek, List<LocalTime>>
+   - Methods:
+     - offerTutoring(subject: Subject)
+     - confirmTutoringSession(student: Student, levelOfTutoring: LevelOfExpertise, date: LocalDate, time: LocalTime)
+     - offerAlternativeSession(student: Student, date: LocalDate, time: LocalTime)
+     - cancelTutoringSession(student: Student)
+     - calculateCancellationFee(hoursBefore: int): Double
+
+3. Student
+   - Attributes:
+     - creditCard: String
+   - Methods:
+     - browseAvailableTutors(subject: Subject)
+     - makeTutoringRequest(tutor: Tutor, levelOfTutoring: LevelOfExpertise, date: LocalDate, time: LocalTime)
+     - confirmTutoringSession(tutor: Tutor, date: LocalDate, time: LocalTime)
+     - scheduleFollowUpSession(tutor: Tutor)
+     - payForSession(amount: Double, paymentMethod: PaymentMethod)
+     - calculateCancellationFee(hoursBefore: int): Double
+
+### Attributes:
+- PaymentMethod (Enumeration)
+   - CreditCard
+   - WireTransfer"
+
+"
+"
+
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. LevelOfExpertise (PrimarySchool, HighSchool, University): Represents the different levels of expertise that tutors can offer in a subject.
+2. Subject (Mathematics, Science, Literature, Others): Represents the different subjects for which tutoring can be offered.
+
+Classes:
+1. Person(name: String, email: String): Represents a generic person with a name and an email address.
+2. Tutor(name: String, email: String, bankAccount: String, expertise: LevelOfExpertise, hourlyPricePerSubject: Map<Subject, Double>, weeklyAvailability: Map<DayOfWeek, List<LocalTime>>): Represents a tutor with specific attributes such as expertise, hourly prices for subjects, and weekly availability for tutoring sessions.
+3. Student(name: String, email: String, creditCard: String): Represents a student with attributes including a name, email address, and credit card information."
+
+"
+"
+
+------------------------------------------------------------
+
+ O  Class:Subject   Oracle:Subject
+
+   X  Attribute:Mathematics 
+
+   X  Attribute:Science 
+
+   X  Attribute:Literature 
+
+   X  Attribute:Others 
+
+ O  Class:Tutor  Oracle:Tutor
+
+   X  Attribute:name 
+
+   X  Attribute:email 
+
+   O  Attribute:bankAccount  Oracle:bankAccount 
+
+   X  Attribute:expertise 
+
+   X  Attribute:hourlyPricePerSubject 
+
+   X  Attribute:Double> 
+
+   X  Attribute:weeklyAvailability 
+
+   X  Attribute:List<LocalTime>> 
+
+ O  Class:Student  Oracle:Student
+
+   X  Attribute:name 
+
+   X  Attribute:email 
+
+   X  Attribute:creditCard 
+
+ O  Class:LevelOfExpertise   Oracle:LevelOfTutoring 
+
+   O  Attribute:PrimarySchool  Oracle:PrimarySchool 
+
+   O  Attribute:HighSchool  Oracle:HighSchool 
+
+   O  Attribute:University  Oracle:University 
+
+ O  Class:Person  Oracle:User 
+
+   O  Attribute:name  Oracle:name 
+
+   O  Attribute:email  Oracle:email 
+
+------------------------------------------------------------
+
+---------------------Baseline AI:
+
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+#Description 
+The OTS is used by students and tutors where a tutor may also be a student. At registration, tutors need to provide their name, email address and bank account. After that, tutors may offer online tutoring in different subjects (e.g. mathematics, science, literature, etc.) by providing their level of expertise (e.g. primary school level, high school level, university level) in the given subject and their hourly price of a tutoring session (which may again be subject specific). Tutors may specify their weekly availability for tutoring sessions (e.g. Thursdays from 10:00 to 11:30).
+Registered students (with a name and an email address) may browse available tutoring offers in a specific subject and then make a tutoring request from the designated tutor by specifying the level of tutoring. This request should suggest the target date and time of the first tutoring session. The tutor may confirm the requested tutoring session or offer a session at another slot. Once the session is agreed, the tutor and the student is expected to turn up at the given time for tutoring. During the tutoring session, the student and the tutor may agree upon to schedule follow-up a tutoring session. After the actual tutoring session, the student pays for the session (with a credit card or wire transfer).
+A tutoring session may be cancelled by either the student or the tutor. However, if the student cancels less than 24 hours prior to the session then 75% of the session's price has to be paid. If the tutor cancels within 24 hours then he/she needs to offer a 25% discount for his/her next session to the same student.
+
+
+AI:Enumerations:
+1. LevelOfExpertise(primary school level, high school level, university level):Used to indicate the level of expertise of a tutor in a specific subject.
+2. Subject(mathematics, science, literature, etc.):Represents different subjects for tutoring offers.
+
+Classes:
+1. User(name: string, email: string):Represents a user in the system with a name and an email address.
+2. Tutor(inherits User, bankAccount: string):Represents a tutor who is also a user and provides additional information like bank account.
+3. TutoringOffer(subject: Subject, levelOfExpertise: LevelOfExpertise, hourlyPrice: float, weeklyAvailability: string):Represents an offer for tutoring in a specific subject with details like expertise level, price, and availability.
+4. Student(inherits User):Represents a student who is also a user.
+5. TutoringRequest(tutor: Tutor, levelOfTutoring: LevelOfExpertise, targetDateTime: datetime):Represents a request made by a student to a tutor for a tutoring session.
+6. TutoringSession(tutor: Tutor, student: Student, scheduleDateTime: datetime, followUpScheduled: boolean):Represents a tutoring session between a tutor and a student with details like scheduled time and follow-up status.
+7. PaymentMethod(creditCard, wireTransfer):Represents different payment methods for a tutoring session.
+8. CancellationReason(student, tutor):Represents the reason for cancellation of a tutoring session by either the student or the tutor."
+
+"
+"
+
+------------------------------------------------------------
+
+ O  Class:Subject  Oracle:Subject
+
+   X  Attribute:mathematics 
+
+   X  Attribute:science 
+
+   X  Attribute:literature 
+
+ O  Class:User  Oracle:User
+
+   O  Attribute:name  Oracle:name 
+
+   O  Attribute:email  Oracle:email 
+
+ O  Class:Tutor  Oracle:Tutor
+
+   X  Attribute:User 
+
+   O  Attribute:bankAccount  Oracle:bankAccount 
+
+ O  Class:TutoringOffer  Oracle:TutoringOffer
+
+   X  Attribute:subject 
+
+   X  Attribute:levelOfExpertise 
+
+   O  Attribute:hourlyPrice  Oracle:hourlyPrice 
+
+   X  Attribute:weeklyAvailability 
+
+ O  Class:Student  Oracle:Student
+
+   X  Attribute:User 
+
+ O  Class:TutoringRequest  Oracle:TutoringRequest
+
+   X  Attribute:tutor 
+
+   X  Attribute:levelOfTutoring 
+
+   X  Attribute:targetDateTime 
+
+ O  Class:TutoringSession  Oracle:TutoringSession
+
+   X  Attribute:tutor 
+
+   X  Attribute:student 
+
+   X  Attribute:scheduleDateTime 
+
+   X  Attribute:followUpScheduled 
+
+ X  Class:LevelOfExpertise
+
+   X  Attribute:school 
+
+   X  Attribute:school 
+
+   X  Attribute:level 
+
+ O  Class:PaymentMethod  Oracle:PaymentKind 
+
+   O  Attribute:creditCard  Oracle:CreditCard 
+
+   O  Attribute:wireTransfer  Oracle:WireTransfer 
+
+ X  Class:CancellationReason
+
+   X  Attribute:student 
+
+   X  Attribute:tutor 
+
+------------------------------------------------------------
+
+------------------------------------------------------------
+
+---------------------2/10------Online Tutoring System (OTS):
+
+------------------------------------------------------------
+
+---------------------Prediction AI:
+
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The OTS is used by students and tutors where a tutor may also be a student. At registration, tutors need to provide their name, email address and bank account. After that, tutors may offer online tutoring in different subjects (e.g. mathematics, science, literature, etc.) by providing their level of expertise (e.g. primary school level, high school level, university level) in the given subject and their hourly price of a tutoring session (which may again be subject specific). Tutors may specify their weekly availability for tutoring sessions (e.g. Thursdays from 10:00 to 11:30).
+Registered students (with a name and an email address) may browse available tutoring offers in a specific subject and then make a tutoring request from the designated tutor by specifying the level of tutoring. This request should suggest the target date and time of the first tutoring session. The tutor may confirm the requested tutoring session or offer a session at another slot. Once the session is agreed, the tutor and the student is expected to turn up at the given time for tutoring. During the tutoring session, the student and the tutor may agree upon to schedule follow-up a tutoring session. After the actual tutoring session, the student pays for the session (with a credit card or wire transfer).
+A tutoring session may be cancelled by either the student or the tutor. However, if the student cancels less than 24 hours prior to the session then 75% of the session's price has to be paid. If the tutor cancels within 24 hours then he/she needs to offer a 25% discount for his/her next session to the same student.
+
+AI:**Enumerations:**
+1. Subject (e.g. Mathematics, Science, Literature)
+2. Expertise Level (e.g. Primary School Level, High School Level, University Level)
+
+**Classes:**
+1. Person
+   - Attributes: name, email
+2. Tutor
+   - Attributes: bank account, hourly price
+   - Relationships: specializesIn (Subject), expertiseLevel (Expertise Level), availability
+3. Student
+   - Relationships: requestsTutoringSession
+4. TutoringSession
+   - Attributes: date, time, status
+   - Relationships: tutor, student
+5. Request
+   - Attributes: date, time, level
+   - Relationships: tutor, student
+6. Payment
+   - Attributes: paymentMethod
+   - Relationships: student, tutor, tutoringSession
+7. Availability
+   - Attributes: day, startTime, endTime
+   - Relationships: tutor
+
+**Attributes:**
+- Person: name, email
+- Tutor: bank account, hourly price
+- TutoringSession: date, time, status
+- Request: date, time, level
+- Payment: paymentMethod
+- Availability: day, startTime, endTime"
+
+"
+"
+
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:**Enumerations:**
+1. Subject (Mathematics, Science, Literature): Represents different subjects for tutoring offers.
+2. Expertise Level (Primary School Level, High School Level, University Level): Indicates the level of expertise a tutor has in a subject.
+
+**Classes:**
+1. Person(name: String, email: String): Represents a generic person with a name and email address.
+2. Tutor(bankAccount: String, hourlyPrice: double): Represents a tutor with additional attributes such as bank account and hourly price for tutoring sessions.
+3. Student: Represents a student registering in the system.
+4. TutoringSession(date: Date, time: Time, status: String): Represents a tutoring session with attributes like date, time, and status.
+5. Request(date: Date, time: Time, level: Expertise Level): Represents a tutoring request from a student to a tutor with specific date, time, and expertise level.
+6. Payment(paymentMethod: String): Represents the payment details for a tutoring session.
+7. Availability(day: String, startTime: Time, endTime: Time): Represents the weekly availability of a tutor for tutoring sessions."
+
+"
+"
+
+------------------------------------------------------------
+
+ O  Class:Subject   Oracle:Subject
+
+   X  Attribute:Mathematics 
+
+   X  Attribute:Science 
+
+   X  Attribute:Literature 
+
+ O  Class:Tutor  Oracle:Tutor
+
+   O  Attribute:bankAccount  Oracle:bankAccount 
+
+   X  Attribute:hourlyPrice 
+
+ O  Class:Student  Oracle:Student
+
+ O  Class:TutoringSession  Oracle:TutoringSession
+
+   X  Attribute:date 
+
+   X  Attribute:time 
+
+   X  Attribute:status 
+
+ O  Class:Payment  Oracle:Payment
+
+   X  Attribute:paymentMethod 
+
+ X  Class:Expertise Level 
+
+   X  Attribute:School 
+
+   X  Attribute:School 
+
+   X  Attribute:Level 
+
+ O  Class:Person  Oracle:User 
+
+   O  Attribute:name  Oracle:name 
+
+   O  Attribute:email  Oracle:email 
+
+ X  Class:Request
+
+   X  Attribute:date 
+
+   X  Attribute:time 
+
+   X  Attribute:level 
+
+ O  Class:Availability  Oracle:TutorAvailability 
+
+   X  Attribute:day 
+
+   O  Attribute:startTime  Oracle:startTime 
+
+   O  Attribute:endTime  Oracle:endTime 
+
+------------------------------------------------------------
+
+------------------------------------------------------------
+
+---------------------3/10------Online Tutoring System (OTS):
+
+------------------------------------------------------------
+
+---------------------Prediction AI:
+
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The OTS is used by students and tutors where a tutor may also be a student. At registration, tutors need to provide their name, email address and bank account. After that, tutors may offer online tutoring in different subjects (e.g. mathematics, science, literature, etc.) by providing their level of expertise (e.g. primary school level, high school level, university level) in the given subject and their hourly price of a tutoring session (which may again be subject specific). Tutors may specify their weekly availability for tutoring sessions (e.g. Thursdays from 10:00 to 11:30).
+Registered students (with a name and an email address) may browse available tutoring offers in a specific subject and then make a tutoring request from the designated tutor by specifying the level of tutoring. This request should suggest the target date and time of the first tutoring session. The tutor may confirm the requested tutoring session or offer a session at another slot. Once the session is agreed, the tutor and the student is expected to turn up at the given time for tutoring. During the tutoring session, the student and the tutor may agree upon to schedule follow-up a tutoring session. After the actual tutoring session, the student pays for the session (with a credit card or wire transfer).
+A tutoring session may be cancelled by either the student or the tutor. However, if the student cancels less than 24 hours prior to the session then 75% of the session's price has to be paid. If the tutor cancels within 24 hours then he/she needs to offer a 25% discount for his/her next session to the same student.
+
+AI:### Enumerations:
+1. TutoringSubject
+   - Mathematics
+   - Science
+   - Literature
+   - etc.
+
+2. ExpertiseLevel
+   - Primary school level
+   - High school level
+   - University level
+
+### Classes:
+1. Person
+   - Attributes:
+     - Name
+     - Email address
+
+2. Tutor
+   - Attributes:
+     - Bank account
+     - Hourly price
+     - Weekly availability
+     - List of TutoringSubjects and ExpertiseLevels
+
+3. Student
+   - Attributes:
+     - List of TutoringSubjects
+
+4. TutoringSession
+   - Attributes:
+     - Tutor
+     - Student
+     - Date and time
+     - Session price
+     - Payment method
+
+### Associations:
+1. Tutor may offer tutoring sessions in different TutoringSubjects at different ExpertiseLevels.
+2. Student may make tutoring requests to specific Tutors for TutoringSubjects.
+3. Tutor and Student participate in TutoringSessions.
+4. Student pays for TutoringSessions."
+
+"
+"
+
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. TutoringSubject (Mathematics, Science, Literature, etc.): Represents the different subjects in which tutoring may be offered.
+2. ExpertiseLevel (Primary school level, High school level, University level): Represents the expertise levels in a given subject.
+
+### Classes:
+1. Person(Name: String, Email: String): Represents a person with a name and email address.
+2. Tutor(BankAccount: String, HourlyPrice: double, WeeklyAvailability: String, SubjectsAndLevels: List<TutoringSubject, ExpertiseLevel>): Represents a tutor with bank account details, hourly price, availability, and expertise in various subjects.
+3. Student(): Represents a student with a list of preferred tutoring subjects.
+4. TutoringSession(Tutor: Tutor, Student: Student, DateAndTime: DateTime, SessionPrice: double, PaymentMethod: String): Represents a tutoring session between a tutor and a student."
+
+"
+"
+
+------------------------------------------------------------
+
+ O  Class:Tutor  Oracle:Tutor
+
+   O  Attribute:BankAccount  Oracle:bankAccount 
+
+   X  Attribute:HourlyPrice 
+
+   X  Attribute:WeeklyAvailability 
+
+   X  Attribute:SubjectsAndLevels 
+
+   X  Attribute:ExpertiseLevel> 
+
+ O  Class:Student  Oracle:Student
+
+ O  Class:TutoringSession  Oracle:TutoringSession
+
+   X  Attribute:Tutor 
+
+   X  Attribute:Student 
+
+   X  Attribute:DateAndTime 
+
+   X  Attribute:SessionPrice 
+
+   X  Attribute:PaymentMethod 
+
+ X  Class:TutoringSubject 
+
+   X  Attribute:Mathematics 
+
+   X  Attribute:Science 
+
+   X  Attribute:Literature 
+
+   X  Attribute:etc. 
+
+ X  Class:ExpertiseLevel 
+
+   X  Attribute:school 
+
+   X  Attribute:school 
+
+   X  Attribute:level 
+
+ O  Class:Person  Oracle:User 
+
+   O  Attribute:Name  Oracle:name 
+
+   O  Attribute:Email  Oracle:email 
+
+
+------------------------------------------------------------
+
+------------------------------------------------------------
+
+------------------------------------------------------------
+
+---------------------4/10------Online Tutoring System (OTS):
+
+------------------------------------------------------------
+
+---------------------Prediction AI:
+
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The OTS is used by students and tutors where a tutor may also be a student. At registration, tutors need to provide their name, email address and bank account. After that, tutors may offer online tutoring in different subjects (e.g. mathematics, science, literature, etc.) by providing their level of expertise (e.g. primary school level, high school level, university level) in the given subject and their hourly price of a tutoring session (which may again be subject specific). Tutors may specify their weekly availability for tutoring sessions (e.g. Thursdays from 10:00 to 11:30).
+Registered students (with a name and an email address) may browse available tutoring offers in a specific subject and then make a tutoring request from the designated tutor by specifying the level of tutoring. This request should suggest the target date and time of the first tutoring session. The tutor may confirm the requested tutoring session or offer a session at another slot. Once the session is agreed, the tutor and the student is expected to turn up at the given time for tutoring. During the tutoring session, the student and the tutor may agree upon to schedule follow-up a tutoring session. After the actual tutoring session, the student pays for the session (with a credit card or wire transfer).
+A tutoring session may be cancelled by either the student or the tutor. However, if the student cancels less than 24 hours prior to the session then 75% of the session's price has to be paid. If the tutor cancels within 24 hours then he/she needs to offer a 25% discount for his/her next session to the same student.
+
+AI:### Enumerations:
+1. Subject (e.g. mathematics, science, literature)
+2. ExpertiseLevel (e.g. primary school level, high school level, university level)
+3. Weekday (e.g. Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday)
+
+### Classes:
+1. User
+   - Attributes: name, email
+
+2. Tutor
+   - Attributes: name, email, bankAccount, expertiseLevel, hourlyPrice, availability (list of Weekday and time slots)
+
+3. Student
+   - Attributes: name, email
+
+4. TutoringOffer
+   - Attributes: tutor (Tutor), subject (Subject), expertiseLevel (ExpertiseLevel), hourlyPrice, availability
+
+5. TutoringRequest
+   - Attributes: student (Student), tutor (Tutor), subject (Subject), expertiseLevel (ExpertiseLevel), targetDate, targetTime
+
+6. TutoringSession
+   - Attributes: student (Student), tutor (Tutor), subject (Subject), expertiseLevel (ExpertiseLevel), date, time, isConfirmed
+
+### Attributes:
+1. User
+   - name: string
+   - email: string
+
+2. Tutor
+   - bankAccount: string
+
+3. TutoringOffer
+   - tutor: Tutor
+   - subject: Subject
+   - expertiseLevel: ExpertiseLevel
+   - hourlyPrice: float
+   - availability: list of (Weekday, startTime, endTime)
+
+4. TutoringRequest
+   - student: Student
+   - tutor: Tutor
+   - subject: Subject
+   - expertiseLevel: ExpertiseLevel
+   - targetDate: date
+   - targetTime: time
+
+5. TutoringSession
+   - student: Student
+   - tutor: Tutor
+   - subject: Subject
+   - expertiseLevel: ExpertiseLevel
+   - date: date
+   - time: time
+   - isConfirmed: boolean"
+
+"
+"
+
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. Subject(mathematics, science, literature): Represents the different subjects that tutors can offer online tutoring in.
+2. ExpertiseLevel(primary school level, high school level, university level): Describes the level of expertise a tutor can provide in a subject.
+3. Weekday(Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday): Represents the days of the week for specifying availability.
+
+### Classes:
+1. User(name: string, email: string): Represents a user with a name and email for both tutors and students.
+2. Tutor(name: string, email: string, bankAccount: string, expertiseLevel: ExpertiseLevel, hourlyPrice: float, availability: list of (Weekday, startTime, endTime)): Represents a tutor with details such as bank account, expertise level, hourly price, and availability.
+3. Student(name: string, email: string): Represents a student with a name and email.
+4. TutoringOffer(tutor: Tutor, subject: Subject, expertiseLevel: ExpertiseLevel, hourlyPrice: float, availability: list of (Weekday, startTime, endTime)): Represents an offer made by a tutor for tutoring in a specific subject and expertise level.
+5. TutoringRequest(student: Student, tutor: Tutor, subject: Subject, expertiseLevel: ExpertiseLevel, targetDate: date, targetTime: time): Represents a tutoring request made by a student to a tutor for a specific subject and expertise level at a target date and time.
+6. TutoringSession(student: Student, tutor: Tutor, subject: Subject, expertiseLevel: ExpertiseLevel, date: date, time: time, isConfirmed: boolean): Represents a tutoring session between a student and a tutor with details such as date, time, and confirmation status."
+
+"
+"
+
+------------------------------------------------------------
+
+ O  Class:Subject  Oracle:Subject
+
+   X  Attribute:mathematics 
+
+   X  Attribute:science 
+
+   X  Attribute:literature 
+
+ O  Class:User  Oracle:User
+
+   O  Attribute:name  Oracle:name 
+
+   O  Attribute:email  Oracle:email 
+
+ O  Class:Tutor  Oracle:Tutor
+
+ O  Class:Student  Oracle:Student
+
+   X  Attribute:name 
+
+   X  Attribute:email 
+
+ O  Class:TutoringOffer  Oracle:TutoringOffer
+
+ O  Class:TutoringRequest  Oracle:TutoringRequest
+
+   X  Attribute:student 
+
+   X  Attribute:tutor 
+
+   X  Attribute:subject 
+
+   X  Attribute:expertiseLevel 
+
+   X  Attribute:targetDate 
+
+   X  Attribute:targetTime 
+
+ O  Class:TutoringSession  Oracle:TutoringSession
+
+   X  Attribute:student 
+
+   X  Attribute:tutor 
+
+   X  Attribute:subject 
+
+   X  Attribute:expertiseLevel 
+
+   X  Attribute:date 
+
+   X  Attribute:time 
+
+   X  Attribute:isConfirmed 
+
+ X  Class:ExpertiseLevel
+
+   X  Attribute:school 
+
+   X  Attribute:school 
+
+   X  Attribute:level 
+
+ X  Class:Weekday
+
+   X  Attribute:Monday 
+
+   X  Attribute:Tuesday 
+
+   X  Attribute:Wednesday 
+
+   X  Attribute:Thursday 
+
+   X  Attribute:Friday 
+
+   X  Attribute:Saturday 
+
+   X  Attribute:Sunday 
+
+------------------------------------------------------------
+
+------------------------------------------------------------
+
+---------------------5/10------Online Tutoring System (OTS):
+
+------------------------------------------------------------
+
+---------------------Prediction AI:
+
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The OTS is used by students and tutors where a tutor may also be a student. At registration, tutors need to provide their name, email address and bank account. After that, tutors may offer online tutoring in different subjects (e.g. mathematics, science, literature, etc.) by providing their level of expertise (e.g. primary school level, high school level, university level) in the given subject and their hourly price of a tutoring session (which may again be subject specific). Tutors may specify their weekly availability for tutoring sessions (e.g. Thursdays from 10:00 to 11:30).
+Registered students (with a name and an email address) may browse available tutoring offers in a specific subject and then make a tutoring request from the designated tutor by specifying the level of tutoring. This request should suggest the target date and time of the first tutoring session. The tutor may confirm the requested tutoring session or offer a session at another slot. Once the session is agreed, the tutor and the student is expected to turn up at the given time for tutoring. During the tutoring session, the student and the tutor may agree upon to schedule follow-up a tutoring session. After the actual tutoring session, the student pays for the session (with a credit card or wire transfer).
+A tutoring session may be cancelled by either the student or the tutor. However, if the student cancels less than 24 hours prior to the session then 75% of the session's price has to be paid. If the tutor cancels within 24 hours then he/she needs to offer a 25% discount for his/her next session to the same student.
+
+AI:Enumerations:
+1. Subject (e.g. mathematics, science, literature)
+2. Level of expertise (e.g. primary school level, high school level, university level)
+3. Day of the week (e.g. Monday, Tuesday, Wednesday, etc.)
+4. Payment method (e.g. credit card, wire transfer)
+
+Classes:
+1. User
+   - Attributes: name, email address
+
+2. Tutor
+   - Attributes: name, email address, bank account, hourly price, weekly availability
+   - Methods: offerTutoringSession(), confirmSession(), agreeUponFollowUp()
+
+3. Student
+   - Attributes: name, email address, payment method
+   - Methods: browseTutoringOffers(), makeTutoringRequest(), schedulePayment()
+
+4. TutoringSession
+   - Attributes: subject, level of tutoring, target date and time, status (confirmed, canceled)
+   - Methods: cancelSession()
+
+5. Payment
+   - Attributes: amount, payment date, payment status
+
+6. AvailabilitySlot
+   - Attributes: day of the week, start time, end time
+
+7. CancellationPolicy
+   - Attributes: cancellationTimeLimit, penaltyPercentage
+
+8. FollowUpSession
+   - Attributes: agreedDateAndTime
+
+9. FollowUpPayment
+   - Attributes: discountPercentage
+
+10. Schedule
+    - Attributes: tutor, student, tutoringSession, followUpSession, payment
+
+These classes and attributes represent the key entities and relationships described in the provided description of the Online Tutoring System (OTS)."
+
+"
+"
+
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. Subject(mathematics, science, literature): Represents the different subjects in which tutoring can be offered.
+2. Level of expertise(primary school level, high school level, university level): Represents the proficiency level of tutors in various subjects.
+3. Day of the week(Monday, Tuesday, Wednesday, etc.): Represents the days of the week for scheduling tutoring sessions.
+4. Payment method(credit card, wire transfer): Represents the methods of payment for tutoring services.
+
+Classes:
+1. User(name: string, email: string): Represents a general user with a name and email address for registration purposes.
+2. Tutor(name: string, email: string, bankAccount: string, hourlyPrice: double, weeklyAvailability: List<AvailabilitySlot>): Represents a tutor with additional attributes such as bank account and hourly price for tutoring sessions.
+3. Student(name: string, email: string, paymentMethod: PaymentMethod): Represents a student with attributes including name, email, and payment method for session payments.
+4. TutoringSession(subject: Subject, levelOfTutoring: LevelOfExpertise, targetDateTime: DateTime, status: SessionStatus): Represents a tutoring session with details such as subject, level of tutoring, and status.
+5. Payment(amount: double, paymentDate: DateTime, paymentStatus: PaymentStatus): Represents a payment with amount, date, and status information.
+6. AvailabilitySlot(dayOfWeek: DayOfWeek, startTime: DateTime, endTime: DateTime): Represents a specific time slot for weekly availability of a tutor.
+7. CancellationPolicy(cancellationTimeLimit: int, penaltyPercentage: int): Represents the policy for session cancellations and penalties.
+8. FollowUpSession(agreedDateTime: DateTime): Represents a follow-up tutoring session agreed upon by the tutor and student.
+9. FollowUpPayment(discountPercentage: int): Represents a discount offered for the next session due to cancellation by the tutor.
+10. Schedule(tutor: Tutor, student: Student, tutoringSession: TutoringSession, followUpSession: FollowUpSession, payment: Payment): Represents the scheduling and payment details for tutoring sessions between a tutor and a student."
+
+"
+"
+
+------------------------------------------------------------
+
+ O  Class:Subject  Oracle:Subject
+
+   X  Attribute:mathematics 
+
+   X  Attribute:science 
+
+   X  Attribute:literature 
+
+ O  Class:User  Oracle:User
+
+   O  Attribute:name  Oracle:name 
+
+   O  Attribute:email  Oracle:email 
+
+ O  Class:Tutor  Oracle:Tutor
+
+   X  Attribute:name 
+
+   X  Attribute:email 
+
+   O  Attribute:bankAccount  Oracle:bankAccount 
+
+   X  Attribute:hourlyPrice 
+
+   X  Attribute:weeklyAvailability 
+
+ O  Class:Student  Oracle:Student
+
+   X  Attribute:name 
+
+   X  Attribute:email 
+
+   X  Attribute:paymentMethod 
+
+ O  Class:TutoringSession  Oracle:TutoringSession
+
+   X  Attribute:subject 
+
+   X  Attribute:levelOfTutoring 
+
+   X  Attribute:targetDateTime 
+
+   X  Attribute:status 
+
+ O  Class:Payment  Oracle:Payment
+
+   X  Attribute:amount 
+
+   O  Attribute:paymentDate  Oracle:paymentDate 
+
+   X  Attribute:paymentStatus 
+
+ X  Class:Level of expertise
+
+   X  Attribute:school 
+
+   X  Attribute:school 
+
+   X  Attribute:level 
+
+ X  Class:Day of the week
+
+   X  Attribute:Monday 
+
+   X  Attribute:Tuesday 
+
+   X  Attribute:Wednesday 
+
+   X  Attribute:etc. 
+
+ X  Class:Payment method
+
+   X  Attribute:card 
+
+   X  Attribute:transfer 
+
+ O  Class:AvailabilitySlot  Oracle:TutorAvailability 
+
+   X  Attribute:dayOfWeek 
+
+   O  Attribute:startTime  Oracle:startTime 
+
+   O  Attribute:endTime  Oracle:endTime 
+
+ X  Class:CancellationPolicy
+
+   X  Attribute:cancellationTimeLimit 
+
+   X  Attribute:penaltyPercentage 
+
+ X  Class:FollowUpSession
+
+   X  Attribute:agreedDateTime 
+
+ X  Class:FollowUpPayment
+
+   X  Attribute:discountPercentage 
+
+ X  Class:Schedule
+
+   X  Attribute:tutor 
+
+   X  Attribute:student 
+
+   X  Attribute:tutoringSession 
+
+   X  Attribute:followUpSession 
+
+   X  Attribute:payment 
+
+------------------------------------------------------------
+
+------------------------------------------------------------
+
+---------------------6/10------Online Tutoring System (OTS):
+
+------------------------------------------------------------
+
+---------------------Prediction AI:
+
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The OTS is used by students and tutors where a tutor may also be a student. At registration, tutors need to provide their name, email address and bank account. After that, tutors may offer online tutoring in different subjects (e.g. mathematics, science, literature, etc.) by providing their level of expertise (e.g. primary school level, high school level, university level) in the given subject and their hourly price of a tutoring session (which may again be subject specific). Tutors may specify their weekly availability for tutoring sessions (e.g. Thursdays from 10:00 to 11:30).
+Registered students (with a name and an email address) may browse available tutoring offers in a specific subject and then make a tutoring request from the designated tutor by specifying the level of tutoring. This request should suggest the target date and time of the first tutoring session. The tutor may confirm the requested tutoring session or offer a session at another slot. Once the session is agreed, the tutor and the student is expected to turn up at the given time for tutoring. During the tutoring session, the student and the tutor may agree upon to schedule follow-up a tutoring session. After the actual tutoring session, the student pays for the session (with a credit card or wire transfer).
+A tutoring session may be cancelled by either the student or the tutor. However, if the student cancels less than 24 hours prior to the session then 75% of the session's price has to be paid. If the tutor cancels within 24 hours then he/she needs to offer a 25% discount for his/her next session to the same student.
+
+AI:### Enumerations:
+1. Subject
+2. LevelOfExpertise
+
+### Classes:
+1. User
+    - Attributes:
+        - name : String
+        - email : String
+
+2. Tutor
+    - Attributes:
+        - bankAccount : String
+        - subjectsOffered : List<Subject>
+        - expertiseLevels : Map<Subject, LevelOfExpertise>
+        - hourlyPrice : Map<Subject, Double>
+        - weeklyAvailability : Map<DayOfWeek, List<TimeRange>>
+    
+3. Student
+    - Attributes:
+        - creditCard : String
+
+4. TutoringSession
+    - Attributes:
+        - tutor : Tutor
+        - student : Student
+        - subject : Subject
+        - dateAndTime : LocalDateTime
+        - isConfirmed : boolean
+
+### Attributes (Class-level):
+- User:
+    - name : String
+    - email : String
+
+- Tutor:
+    - bankAccount : String
+    - subjectsOffered : List<Subject>
+    - expertiseLevels : Map<Subject, LevelOfExpertise>
+    - hourlyPrice : Map<Subject, Double>
+    - weeklyAvailability :  Map<DayOfWeek, List<TimeRange>>
+
+- Student:
+    - creditCard : String
+
+- TutoringSession:
+    - tutor : Tutor
+    - student : Student
+    - subject : Subject
+    - dateAndTime : LocalDateTime
+    - isConfirmed : boolean"
+
+"
+"
+
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. Subject(Mathematics, Science, Literature): Represents different subjects for tutoring offers.
+2. LevelOfExpertise(PrimarySchool, HighSchool, University): Represents the level of expertise a tutor can offer in a subject.
+
+### Classes:
+1. User(name: String, email: String): Represents a user with basic information like name and email.
+2. Tutor(bankAccount: String, subjectsOffered: List<Subject>, expertiseLevels: Map<Subject, LevelOfExpertise>, hourlyPrice: Map<Subject, Double>, weeklyAvailability: Map<DayOfWeek, List<TimeRange>): Represents a tutor with details such as bank account, subjects offered, expertise levels, hourly prices, and weekly availability.
+3. Student(creditCard: String): Represents a student with credit card information.
+4. TutoringSession(tutor: Tutor, student: Student, subject: Subject, dateAndTime: LocalDateTime, isConfirmed: boolean): Represents a tutoring session with the involved tutor, student, subject, schedule, and confirmation status."
+
+"
+"
+
+------------------------------------------------------------
+
+ O  Class:Subject  Oracle:Subject
+
+   X  Attribute:Mathematics 
+
+   X  Attribute:Science 
+
+   X  Attribute:Literature 
+
+ O  Class:User  Oracle:User
+
+   O  Attribute:name  Oracle:name 
+
+   O  Attribute:email  Oracle:email 
+
+ O  Class:Tutor  Oracle:Tutor
+
+   O  Attribute:bankAccount  Oracle:bankAccount 
+
+   X  Attribute:subjectsOffered 
+
+   X  Attribute:expertiseLevels 
+
+   X  Attribute:LevelOfExpertise> 
+
+   X  Attribute:hourlyPrice 
+
+   X  Attribute:Double> 
+
+   X  Attribute:weeklyAvailability 
+
+   X  Attribute:List<TimeRange> 
+
+ O  Class:Student  Oracle:Student
+
+   X  Attribute:creditCard 
+
+ O  Class:TutoringSession  Oracle:TutoringSession
+
+   X  Attribute:tutor 
+
+   X  Attribute:student 
+
+   X  Attribute:subject 
+
+   X  Attribute:dateAndTime 
+
+   X  Attribute:isConfirmed 
+
+ O  Class:LevelOfExpertise  Oracle:LevelOfTutoring 
+
+   O  Attribute:PrimarySchool  Oracle:PrimarySchool 
+
+   O  Attribute:HighSchool  Oracle:HighSchool 
+
+   O  Attribute:University  Oracle:University 
+
+------------------------------------------------------------
+
+------------------------------------------------------------
+
+---------------------7/10------Online Tutoring System (OTS):
+
+------------------------------------------------------------
+
+---------------------Prediction AI:
+
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The OTS is used by students and tutors where a tutor may also be a student. At registration, tutors need to provide their name, email address and bank account. After that, tutors may offer online tutoring in different subjects (e.g. mathematics, science, literature, etc.) by providing their level of expertise (e.g. primary school level, high school level, university level) in the given subject and their hourly price of a tutoring session (which may again be subject specific). Tutors may specify their weekly availability for tutoring sessions (e.g. Thursdays from 10:00 to 11:30).
+Registered students (with a name and an email address) may browse available tutoring offers in a specific subject and then make a tutoring request from the designated tutor by specifying the level of tutoring. This request should suggest the target date and time of the first tutoring session. The tutor may confirm the requested tutoring session or offer a session at another slot. Once the session is agreed, the tutor and the student is expected to turn up at the given time for tutoring. During the tutoring session, the student and the tutor may agree upon to schedule follow-up a tutoring session. After the actual tutoring session, the student pays for the session (with a credit card or wire transfer).
+A tutoring session may be cancelled by either the student or the tutor. However, if the student cancels less than 24 hours prior to the session then 75% of the session's price has to be paid. If the tutor cancels within 24 hours then he/she needs to offer a 25% discount for his/her next session to the same student.
+
+AI:### Enumerations:
+1. Subject
+   - Mathematics
+   - Science
+   - Literature
+   - etc.
+
+2. ExpertiseLevel
+   - Primary school level
+   - High school level
+   - University level
+
+### Classes:
+1. Person
+   - Attributes:
+     - name: String
+     - email: String
+
+2. Tutor
+   - Attributes:
+     - bankAccount: String
+     - expertise: Map<Subject, ExpertiseLevel>
+     - hourlyPrice: Map<Subject, Double>
+     - weeklyAvailability: Map<DayOfWeek, List<TimeSlot>>
+
+3. Student
+   - Attributes:
+     - name: String
+     - email: String
+
+4. TutoringSession
+   - Attributes:
+     - tutor: Tutor
+     - student: Student
+     - subject: Subject
+     - level: ExpertiseLevel
+     - scheduledDateTime: LocalDateTime
+     - confirmed: boolean
+     - actualDateTime: LocalDateTime
+
+### Attributes:
+- TutoringSession
+  - price: Double
+  - paymentMethod: String
+  - cancellationPolicy: String
+
+- Tutor
+  - discountOffered: Double
+
+- Student
+  - paymentHistory: List<Payment>"
+
+"
+"
+
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. Subject (Mathematics, Science, Literature, etc.): Represents different subjects for tutoring offers.
+
+2. ExpertiseLevel (Primary school level, High school level, University level): Defines the level of expertise a tutor has in a subject.
+
+### Classes:
+1. Person(name: String, email: String): Represents a generic person with a name and email address.
+
+2. Tutor(bankAccount: String, expertise: Map<Subject, ExpertiseLevel>, hourlyPrice: Map<Subject, Double>, weeklyAvailability: Map<DayOfWeek, List<TimeSlot>): Represents a tutor who offers tutoring services in specific subjects with expertise levels and hourly prices.
+
+3. Student(name: String, email: String): Represents a student registered in the system for tutoring services.
+
+4. TutoringSession(tutor: Tutor, student: Student, subject: Subject, level: ExpertiseLevel, scheduledDateTime: LocalDateTime, confirmed: boolean, actualDateTime: LocalDateTime): Represents a tutoring session between a tutor and a student with scheduling details.
+
+5. Payment(price: Double, method: String): Represents a payment made for a tutoring session.
+
+6. TimeSlot(start: LocalTime, end: LocalTime): Represents a time slot for weekly availability for tutoring sessions."
+
+"
+"
+
+------------------------------------------------------------
+
+ O  Class:Subject   Oracle:Subject
+
+   X  Attribute:Mathematics 
+
+   X  Attribute:Science 
+
+   X  Attribute:Literature 
+
+ O  Class:Tutor  Oracle:Tutor
+
+   O  Attribute:bankAccount  Oracle:bankAccount 
+
+   X  Attribute:expertise 
+
+   X  Attribute:ExpertiseLevel> 
+
+   X  Attribute:hourlyPrice 
+
+   X  Attribute:Double> 
+
+   X  Attribute:weeklyAvailability 
+
+   X  Attribute:List<TimeSlot> 
+
+ O  Class:Student  Oracle:Student
+
+   X  Attribute:name 
+
+   X  Attribute:email 
+
+ O  Class:TutoringSession  Oracle:TutoringSession
+
+   X  Attribute:tutor 
+
+   X  Attribute:student 
+
+   X  Attribute:subject 
+
+   X  Attribute:level 
+
+   X  Attribute:scheduledDateTime 
+
+   X  Attribute:confirmed 
+
+   X  Attribute:actualDateTime 
+
+ O  Class:Payment  Oracle:Payment
+
+   X  Attribute:price 
+
+   X  Attribute:method 
+
+ X  Class:ExpertiseLevel 
+
+   X  Attribute:school 
+
+   X  Attribute:school 
+
+   X  Attribute:level 
+
+ O  Class:Person  Oracle:User 
+
+   O  Attribute:name  Oracle:name 
+
+   O  Attribute:email  Oracle:email 
+
+ X  Class:TimeSlot
+
+   X  Attribute:start 
+
+   X  Attribute:end 
+
+------------------------------------------------------------
+
+------------------------------------------------------------
+
+---------------------8/10------Online Tutoring System (OTS):
+
+------------------------------------------------------------
+
+---------------------Prediction AI:
+
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The OTS is used by students and tutors where a tutor may also be a student. At registration, tutors need to provide their name, email address and bank account. After that, tutors may offer online tutoring in different subjects (e.g. mathematics, science, literature, etc.) by providing their level of expertise (e.g. primary school level, high school level, university level) in the given subject and their hourly price of a tutoring session (which may again be subject specific). Tutors may specify their weekly availability for tutoring sessions (e.g. Thursdays from 10:00 to 11:30).
+Registered students (with a name and an email address) may browse available tutoring offers in a specific subject and then make a tutoring request from the designated tutor by specifying the level of tutoring. This request should suggest the target date and time of the first tutoring session. The tutor may confirm the requested tutoring session or offer a session at another slot. Once the session is agreed, the tutor and the student is expected to turn up at the given time for tutoring. During the tutoring session, the student and the tutor may agree upon to schedule follow-up a tutoring session. After the actual tutoring session, the student pays for the session (with a credit card or wire transfer).
+A tutoring session may be cancelled by either the student or the tutor. However, if the student cancels less than 24 hours prior to the session then 75% of the session's price has to be paid. If the tutor cancels within 24 hours then he/she needs to offer a 25% discount for his/her next session to the same student.
+
+AI:### Enumerations:
+1. Subject (Mathematics, Science, Literature, etc.)
+2. ExpertiseLevel (Primary School Level, High School Level, University Level)
+3. DayOfWeek (Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday)
+
+### Classes:
+1. Person
+   - Attributes:
+     - name: String
+     - email: String
+
+2. Tutor
+   - Attributes:
+     - bankAccount: String
+     - subjectsOffered: List<Subject>
+     - expertiseLevels: Map<Subject, ExpertiseLevel>
+     - hourlyPrice: Map<Subject, Double>
+     - weeklyAvailability: Map<DayOfWeek, TimeRange>
+
+3. Student
+   - Attributes:
+     - name: String
+     - email: String
+
+4. TutoringRequest
+   - Attributes:
+     - student: Student
+     - tutor: Tutor
+     - subject: Subject
+     - level: ExpertiseLevel
+     - targetDateTime: LocalDateTime
+
+5. TutoringSession
+   - Attributes:
+     - tutor: Tutor
+     - student: Student
+     - subject: Subject
+     - dateTime: LocalDateTime
+     - followUpScheduled: boolean
+
+6. Payment
+   - Attributes:
+     - student: Student
+     - tutor: Tutor
+     - amount: Double
+     - paymentMethod: String
+
+### Attributes (for additional attributes in the classes above):
+- TimeRange
+  - startTime: LocalTime
+  - endTime: LocalTime
+
+- LocalDateTime
+  - date: LocalDate
+  - time: LocalTime
+
+- LocalTime
+  - hour: int
+  - minute: int
+
+- Map<K, V>
+  - keys: List<K>
+  - values: List<V>
+"
+
+"
+"
+
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. Subject (Mathematics, Science, Literature, etc.): Represents different subjects for tutoring offers.
+2. ExpertiseLevel (Primary School Level, High School Level, University Level): Indicates the level of expertise a tutor has in a subject.
+3. DayOfWeek (Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday): Represents the days of the week for availability.
+
+### Classes:
+1. Person(name: String, email: String): Represents a generic person with a name and email address.
+2. Tutor(bankAccount: String, subjectsOffered: List<Subject>, expertiseLevels: Map<Subject, ExpertiseLevel>, hourlyPrice: Map<Subject, Double>, weeklyAvailability: Map<DayOfWeek, TimeRange>): Represents a tutor with specific subject expertise, pricing, and availability.
+3. Student(name: String, email: String): Represents a student with a name and email address.
+4. TutoringRequest(student: Student, tutor: Tutor, subject: Subject, level: ExpertiseLevel, targetDateTime: LocalDateTime): Represents a request for tutoring from a student to a tutor.
+5. TutoringSession(tutor: Tutor, student: Student, subject: Subject, dateTime: LocalDateTime, followUpScheduled: boolean): Represents a tutoring session between a tutor and a student.
+6. Payment(student: Student, tutor: Tutor, amount: Double, paymentMethod: String): Represents a payment made for a tutoring session."
+
+"
+"
+
+------------------------------------------------------------
+
+ O  Class:Subject   Oracle:Subject
+
+   X  Attribute:Mathematics 
+
+   X  Attribute:Science 
+
+   X  Attribute:Literature 
+
+ O  Class:Tutor  Oracle:Tutor
+
+   O  Attribute:bankAccount  Oracle:bankAccount 
+
+   X  Attribute:subjectsOffered 
+
+   X  Attribute:expertiseLevels 
+
+   X  Attribute:ExpertiseLevel> 
+
+   X  Attribute:hourlyPrice 
+
+   X  Attribute:Double> 
+
+   X  Attribute:weeklyAvailability 
+
+   X  Attribute:TimeRange> 
+
+ O  Class:Student  Oracle:Student
+
+   X  Attribute:name 
+
+   X  Attribute:email 
+
+ O  Class:TutoringRequest  Oracle:TutoringRequest
+
+   X  Attribute:student 
+
+   X  Attribute:tutor 
+
+   X  Attribute:subject 
+
+   X  Attribute:level 
+
+   X  Attribute:targetDateTime 
+
+ O  Class:TutoringSession  Oracle:TutoringSession
+
+   X  Attribute:tutor 
+
+   X  Attribute:student 
+
+   X  Attribute:subject 
+
+   X  Attribute:dateTime 
+
+   X  Attribute:followUpScheduled 
+
+ O  Class:Payment  Oracle:Payment
+
+   X  Attribute:student 
+
+   X  Attribute:tutor 
+
+   X  Attribute:amount 
+
+   X  Attribute:paymentMethod 
+
+ X  Class:ExpertiseLevel 
+
+   X  Attribute:School 
+
+   X  Attribute:School 
+
+   X  Attribute:Level 
+
+ X  Class:DayOfWeek 
+
+   X  Attribute:Sunday 
+
+   X  Attribute:Monday 
+
+   X  Attribute:Tuesday 
+
+   X  Attribute:Wednesday 
+
+   X  Attribute:Thursday 
+
+   X  Attribute:Friday 
+
+   X  Attribute:Saturday 
+
+ O  Class:Person  Oracle:User 
+
+   O  Attribute:name  Oracle:name 
+
+   O  Attribute:email  Oracle:email 
+
+------------------------------------------------------------
+
+------------------------------------------------------------
+
+---------------------9/10------Online Tutoring System (OTS):
+
+------------------------------------------------------------
+
+---------------------Prediction AI:
+
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The OTS is used by students and tutors where a tutor may also be a student. At registration, tutors need to provide their name, email address and bank account. After that, tutors may offer online tutoring in different subjects (e.g. mathematics, science, literature, etc.) by providing their level of expertise (e.g. primary school level, high school level, university level) in the given subject and their hourly price of a tutoring session (which may again be subject specific). Tutors may specify their weekly availability for tutoring sessions (e.g. Thursdays from 10:00 to 11:30).
+Registered students (with a name and an email address) may browse available tutoring offers in a specific subject and then make a tutoring request from the designated tutor by specifying the level of tutoring. This request should suggest the target date and time of the first tutoring session. The tutor may confirm the requested tutoring session or offer a session at another slot. Once the session is agreed, the tutor and the student is expected to turn up at the given time for tutoring. During the tutoring session, the student and the tutor may agree upon to schedule follow-up a tutoring session. After the actual tutoring session, the student pays for the session (with a credit card or wire transfer).
+A tutoring session may be cancelled by either the student or the tutor. However, if the student cancels less than 24 hours prior to the session then 75% of the session's price has to be paid. If the tutor cancels within 24 hours then he/she needs to offer a 25% discount for his/her next session to the same student.
+
+AI:### Enumerations:
+1. Subject (e.g. Mathematics, Science, Literature)
+2. ExpertiseLevel (e.g. Primary School Level, High School Level, University Level)
+
+### Classes:
+1. Person
+    - Attributes:
+        - name: String
+        - email: String
+
+2. Tutor extends Person
+    - Attributes:
+        - bankAccount: String
+        - tutoringSubjects: List<SubjectExpertise>
+    - Methods:
+        - offerTutoring(subject: Subject, expertiseLevel: ExpertiseLevel, hourlyPrice: double)
+        - specifyAvailability(day: DayOfWeek, startTime: LocalTime, endTime: LocalTime)
+        - confirmTutoringRequest(request: TutoringRequest)
+        - offerAlternativeSlot(request: TutoringRequest)
+        - cancelTutoringSession(session: TutoringSession)
+        - calculateCancellationFee(session: TutoringSession)
+
+3. Student extends Person
+    - Methods:
+        - browseTutoringOffers(subject: Subject)
+        - makeTutoringRequest(tutor: Tutor, expertiseLevel: ExpertiseLevel, targetDateTime: LocalDateTime)
+        - attendTutoringSession(session: TutoringSession)
+        - scheduleFollowUpSession(session: TutoringSession)
+        - payForSession(session: TutoringSession, paymentMethod: PaymentMethod)
+        - cancelTutoringSession(session: TutoringSession)
+
+4. TutoringSession
+    - Attributes:
+        - tutor: Tutor
+        - student: Student
+        - subject: Subject
+        - expertiseLevel: ExpertiseLevel
+        - dateTime: LocalDateTime
+        - price: double
+        - status: SessionStatus
+    - Methods:
+        - confirmSession()
+        - rescheduleSession(newDateTime: LocalDateTime)
+        - cancelSession()
+
+### Attributes:
+- SubjectExpertise
+    - subject: Subject
+    - expertiseLevel: ExpertiseLevel
+    - hourlyPrice: double
+
+- TutoringRequest
+    - student: Student
+    - tutor: Tutor
+    - subject: Subject
+    - expertiseLevel: ExpertiseLevel
+    - targetDateTime: LocalDateTime
+
+- PaymentMethod
+    - CREDIT_CARD
+    - WIRE_TRANSFER
+
+- SessionStatus
+    - REQUESTED
+    - CONFIRMED
+    - CANCELLED"
+
+"
+"
+
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. Subject (Mathematics, Science, Literature): Representing different subjects for tutoring offers.
+2. ExpertiseLevel (Primary School Level, High School Level, University Level): Representing the level of expertise in a subject.
+
+### Classes:
+1. Person(name: String, email: String): Base class representing a person with a name and an email address.
+2. Tutor extends Person(bankAccount: String, tutoringSubjects: List<SubjectExpertise>): Represents a tutor with additional attributes like bank account and tutoring subjects.
+3. Student extends Person: Represents a student extending the base class Person.
+4. TutoringSession(tutor: Tutor, student: Student, subject: Subject, expertiseLevel: ExpertiseLevel, dateTime: LocalDateTime, price: double, status: SessionStatus): Represents a tutoring session between a tutor and a student with session details and status.
+5. SubjectExpertise(subject: Subject, expertiseLevel: ExpertiseLevel, hourlyPrice: double): Represents the expertise of a tutor in a specific subject.
+6. TutoringRequest(student: Student, tutor: Tutor, subject: Subject, expertiseLevel: ExpertiseLevel, targetDateTime: LocalDateTime): Represents a tutoring request made by a student to a tutor.
+7. PaymentMethod: Represents different payment methods like CREDIT_CARD and WIRE_TRANSFER.
+8. SessionStatus: Represents the status of a tutoring session, including REQUESTED, CONFIRMED, and CANCELLED."
+
+"
+"
+
+------------------------------------------------------------
+
+ O  Class:Subject   Oracle:Subject
+
+   X  Attribute:Mathematics 
+
+   X  Attribute:Science 
+
+   X  Attribute:Literature 
+
+ O  Class:TutoringSession  Oracle:TutoringSession
+
+   X  Attribute:tutor 
+
+   X  Attribute:student 
+
+   X  Attribute:subject 
+
+   X  Attribute:expertiseLevel 
+
+   X  Attribute:dateTime 
+
+   X  Attribute:price 
+
+   X  Attribute:status 
+
+ O  Class:TutoringRequest  Oracle:TutoringRequest
+
+   X  Attribute:student 
+
+   X  Attribute:tutor 
+
+   X  Attribute:subject 
+
+   X  Attribute:expertiseLevel 
+
+   X  Attribute:targetDateTime 
+
+ O  Class:SessionStatus  Oracle:SessionStatus
+
+ X  Class:ExpertiseLevel 
+
+   X  Attribute:School 
+
+   X  Attribute:School 
+
+   X  Attribute:Level 
+
+ O  Class:Person  Oracle:User 
+
+   O  Attribute:name  Oracle:name 
+
+   O  Attribute:email  Oracle:email 
+
+ X  Class:Tutor extends Person
+
+   X  Attribute:bankAccount 
+
+   X  Attribute:tutoringSubjects 
+
+ X  Class:Student extends Person
+
+ X  Class:SubjectExpertise
+
+   X  Attribute:subject 
+
+   X  Attribute:expertiseLevel 
+
+   X  Attribute:hourlyPrice 
+
+ X  Class:PaymentMethod
+
+------------------------------------------------------------
+
+------------------------------------------------------------
+
+---------------------10/10------Online Tutoring System (OTS):
+
+------------------------------------------------------------
+
+---------------------Prediction AI:
+
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The OTS is used by students and tutors where a tutor may also be a student. At registration, tutors need to provide their name, email address and bank account. After that, tutors may offer online tutoring in different subjects (e.g. mathematics, science, literature, etc.) by providing their level of expertise (e.g. primary school level, high school level, university level) in the given subject and their hourly price of a tutoring session (which may again be subject specific). Tutors may specify their weekly availability for tutoring sessions (e.g. Thursdays from 10:00 to 11:30).
+Registered students (with a name and an email address) may browse available tutoring offers in a specific subject and then make a tutoring request from the designated tutor by specifying the level of tutoring. This request should suggest the target date and time of the first tutoring session. The tutor may confirm the requested tutoring session or offer a session at another slot. Once the session is agreed, the tutor and the student is expected to turn up at the given time for tutoring. During the tutoring session, the student and the tutor may agree upon to schedule follow-up a tutoring session. After the actual tutoring session, the student pays for the session (with a credit card or wire transfer).
+A tutoring session may be cancelled by either the student or the tutor. However, if the student cancels less than 24 hours prior to the session then 75% of the session's price has to be paid. If the tutor cancels within 24 hours then he/she needs to offer a 25% discount for his/her next session to the same student.
+
+AI:### Enumerations:
+1. Subject (e.g., mathematics, science, literature)
+2. LevelOfExpertise (e.g., primary school level, high school level, university level)
+
+### Classes:
+1. Person
+    - Attributes:
+        - name: String
+        - email: String
+        
+2. Tutor extends Person
+    - Attributes:
+        - bankAccount: String
+        - subjects: List<Subject>
+        - expertiseLevels: Map<Subject, LevelOfExpertise>
+        - hourlyPrices: Map<Subject, Double>
+        - weeklyAvailability: Map<String, List<String>>  // Key: Day, Value: List of time slots
+        
+3. Student extends Person
+
+4. TutoringSession
+    - Attributes:
+        - tutor: Tutor
+        - student: Student
+        - subject: Subject
+        - levelOfTutoring: LevelOfExpertise
+        - scheduledDateTime: LocalDateTime
+        - actualDateTime: LocalDateTime
+        - followUpScheduled: boolean
+        - price: Double
+        
+### Attributes (for additional context):
+- TutoringRequest
+    - Attributes:
+        - student: Student
+        - tutor: Tutor
+        - subject: Subject
+        - levelOfTutoring: LevelOfExpertise
+        - targetDateTime: LocalDateTime
+        
+- Payment
+    - Attributes:
+        - payer: Person
+        - payee: Person
+        - amount: Double
+        - paymentMethod: String
+        
+- Cancellation
+    - Attributes:
+        - canceller: Person
+        - reason: String
+        - penaltyPercentage: int"
+
+"
+"
+
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. Subject(mathematics, science, literature): Represents different subjects offered for tutoring.
+   
+2. LevelOfExpertise(primary school level, high school level, university level): Represents the levels of expertise in a particular subject.
+
+### Classes:
+1. Person(name: String, email: String): Represents a general person with a name and email address.
+   
+2. Tutor extends Person(bankAccount: String, subjects: List<Subject>, expertiseLevels: Map<Subject, LevelOfExpertise>, hourlyPrices: Map<Subject, Double>, weeklyAvailability: Map<String, List<String>>): Represents a tutor with additional attributes such as bank account, subjects they can teach, expertise levels, hourly prices, and weekly availability.
+   
+3. Student extends Person: Represents a student inheriting attributes from Person.
+   
+4. TutoringSession(tutor: Tutor, student: Student, subject: Subject, levelOfTutoring: LevelOfExpertise, scheduledDateTime: LocalDateTime, actualDateTime: LocalDateTime, followUpScheduled: boolean, price: Double): Represents a tutoring session between a tutor and a student with details like subject, level of tutoring, scheduled date/time, actual date/time, follow-up status, and price."
+
+"
+"
+
+------------------------------------------------------------
+
+ O  Class:Subject  Oracle:Subject
+
+   X  Attribute:mathematics 
+
+   X  Attribute:science 
+
+   X  Attribute:literature 
+
+ O  Class:TutoringSession  Oracle:TutoringSession
+
+   X  Attribute:tutor 
+
+   X  Attribute:student 
+
+   X  Attribute:subject 
+
+   X  Attribute:levelOfTutoring 
+
+   X  Attribute:scheduledDateTime 
+
+   X  Attribute:actualDateTime 
+
+   X  Attribute:followUpScheduled 
+
+   X  Attribute:price 
+
+ X  Class:LevelOfExpertise
+
+   X  Attribute:school 
+
+   X  Attribute:school 
+
+   X  Attribute:level 
+
+ O  Class:Person  Oracle:User 
+
+   O  Attribute:name  Oracle:name 
+
+   O  Attribute:email  Oracle:email 
+
+ X  Class:Tutor extends Person
+
+   X  Attribute:bankAccount 
+
+   X  Attribute:subjects 
+
+   X  Attribute:expertiseLevels 
+
+   X  Attribute:LevelOfExpertise> 
+
+   X  Attribute:hourlyPrices 
+
+   X  Attribute:Double> 
+
+   X  Attribute:weeklyAvailability 
+
+   X  Attribute:List<String>> 
+
+ X  Class:Student extends Person

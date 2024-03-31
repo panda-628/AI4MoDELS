@@ -1,0 +1,958 @@
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------1/10------Online Tutoring System (OTS):
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: The OTS is used by students and tutors where a tutor may also be a student. At registration, tutors need to provide their name, email address and bank account. After that, tutors may offer online tutoring in different subjects (e.g. mathematics, science, literature, etc.) by providing their level of expertise (e.g. primary school level, high school level, university level) in the given subject and their hourly price of a tutoring session (which may again be subject specific). Tutors may specify their weekly availability for tutoring sessions (e.g. Thursdays from 10:00 to 11:30).
+Registered students (with a name and an email address) may browse available tutoring offers in a specific subject and then make a tutoring request from the designated tutor by specifying the level of tutoring. This request should suggest the target date and time of the first tutoring session. The tutor may confirm the requested tutoring session or offer a session at another slot. Once the session is agreed, the tutor and the student is expected to turn up at the given time for tutoring. During the tutoring session, the student and the tutor may agree upon to schedule follow-up a tutoring session. After the actual tutoring session, the student pays for the session (with a credit card or wire transfer).
+A tutoring session may be cancelled by either the student or the tutor. However, if the student cancels less than 24 hours prior to the session then 75% of the session's price has to be paid. If the tutor cancels within 24 hours then he/she needs to offer a 25% discount for his/her next session to the same student.
+
+AI:Enumerations:
+1. Subject (mathematics, science, literature)
+2. ExpertiseLevel (primary school level, high school level, university level)
+
+Class:
+1. User(name : string, email : string)
+2. Tutor extends User (bankAccount : string)
+3. Student extends User
+
+Relationships:
+1..* Tutor associate 0..* Subject
+1..* Tutor associate 0..* ExpertiseLevel
+1..* Tutor associate 0..* Availability
+1..* Tutor contain 1..* TutoringSession
+1..* Student associate 1..* TutoringRequest
+1..* TutoringSession contain 1 Payment
+1..* TutoringSession associate 1 Student
+1..* TutoringSession associate 1 Tutor
+1..* TutoringSession associate 0..* FollowUpSession
+
+Class Diagram:
+```
+-----------------------------------------
+|                User                   |
+-----------------------------------------
+| - name : string                      |
+| - email : string                     |
+-----------------------------------------
+                   ^
+                   |
+-----------------------------------------
+|              Tutor                    |
+-----------------------------------------
+| - bankAccount : string               |
+-----------------------------------------
+                   ^
+                   |
+-----------------------------------------
+|             Student                   |
+-----------------------------------------
+-----------------------------------------
+|             Subject                   |
+-----------------------------------------
+| - mathematics                        |
+| - science                            |
+| - literature                         |
+-----------------------------------------
+                   ^
+                   |
+-----------------------------------------
+|          ExpertiseLevel               |
+-----------------------------------------
+| - primary school level               |
+| - high school level                  |
+| - university level                   |
+-----------------------------------------
+```"
+"
+"
+------------------------------------------------------------
+ O  Class:Subject   Oracle:Subject
+   X  Attribute:mathematics 
+   X  Attribute:science 
+   X  Attribute:literature 
+ O  Class:User  Oracle:User
+   X  Attribute:name  
+   O  Attribute:email   Oracle:email 
+ X  Class:ExpertiseLevel 
+   X  Attribute:school 
+   X  Attribute:school 
+   X  Attribute:level 
+ O  Class:Tutor extends User   Oracle:Tutor 
+   O  Attribute:bankAccount   Oracle:bankAccount 
+ X  Class:Student extends User
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------2/10------Online Tutoring System (OTS):
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: The OTS is used by students and tutors where a tutor may also be a student. At registration, tutors need to provide their name, email address and bank account. After that, tutors may offer online tutoring in different subjects (e.g. mathematics, science, literature, etc.) by providing their level of expertise (e.g. primary school level, high school level, university level) in the given subject and their hourly price of a tutoring session (which may again be subject specific). Tutors may specify their weekly availability for tutoring sessions (e.g. Thursdays from 10:00 to 11:30).
+Registered students (with a name and an email address) may browse available tutoring offers in a specific subject and then make a tutoring request from the designated tutor by specifying the level of tutoring. This request should suggest the target date and time of the first tutoring session. The tutor may confirm the requested tutoring session or offer a session at another slot. Once the session is agreed, the tutor and the student is expected to turn up at the given time for tutoring. During the tutoring session, the student and the tutor may agree upon to schedule follow-up a tutoring session. After the actual tutoring session, the student pays for the session (with a credit card or wire transfer).
+A tutoring session may be cancelled by either the student or the tutor. However, if the student cancels less than 24 hours prior to the session then 75% of the session's price has to be paid. If the tutor cancels within 24 hours then he/she needs to offer a 25% discount for his/her next session to the same student.
+
+AI:Enumerations:
+1. Subject (Mathematics, Science, Literature, etc.)
+2. TutoringLevel (Primary School Level, High School Level, University Level)
+
+Class:
+1. User(name : String, email : String)
+2. Tutor(Expertise : Subject, HourlyPrice : double, Availability : String)
+3. Student()
+4. TutoringSession(date : Date, time : String, status : String, price : double)
+5. PaymentMethod(type : String)
+
+Relationships:
+- User inherit Tutor
+- User contain PaymentMethod
+- Tutor offer 0..* TutoringSession
+- Student make 0..* TutoringSession
+- TutoringSession associate 1 Tutor
+- TutoringSession associate 1 Student
+- TutoringSession contain PaymentMethod"
+"
+"
+------------------------------------------------------------
+ O  Class:Subject   Oracle:Subject
+   X  Attribute:Mathematics 
+   X  Attribute:Science 
+   X  Attribute:Literature 
+ O  Class:User  Oracle:User
+   X  Attribute:name  
+   O  Attribute:email   Oracle:email 
+ O  Class:Tutor  Oracle:Tutor
+   X  Attribute:Expertise  
+   X  Attribute:HourlyPrice  
+   X  Attribute:Availability  
+ O  Class:Student  Oracle:Student
+ O  Class:TutoringSession  Oracle:TutoringSession
+   X  Attribute:date  
+   X  Attribute:time  
+   X  Attribute:status  
+   X  Attribute:price  
+ X  Class:TutoringLevel 
+   X  Attribute:School 
+   X  Attribute:School 
+   X  Attribute:Level 
+ X  Class:PaymentMethod
+   X  Attribute:type  
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------3/10------Online Tutoring System (OTS):
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: The OTS is used by students and tutors where a tutor may also be a student. At registration, tutors need to provide their name, email address and bank account. After that, tutors may offer online tutoring in different subjects (e.g. mathematics, science, literature, etc.) by providing their level of expertise (e.g. primary school level, high school level, university level) in the given subject and their hourly price of a tutoring session (which may again be subject specific). Tutors may specify their weekly availability for tutoring sessions (e.g. Thursdays from 10:00 to 11:30).
+Registered students (with a name and an email address) may browse available tutoring offers in a specific subject and then make a tutoring request from the designated tutor by specifying the level of tutoring. This request should suggest the target date and time of the first tutoring session. The tutor may confirm the requested tutoring session or offer a session at another slot. Once the session is agreed, the tutor and the student is expected to turn up at the given time for tutoring. During the tutoring session, the student and the tutor may agree upon to schedule follow-up a tutoring session. After the actual tutoring session, the student pays for the session (with a credit card or wire transfer).
+A tutoring session may be cancelled by either the student or the tutor. However, if the student cancels less than 24 hours prior to the session then 75% of the session's price has to be paid. If the tutor cancels within 24 hours then he/she needs to offer a 25% discount for his/her next session to the same student.
+
+AI:Class:
+1. User(name : String, email : String)
+2. Tutor(name : String, email : String, bankAccount : String)
+3. Subject(name : String)
+4. TutoringSession(date : Date, time : Time, duration : Integer, price : Float)
+5. TutorAvailability(day : String, startTime : Time, endTime : Time)
+6. Student(name : String, email : String)
+7. TutorRequest(level : String, date : Date, time : Time)
+8. PaymentMethod(type : String)
+
+Relationships:
+- User inherit Tutor
+- Tutor offer 1..* Subject
+- Tutor offer 1..* TutoringSession
+- Tutor specify 1..* TutorAvailability
+- Student make 1..* TutorRequest
+- TutorRequest is made to 1 Tutor
+- TutoringSession is scheduled between 1 Tutor and 1 Student
+- TutoringSession may have 1 PaymentMethod
+- TutoringSession may be cancelled by 1 Tutor or 1 Student"
+"
+"
+------------------------------------------------------------
+ O  Class:User  Oracle:User
+   X  Attribute:name  
+   O  Attribute:email   Oracle:email 
+ O  Class:Tutor  Oracle:Tutor
+   X  Attribute:name  
+   X  Attribute:email  
+   O  Attribute:bankAccount   Oracle:bankAccount 
+ O  Class:Subject  Oracle:Subject
+   X  Attribute:name  
+ O  Class:TutoringSession  Oracle:TutoringSession
+   X  Attribute:date  
+   X  Attribute:time  
+   X  Attribute:duration  
+   X  Attribute:price  
+ O  Class:TutorAvailability  Oracle:TutorAvailability
+   X  Attribute:day  
+   O  Attribute:startTime   Oracle:startTime 
+   O  Attribute:endTime   Oracle:endTime 
+ O  Class:Student  Oracle:Student
+   X  Attribute:name  
+   X  Attribute:email  
+ X  Class:TutorRequest
+   X  Attribute:level  
+   X  Attribute:date  
+   X  Attribute:time  
+ X  Class:PaymentMethod
+   X  Attribute:type  
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------4/10------Online Tutoring System (OTS):
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: The OTS is used by students and tutors where a tutor may also be a student. At registration, tutors need to provide their name, email address and bank account. After that, tutors may offer online tutoring in different subjects (e.g. mathematics, science, literature, etc.) by providing their level of expertise (e.g. primary school level, high school level, university level) in the given subject and their hourly price of a tutoring session (which may again be subject specific). Tutors may specify their weekly availability for tutoring sessions (e.g. Thursdays from 10:00 to 11:30).
+Registered students (with a name and an email address) may browse available tutoring offers in a specific subject and then make a tutoring request from the designated tutor by specifying the level of tutoring. This request should suggest the target date and time of the first tutoring session. The tutor may confirm the requested tutoring session or offer a session at another slot. Once the session is agreed, the tutor and the student is expected to turn up at the given time for tutoring. During the tutoring session, the student and the tutor may agree upon to schedule follow-up a tutoring session. After the actual tutoring session, the student pays for the session (with a credit card or wire transfer).
+A tutoring session may be cancelled by either the student or the tutor. However, if the student cancels less than 24 hours prior to the session then 75% of the session's price has to be paid. If the tutor cancels within 24 hours then he/she needs to offer a 25% discount for his/her next session to the same student.
+
+AI:Enumerations:
+1. SubjectType(mathematics, science, literature)
+2. TutoringLevel(primary school level, high school level, university level)
+
+Classes:
+1. User(name : String, email : String)
+2. Tutor(name : String, email : String, bankAccount : String)
+3. Student(name : String, email : String)
+4. Subject(name : String)
+5. TutoringOffer(subject : SubjectType, level : TutoringLevel, price : Double, availability : String)
+6. TutoringRequest(subject : SubjectType, level : TutoringLevel, date : Date, time : String)
+7. TutoringSession(date : Date, time : String)
+8. PaymentMethod(type : String)
+
+Relationships:
+- Tutor inherit User
+- Student inherit User
+- Tutor contain TutoringOffer
+- Tutor contain TutoringSession
+- Student contain TutoringRequest
+- TutoringSession associate User
+- TutoringSession associate Student
+- TutoringSession associate Tutor
+- TutoringSession contain PaymentMethod"
+"
+"
+------------------------------------------------------------
+ O  Class:User  Oracle:User
+   X  Attribute:name  
+   O  Attribute:email   Oracle:email 
+ O  Class:Tutor  Oracle:Tutor
+   X  Attribute:name  
+   X  Attribute:email  
+   O  Attribute:bankAccount   Oracle:bankAccount 
+ O  Class:Student  Oracle:Student
+   X  Attribute:name  
+   X  Attribute:email  
+ O  Class:Subject  Oracle:Subject
+   X  Attribute:name  
+ O  Class:TutoringOffer  Oracle:TutoringOffer
+   X  Attribute:subject  
+   X  Attribute:level  
+   X  Attribute:price  
+   X  Attribute:availability  
+ O  Class:TutoringRequest  Oracle:TutoringRequest
+   X  Attribute:subject  
+   X  Attribute:level  
+   X  Attribute:date  
+   X  Attribute:time  
+ O  Class:TutoringSession  Oracle:TutoringSession
+   X  Attribute:date  
+   X  Attribute:time  
+ X  Class:SubjectType
+   X  Attribute:mathematics 
+   X  Attribute:science 
+   X  Attribute:literature 
+ X  Class:TutoringLevel
+   X  Attribute:school 
+   X  Attribute:school 
+   X  Attribute:level 
+ X  Class:PaymentMethod
+   X  Attribute:type  
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------5/10------Online Tutoring System (OTS):
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: The OTS is used by students and tutors where a tutor may also be a student. At registration, tutors need to provide their name, email address and bank account. After that, tutors may offer online tutoring in different subjects (e.g. mathematics, science, literature, etc.) by providing their level of expertise (e.g. primary school level, high school level, university level) in the given subject and their hourly price of a tutoring session (which may again be subject specific). Tutors may specify their weekly availability for tutoring sessions (e.g. Thursdays from 10:00 to 11:30).
+Registered students (with a name and an email address) may browse available tutoring offers in a specific subject and then make a tutoring request from the designated tutor by specifying the level of tutoring. This request should suggest the target date and time of the first tutoring session. The tutor may confirm the requested tutoring session or offer a session at another slot. Once the session is agreed, the tutor and the student is expected to turn up at the given time for tutoring. During the tutoring session, the student and the tutor may agree upon to schedule follow-up a tutoring session. After the actual tutoring session, the student pays for the session (with a credit card or wire transfer).
+A tutoring session may be cancelled by either the student or the tutor. However, if the student cancels less than 24 hours prior to the session then 75% of the session's price has to be paid. If the tutor cancels within 24 hours then he/she needs to offer a 25% discount for his/her next session to the same student.
+
+AI:Enumerations:
+1. Subject (Mathematics, Science, Literature, etc.)
+2. ExpertiseLevel (Primary School Level, High School Level, University Level)
+3. DayOfWeek (Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday)
+
+Classes:
+1. User(name: String, email: String)
+2. Tutor(name: String, email: String, bankAccount: String)
+3. SubjectOffered(subject: Subject, expertiseLevel: ExpertiseLevel, hourlyPrice: double, weeklyAvailability: DayOfWeek)
+4. Student(name: String, email: String)
+5. TutoringRequest(subject: Subject, expertiseLevel: ExpertiseLevel, targetDateTime: DateTime)
+6. TutoringSession(date: DateTime, duration: int, paymentMethod: String)
+7. Payment(amount: double, paymentMethod: String)
+
+Relationships:
+1. User inherit Tutor
+2. Student contain TutoringRequest
+3. Tutor contain SubjectOffered
+4. TutoringRequest associate Student
+5. TutoringRequest associate Tutor
+6. TutoringSession associate Tutor
+7. TutoringSession associate Student
+8. Payment associate TutoringSession"
+"
+"
+------------------------------------------------------------
+ O  Class:Subject   Oracle:Subject
+   X  Attribute:Mathematics 
+   X  Attribute:Science 
+   X  Attribute:Literature 
+ O  Class:User  Oracle:User
+   O  Attribute:name  Oracle:name 
+   O  Attribute:email  Oracle:email 
+ O  Class:Tutor  Oracle:Tutor
+   X  Attribute:name 
+   X  Attribute:email 
+   O  Attribute:bankAccount  Oracle:bankAccount 
+ O  Class:Student  Oracle:Student
+   X  Attribute:name 
+   X  Attribute:email 
+ O  Class:TutoringRequest  Oracle:TutoringRequest
+   X  Attribute:subject 
+   X  Attribute:expertiseLevel 
+   X  Attribute:targetDateTime 
+ O  Class:TutoringSession  Oracle:TutoringSession
+   X  Attribute:date 
+   X  Attribute:duration 
+   X  Attribute:paymentMethod 
+ O  Class:Payment  Oracle:Payment
+   X  Attribute:amount 
+   X  Attribute:paymentMethod 
+ X  Class:ExpertiseLevel 
+   X  Attribute:School 
+   X  Attribute:School 
+   X  Attribute:Level 
+ X  Class:DayOfWeek 
+   X  Attribute:Monday 
+   X  Attribute:Tuesday 
+   X  Attribute:Wednesday 
+   X  Attribute:Thursday 
+   X  Attribute:Friday 
+   X  Attribute:Saturday 
+   X  Attribute:Sunday 
+ X  Class:SubjectOffered
+   X  Attribute:subject 
+   X  Attribute:expertiseLevel 
+   X  Attribute:hourlyPrice 
+   X  Attribute:weeklyAvailability 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------6/10------Online Tutoring System (OTS):
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: The OTS is used by students and tutors where a tutor may also be a student. At registration, tutors need to provide their name, email address and bank account. After that, tutors may offer online tutoring in different subjects (e.g. mathematics, science, literature, etc.) by providing their level of expertise (e.g. primary school level, high school level, university level) in the given subject and their hourly price of a tutoring session (which may again be subject specific). Tutors may specify their weekly availability for tutoring sessions (e.g. Thursdays from 10:00 to 11:30).
+Registered students (with a name and an email address) may browse available tutoring offers in a specific subject and then make a tutoring request from the designated tutor by specifying the level of tutoring. This request should suggest the target date and time of the first tutoring session. The tutor may confirm the requested tutoring session or offer a session at another slot. Once the session is agreed, the tutor and the student is expected to turn up at the given time for tutoring. During the tutoring session, the student and the tutor may agree upon to schedule follow-up a tutoring session. After the actual tutoring session, the student pays for the session (with a credit card or wire transfer).
+A tutoring session may be cancelled by either the student or the tutor. However, if the student cancels less than 24 hours prior to the session then 75% of the session's price has to be paid. If the tutor cancels within 24 hours then he/she needs to offer a 25% discount for his/her next session to the same student.
+
+AI:Enumerations:
+
+1. Subject (Mathematics, Science, Literature)
+2. Level (Primary School Level, High School Level, University Level)
+
+Classes:
+1. User(name: String, email: String)
+2. Tutor(name: String, email: String, bankAccount: String)
+3. Student(name: String, email: String)
+4. SubjectOffer(subject: Subject, expertiseLevel: Level, hourlyPrice: Decimal, availability: String)
+5. TutoringRequest(subject: Subject, level: Level, dateTime: DateTime)
+6. TutoringSession(dateTime: DateTime, followUpSession: Boolean)
+7. PaymentMethod(type: String)
+
+Relationships:
+1. User inherit Tutor
+2. User inherit Student
+3. Tutor contain SubjectOffer
+4. Tutor contain TutoringSession
+5. Student contain TutoringRequest
+6. TutoringSession associate Tutor
+7. TutoringSession associate Student
+8. PaymentMethod associate TutoringSession"
+"
+"
+------------------------------------------------------------
+ O  Class:Subject   Oracle:Subject
+   X  Attribute:Mathematics 
+   X  Attribute:Science 
+   X  Attribute:Literature 
+ O  Class:User  Oracle:User
+   O  Attribute:name  Oracle:name 
+   O  Attribute:email  Oracle:email 
+ O  Class:Tutor  Oracle:Tutor
+   X  Attribute:name 
+   X  Attribute:email 
+   O  Attribute:bankAccount  Oracle:bankAccount 
+ O  Class:Student  Oracle:Student
+   X  Attribute:name 
+   X  Attribute:email 
+ O  Class:TutoringRequest  Oracle:TutoringRequest
+   X  Attribute:subject 
+   X  Attribute:level 
+   X  Attribute:dateTime 
+ O  Class:TutoringSession  Oracle:TutoringSession
+   X  Attribute:dateTime 
+   X  Attribute:followUpSession 
+ X  Class:Level 
+   X  Attribute:School 
+   X  Attribute:School 
+   X  Attribute:Level 
+ X  Class:SubjectOffer
+   X  Attribute:subject 
+   X  Attribute:expertiseLevel 
+   X  Attribute:hourlyPrice 
+   X  Attribute:availability 
+ X  Class:PaymentMethod
+   X  Attribute:type 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------7/10------Online Tutoring System (OTS):
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: The OTS is used by students and tutors where a tutor may also be a student. At registration, tutors need to provide their name, email address and bank account. After that, tutors may offer online tutoring in different subjects (e.g. mathematics, science, literature, etc.) by providing their level of expertise (e.g. primary school level, high school level, university level) in the given subject and their hourly price of a tutoring session (which may again be subject specific). Tutors may specify their weekly availability for tutoring sessions (e.g. Thursdays from 10:00 to 11:30).
+Registered students (with a name and an email address) may browse available tutoring offers in a specific subject and then make a tutoring request from the designated tutor by specifying the level of tutoring. This request should suggest the target date and time of the first tutoring session. The tutor may confirm the requested tutoring session or offer a session at another slot. Once the session is agreed, the tutor and the student is expected to turn up at the given time for tutoring. During the tutoring session, the student and the tutor may agree upon to schedule follow-up a tutoring session. After the actual tutoring session, the student pays for the session (with a credit card or wire transfer).
+A tutoring session may be cancelled by either the student or the tutor. However, if the student cancels less than 24 hours prior to the session then 75% of the session's price has to be paid. If the tutor cancels within 24 hours then he/she needs to offer a 25% discount for his/her next session to the same student.
+
+AI:Enumerations:
+
+1. Subject (Mathematics, Science, Literature)
+2. ExpertiseLevel (Primary School Level, High School Level, University Level)
+3. DayOfWeek (Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday)
+
+Classes:
+1. User(name: String, email: String)
+2. Tutor(name: String, email: String, bankAccount: String)
+3. Student(name: String, email: String)
+4. TutoringOffer(subject: Subject, expertiseLevel: ExpertiseLevel, hourlyPrice: Double, availability: DayOfWeek)
+5. TutoringRequest(tutor: Tutor, subject: Subject, expertiseLevel: ExpertiseLevel, targetDateTime: DateTime)
+6. TutoringSession(tutor: Tutor, student: Student, subject: Subject, dateTime: DateTime, paymentMethod: String, price: Double, status: String)
+
+Relationships:
+1. Tutor inherit User
+2. Student inherit User
+3. Tutor contain TutoringOffer
+4. Tutor have TutoringSession
+5. Student have TutoringSession
+6. TutoringRequest associate Tutor
+7. TutoringSession associate Tutor
+8. TutoringSession associate Student"
+"
+"
+------------------------------------------------------------
+ O  Class:Subject   Oracle:Subject
+   X  Attribute:Mathematics 
+   X  Attribute:Science 
+   X  Attribute:Literature 
+ O  Class:User  Oracle:User
+   O  Attribute:name  Oracle:name 
+   O  Attribute:email  Oracle:email 
+ O  Class:Tutor  Oracle:Tutor
+   X  Attribute:name 
+   X  Attribute:email 
+   O  Attribute:bankAccount  Oracle:bankAccount 
+ O  Class:Student  Oracle:Student
+   X  Attribute:name 
+   X  Attribute:email 
+ O  Class:TutoringOffer  Oracle:TutoringOffer
+   X  Attribute:subject 
+   X  Attribute:expertiseLevel 
+   O  Attribute:hourlyPrice  Oracle:hourlyPrice 
+   X  Attribute:availability 
+ O  Class:TutoringRequest  Oracle:TutoringRequest
+   X  Attribute:tutor 
+   X  Attribute:subject 
+   X  Attribute:expertiseLevel 
+   X  Attribute:targetDateTime 
+ O  Class:TutoringSession  Oracle:TutoringSession
+   X  Attribute:tutor 
+   X  Attribute:student 
+   X  Attribute:subject 
+   X  Attribute:dateTime 
+   X  Attribute:paymentMethod 
+   X  Attribute:price 
+   X  Attribute:status 
+ X  Class:ExpertiseLevel 
+   X  Attribute:School 
+   X  Attribute:School 
+   X  Attribute:Level 
+ X  Class:DayOfWeek 
+   X  Attribute:Monday 
+   X  Attribute:Tuesday 
+   X  Attribute:Wednesday 
+   X  Attribute:Thursday 
+   X  Attribute:Friday 
+   X  Attribute:Saturday 
+   X  Attribute:Sunday 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------8/10------Online Tutoring System (OTS):
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: The OTS is used by students and tutors where a tutor may also be a student. At registration, tutors need to provide their name, email address and bank account. After that, tutors may offer online tutoring in different subjects (e.g. mathematics, science, literature, etc.) by providing their level of expertise (e.g. primary school level, high school level, university level) in the given subject and their hourly price of a tutoring session (which may again be subject specific). Tutors may specify their weekly availability for tutoring sessions (e.g. Thursdays from 10:00 to 11:30).
+Registered students (with a name and an email address) may browse available tutoring offers in a specific subject and then make a tutoring request from the designated tutor by specifying the level of tutoring. This request should suggest the target date and time of the first tutoring session. The tutor may confirm the requested tutoring session or offer a session at another slot. Once the session is agreed, the tutor and the student is expected to turn up at the given time for tutoring. During the tutoring session, the student and the tutor may agree upon to schedule follow-up a tutoring session. After the actual tutoring session, the student pays for the session (with a credit card or wire transfer).
+A tutoring session may be cancelled by either the student or the tutor. However, if the student cancels less than 24 hours prior to the session then 75% of the session's price has to be paid. If the tutor cancels within 24 hours then he/she needs to offer a 25% discount for his/her next session to the same student.
+
+AI:Enumerations:
+
+Subjects (Mathematics, Science, Literature)
+Levels (Primary school level, High school level, University level)
+
+Classes:
+1. User(name: string, email: string)
+2. Tutor(name: string, email: string, bankAccount: string)
+3. Student(name: string, email: string)
+4. SubjectOffer(subject: Subjects, expertiseLevel: Levels, hourlyPrice: float, weeklyAvailability: string)
+5. TutoringRequest(subject: Subjects, level: Levels, targetDateTime: datetime)
+6. TutoringSession(date: datetime, duration: string, paymentMethod: string)
+7. Payment(amount: float, paymentMethod: string)
+
+Relationships:
+- User inherit Tutor
+- Tutor inherit Student
+- Tutor contain SubjectOffer (0..*)
+- Tutor contain TutoringSession (0..*)
+- Student contain TutoringRequest (0..*)
+- TutoringRequest associate Tutor (1)
+- TutoringRequest associate Student (1)
+- TutoringSession associate Tutor (1)
+- TutoringSession associate Student (1)
+- Payment associate TutoringSession (1)"
+"
+"
+------------------------------------------------------------
+ O  Class:Subjects   Oracle:Subject
+   X  Attribute:Mathematics 
+   X  Attribute:Science 
+   X  Attribute:Literature 
+ O  Class:User  Oracle:User
+   O  Attribute:name  Oracle:name 
+   O  Attribute:email  Oracle:email 
+ O  Class:Tutor  Oracle:Tutor
+   X  Attribute:name 
+   X  Attribute:email 
+   O  Attribute:bankAccount  Oracle:bankAccount 
+ O  Class:Student  Oracle:Student
+   X  Attribute:name 
+   X  Attribute:email 
+ O  Class:TutoringRequest  Oracle:TutoringRequest
+   X  Attribute:subject 
+   X  Attribute:level 
+   X  Attribute:targetDateTime 
+ O  Class:TutoringSession  Oracle:TutoringSession
+   X  Attribute:date 
+   X  Attribute:duration 
+   X  Attribute:paymentMethod 
+ O  Class:Payment  Oracle:Payment
+   X  Attribute:amount 
+   X  Attribute:paymentMethod 
+ X  Class:Levels 
+   X  Attribute:school 
+   X  Attribute:school 
+   X  Attribute:level 
+ X  Class:SubjectOffer
+   X  Attribute:subject 
+   X  Attribute:expertiseLevel 
+   X  Attribute:hourlyPrice 
+   X  Attribute:weeklyAvailability 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------9/10------Online Tutoring System (OTS):
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: The OTS is used by students and tutors where a tutor may also be a student. At registration, tutors need to provide their name, email address and bank account. After that, tutors may offer online tutoring in different subjects (e.g. mathematics, science, literature, etc.) by providing their level of expertise (e.g. primary school level, high school level, university level) in the given subject and their hourly price of a tutoring session (which may again be subject specific). Tutors may specify their weekly availability for tutoring sessions (e.g. Thursdays from 10:00 to 11:30).
+Registered students (with a name and an email address) may browse available tutoring offers in a specific subject and then make a tutoring request from the designated tutor by specifying the level of tutoring. This request should suggest the target date and time of the first tutoring session. The tutor may confirm the requested tutoring session or offer a session at another slot. Once the session is agreed, the tutor and the student is expected to turn up at the given time for tutoring. During the tutoring session, the student and the tutor may agree upon to schedule follow-up a tutoring session. After the actual tutoring session, the student pays for the session (with a credit card or wire transfer).
+A tutoring session may be cancelled by either the student or the tutor. However, if the student cancels less than 24 hours prior to the session then 75% of the session's price has to be paid. If the tutor cancels within 24 hours then he/she needs to offer a 25% discount for his/her next session to the same student.
+
+AI:Enumerations:
+
+- Subject (Mathematics, Science, Literature, etc.)
+- ExpertiseLevel (Primary School Level, High School Level, University Level)
+
+Classes:
+1. User(name: String, email: String)
+2. Tutor(name: String, email: String, bankAccount: String)
+3. Student(name: String, email: String)
+4. TutoringOffer(subject: Subject, expertiseLevel: ExpertiseLevel, hourlyPrice: double, weeklyAvailability: String)
+5. TutoringRequest(subject: Subject, expertiseLevel: ExpertiseLevel, targetDateTime: DateTime)
+6. TutoringSession(date: DateTime, tutor: Tutor, student: Student, status: String)
+7. PaymentMethod(type: String)
+
+Relationships:
+- 1 User inherit Tutor
+- 1 User inherit Student
+- 1 Tutor associate 0..* TutoringOffer
+- 1 Student associate 0..* TutoringRequest
+- 1 Tutor associate 0..* TutoringSession
+- 1 Student associate 0..* TutoringSession
+- 1 PaymentMethod associate 0..* Payment
+
+This is a high-level class diagram representing the entities and their relationships in the given description. The actual implementation may require more detailed attributes and methods within each class."
+"
+"
+------------------------------------------------------------
+ O  Class:User  Oracle:User
+   O  Attribute:name  Oracle:name 
+   O  Attribute:email  Oracle:email 
+ O  Class:Tutor  Oracle:Tutor
+   X  Attribute:name 
+   X  Attribute:email 
+   O  Attribute:bankAccount  Oracle:bankAccount 
+ O  Class:Student  Oracle:Student
+   X  Attribute:name 
+   X  Attribute:email 
+ O  Class:TutoringOffer  Oracle:TutoringOffer
+   X  Attribute:subject 
+   X  Attribute:expertiseLevel 
+   O  Attribute:hourlyPrice  Oracle:hourlyPrice 
+   X  Attribute:weeklyAvailability 
+ O  Class:TutoringRequest  Oracle:TutoringRequest
+   X  Attribute:subject 
+   X  Attribute:expertiseLevel 
+   X  Attribute:targetDateTime 
+ O  Class:TutoringSession  Oracle:TutoringSession
+   X  Attribute:date 
+   X  Attribute:tutor 
+   X  Attribute:student 
+   X  Attribute:status 
+ X  Class:PaymentMethod
+   X  Attribute:type 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------10/10------Online Tutoring System (OTS):
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: The OTS is used by students and tutors where a tutor may also be a student. At registration, tutors need to provide their name, email address and bank account. After that, tutors may offer online tutoring in different subjects (e.g. mathematics, science, literature, etc.) by providing their level of expertise (e.g. primary school level, high school level, university level) in the given subject and their hourly price of a tutoring session (which may again be subject specific). Tutors may specify their weekly availability for tutoring sessions (e.g. Thursdays from 10:00 to 11:30).
+Registered students (with a name and an email address) may browse available tutoring offers in a specific subject and then make a tutoring request from the designated tutor by specifying the level of tutoring. This request should suggest the target date and time of the first tutoring session. The tutor may confirm the requested tutoring session or offer a session at another slot. Once the session is agreed, the tutor and the student is expected to turn up at the given time for tutoring. During the tutoring session, the student and the tutor may agree upon to schedule follow-up a tutoring session. After the actual tutoring session, the student pays for the session (with a credit card or wire transfer).
+A tutoring session may be cancelled by either the student or the tutor. However, if the student cancels less than 24 hours prior to the session then 75% of the session's price has to be paid. If the tutor cancels within 24 hours then he/she needs to offer a 25% discount for his/her next session to the same student.
+
+AI:Enumerations:
+Subject(mathematics, science, literature)
+Level(primary school level, high school level, university level)
+
+Classes:
+1. User(name : String, email : String)
+2. Tutor extends User(bankAccount : String)
+3. SubjectExpertise(subject : Subject, level : Level, hourlyPrice : double, weeklyAvailability : String)
+4. Student extends User
+
+Relationships:
+1. 1..* User associate 0..* SubjectExpertise
+2. 1 Student associate 1..* Tutor
+3. 1 Tutor contain 0..* SubjectExpertise
+4. 1 Tutor contain 0..* WeeklyAvailability
+5. 1 Student associate 0..* TutoringRequest
+6. 1 TutoringRequest associate 1 Tutor
+7. 1 TutoringRequest associate 1 Student
+8. 1 TutoringSession associate 1 Tutor
+9. 1 TutoringSession associate 1 Student
+
+Composition:
+1. 1 Tutor contain 0..* TutoringSession
+2. 1 Student contain 0..* TutoringSession
+
+Class Diagram:
+```
+--------------------------------------------
+|                    User                  |
+--------------------------------------------
+| - name : String                         |
+| - email : String                        |
+--------------------------------------------
+
+--------------------------------------------
+|                   Tutor                  |
+--------------------------------------------
+| - name : String                         |
+| - email : String                        |
+| - bankAccount : String                  |
+--------------------------------------------
+
+--------------------------------------------
+|            SubjectExpertise             |
+--------------------------------------------
+| - subject : Subject                     |
+| - level : Level                         |
+| - hourlyPrice : double                  |
+| - weeklyAvailability : String           |
+--------------------------------------------
+
+--------------------------------------------
+|                  Student                |
+--------------------------------------------
+| - name : String                         |
+| - email : String                        |
+--------------------------------------------
+
+--------------------------------------------
+|              TutoringRequest            |
+--------------------------------------------
+| - level : Level                         |
+| - targetDate : Date                     |
+| - targetTime : Time                     |
+--------------------------------------------
+
+--------------------------------------------
+|              TutoringSession            |
+--------------------------------------------
+| - sessionDate : Date                    |
+| - sessionTime : Time                    |
+| - isConfirmed : boolean                 |
+--------------------------------------------
+```"
+"
+"
+------------------------------------------------------------
+ O  Class:Subject  Oracle:Subject
+   X  Attribute:mathematics 
+   X  Attribute:science 
+   X  Attribute:literature 
+ O  Class:User  Oracle:User
+   X  Attribute:name  
+   O  Attribute:email   Oracle:email 
+ X  Class:Level
+   X  Attribute:school 
+   X  Attribute:school 
+   X  Attribute:level 
+ O  Class:Tutor extends User  Oracle:Tutor 
+   O  Attribute:bankAccount   Oracle:bankAccount 
+ X  Class:SubjectExpertise
+   X  Attribute:subject  
+   X  Attribute:level  
+   X  Attribute:hourlyPrice  
+   X  Attribute:weeklyAvailability  
+ X  Class:Student extends User

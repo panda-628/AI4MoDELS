@@ -1,0 +1,666 @@
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------1/10------BTMS:
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: A city is using the Bus Transportation Management System (BTMS) to simplify the day-to-day activities related to the city's public bus system.
+
+The BTMS keeps track of a driver's name and automatically assigns a unique ID to each driver. A bus route is identified by a unique number that is determined by city staff, while a bus is identified by its unique licence plate. The highest possible number for a bus route is 9999, while a licence plate number may be up to 10 characters long, inclusive. For up to a year in advance, city staff assigns buses to routes. Several buses may be assigned to a route per day. Each bus serves at the most one route per day but may be assigned to different routes on different days. Similarly, for up to a year in advance, city staff posts the schedule for its bus drivers. For each route, there is a morning shift, an afternoon shift, and a night shift. A driver is assigned by city staff to a shift for a particular bus on a particular day. The BTMS offers city staff great flexibility, i.e., there are no restrictions in terms of how many shifts a bus driver has per day. It is even possible to assign a bus driver to two shifts at the same time.
+
+The current version of BTMS does not support the information of bus drivers or buses to be updated-only adding and deleting is supported. However, BTMS does support indicating whether a bus driver is on sick leave and whether a bus is in the repair shop. If that is the case, the driver cannot be scheduled or the bus cannot be assigned to a route. For a given day, an overview shows-for each route number-the licence plate number of each assigned bus, the entered shifts and the IDs and names of the assigned drivers. If a driver is currently sick or a bus is in the repair shop, the driver or bus, respectively, is highlighted in the overview.
+
+AI:Enumerations:
+None
+
+Classes:
+1. Driver(driverID: int, name: string)
+2. BusRoute(routeNumber: int)
+3. Bus(licencePlate: string)
+4. Schedule()
+5. Shift(shiftType: string)
+6. SickLeave()
+7. RepairShop()
+8. Overview()
+
+Relationships:
+1. 1..* Driver associate 1 Bus
+2. 1 BusRoute contain 0..* Bus
+3. 1 BusRoute contain 1 Schedule
+4. 1 Schedule contain 1..* Shift
+5. 1 Schedule contain 1..* Driver
+6. 1 Schedule inherit SickLeave
+7. 1 Schedule inherit RepairShop
+8. 1 Overview contain 1 BusRoute"
+"
+"
+------------------------------------------------------------
+ O  Class:Driver  Oracle:Driver
+   X  Attribute:driverID 
+   O  Attribute:name  Oracle:name 
+ O  Class:Shift  Oracle:Shift
+   X  Attribute:shiftType 
+ X  Class:BusRoute
+   X  Attribute:routeNumber 
+ X  Class:Bus
+   X  Attribute:licencePlate 
+ X  Class:Schedule
+ X  Class:SickLeave
+ X  Class:RepairShop
+ X  Class:Overview
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------2/10------BTMS:
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: A city is using the Bus Transportation Management System (BTMS) to simplify the day-to-day activities related to the city's public bus system.
+
+The BTMS keeps track of a driver's name and automatically assigns a unique ID to each driver. A bus route is identified by a unique number that is determined by city staff, while a bus is identified by its unique licence plate. The highest possible number for a bus route is 9999, while a licence plate number may be up to 10 characters long, inclusive. For up to a year in advance, city staff assigns buses to routes. Several buses may be assigned to a route per day. Each bus serves at the most one route per day but may be assigned to different routes on different days. Similarly, for up to a year in advance, city staff posts the schedule for its bus drivers. For each route, there is a morning shift, an afternoon shift, and a night shift. A driver is assigned by city staff to a shift for a particular bus on a particular day. The BTMS offers city staff great flexibility, i.e., there are no restrictions in terms of how many shifts a bus driver has per day. It is even possible to assign a bus driver to two shifts at the same time.
+
+The current version of BTMS does not support the information of bus drivers or buses to be updated-only adding and deleting is supported. However, BTMS does support indicating whether a bus driver is on sick leave and whether a bus is in the repair shop. If that is the case, the driver cannot be scheduled or the bus cannot be assigned to a route. For a given day, an overview shows-for each route number-the licence plate number of each assigned bus, the entered shifts and the IDs and names of the assigned drivers. If a driver is currently sick or a bus is in the repair shop, the driver or bus, respectively, is highlighted in the overview.
+
+AI:Enumerations:
+
+ShiftType(Morning, Afternoon, Night)
+
+Class:
+1. Driver(driverName : String, driverID : int)
+2. BusRoute(routeNumber : int)
+3. Bus(licencePlate : String, onSickLeave : boolean, inRepairShop : boolean)
+4. Schedule(routeNumber : int, busLicencePlate : String, shift : ShiftType, driverID : int)
+
+Relationships:
+1..* Driver assigned 1..* Schedule
+1..* Bus assigned 1..* Schedule
+1 BusRoute contain 1..* Bus
+1 BusRoute contain 1..* Schedule"
+"
+"
+------------------------------------------------------------
+ O  Class:Driver  Oracle:Driver
+   X  Attribute:driverName  
+   X  Attribute:driverID  
+ O  Class:ShiftType  Oracle:Shift 
+   O  Attribute:Morning  Oracle:morning 
+   O  Attribute:Afternoon  Oracle:afternoon 
+   O  Attribute:Night  Oracle:night 
+ X  Class:BusRoute
+   X  Attribute:routeNumber  
+ O  Class:Bus  Oracle:BusVehicle 
+   O  Attribute:licencePlate   Oracle:licencePlate 
+   X  Attribute:onSickLeave  
+   O  Attribute:inRepairShop   Oracle:inRepairShop 
+ X  Class:Schedule
+   X  Attribute:routeNumber  
+   X  Attribute:busLicencePlate  
+   X  Attribute:shift  
+   X  Attribute:driverID  
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------3/10------BTMS:
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: A city is using the Bus Transportation Management System (BTMS) to simplify the day-to-day activities related to the city's public bus system.
+
+The BTMS keeps track of a driver's name and automatically assigns a unique ID to each driver. A bus route is identified by a unique number that is determined by city staff, while a bus is identified by its unique licence plate. The highest possible number for a bus route is 9999, while a licence plate number may be up to 10 characters long, inclusive. For up to a year in advance, city staff assigns buses to routes. Several buses may be assigned to a route per day. Each bus serves at the most one route per day but may be assigned to different routes on different days. Similarly, for up to a year in advance, city staff posts the schedule for its bus drivers. For each route, there is a morning shift, an afternoon shift, and a night shift. A driver is assigned by city staff to a shift for a particular bus on a particular day. The BTMS offers city staff great flexibility, i.e., there are no restrictions in terms of how many shifts a bus driver has per day. It is even possible to assign a bus driver to two shifts at the same time.
+
+The current version of BTMS does not support the information of bus drivers or buses to be updated-only adding and deleting is supported. However, BTMS does support indicating whether a bus driver is on sick leave and whether a bus is in the repair shop. If that is the case, the driver cannot be scheduled or the bus cannot be assigned to a route. For a given day, an overview shows-for each route number-the licence plate number of each assigned bus, the entered shifts and the IDs and names of the assigned drivers. If a driver is currently sick or a bus is in the repair shop, the driver or bus, respectively, is highlighted in the overview.
+
+AI:Enumerations:
+- ShiftType(Morning, Afternoon, Night)
+
+Classes:
+1. Driver(driverName: String, driverID: int)
+2. BusRoute(routeNumber: int)
+3. Bus(licencePlate: String, onSickLeave: boolean, inRepairShop: boolean)
+4. Schedule(routeNumber: int, busLicencePlate: String, shift: ShiftType, driverID: int, driverName: String)
+
+Relationships:
+- 1 BusRoute contain * Bus
+- 1 BusRoute associate * Schedule
+- 1 Driver associate * Schedule
+- 1 Bus inherit Driver"
+"
+"
+------------------------------------------------------------
+ O  Class:Driver  Oracle:Driver
+   X  Attribute:driverName 
+   X  Attribute:driverID 
+ X  Class:BusRoute
+   X  Attribute:routeNumber 
+ O  Class:Bus  Oracle:BusVehicle 
+   O  Attribute:licencePlate  Oracle:licencePlate 
+   X  Attribute:onSickLeave 
+   O  Attribute:inRepairShop  Oracle:inRepairShop 
+ X  Class:Schedule
+   X  Attribute:routeNumber 
+   X  Attribute:busLicencePlate 
+   X  Attribute:shift 
+   X  Attribute:driverID 
+   X  Attribute:driverName 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------4/10------BTMS:
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: A city is using the Bus Transportation Management System (BTMS) to simplify the day-to-day activities related to the city's public bus system.
+
+The BTMS keeps track of a driver's name and automatically assigns a unique ID to each driver. A bus route is identified by a unique number that is determined by city staff, while a bus is identified by its unique licence plate. The highest possible number for a bus route is 9999, while a licence plate number may be up to 10 characters long, inclusive. For up to a year in advance, city staff assigns buses to routes. Several buses may be assigned to a route per day. Each bus serves at the most one route per day but may be assigned to different routes on different days. Similarly, for up to a year in advance, city staff posts the schedule for its bus drivers. For each route, there is a morning shift, an afternoon shift, and a night shift. A driver is assigned by city staff to a shift for a particular bus on a particular day. The BTMS offers city staff great flexibility, i.e., there are no restrictions in terms of how many shifts a bus driver has per day. It is even possible to assign a bus driver to two shifts at the same time.
+
+The current version of BTMS does not support the information of bus drivers or buses to be updated-only adding and deleting is supported. However, BTMS does support indicating whether a bus driver is on sick leave and whether a bus is in the repair shop. If that is the case, the driver cannot be scheduled or the bus cannot be assigned to a route. For a given day, an overview shows-for each route number-the licence plate number of each assigned bus, the entered shifts and the IDs and names of the assigned drivers. If a driver is currently sick or a bus is in the repair shop, the driver or bus, respectively, is highlighted in the overview.
+
+AI:Enumerations:
+- ShiftType(Morning, Afternoon, Night)
+
+Class:
+1. Driver(driverName: String, driverID: String)
+2. BusRoute(routeNumber: int, routeID: String)
+3. Bus(licencePlate: String)
+4. Schedule(routeNumber: int, licencePlate: String, shift: ShiftType, driverID: String, driverName: String)
+
+Relationships:
+- 1 BusRoute contain * Bus
+- 1 BusRoute contain * Schedule
+- 1 Driver can have multiple Schedule
+- 1 Bus can have multiple Schedule"
+"
+"
+------------------------------------------------------------
+ O  Class:Driver  Oracle:Driver
+   X  Attribute:driverName 
+   X  Attribute:driverID 
+ X  Class:BusRoute
+   X  Attribute:routeNumber 
+   X  Attribute:routeID 
+ X  Class:Bus
+   X  Attribute:licencePlate 
+ X  Class:Schedule
+   X  Attribute:routeNumber 
+   X  Attribute:licencePlate 
+   X  Attribute:shift 
+   X  Attribute:driverID 
+   X  Attribute:driverName 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------5/10------BTMS:
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: A city is using the Bus Transportation Management System (BTMS) to simplify the day-to-day activities related to the city's public bus system.
+
+The BTMS keeps track of a driver's name and automatically assigns a unique ID to each driver. A bus route is identified by a unique number that is determined by city staff, while a bus is identified by its unique licence plate. The highest possible number for a bus route is 9999, while a licence plate number may be up to 10 characters long, inclusive. For up to a year in advance, city staff assigns buses to routes. Several buses may be assigned to a route per day. Each bus serves at the most one route per day but may be assigned to different routes on different days. Similarly, for up to a year in advance, city staff posts the schedule for its bus drivers. For each route, there is a morning shift, an afternoon shift, and a night shift. A driver is assigned by city staff to a shift for a particular bus on a particular day. The BTMS offers city staff great flexibility, i.e., there are no restrictions in terms of how many shifts a bus driver has per day. It is even possible to assign a bus driver to two shifts at the same time.
+
+The current version of BTMS does not support the information of bus drivers or buses to be updated-only adding and deleting is supported. However, BTMS does support indicating whether a bus driver is on sick leave and whether a bus is in the repair shop. If that is the case, the driver cannot be scheduled or the bus cannot be assigned to a route. For a given day, an overview shows-for each route number-the licence plate number of each assigned bus, the entered shifts and the IDs and names of the assigned drivers. If a driver is currently sick or a bus is in the repair shop, the driver or bus, respectively, is highlighted in the overview.
+
+AI:Class:
+1. Driver(driverID : int, name : String)
+2. BusRoute(routeNumber : int)
+3. Bus(licencePlate : String)
+4. Shift(shiftType : String)
+5. Schedule(date : Date)
+
+Relationships:
+1. 1 BusRoute contain 0..* Bus
+2. 1 BusRoute associate 0..* Schedule
+3. 1 Schedule associate 1 Driver
+4. 1 Schedule associate 1 Bus
+5. 1 Driver associate 0..* Shift
+6. 1 Bus associate 0..* Schedule"
+"
+"
+------------------------------------------------------------
+ O  Class:Driver  Oracle:Driver
+   X  Attribute:driverID  
+   X  Attribute:name  
+ O  Class:Shift  Oracle:Shift
+   X  Attribute:shiftType  
+ X  Class:BusRoute
+   X  Attribute:routeNumber  
+ X  Class:Bus
+   X  Attribute:licencePlate  
+ X  Class:Schedule
+   X  Attribute:date  
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------6/10------BTMS:
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: A city is using the Bus Transportation Management System (BTMS) to simplify the day-to-day activities related to the city's public bus system.
+
+The BTMS keeps track of a driver's name and automatically assigns a unique ID to each driver. A bus route is identified by a unique number that is determined by city staff, while a bus is identified by its unique licence plate. The highest possible number for a bus route is 9999, while a licence plate number may be up to 10 characters long, inclusive. For up to a year in advance, city staff assigns buses to routes. Several buses may be assigned to a route per day. Each bus serves at the most one route per day but may be assigned to different routes on different days. Similarly, for up to a year in advance, city staff posts the schedule for its bus drivers. For each route, there is a morning shift, an afternoon shift, and a night shift. A driver is assigned by city staff to a shift for a particular bus on a particular day. The BTMS offers city staff great flexibility, i.e., there are no restrictions in terms of how many shifts a bus driver has per day. It is even possible to assign a bus driver to two shifts at the same time.
+
+The current version of BTMS does not support the information of bus drivers or buses to be updated-only adding and deleting is supported. However, BTMS does support indicating whether a bus driver is on sick leave and whether a bus is in the repair shop. If that is the case, the driver cannot be scheduled or the bus cannot be assigned to a route. For a given day, an overview shows-for each route number-the licence plate number of each assigned bus, the entered shifts and the IDs and names of the assigned drivers. If a driver is currently sick or a bus is in the repair shop, the driver or bus, respectively, is highlighted in the overview.
+
+AI:Class:
+- Driver(driverID : int, name : string)
+- BusRoute(routeNumber : int)
+- Bus(licencePlate : string)
+- Schedule
+- Shift
+- SickLeave
+- RepairShop
+
+Relationships:
+- 1 BusRoute contain 0..* Bus
+- 1 BusRoute contain 1 Schedule
+- 1 Schedule contain 3 Shift
+- 1 Schedule associate 0..* Driver
+- 1 Driver associate 0..* Schedule
+- 1 Driver associate 0..* Shift
+- 1 Bus associate 0..* Schedule
+- 1 Bus associate 0..* Shift
+- 1 Driver associate 0..* SickLeave
+- 1 Bus associate 0..* RepairShop"
+"
+"
+------------------------------------------------------------
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------7/10------BTMS:
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: A city is using the Bus Transportation Management System (BTMS) to simplify the day-to-day activities related to the city's public bus system.
+
+The BTMS keeps track of a driver's name and automatically assigns a unique ID to each driver. A bus route is identified by a unique number that is determined by city staff, while a bus is identified by its unique licence plate. The highest possible number for a bus route is 9999, while a licence plate number may be up to 10 characters long, inclusive. For up to a year in advance, city staff assigns buses to routes. Several buses may be assigned to a route per day. Each bus serves at the most one route per day but may be assigned to different routes on different days. Similarly, for up to a year in advance, city staff posts the schedule for its bus drivers. For each route, there is a morning shift, an afternoon shift, and a night shift. A driver is assigned by city staff to a shift for a particular bus on a particular day. The BTMS offers city staff great flexibility, i.e., there are no restrictions in terms of how many shifts a bus driver has per day. It is even possible to assign a bus driver to two shifts at the same time.
+
+The current version of BTMS does not support the information of bus drivers or buses to be updated-only adding and deleting is supported. However, BTMS does support indicating whether a bus driver is on sick leave and whether a bus is in the repair shop. If that is the case, the driver cannot be scheduled or the bus cannot be assigned to a route. For a given day, an overview shows-for each route number-the licence plate number of each assigned bus, the entered shifts and the IDs and names of the assigned drivers. If a driver is currently sick or a bus is in the repair shop, the driver or bus, respectively, is highlighted in the overview.
+
+AI:Class:
+Driver(driverID: int, name: string)
+BusRoute(routeNumber: int)
+Bus(licencePlate: string)
+Shift(shiftID: int, shiftType: string)
+Assignment(routeNumber: int, licencePlate: string, shiftID: int, driverID: int)
+SickLeave(driverID: int)
+RepairShop(licencePlate: string)
+Overview(routeNumber: int, licencePlate: string, shiftID: int, driverID: int)
+
+Relationships:
+1 Driver 1..* Assignment
+1 BusRoute 1..* Assignment
+1 Bus 1..* Assignment
+1 Shift 1..* Assignment
+1 Driver 0..* SickLeave
+1 Bus 0..* RepairShop
+1 BusRoute 1..* Overview
+1 Bus 1..* Overview
+1 Driver 1..* Overview"
+"
+"
+------------------------------------------------------------
+ O  Class:Driver  Oracle:Driver
+   X  Attribute:driverID 
+   O  Attribute:name  Oracle:name 
+ O  Class:Shift  Oracle:Shift
+   X  Attribute:shiftID 
+   X  Attribute:shiftType 
+ X  Class:BusRoute
+   X  Attribute:routeNumber 
+ X  Class:Bus
+   X  Attribute:licencePlate 
+ X  Class:Assignment
+   X  Attribute:routeNumber 
+   X  Attribute:licencePlate 
+   X  Attribute:shiftID 
+   X  Attribute:driverID 
+ X  Class:SickLeave
+   X  Attribute:driverID 
+ X  Class:RepairShop
+   X  Attribute:licencePlate 
+ X  Class:Overview
+   X  Attribute:routeNumber 
+   X  Attribute:licencePlate 
+   X  Attribute:shiftID 
+   X  Attribute:driverID 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------8/10------BTMS:
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: A city is using the Bus Transportation Management System (BTMS) to simplify the day-to-day activities related to the city's public bus system.
+
+The BTMS keeps track of a driver's name and automatically assigns a unique ID to each driver. A bus route is identified by a unique number that is determined by city staff, while a bus is identified by its unique licence plate. The highest possible number for a bus route is 9999, while a licence plate number may be up to 10 characters long, inclusive. For up to a year in advance, city staff assigns buses to routes. Several buses may be assigned to a route per day. Each bus serves at the most one route per day but may be assigned to different routes on different days. Similarly, for up to a year in advance, city staff posts the schedule for its bus drivers. For each route, there is a morning shift, an afternoon shift, and a night shift. A driver is assigned by city staff to a shift for a particular bus on a particular day. The BTMS offers city staff great flexibility, i.e., there are no restrictions in terms of how many shifts a bus driver has per day. It is even possible to assign a bus driver to two shifts at the same time.
+
+The current version of BTMS does not support the information of bus drivers or buses to be updated-only adding and deleting is supported. However, BTMS does support indicating whether a bus driver is on sick leave and whether a bus is in the repair shop. If that is the case, the driver cannot be scheduled or the bus cannot be assigned to a route. For a given day, an overview shows-for each route number-the licence plate number of each assigned bus, the entered shifts and the IDs and names of the assigned drivers. If a driver is currently sick or a bus is in the repair shop, the driver or bus, respectively, is highlighted in the overview.
+
+AI:Enumerations:
+- ShiftType(Morning, Afternoon, Night)
+
+Classes:
+1. Driver(driverID : int, name : string)
+2. BusRoute(routeNumber : int)
+3. Bus(licencePlate : string)
+
+Relationships:
+- 1..* Driver assigned 1..* Shift
+- 1..* Bus assigned 1..* BusRoute
+- Bus on 0..1 SickLeave
+- Bus on 0..1 RepairShop"
+"
+"
+------------------------------------------------------------
+ O  Class:Driver  Oracle:Driver
+   X  Attribute:driverID  
+   X  Attribute:name  
+ X  Class:BusRoute
+   X  Attribute:routeNumber  
+ X  Class:Bus
+   X  Attribute:licencePlate  
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------9/10------BTMS:
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: A city is using the Bus Transportation Management System (BTMS) to simplify the day-to-day activities related to the city's public bus system.
+
+The BTMS keeps track of a driver's name and automatically assigns a unique ID to each driver. A bus route is identified by a unique number that is determined by city staff, while a bus is identified by its unique licence plate. The highest possible number for a bus route is 9999, while a licence plate number may be up to 10 characters long, inclusive. For up to a year in advance, city staff assigns buses to routes. Several buses may be assigned to a route per day. Each bus serves at the most one route per day but may be assigned to different routes on different days. Similarly, for up to a year in advance, city staff posts the schedule for its bus drivers. For each route, there is a morning shift, an afternoon shift, and a night shift. A driver is assigned by city staff to a shift for a particular bus on a particular day. The BTMS offers city staff great flexibility, i.e., there are no restrictions in terms of how many shifts a bus driver has per day. It is even possible to assign a bus driver to two shifts at the same time.
+
+The current version of BTMS does not support the information of bus drivers or buses to be updated-only adding and deleting is supported. However, BTMS does support indicating whether a bus driver is on sick leave and whether a bus is in the repair shop. If that is the case, the driver cannot be scheduled or the bus cannot be assigned to a route. For a given day, an overview shows-for each route number-the licence plate number of each assigned bus, the entered shifts and the IDs and names of the assigned drivers. If a driver is currently sick or a bus is in the repair shop, the driver or bus, respectively, is highlighted in the overview.
+
+AI:Enumerations:
+
+Class:
+1. Driver(driverName : string, driverID : int, onSickLeave : boolean)
+2. BusRoute(routeNumber : int)
+3. Bus(licencePlate : string, inRepairShop : boolean)
+4. Shift(shiftType : string)
+
+Relationships:
+- 1 Driver can be assigned to 0..* Shifts
+- 1 BusRoute can have 0..* Buses assigned to it per day
+- 1 Bus can be assigned to 1 Shift per day
+- 1 Shift can have 1..* Drivers assigned to it
+- 1 Driver can be on 0..1 Sick Leave
+- 1 Bus can be in 0..1 Repair Shop"
+"
+"
+------------------------------------------------------------
+ O  Class:Driver  Oracle:Driver
+   X  Attribute:driverName  
+   X  Attribute:driverID  
+   O  Attribute:onSickLeave   Oracle:onSickLeave 
+ O  Class:Shift  Oracle:Shift
+   X  Attribute:shiftType  
+ X  Class:BusRoute
+   X  Attribute:routeNumber  
+ O  Class:Bus  Oracle:BusVehicle 
+   O  Attribute:licencePlate   Oracle:licencePlate 
+   O  Attribute:inRepairShop   Oracle:inRepairShop 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------10/10------BTMS:
+------------------------------------------------------------
+---------------------Baseline AI:
+"User:
+Generate the lists of model classes and associations from a given description.
+Create a class diagram for the following description by giving the enumerations, classes, and relationships using format:
+Enumerations:
+1.enumerationName(literals)
+2.enumerationName(literals)
+(there might be no or multiple enumerations)
+
+Class:
+1.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+2.className(attributeName1 : attributeType1,attributeName2 : attributeType2 (there might be multiple attributes))
+(there might be multiple classes)
+
+Relationships
+mul1 class1 associate mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple associations)
+
+class1 inherit class2 (class1 and class2 are classes above)
+(there might be multiple inheritance)
+
+mul1 class1 contain mul2 class2 (class1 and2 are classes above. mul1 and mul2 are one of the following options[0..*, 1, 0..1, 1..*])
+(there might be multiple composition)
+
+Description: A city is using the Bus Transportation Management System (BTMS) to simplify the day-to-day activities related to the city's public bus system.
+
+The BTMS keeps track of a driver's name and automatically assigns a unique ID to each driver. A bus route is identified by a unique number that is determined by city staff, while a bus is identified by its unique licence plate. The highest possible number for a bus route is 9999, while a licence plate number may be up to 10 characters long, inclusive. For up to a year in advance, city staff assigns buses to routes. Several buses may be assigned to a route per day. Each bus serves at the most one route per day but may be assigned to different routes on different days. Similarly, for up to a year in advance, city staff posts the schedule for its bus drivers. For each route, there is a morning shift, an afternoon shift, and a night shift. A driver is assigned by city staff to a shift for a particular bus on a particular day. The BTMS offers city staff great flexibility, i.e., there are no restrictions in terms of how many shifts a bus driver has per day. It is even possible to assign a bus driver to two shifts at the same time.
+
+The current version of BTMS does not support the information of bus drivers or buses to be updated-only adding and deleting is supported. However, BTMS does support indicating whether a bus driver is on sick leave and whether a bus is in the repair shop. If that is the case, the driver cannot be scheduled or the bus cannot be assigned to a route. For a given day, an overview shows-for each route number-the licence plate number of each assigned bus, the entered shifts and the IDs and names of the assigned drivers. If a driver is currently sick or a bus is in the repair shop, the driver or bus, respectively, is highlighted in the overview.
+
+AI:Enumerations:
+None
+
+Classes:
+1. Driver(driverName: string, driverID: int)
+2. BusRoute(routeNumber: int)
+3. Bus(licencePlate: string)
+4. Schedule
+5. Shift
+6. SickLeave
+7. RepairShop
+8. Overview
+
+Relationships:
+1. 1 BusRoute contain * Bus
+2. 1 BusRoute contain * Schedule
+3. 1 Schedule associate * Shift
+4. * Driver associate * Shift
+5. * Driver inherit SickLeave
+6. * Bus inherit RepairShop
+7. 1 BusRoute associate * Bus
+8. 1 Bus associate * Schedule
+9. 1 Schedule associate * Driver
+10. 1 Overview associate * BusRoute, * Bus, * Shift, * Driver"
+"
+"
+------------------------------------------------------------
+ O  Class:Driver  Oracle:Driver
+   X  Attribute:driverName 
+   X  Attribute:driverID 
+ O  Class:Shift  Oracle:Shift
+ X  Class:BusRoute
+   X  Attribute:routeNumber 
+ X  Class:Bus
+   X  Attribute:licencePlate 
+ X  Class:Schedule
+ X  Class:SickLeave
+ X  Class:RepairShop
+ X  Class:Overview

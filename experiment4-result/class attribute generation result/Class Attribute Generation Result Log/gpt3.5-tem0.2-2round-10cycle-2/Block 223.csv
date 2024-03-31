@@ -1,0 +1,1367 @@
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------1/10------Block 223:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The DestroyBlockapplication first allows a game admin to design a DestroyBlockgame and then players to play the game and compete for an entry in the game's hall of fame.
+
+DESIGN GAME:A user has a unique username. A user is always a player and optionally an admin. A user has the same password as a player and as an admin and chooses the admin mode or play mode when logging into the application. Only an admin may create a game.
+
+Each game has a unique name and its own hall of fame. The admin designs a game by defining a set of blocks. Each block has a color and is worth a certain number of points between 1 and 1000 as specified by the admin.
+
+A game has several levels as defined by the admin. Levels are numbered starting with Level 1 and the maximum number of levels is 99. For each level, the admin specifies the starting arrangement of blocks. Each block is placed in one cell of a grid system. The block at the top left corner is in grid position 1/1, the one to the right of it is in grid position 2/1, the one below it is in grid position 1/2, and so on. The admin may also define a level as random, i.e., the blocks at the top are randomly selected for the level from the set of blocks defined by the admin.
+
+The number of blocks shown at the beginning of each level is the same and is also defined by the admin. With each level, the speed of the ball increases starting at its minimum speed and the length of the paddle is reduced gradually from its maximum length to its minimum length. The minimum speed, speed increase factor, maximum length, and minimum length are all specified by the admin for the game.
+
+PLAY GAME: A player can play a game when it is published by the game admin. At the beginning of a game or level, the DestroyBlockapplication places the blocks at the top of the play area as specified by the admin in the design phase. The ball is placed in the center of the play area and drops in a straight line towards the bottom. The paddle of the player is positioned in the middle at the bottom of the play area. The player moves the paddle to the right or left at the bottom of the play area while trying to bounce the ball towards the blocks. The ball moves at a certain speed in a certain direction. The ball bounces back from the wall at the top as well as the two side walls on the right and left. If the ball hits a block, the ball bounces back, the block disappears, and the player scores the points of the hit block.
+
+When the ball hits the last block, the player advances to the next level. If the ball reaches the bottom wall, the ball is out-of-bounds and the player loses one life. The player starts a game with three lives. When the player has lost all three lives or the player has finished the last level, the game ends and the total score is displayed in the game?? hall of fame.
+
+At the end of a level or when the player pauses the game, the game is saved. A paused game can be resumed by the player. The next level of a game does not start automatically but only upon player confirmation.
+
+A user may be a player for one game and an admin for another game but cannot be both for the same game. There is only one admin per game. Players compete against each other for the high score in the game?? hall of fame. A player may play different games and the same game multiple times. However, only one game may be played at any point in time, i.e., games are not played in parallel.
+
+AI:### Enumerations:
+1. **GameMode**
+   - PLAY
+   - ADMIN
+
+### Classes:
+1. **User**
+   - Attributes:
+     - username: String
+     - password: String
+     - mode: GameMode
+
+2. **Game**
+   - Attributes:
+     - name: String
+     - hallOfFame: List\<Player>
+     - levels: List\<Level>
+     - blocks: List\<Block>
+     - maxLevels: int
+     - blockCount: int
+     - ballSpeed: int
+     - paddleLength: int
+
+3. **Level**
+   - Attributes:
+     - levelNumber: int
+     - blockArrangement: List\<Block>
+
+4. **Block**
+   - Attributes:
+     - color: String
+     - points: int
+
+5. **Player**
+   - Attributes:
+     - username: String
+     - score: int
+     - lives: int
+
+### Associations:
+- **User** (1) --- (0..1) **Player**
+- **User** (1) --- (0..1) **Admin**
+- **Admin** (1) --- (1) **Game**
+- **Game** (1) --- (1..99) **Level**
+- **Game** (1) --- (1..n) **Block**
+- **Level** (1) --- (1..n) **Block**
+- **Game** (1) --- (1..n) **Player**"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. GameMode(PLAY, ADMIN): Represents the mode in which a user can interact with the game application.
+
+Classes:
+1. User(username: String, password: String, mode: GameMode): Represents a user of the game application with unique username and password, and the ability to switch between player and admin modes.
+2. Game(name: String, hallOfFame: List<Player>, levels: List<Level>, blocks: List<Block>, maxLevels: int, blockCount: int, ballSpeed: int, paddleLength: int): Represents a game with its attributes such as name, hall of fame, levels, blocks, and game settings.
+3. Level(levelNumber: int, blockArrangement: List<Block>): Represents a level within a game with a level number and a specific arrangement of blocks.
+4. Block(color: String, points: int): Represents a block in the game with color and point value.
+5. Player(username: String, score: int, lives: int): Represents a player in the game with username, score, and remaining lives."
+"
+"
+------------------------------------------------------------
+ O  Class:User  Oracle:User
+   O  Attribute:username  Oracle:username 
+   O  Attribute:password  Oracle:password 
+   X  Attribute:mode 
+ O  Class:Game  Oracle:Game
+   O  Attribute:name  Oracle:name 
+   X  Attribute:hallOfFame 
+   X  Attribute:levels 
+   X  Attribute:blocks 
+   X  Attribute:maxLevels 
+   X  Attribute:blockCount 
+   X  Attribute:ballSpeed 
+   X  Attribute:paddleLength 
+ O  Class:Level  Oracle:Level
+   X  Attribute:levelNumber 
+   X  Attribute:blockArrangement 
+ O  Class:Block  Oracle:Block
+   X  Attribute:color 
+   O  Attribute:points  Oracle:points 
+ X  Class:GameMode
+   X  Attribute:PLAY 
+   X  Attribute:ADMIN 
+ X  Class:Player
+   X  Attribute:username 
+   X  Attribute:score 
+   X  Attribute:lives 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------2/10------Block 223:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The DestroyBlockapplication first allows a game admin to design a DestroyBlockgame and then players to play the game and compete for an entry in the game's hall of fame.
+
+DESIGN GAME:A user has a unique username. A user is always a player and optionally an admin. A user has the same password as a player and as an admin and chooses the admin mode or play mode when logging into the application. Only an admin may create a game.
+
+Each game has a unique name and its own hall of fame. The admin designs a game by defining a set of blocks. Each block has a color and is worth a certain number of points between 1 and 1000 as specified by the admin.
+
+A game has several levels as defined by the admin. Levels are numbered starting with Level 1 and the maximum number of levels is 99. For each level, the admin specifies the starting arrangement of blocks. Each block is placed in one cell of a grid system. The block at the top left corner is in grid position 1/1, the one to the right of it is in grid position 2/1, the one below it is in grid position 1/2, and so on. The admin may also define a level as random, i.e., the blocks at the top are randomly selected for the level from the set of blocks defined by the admin.
+
+The number of blocks shown at the beginning of each level is the same and is also defined by the admin. With each level, the speed of the ball increases starting at its minimum speed and the length of the paddle is reduced gradually from its maximum length to its minimum length. The minimum speed, speed increase factor, maximum length, and minimum length are all specified by the admin for the game.
+
+PLAY GAME: A player can play a game when it is published by the game admin. At the beginning of a game or level, the DestroyBlockapplication places the blocks at the top of the play area as specified by the admin in the design phase. The ball is placed in the center of the play area and drops in a straight line towards the bottom. The paddle of the player is positioned in the middle at the bottom of the play area. The player moves the paddle to the right or left at the bottom of the play area while trying to bounce the ball towards the blocks. The ball moves at a certain speed in a certain direction. The ball bounces back from the wall at the top as well as the two side walls on the right and left. If the ball hits a block, the ball bounces back, the block disappears, and the player scores the points of the hit block.
+
+When the ball hits the last block, the player advances to the next level. If the ball reaches the bottom wall, the ball is out-of-bounds and the player loses one life. The player starts a game with three lives. When the player has lost all three lives or the player has finished the last level, the game ends and the total score is displayed in the game?? hall of fame.
+
+At the end of a level or when the player pauses the game, the game is saved. A paused game can be resumed by the player. The next level of a game does not start automatically but only upon player confirmation.
+
+A user may be a player for one game and an admin for another game but cannot be both for the same game. There is only one admin per game. Players compete against each other for the high score in the game?? hall of fame. A player may play different games and the same game multiple times. However, only one game may be played at any point in time, i.e., games are not played in parallel.
+
+AI:### Enumerations:
+1. **GameMode**  
+   - PLAY
+   - ADMIN
+
+### Classes:
+1. **User**
+   - Attributes:
+     - username: String
+     - password: String
+     - mode: GameMode
+
+2. **Game**
+   - Attributes:
+     - name: String
+     - hallOfFame: List\<Player>
+     - levels: List\<Level>
+     - blocks: List\<Block>
+     - speedIncreaseFactor: int
+     - maxPaddleLength: int
+     - minPaddleLength: int
+     - minBallSpeed: int
+     - blocksPerLevel: int
+
+3. **Level**
+   - Attributes:
+     - levelNumber: int
+     - blockArrangement: List\<Block>
+     - isRandom: boolean
+
+4. **Block**
+   - Attributes:
+     - color: String
+     - points: int
+
+5. **Player**
+   - Attributes:
+     - username: String
+     - score: int
+     - lives: int
+
+### Associations:
+- **User** 1..1 **-plays-** 0..* **Game**
+- **User** 1..1 **-designs-** 0..* **Game**
+- **Game** 1..* **-consists of-** 1..* **Level**
+- **Game** 1..* **-has-** 1..* **Block**
+- **Level** 1..* **-contains-** 1..* **Block**
+- **Game** 1..* **-has-** 0..* **Player**
+- **Player** 1..1 **-competes in-** 1..* **Game**"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. GameMode(PLAY, ADMIN): Represents the mode in which a user can interact with the game, either as a player or an admin.
+
+Classes:
+1. User(username: String, password: String, mode: GameMode): Represents a user of the DestroyBlock application with a unique username, password, and mode of interaction.
+2. Game(name: String, hallOfFame: List<Player>, levels: List<Level>, blocks: List<Block>, speedIncreaseFactor: int, maxPaddleLength: int, minPaddleLength: int, minBallSpeed: int, blocksPerLevel: int): Represents a game with its attributes such as name, hall of fame, levels, blocks, and game settings.
+3. Level(levelNumber: int, blockArrangement: List<Block>, isRandom: boolean): Represents a level in the game with a level number, block arrangement, and randomness indicator.
+4. Block(color: String, points: int): Represents a block in the game with color and points associated with it.
+5. Player(username: String, score: int, lives: int): Represents a player in the game with username, score, and remaining lives."
+"
+"
+------------------------------------------------------------
+ O  Class:User  Oracle:User
+   O  Attribute:username  Oracle:username 
+   O  Attribute:password  Oracle:password 
+   X  Attribute:mode 
+ O  Class:Game  Oracle:Game
+   O  Attribute:name  Oracle:name 
+   X  Attribute:hallOfFame 
+   X  Attribute:levels 
+   X  Attribute:blocks 
+   X  Attribute:speedIncreaseFactor 
+   X  Attribute:maxPaddleLength 
+   X  Attribute:minPaddleLength 
+   X  Attribute:minBallSpeed 
+   O  Attribute:blocksPerLevel  Oracle:nrBlocksPerLevel 
+ O  Class:Level  Oracle:Level
+   X  Attribute:levelNumber 
+   X  Attribute:blockArrangement 
+   O  Attribute:isRandom  Oracle:isRandom 
+ O  Class:Block  Oracle:Block
+   X  Attribute:color 
+   O  Attribute:points  Oracle:points 
+ X  Class:GameMode
+   X  Attribute:PLAY 
+   X  Attribute:ADMIN 
+ X  Class:Player
+   X  Attribute:username 
+   X  Attribute:score 
+   X  Attribute:lives 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------3/10------Block 223:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The DestroyBlockapplication first allows a game admin to design a DestroyBlockgame and then players to play the game and compete for an entry in the game's hall of fame.
+
+DESIGN GAME:A user has a unique username. A user is always a player and optionally an admin. A user has the same password as a player and as an admin and chooses the admin mode or play mode when logging into the application. Only an admin may create a game.
+
+Each game has a unique name and its own hall of fame. The admin designs a game by defining a set of blocks. Each block has a color and is worth a certain number of points between 1 and 1000 as specified by the admin.
+
+A game has several levels as defined by the admin. Levels are numbered starting with Level 1 and the maximum number of levels is 99. For each level, the admin specifies the starting arrangement of blocks. Each block is placed in one cell of a grid system. The block at the top left corner is in grid position 1/1, the one to the right of it is in grid position 2/1, the one below it is in grid position 1/2, and so on. The admin may also define a level as random, i.e., the blocks at the top are randomly selected for the level from the set of blocks defined by the admin.
+
+The number of blocks shown at the beginning of each level is the same and is also defined by the admin. With each level, the speed of the ball increases starting at its minimum speed and the length of the paddle is reduced gradually from its maximum length to its minimum length. The minimum speed, speed increase factor, maximum length, and minimum length are all specified by the admin for the game.
+
+PLAY GAME: A player can play a game when it is published by the game admin. At the beginning of a game or level, the DestroyBlockapplication places the blocks at the top of the play area as specified by the admin in the design phase. The ball is placed in the center of the play area and drops in a straight line towards the bottom. The paddle of the player is positioned in the middle at the bottom of the play area. The player moves the paddle to the right or left at the bottom of the play area while trying to bounce the ball towards the blocks. The ball moves at a certain speed in a certain direction. The ball bounces back from the wall at the top as well as the two side walls on the right and left. If the ball hits a block, the ball bounces back, the block disappears, and the player scores the points of the hit block.
+
+When the ball hits the last block, the player advances to the next level. If the ball reaches the bottom wall, the ball is out-of-bounds and the player loses one life. The player starts a game with three lives. When the player has lost all three lives or the player has finished the last level, the game ends and the total score is displayed in the game?? hall of fame.
+
+At the end of a level or when the player pauses the game, the game is saved. A paused game can be resumed by the player. The next level of a game does not start automatically but only upon player confirmation.
+
+A user may be a player for one game and an admin for another game but cannot be both for the same game. There is only one admin per game. Players compete against each other for the high score in the game?? hall of fame. A player may play different games and the same game multiple times. However, only one game may be played at any point in time, i.e., games are not played in parallel.
+
+AI:### Enumerations:
+1. **GameMode**
+   - Admin
+   - Play
+
+### Classes:
+1. **User**
+   - Attributes:
+     - username: String
+     - password: String
+     - mode: GameMode
+
+2. **Game**
+   - Attributes:
+     - name: String
+     - hallOfFame: List\<Player>
+     - levels: List\<Level>
+     - blocks: List\<Block>
+     - maxLevels: int
+     - blockCount: int
+     - ballSpeed: int
+     - paddleLength: int
+
+3. **Level**
+   - Attributes:
+     - levelNumber: int
+     - blockArrangement: List\<Block>
+
+4. **Block**
+   - Attributes:
+     - color: String
+     - points: int
+
+5. **Player**
+   - Attributes:
+     - lives: int
+     - totalScore: int
+
+### Associations:
+- **User** 1..1 ---- 1..1 **Player**
+- **User** 1..1 ---- 0..1 **Admin**
+- **Admin** 1..1 ---- 1..* **Game**
+- **Game** 1..* ---- 1 **Admin**
+- **Game** 1 ---- 1..* **Player**
+- **Game** 1 ---- 1..* **Level**
+- **Game** 1 ---- 1..* **Block**"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. GameMode(Admin, Play): Represents the different modes a user can be in - either as an admin or a player.
+
+Classes:
+1. User(username: String, password: String, mode: GameMode): Represents a user with a unique username, password, and game mode selection.
+2. Game(name: String, hallOfFame: List<Player>, levels: List<Level>, blocks: List<Block>, maxLevels: int, blockCount: int, ballSpeed: int, paddleLength: int): Represents a game with its attributes such as name, hall of fame, levels, blocks, and game settings.
+3. Level(levelNumber: int, blockArrangement: List<Block>): Represents a level in a game with a level number and block arrangement.
+4. Block(color: String, points: int): Represents a block in the game with color and points value.
+5. Player(lives: int, totalScore: int): Represents a player with attributes for lives and total score."
+"
+"
+------------------------------------------------------------
+ O  Class:User  Oracle:User
+   O  Attribute:username  Oracle:username 
+   O  Attribute:password  Oracle:password 
+   X  Attribute:mode 
+ O  Class:Game  Oracle:Game
+   O  Attribute:name  Oracle:name 
+   X  Attribute:hallOfFame 
+   X  Attribute:levels 
+   X  Attribute:blocks 
+   X  Attribute:maxLevels 
+   X  Attribute:blockCount 
+   X  Attribute:ballSpeed 
+   X  Attribute:paddleLength 
+ O  Class:Level  Oracle:Level
+   X  Attribute:levelNumber 
+   X  Attribute:blockArrangement 
+ O  Class:Block  Oracle:Block
+   X  Attribute:color 
+   O  Attribute:points  Oracle:points 
+ X  Class:GameMode
+   X  Attribute:Admin 
+   X  Attribute:Play 
+ X  Class:Player
+   X  Attribute:lives 
+   X  Attribute:totalScore 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------4/10------Block 223:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The DestroyBlockapplication first allows a game admin to design a DestroyBlockgame and then players to play the game and compete for an entry in the game's hall of fame.
+
+DESIGN GAME:A user has a unique username. A user is always a player and optionally an admin. A user has the same password as a player and as an admin and chooses the admin mode or play mode when logging into the application. Only an admin may create a game.
+
+Each game has a unique name and its own hall of fame. The admin designs a game by defining a set of blocks. Each block has a color and is worth a certain number of points between 1 and 1000 as specified by the admin.
+
+A game has several levels as defined by the admin. Levels are numbered starting with Level 1 and the maximum number of levels is 99. For each level, the admin specifies the starting arrangement of blocks. Each block is placed in one cell of a grid system. The block at the top left corner is in grid position 1/1, the one to the right of it is in grid position 2/1, the one below it is in grid position 1/2, and so on. The admin may also define a level as random, i.e., the blocks at the top are randomly selected for the level from the set of blocks defined by the admin.
+
+The number of blocks shown at the beginning of each level is the same and is also defined by the admin. With each level, the speed of the ball increases starting at its minimum speed and the length of the paddle is reduced gradually from its maximum length to its minimum length. The minimum speed, speed increase factor, maximum length, and minimum length are all specified by the admin for the game.
+
+PLAY GAME: A player can play a game when it is published by the game admin. At the beginning of a game or level, the DestroyBlockapplication places the blocks at the top of the play area as specified by the admin in the design phase. The ball is placed in the center of the play area and drops in a straight line towards the bottom. The paddle of the player is positioned in the middle at the bottom of the play area. The player moves the paddle to the right or left at the bottom of the play area while trying to bounce the ball towards the blocks. The ball moves at a certain speed in a certain direction. The ball bounces back from the wall at the top as well as the two side walls on the right and left. If the ball hits a block, the ball bounces back, the block disappears, and the player scores the points of the hit block.
+
+When the ball hits the last block, the player advances to the next level. If the ball reaches the bottom wall, the ball is out-of-bounds and the player loses one life. The player starts a game with three lives. When the player has lost all three lives or the player has finished the last level, the game ends and the total score is displayed in the game?? hall of fame.
+
+At the end of a level or when the player pauses the game, the game is saved. A paused game can be resumed by the player. The next level of a game does not start automatically but only upon player confirmation.
+
+A user may be a player for one game and an admin for another game but cannot be both for the same game. There is only one admin per game. Players compete against each other for the high score in the game?? hall of fame. A player may play different games and the same game multiple times. However, only one game may be played at any point in time, i.e., games are not played in parallel.
+
+AI:### Enumerations:
+1. **GameMode**
+   - Admin
+   - Play
+
+### Classes:
+1. **User**
+   - Attributes:
+     - username: String
+     - password: String
+     - mode: GameMode
+
+2. **Game**
+   - Attributes:
+     - name: String
+     - hallOfFame: List<Player>
+     - levels: List<Level>
+     - blocks: List<Block>
+     - maxLevels: int
+     - blockCount: int
+     - ballSpeed: int
+     - paddleLength: int
+     - minPaddleLength: int
+     - speedIncreaseFactor: int
+
+3. **Level**
+   - Attributes:
+     - levelNumber: int
+     - blockArrangement: List<Block>
+     - random: boolean
+
+4. **Block**
+   - Attributes:
+     - color: String
+     - points: int
+
+5. **Player**
+   - Attributes:
+     - username: String
+     - score: int
+     - lives: int
+
+6. **GameSession**
+   - Attributes:
+     - game: Game
+     - player: Player
+     - currentLevel: Level
+     - currentScore: int
+     - livesRemaining: int
+     - paused: boolean
+
+### Associations:
+- **User** has a **GameMode**
+- **User** can be a **Player** and optionally an **Admin**
+- **Game** is created by an **Admin**
+- **Game** has multiple **Levels**
+- **Game** has multiple **Blocks**
+- **Level** has a set of **Blocks**
+- **Player** competes for a high score in the game's hall of fame
+- **GameSession** is associated with a **Game**, a **Player**, and a **Level**"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. GameMode(Admin, Play): Represents the mode in which a user can interact with the game, either as an admin or a player.
+
+Classes:
+1. User(username: String, password: String, mode: GameMode): Represents a user with a unique username, password, and the mode in which they are interacting with the game.
+   
+2. Game(name: String, hallOfFame: List<Player>, levels: List<Level>, blocks: List<Block>, maxLevels: int, blockCount: int, ballSpeed: int, paddleLength: int, minPaddleLength: int, speedIncreaseFactor: int): Represents a game with its attributes such as name, hall of fame, levels, blocks, and game settings.
+
+3. Level(levelNumber: int, blockArrangement: List<Block>, random: boolean): Represents a level in the game with a level number, block arrangement, and whether it is randomly generated.
+
+4. Block(color: String, points: int): Represents a block in the game with its color and point value.
+
+5. Player(username: String, score: int, lives: int): Represents a player with a username, score, and remaining lives.
+
+6. GameSession(game: Game, player: Player, currentLevel: Level, currentScore: int, livesRemaining: int, paused: boolean): Represents a game session with the current game, player, level, score, remaining lives, and pause status."
+"
+"
+------------------------------------------------------------
+ O  Class:User  Oracle:User
+   O  Attribute:username  Oracle:username 
+   O  Attribute:password  Oracle:password 
+   X  Attribute:mode 
+ O  Class:Game  Oracle:Game
+   O  Attribute:name  Oracle:name 
+   X  Attribute:hallOfFame 
+   X  Attribute:levels 
+   X  Attribute:blocks 
+   X  Attribute:maxLevels 
+   X  Attribute:blockCount 
+   X  Attribute:ballSpeed 
+   X  Attribute:paddleLength 
+   X  Attribute:minPaddleLength 
+   X  Attribute:speedIncreaseFactor 
+ O  Class:Level  Oracle:Level
+   X  Attribute:levelNumber 
+   X  Attribute:blockArrangement 
+   X  Attribute:random 
+ O  Class:Block  Oracle:Block
+   X  Attribute:color 
+   O  Attribute:points  Oracle:points 
+ X  Class:GameMode
+   X  Attribute:Admin 
+   X  Attribute:Play 
+ X  Class:Player
+   X  Attribute:username 
+   X  Attribute:score 
+   X  Attribute:lives 
+ X  Class:GameSession
+   X  Attribute:game 
+   X  Attribute:player 
+   X  Attribute:currentLevel 
+   X  Attribute:currentScore 
+   X  Attribute:livesRemaining 
+   X  Attribute:paused 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------5/10------Block 223:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The DestroyBlockapplication first allows a game admin to design a DestroyBlockgame and then players to play the game and compete for an entry in the game's hall of fame.
+
+DESIGN GAME:A user has a unique username. A user is always a player and optionally an admin. A user has the same password as a player and as an admin and chooses the admin mode or play mode when logging into the application. Only an admin may create a game.
+
+Each game has a unique name and its own hall of fame. The admin designs a game by defining a set of blocks. Each block has a color and is worth a certain number of points between 1 and 1000 as specified by the admin.
+
+A game has several levels as defined by the admin. Levels are numbered starting with Level 1 and the maximum number of levels is 99. For each level, the admin specifies the starting arrangement of blocks. Each block is placed in one cell of a grid system. The block at the top left corner is in grid position 1/1, the one to the right of it is in grid position 2/1, the one below it is in grid position 1/2, and so on. The admin may also define a level as random, i.e., the blocks at the top are randomly selected for the level from the set of blocks defined by the admin.
+
+The number of blocks shown at the beginning of each level is the same and is also defined by the admin. With each level, the speed of the ball increases starting at its minimum speed and the length of the paddle is reduced gradually from its maximum length to its minimum length. The minimum speed, speed increase factor, maximum length, and minimum length are all specified by the admin for the game.
+
+PLAY GAME: A player can play a game when it is published by the game admin. At the beginning of a game or level, the DestroyBlockapplication places the blocks at the top of the play area as specified by the admin in the design phase. The ball is placed in the center of the play area and drops in a straight line towards the bottom. The paddle of the player is positioned in the middle at the bottom of the play area. The player moves the paddle to the right or left at the bottom of the play area while trying to bounce the ball towards the blocks. The ball moves at a certain speed in a certain direction. The ball bounces back from the wall at the top as well as the two side walls on the right and left. If the ball hits a block, the ball bounces back, the block disappears, and the player scores the points of the hit block.
+
+When the ball hits the last block, the player advances to the next level. If the ball reaches the bottom wall, the ball is out-of-bounds and the player loses one life. The player starts a game with three lives. When the player has lost all three lives or the player has finished the last level, the game ends and the total score is displayed in the game?? hall of fame.
+
+At the end of a level or when the player pauses the game, the game is saved. A paused game can be resumed by the player. The next level of a game does not start automatically but only upon player confirmation.
+
+A user may be a player for one game and an admin for another game but cannot be both for the same game. There is only one admin per game. Players compete against each other for the high score in the game?? hall of fame. A player may play different games and the same game multiple times. However, only one game may be played at any point in time, i.e., games are not played in parallel.
+
+AI:### Enumerations:
+1. **GameMode**
+   - Admin
+   - Play
+
+### Classes:
+1. **User**
+   - Attributes:
+     - username: String
+     - password: String
+     - mode: GameMode
+
+2. **Game**
+   - Attributes:
+     - name: String
+     - hallOfFame: List\<Player>
+     - blocks: List\<Block>
+     - levels: List\<Level>
+     - blockArrangement: Map\<Integer, List\<Block>>
+     - initialBlockCount: Integer
+     - ballSpeed: Integer
+     - ballSpeedIncreaseFactor: Integer
+     - paddleMaxLength: Integer
+     - paddleMinLength: Integer
+     - admin: User
+
+3. **Block**
+   - Attributes:
+     - color: String
+     - points: Integer
+
+4. **Level**
+   - Attributes:
+     - levelNumber: Integer
+     - blockArrangement: List\<Block>
+     - isRandom: Boolean
+
+5. **Player**
+   - Attributes:
+     - lives: Integer
+     - score: Integer
+     - pausedGame: Game
+
+### Associations:
+- **User** has a one-to-one association with **Game** as an admin.
+- **User** has a one-to-many association with **Game** as a player.
+- **Game** has a one-to-many association with **Block**.
+- **Game** has a one-to-many association with **Level**.
+- **Level** has a one-to-many association with **Block** for block arrangement.
+- **Player** has a one-to-one association with **Game** for paused game."
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. GameMode(Admin, Play): Represents the different modes a user can be in - either as an admin or a player.
+
+### Classes:
+1. User(username: String, password: String, mode: GameMode): Represents a user with a unique username, password, and mode (admin or player).
+   
+2. Game(name: String, hallOfFame: List<Player>, blocks: List<Block>, levels: List<Level>, blockArrangement: Map<Integer, List<Block>>, initialBlockCount: Integer, ballSpeed: Integer, ballSpeedIncreaseFactor: Integer, paddleMaxLength: Integer, paddleMinLength: Integer, admin: User): Represents a game with various attributes such as name, hall of fame, blocks, levels, etc.
+
+3. Block(color: String, points: Integer): Represents a block in the game with a color and points value.
+
+4. Level(levelNumber: Integer, blockArrangement: List<Block>, isRandom: Boolean): Represents a level in the game with a level number, block arrangement, and a flag indicating if the arrangement is random.
+
+5. Player(lives: Integer, score: Integer, pausedGame: Game): Represents a player with attributes like lives, score, and a reference to the paused game."
+"
+"
+------------------------------------------------------------
+ O  Class:User  Oracle:User
+   O  Attribute:username  Oracle:username 
+   O  Attribute:password  Oracle:password 
+   X  Attribute:mode 
+ O  Class:Game  Oracle:Game
+   O  Attribute:name  Oracle:name 
+   X  Attribute:hallOfFame 
+   X  Attribute:blocks 
+   X  Attribute:levels 
+   X  Attribute:blockArrangement 
+   X  Attribute:List<Block>> 
+   X  Attribute:initialBlockCount 
+   X  Attribute:ballSpeed 
+   X  Attribute:ballSpeedIncreaseFactor 
+   X  Attribute:paddleMaxLength 
+   X  Attribute:paddleMinLength 
+   X  Attribute:admin 
+ O  Class:Block  Oracle:Block
+   X  Attribute:color 
+   O  Attribute:points  Oracle:points 
+ O  Class:Level  Oracle:Level
+   X  Attribute:levelNumber 
+   X  Attribute:blockArrangement 
+   O  Attribute:isRandom  Oracle:isRandom 
+ X  Class:GameMode
+   X  Attribute:Admin 
+   X  Attribute:Play 
+ X  Class:Player
+   X  Attribute:lives 
+   X  Attribute:score 
+   X  Attribute:pausedGame 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------6/10------Block 223:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The DestroyBlockapplication first allows a game admin to design a DestroyBlockgame and then players to play the game and compete for an entry in the game's hall of fame.
+
+DESIGN GAME:A user has a unique username. A user is always a player and optionally an admin. A user has the same password as a player and as an admin and chooses the admin mode or play mode when logging into the application. Only an admin may create a game.
+
+Each game has a unique name and its own hall of fame. The admin designs a game by defining a set of blocks. Each block has a color and is worth a certain number of points between 1 and 1000 as specified by the admin.
+
+A game has several levels as defined by the admin. Levels are numbered starting with Level 1 and the maximum number of levels is 99. For each level, the admin specifies the starting arrangement of blocks. Each block is placed in one cell of a grid system. The block at the top left corner is in grid position 1/1, the one to the right of it is in grid position 2/1, the one below it is in grid position 1/2, and so on. The admin may also define a level as random, i.e., the blocks at the top are randomly selected for the level from the set of blocks defined by the admin.
+
+The number of blocks shown at the beginning of each level is the same and is also defined by the admin. With each level, the speed of the ball increases starting at its minimum speed and the length of the paddle is reduced gradually from its maximum length to its minimum length. The minimum speed, speed increase factor, maximum length, and minimum length are all specified by the admin for the game.
+
+PLAY GAME: A player can play a game when it is published by the game admin. At the beginning of a game or level, the DestroyBlockapplication places the blocks at the top of the play area as specified by the admin in the design phase. The ball is placed in the center of the play area and drops in a straight line towards the bottom. The paddle of the player is positioned in the middle at the bottom of the play area. The player moves the paddle to the right or left at the bottom of the play area while trying to bounce the ball towards the blocks. The ball moves at a certain speed in a certain direction. The ball bounces back from the wall at the top as well as the two side walls on the right and left. If the ball hits a block, the ball bounces back, the block disappears, and the player scores the points of the hit block.
+
+When the ball hits the last block, the player advances to the next level. If the ball reaches the bottom wall, the ball is out-of-bounds and the player loses one life. The player starts a game with three lives. When the player has lost all three lives or the player has finished the last level, the game ends and the total score is displayed in the game?? hall of fame.
+
+At the end of a level or when the player pauses the game, the game is saved. A paused game can be resumed by the player. The next level of a game does not start automatically but only upon player confirmation.
+
+A user may be a player for one game and an admin for another game but cannot be both for the same game. There is only one admin per game. Players compete against each other for the high score in the game?? hall of fame. A player may play different games and the same game multiple times. However, only one game may be played at any point in time, i.e., games are not played in parallel.
+
+AI:### Enumerations:
+1. **GameMode**
+   - PLAY
+   - ADMIN
+
+### Classes:
+1. **User**
+   - Attributes:
+     - username: String
+     - password: String
+     - mode: GameMode
+
+2. **Game**
+   - Attributes:
+     - name: String
+     - hallOfFame: List<Player>
+     - levels: List<Level>
+     - blocks: List<Block>
+     - maxLevels: int
+     - blockCount: int
+     - ballSpeed: int
+     - speedIncreaseFactor: int
+     - maxPaddleLength: int
+     - minPaddleLength: int
+     - admin: User
+
+3. **Level**
+   - Attributes:
+     - levelNumber: int
+     - blockArrangement: List<Block>
+
+4. **Block**
+   - Attributes:
+     - color: String
+     - points: int
+
+5. **Player**
+   - Attributes:
+     - username: String
+     - score: int
+     - lives: int
+     - currentGame: Game
+
+### Note:
+- The relationships between classes (e.g., User being a player or admin, Player playing a game, etc.) are not explicitly defined in the attribute list but can be inferred from the description."
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. GameMode(PLAY, ADMIN): Represents the mode in which a user can interact with the game application.
+
+### Classes:
+1. User(username: String, password: String, mode: GameMode): Represents a user of the game application with a unique username, password, and mode of interaction.
+   
+2. Game(name: String, hallOfFame: List<Player>, levels: List<Level>, blocks: List<Block>, maxLevels: int, blockCount: int, ballSpeed: int, speedIncreaseFactor: int, maxPaddleLength: int, minPaddleLength: int, admin: User): Represents a game with its attributes such as name, levels, blocks, and game settings defined by the admin.
+
+3. Level(levelNumber: int, blockArrangement: List<Block>): Represents a level in the game with a level number and a specific arrangement of blocks.
+
+4. Block(color: String, points: int): Represents a block in the game with a color and point value.
+
+5. Player(username: String, score: int, lives: int, currentGame: Game): Represents a player with attributes like username, score, lives, and the current game being played."
+"
+"
+------------------------------------------------------------
+ O  Class:User  Oracle:User
+   O  Attribute:username  Oracle:username 
+   O  Attribute:password  Oracle:password 
+   X  Attribute:mode 
+ O  Class:Game  Oracle:Game
+   O  Attribute:name  Oracle:name 
+   X  Attribute:hallOfFame 
+   X  Attribute:levels 
+   X  Attribute:blocks 
+   X  Attribute:maxLevels 
+   X  Attribute:blockCount 
+   X  Attribute:ballSpeed 
+   X  Attribute:speedIncreaseFactor 
+   X  Attribute:maxPaddleLength 
+   X  Attribute:minPaddleLength 
+   X  Attribute:admin 
+ O  Class:Level  Oracle:Level
+   X  Attribute:levelNumber 
+   X  Attribute:blockArrangement 
+ O  Class:Block  Oracle:Block
+   X  Attribute:color 
+   O  Attribute:points  Oracle:points 
+ X  Class:GameMode
+   X  Attribute:PLAY 
+   X  Attribute:ADMIN 
+ X  Class:Player
+   X  Attribute:username 
+   X  Attribute:score 
+   X  Attribute:lives 
+   X  Attribute:currentGame 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------7/10------Block 223:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The DestroyBlockapplication first allows a game admin to design a DestroyBlockgame and then players to play the game and compete for an entry in the game's hall of fame.
+
+DESIGN GAME:A user has a unique username. A user is always a player and optionally an admin. A user has the same password as a player and as an admin and chooses the admin mode or play mode when logging into the application. Only an admin may create a game.
+
+Each game has a unique name and its own hall of fame. The admin designs a game by defining a set of blocks. Each block has a color and is worth a certain number of points between 1 and 1000 as specified by the admin.
+
+A game has several levels as defined by the admin. Levels are numbered starting with Level 1 and the maximum number of levels is 99. For each level, the admin specifies the starting arrangement of blocks. Each block is placed in one cell of a grid system. The block at the top left corner is in grid position 1/1, the one to the right of it is in grid position 2/1, the one below it is in grid position 1/2, and so on. The admin may also define a level as random, i.e., the blocks at the top are randomly selected for the level from the set of blocks defined by the admin.
+
+The number of blocks shown at the beginning of each level is the same and is also defined by the admin. With each level, the speed of the ball increases starting at its minimum speed and the length of the paddle is reduced gradually from its maximum length to its minimum length. The minimum speed, speed increase factor, maximum length, and minimum length are all specified by the admin for the game.
+
+PLAY GAME: A player can play a game when it is published by the game admin. At the beginning of a game or level, the DestroyBlockapplication places the blocks at the top of the play area as specified by the admin in the design phase. The ball is placed in the center of the play area and drops in a straight line towards the bottom. The paddle of the player is positioned in the middle at the bottom of the play area. The player moves the paddle to the right or left at the bottom of the play area while trying to bounce the ball towards the blocks. The ball moves at a certain speed in a certain direction. The ball bounces back from the wall at the top as well as the two side walls on the right and left. If the ball hits a block, the ball bounces back, the block disappears, and the player scores the points of the hit block.
+
+When the ball hits the last block, the player advances to the next level. If the ball reaches the bottom wall, the ball is out-of-bounds and the player loses one life. The player starts a game with three lives. When the player has lost all three lives or the player has finished the last level, the game ends and the total score is displayed in the game?? hall of fame.
+
+At the end of a level or when the player pauses the game, the game is saved. A paused game can be resumed by the player. The next level of a game does not start automatically but only upon player confirmation.
+
+A user may be a player for one game and an admin for another game but cannot be both for the same game. There is only one admin per game. Players compete against each other for the high score in the game?? hall of fame. A player may play different games and the same game multiple times. However, only one game may be played at any point in time, i.e., games are not played in parallel.
+
+AI:### Enumerations:
+1. **GameMode**
+   - Admin
+   - Play
+
+### Classes:
+1. **User**
+   - Attributes:
+     - username: String
+     - password: String
+     - mode: GameMode
+
+2. **Game**
+   - Attributes:
+     - name: String
+     - hallOfFame: List<Player>
+     - blocks: List<Block>
+     - levels: List<Level>
+     - minSpeed: int
+     - speedIncreaseFactor: int
+     - maxPaddleLength: int
+     - minPaddleLength: int
+     - admin: User
+
+3. **Block**
+   - Attributes:
+     - color: String
+     - points: int
+
+4. **Level**
+   - Attributes:
+     - levelNumber: int
+     - blockArrangement: List<Block>
+     - isRandom: boolean
+
+5. **Player**
+   - Attributes:
+     - lives: int
+     - score: int
+
+6. **PlayArea**
+   - Attributes:
+     - blocks: List<Block>
+     - ball: Ball
+     - paddle: Paddle
+
+7. **Ball**
+   - Attributes:
+     - speed: int
+     - direction: String
+
+8. **Paddle**
+   - Attributes:
+     - position: int
+
+### Associations:
+- **User** (1) --- (1) **Game**
+- **Game** (1) --- (1..n) **Level**
+- **Game** (1) --- (1..n) **Block**
+- **Level** (1) --- (1..n) **Block**
+- **Player** (1) --- (1) **PlayArea**
+- **PlayArea** (1) --- (1) **Ball**
+- **PlayArea** (1) --- (1) **Paddle**"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. GameMode(Admin, Play): Represents the different modes a user can log in as - either as an admin or a player.
+
+Classes:
+1. User(username: String, password: String, mode: GameMode): Represents a user with a unique username, password, and login mode.
+2. Game(name: String, hallOfFame: List<Player>, blocks: List<Block>, levels: List<Level>, minSpeed: int, speedIncreaseFactor: int, maxPaddleLength: int, minPaddleLength: int, admin: User): Represents a game with its attributes and configurations.
+3. Block(color: String, points: int): Represents a block in the game with a color and points value.
+4. Level(levelNumber: int, blockArrangement: List<Block>, isRandom: boolean): Represents a level in the game with its number, block arrangement, and randomness indicator.
+5. Player(lives: int, score: int): Represents a player with their lives and score in the game.
+6. PlayArea(blocks: List<Block>, ball: Ball, paddle: Paddle): Represents the play area with blocks, ball, and paddle.
+7. Ball(speed: int, direction: String): Represents the ball in the game with speed and direction attributes.
+8. Paddle(position: int): Represents the paddle in the game with its position on the play area."
+"
+"
+------------------------------------------------------------
+ O  Class:User  Oracle:User
+   O  Attribute:username  Oracle:username 
+   O  Attribute:password  Oracle:password 
+   X  Attribute:mode 
+ O  Class:Game  Oracle:Game
+   O  Attribute:name  Oracle:name 
+   X  Attribute:hallOfFame 
+   X  Attribute:blocks 
+   X  Attribute:levels 
+   X  Attribute:minSpeed 
+   X  Attribute:speedIncreaseFactor 
+   X  Attribute:maxPaddleLength 
+   X  Attribute:minPaddleLength 
+   X  Attribute:admin 
+ O  Class:Block  Oracle:Block
+   X  Attribute:color 
+   O  Attribute:points  Oracle:points 
+ O  Class:Level  Oracle:Level
+   X  Attribute:levelNumber 
+   X  Attribute:blockArrangement 
+   O  Attribute:isRandom  Oracle:isRandom 
+ O  Class:Ball  Oracle:Ball
+   X  Attribute:speed 
+   X  Attribute:direction 
+ O  Class:Paddle  Oracle:Paddle
+   X  Attribute:position 
+ X  Class:GameMode
+   X  Attribute:Admin 
+   X  Attribute:Play 
+ X  Class:Player
+   X  Attribute:lives 
+   X  Attribute:score 
+ X  Class:PlayArea
+   X  Attribute:blocks 
+   X  Attribute:ball 
+   X  Attribute:paddle 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------8/10------Block 223:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The DestroyBlockapplication first allows a game admin to design a DestroyBlockgame and then players to play the game and compete for an entry in the game's hall of fame.
+
+DESIGN GAME:A user has a unique username. A user is always a player and optionally an admin. A user has the same password as a player and as an admin and chooses the admin mode or play mode when logging into the application. Only an admin may create a game.
+
+Each game has a unique name and its own hall of fame. The admin designs a game by defining a set of blocks. Each block has a color and is worth a certain number of points between 1 and 1000 as specified by the admin.
+
+A game has several levels as defined by the admin. Levels are numbered starting with Level 1 and the maximum number of levels is 99. For each level, the admin specifies the starting arrangement of blocks. Each block is placed in one cell of a grid system. The block at the top left corner is in grid position 1/1, the one to the right of it is in grid position 2/1, the one below it is in grid position 1/2, and so on. The admin may also define a level as random, i.e., the blocks at the top are randomly selected for the level from the set of blocks defined by the admin.
+
+The number of blocks shown at the beginning of each level is the same and is also defined by the admin. With each level, the speed of the ball increases starting at its minimum speed and the length of the paddle is reduced gradually from its maximum length to its minimum length. The minimum speed, speed increase factor, maximum length, and minimum length are all specified by the admin for the game.
+
+PLAY GAME: A player can play a game when it is published by the game admin. At the beginning of a game or level, the DestroyBlockapplication places the blocks at the top of the play area as specified by the admin in the design phase. The ball is placed in the center of the play area and drops in a straight line towards the bottom. The paddle of the player is positioned in the middle at the bottom of the play area. The player moves the paddle to the right or left at the bottom of the play area while trying to bounce the ball towards the blocks. The ball moves at a certain speed in a certain direction. The ball bounces back from the wall at the top as well as the two side walls on the right and left. If the ball hits a block, the ball bounces back, the block disappears, and the player scores the points of the hit block.
+
+When the ball hits the last block, the player advances to the next level. If the ball reaches the bottom wall, the ball is out-of-bounds and the player loses one life. The player starts a game with three lives. When the player has lost all three lives or the player has finished the last level, the game ends and the total score is displayed in the game?? hall of fame.
+
+At the end of a level or when the player pauses the game, the game is saved. A paused game can be resumed by the player. The next level of a game does not start automatically but only upon player confirmation.
+
+A user may be a player for one game and an admin for another game but cannot be both for the same game. There is only one admin per game. Players compete against each other for the high score in the game?? hall of fame. A player may play different games and the same game multiple times. However, only one game may be played at any point in time, i.e., games are not played in parallel.
+
+AI:### Enumerations:
+1. **GameMode**: Represents the mode in which a user logs into the application, either as an admin or a player.
+   
+### Classes:
+1. **User**
+   - Attributes:
+     - username: string
+     - password: string
+     - isAdmin: boolean
+     - gameMode: GameMode
+
+2. **Game**
+   - Attributes:
+     - name: string
+     - hallOfFame: HallOfFame
+     - blocks: List<Block>
+     - levels: List<Level>
+     - speedIncreaseFactor: int
+     - maxPaddleLength: int
+     - minPaddleLength: int
+     - minBallSpeed: int
+     - numBlocksPerLevel: int
+
+3. **Block**
+   - Attributes:
+     - color: string
+     - points: int
+
+4. **Level**
+   - Attributes:
+     - levelNumber: int
+     - blockArrangement: List<List<Block>>
+     - isRandom: boolean
+
+5. **HallOfFame**
+   - Attributes:
+     - highScores: List<HighScore>
+
+6. **HighScore**
+   - Attributes:
+     - player: User
+     - score: int
+
+### Note:
+- The relationships between the classes (e.g., User being a player or admin, admin creating a game, player playing a game) are not explicitly modeled in the class structure but can be implemented using methods and additional logic in the application code."
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. GameMode (ADMIN, PLAYER): Represents the mode in which a user logs into the application, either as an admin or a player.
+
+### Classes:
+1. User(username: string, password: string, isAdmin: boolean, gameMode: GameMode): Represents a user with a unique username who can be a player or an admin in the DestroyBlock application.
+   
+2. Game(name: string, hallOfFame: HallOfFame, blocks: List<Block>, levels: List<Level>, speedIncreaseFactor: int, maxPaddleLength: int, minPaddleLength: int, minBallSpeed: int, numBlocksPerLevel: int): Represents a game with unique attributes such as name, hall of fame, blocks, levels, and game settings.
+
+3. Block(color: string, points: int): Represents a block in the game with a specific color and point value.
+
+4. Level(levelNumber: int, blockArrangement: List<List<Block>>, isRandom: boolean): Represents a level in the game with a level number, block arrangement, and randomness indicator.
+
+5. HallOfFame(highScores: List<HighScore>): Represents the hall of fame in the game with a list of high scores achieved by players.
+
+6. HighScore(player: User, score: int): Represents a high score achieved by a player in the game."
+"
+"
+------------------------------------------------------------
+ O  Class:User  Oracle:User
+   O  Attribute:username  Oracle:username 
+   O  Attribute:password  Oracle:password 
+   X  Attribute:isAdmin 
+   X  Attribute:gameMode 
+ O  Class:Game  Oracle:Game
+   O  Attribute:name  Oracle:name 
+   X  Attribute:hallOfFame 
+   X  Attribute:blocks 
+   X  Attribute:levels 
+   X  Attribute:speedIncreaseFactor 
+   X  Attribute:maxPaddleLength 
+   X  Attribute:minPaddleLength 
+   X  Attribute:minBallSpeed 
+   O  Attribute:numBlocksPerLevel  Oracle:nrBlocksPerLevel 
+ O  Class:Block  Oracle:Block
+   X  Attribute:color 
+   O  Attribute:points  Oracle:points 
+ O  Class:Level  Oracle:Level
+   X  Attribute:levelNumber 
+   X  Attribute:blockArrangement 
+   O  Attribute:isRandom  Oracle:isRandom 
+ X  Class:GameMode 
+   X  Attribute:ADMIN 
+   X  Attribute:PLAYER 
+ X  Class:HallOfFame
+   X  Attribute:highScores 
+ X  Class:HighScore
+   X  Attribute:player 
+   X  Attribute:score 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------9/10------Block 223:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The DestroyBlockapplication first allows a game admin to design a DestroyBlockgame and then players to play the game and compete for an entry in the game's hall of fame.
+
+DESIGN GAME:A user has a unique username. A user is always a player and optionally an admin. A user has the same password as a player and as an admin and chooses the admin mode or play mode when logging into the application. Only an admin may create a game.
+
+Each game has a unique name and its own hall of fame. The admin designs a game by defining a set of blocks. Each block has a color and is worth a certain number of points between 1 and 1000 as specified by the admin.
+
+A game has several levels as defined by the admin. Levels are numbered starting with Level 1 and the maximum number of levels is 99. For each level, the admin specifies the starting arrangement of blocks. Each block is placed in one cell of a grid system. The block at the top left corner is in grid position 1/1, the one to the right of it is in grid position 2/1, the one below it is in grid position 1/2, and so on. The admin may also define a level as random, i.e., the blocks at the top are randomly selected for the level from the set of blocks defined by the admin.
+
+The number of blocks shown at the beginning of each level is the same and is also defined by the admin. With each level, the speed of the ball increases starting at its minimum speed and the length of the paddle is reduced gradually from its maximum length to its minimum length. The minimum speed, speed increase factor, maximum length, and minimum length are all specified by the admin for the game.
+
+PLAY GAME: A player can play a game when it is published by the game admin. At the beginning of a game or level, the DestroyBlockapplication places the blocks at the top of the play area as specified by the admin in the design phase. The ball is placed in the center of the play area and drops in a straight line towards the bottom. The paddle of the player is positioned in the middle at the bottom of the play area. The player moves the paddle to the right or left at the bottom of the play area while trying to bounce the ball towards the blocks. The ball moves at a certain speed in a certain direction. The ball bounces back from the wall at the top as well as the two side walls on the right and left. If the ball hits a block, the ball bounces back, the block disappears, and the player scores the points of the hit block.
+
+When the ball hits the last block, the player advances to the next level. If the ball reaches the bottom wall, the ball is out-of-bounds and the player loses one life. The player starts a game with three lives. When the player has lost all three lives or the player has finished the last level, the game ends and the total score is displayed in the game?? hall of fame.
+
+At the end of a level or when the player pauses the game, the game is saved. A paused game can be resumed by the player. The next level of a game does not start automatically but only upon player confirmation.
+
+A user may be a player for one game and an admin for another game but cannot be both for the same game. There is only one admin per game. Players compete against each other for the high score in the game?? hall of fame. A player may play different games and the same game multiple times. However, only one game may be played at any point in time, i.e., games are not played in parallel.
+
+AI:### Enumerations:
+1. **GameMode**  
+   - Admin
+   - Play
+
+### Classes:
+1. **User**
+   - Attributes:
+     - username: String
+     - password: String
+     - mode: GameMode
+
+2. **Game**
+   - Attributes:
+     - name: String
+     - hallOfFame: List\<Player>
+     - blocks: List\<Block>
+     - levels: List\<Level>
+     - speedIncreaseFactor: Double
+     - maxPaddleLength: Integer
+     - minPaddleLength: Integer
+     - minBallSpeed: Double
+     - maxLevels: Integer
+     - maxBlocksPerLevel: Integer
+
+3. **Block**
+   - Attributes:
+     - color: String
+     - points: Integer
+
+4. **Level**
+   - Attributes:
+     - levelNumber: Integer
+     - blockArrangement: List\<Block>
+     - randomBlocks: Boolean
+
+5. **Player**
+   - Attributes:
+     - username: String
+     - score: Integer
+     - lives: Integer
+     - currentLevel: Integer
+     - paused: Boolean
+
+### Associations:
+- **User** 1..1 ---- 1..* **Player**
+- **User** 1..1 ---- 1..1 **Game**
+- **Game** 1..* ---- 1..* **Player**
+- **Game** 1 ---- 1..* **Block**
+- **Game** 1 ---- 1..* **Level**"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. GameMode(Admin, Play): Represents the different modes a user can choose when logging into the application.
+
+Classes:
+1. User(username: String, password: String, mode: GameMode): Represents a user with a unique username, password, and the chosen game mode.
+2. Game(name: String, hallOfFame: List<Player>, blocks: List<Block>, levels: List<Level>, speedIncreaseFactor: Double, maxPaddleLength: Integer, minPaddleLength: Integer, minBallSpeed: Double, maxLevels: Integer, maxBlocksPerLevel: Integer): Represents a game with its attributes and configurations.
+3. Block(color: String, points: Integer): Represents a block in the game with a color and point value.
+4. Level(levelNumber: Integer, blockArrangement: List<Block>, randomBlocks: Boolean): Represents a level in the game with the block arrangement and randomness indicator.
+5. Player(username: String, score: Integer, lives: Integer, currentLevel: Integer, paused: Boolean): Represents a player in the game with attributes like score, lives, and current level."
+"
+"
+------------------------------------------------------------
+ O  Class:User  Oracle:User
+   O  Attribute:username  Oracle:username 
+   O  Attribute:password  Oracle:password 
+   X  Attribute:mode 
+ O  Class:Game  Oracle:Game
+   O  Attribute:name  Oracle:name 
+   X  Attribute:hallOfFame 
+   X  Attribute:blocks 
+   X  Attribute:levels 
+   X  Attribute:speedIncreaseFactor 
+   X  Attribute:maxPaddleLength 
+   X  Attribute:minPaddleLength 
+   X  Attribute:minBallSpeed 
+   X  Attribute:maxLevels 
+   X  Attribute:maxBlocksPerLevel 
+ O  Class:Block  Oracle:Block
+   X  Attribute:color 
+   O  Attribute:points  Oracle:points 
+ O  Class:Level  Oracle:Level
+   X  Attribute:levelNumber 
+   X  Attribute:blockArrangement 
+   X  Attribute:randomBlocks 
+ X  Class:GameMode
+   X  Attribute:Admin 
+   X  Attribute:Play 
+ X  Class:Player
+   X  Attribute:username 
+   X  Attribute:score 
+   X  Attribute:lives 
+   X  Attribute:currentLevel 
+   X  Attribute:paused 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------10/10------Block 223:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The DestroyBlockapplication first allows a game admin to design a DestroyBlockgame and then players to play the game and compete for an entry in the game's hall of fame.
+
+DESIGN GAME:A user has a unique username. A user is always a player and optionally an admin. A user has the same password as a player and as an admin and chooses the admin mode or play mode when logging into the application. Only an admin may create a game.
+
+Each game has a unique name and its own hall of fame. The admin designs a game by defining a set of blocks. Each block has a color and is worth a certain number of points between 1 and 1000 as specified by the admin.
+
+A game has several levels as defined by the admin. Levels are numbered starting with Level 1 and the maximum number of levels is 99. For each level, the admin specifies the starting arrangement of blocks. Each block is placed in one cell of a grid system. The block at the top left corner is in grid position 1/1, the one to the right of it is in grid position 2/1, the one below it is in grid position 1/2, and so on. The admin may also define a level as random, i.e., the blocks at the top are randomly selected for the level from the set of blocks defined by the admin.
+
+The number of blocks shown at the beginning of each level is the same and is also defined by the admin. With each level, the speed of the ball increases starting at its minimum speed and the length of the paddle is reduced gradually from its maximum length to its minimum length. The minimum speed, speed increase factor, maximum length, and minimum length are all specified by the admin for the game.
+
+PLAY GAME: A player can play a game when it is published by the game admin. At the beginning of a game or level, the DestroyBlockapplication places the blocks at the top of the play area as specified by the admin in the design phase. The ball is placed in the center of the play area and drops in a straight line towards the bottom. The paddle of the player is positioned in the middle at the bottom of the play area. The player moves the paddle to the right or left at the bottom of the play area while trying to bounce the ball towards the blocks. The ball moves at a certain speed in a certain direction. The ball bounces back from the wall at the top as well as the two side walls on the right and left. If the ball hits a block, the ball bounces back, the block disappears, and the player scores the points of the hit block.
+
+When the ball hits the last block, the player advances to the next level. If the ball reaches the bottom wall, the ball is out-of-bounds and the player loses one life. The player starts a game with three lives. When the player has lost all three lives or the player has finished the last level, the game ends and the total score is displayed in the game?? hall of fame.
+
+At the end of a level or when the player pauses the game, the game is saved. A paused game can be resumed by the player. The next level of a game does not start automatically but only upon player confirmation.
+
+A user may be a player for one game and an admin for another game but cannot be both for the same game. There is only one admin per game. Players compete against each other for the high score in the game?? hall of fame. A player may play different games and the same game multiple times. However, only one game may be played at any point in time, i.e., games are not played in parallel.
+
+AI:### Enumerations:
+1. **AdminMode**: {PLAY, DESIGN}
+2. **BlockColor**: {RED, BLUE, GREEN, YELLOW, PURPLE, ORANGE}
+3. **Direction**: {LEFT, RIGHT, UP, DOWN}
+4. **GameStatus**: {IN_PROGRESS, PAUSED, ENDED}
+5. **LevelType**: {NORMAL, RANDOM}
+
+### Classes:
+1. **User**
+   - Attributes:
+     - username: String
+     - password: String
+     - isAdmin: boolean
+
+2. **Game**
+   - Attributes:
+     - name: String
+     - hallOfFame: List<Player>
+     - admin: User
+     - blocks: List<Block>
+     - levels: List<Level>
+     - minSpeed: int
+     - speedIncreaseFactor: int
+     - maxPaddleLength: int
+     - minPaddleLength: int
+
+3. **Block**
+   - Attributes:
+     - color: BlockColor
+     - points: int
+
+4. **Level**
+   - Attributes:
+     - levelNumber: int
+     - blockArrangement: List<List<Block>>
+     - levelType: LevelType
+     - numBlocks: int
+
+5. **Player**
+   - Attributes:
+     - user: User
+     - currentGame: Game
+     - lives: int
+     - totalScore: int
+
+6. **Ball**
+   - Attributes:
+     - speed: int
+     - direction: Direction
+
+7. **Paddle**
+   - Attributes:
+     - length: int
+     - position: int
+
+### Associations:
+- **User** has a one-to-one relationship with **Player**
+- **User** has a one-to-many relationship with **Game**
+- **Game** has a one-to-many relationship with **Block**
+- **Game** has a one-to-many relationship with **Level**
+- **Game** has a one-to-many relationship with **Player**
+- **Level** has a one-to-many relationship with **Block**
+- **Player** has a one-to-one relationship with **Game**
+- **Player** has a one-to-many relationship with **Ball**
+- **Player** has a one-to-one relationship with **Paddle**"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. AdminMode(PLAY, DESIGN): Represents the mode in which a user can log in, either as a player or as an admin.
+2. BlockColor(RED, BLUE, GREEN, YELLOW, PURPLE, ORANGE): Represents the color of a block in the game.
+3. Direction(LEFT, RIGHT, UP, DOWN): Represents the direction in which an object can move.
+4. GameStatus(IN_PROGRESS, PAUSED, ENDED): Represents the status of a game, whether it is in progress, paused, or ended.
+5. LevelType(NORMAL, RANDOM): Represents the type of level, whether it is a normal level or a random level.
+
+Classes:
+1. User(username: String, password: String, isAdmin: boolean): Represents a user with a unique username who can be a player and optionally an admin.
+2. Game(name: String, hallOfFame: List<Player>, admin: User, blocks: List<Block>, levels: List<Level>, minSpeed: int, speedIncreaseFactor: int, maxPaddleLength: int, minPaddleLength: int): Represents a game with blocks, levels, and game settings defined by the admin.
+3. Block(color: BlockColor, points: int): Represents a block with a color and points value in the game.
+4. Level(levelNumber: int, blockArrangement: List<List<Block>>, levelType: LevelType, numBlocks: int): Represents a level with a specific arrangement of blocks.
+5. Player(user: User, currentGame: Game, lives: int, totalScore: int): Represents a player in the game with lives and total score.
+6. Ball(speed: int, direction: Direction): Represents a ball in the game with speed and direction of movement.
+7. Paddle(length: int, position: int): Represents a paddle in the game with length and position on the play area."
+"
+"
+------------------------------------------------------------
+ O  Class:User  Oracle:User
+   O  Attribute:username  Oracle:username 
+   O  Attribute:password  Oracle:password 
+   X  Attribute:isAdmin 
+ O  Class:Game  Oracle:Game
+   O  Attribute:name  Oracle:name 
+   X  Attribute:hallOfFame 
+   X  Attribute:admin 
+   X  Attribute:blocks 
+   X  Attribute:levels 
+   X  Attribute:minSpeed 
+   X  Attribute:speedIncreaseFactor 
+   X  Attribute:maxPaddleLength 
+   X  Attribute:minPaddleLength 
+ O  Class:Block  Oracle:Block
+   X  Attribute:color 
+   O  Attribute:points  Oracle:points 
+ O  Class:Level  Oracle:Level
+   X  Attribute:levelNumber 
+   X  Attribute:blockArrangement 
+   X  Attribute:levelType 
+   X  Attribute:numBlocks 
+ O  Class:Ball  Oracle:Ball
+   X  Attribute:speed 
+   X  Attribute:direction 
+ O  Class:Paddle  Oracle:Paddle
+   X  Attribute:length 
+   X  Attribute:position 
+ X  Class:AdminMode
+   X  Attribute:PLAY 
+   X  Attribute:DESIGN 
+ X  Class:BlockColor
+   X  Attribute:RED 
+   X  Attribute:BLUE 
+   X  Attribute:GREEN 
+   X  Attribute:YELLOW 
+   X  Attribute:PURPLE 
+   X  Attribute:ORANGE 
+ X  Class:Direction
+   X  Attribute:LEFT 
+   X  Attribute:RIGHT 
+   X  Attribute:UP 
+   X  Attribute:DOWN 
+ X  Class:GameStatus
+   X  Attribute:IN_PROGRESS 
+   X  Attribute:PAUSED 
+   X  Attribute:ENDED 
+ X  Class:LevelType
+   X  Attribute:NORMAL 
+   X  Attribute:RANDOM 
+ X  Class:Player
+   X  Attribute:user 
+   X  Attribute:currentGame 
+   X  Attribute:lives 
+   X  Attribute:totalScore 

@@ -1,0 +1,755 @@
+---------------------1/10------SHAS:
+AI_answer_after_cut:
++ 1..* SensorReading associate 1 SensorDevice
++ 1..* ControlCommand associate 1 ActuatorDevice
++ 1..* ControlCommand associate 1 CommandType
++ 1..* AlertRule associate 1 BooleanExpression
++ 1..* AlertRule associate 1 CommandSequence
++ 1..* AlertRule associate 1 RuleStatus
++ 1..* AlertRule associate 1 User
++ 1..* AlertRule associate 1 SmartHome
++ 1..* AlertRule associate 1 Room
++ 1..* AlertRule associate 1 Device
++ 1..* AlertRule associate 1 SensorReading
++ 1..* AlertRule associate 1 ControlCommand
+
+
++ 1 SHAS contain * SmartHome
++ 1 SmartHome contain * Room
++ 1 Room contain * SensorDevice
++ 1 Room contain * ActuatorDevice
++ 1 SHAS contain * User
++ 1 User contain * AlertRule
++ 1 SmartHome contain * ActivityLog
++ 1 ActivityLog contain * SensorReading
++ 1 ActivityLog contain * ControlCommand
++ 1 AlertRule contain * BooleanExpression
++ 1 BooleanExpression contain * RelationalTerm
++ 1 BooleanExpression contain * BinaryOp
++ 1 BooleanExpression contain * NotExpression
++ 1 BooleanExpression contain * BinaryExpression
++ 1 AlertRule contain * CommandSequence
++ 1 ControlCommand contain * DeviceStatus
++ 1 ControlCommand contain * CommandStatus
+AI_answer_after_cut:
++ Device extends RuntimeElement
++ SensorDevice extends Device
++ ActuatorDevice extends Device
++ ActivityLog extends RuntimeElement
++ BooleanExpression extends RuntimeElement
++ NotExpression extends BooleanExpression
++ BinaryExpression extends BooleanExpression
++ CommandSequence extends RuntimeElement
+
+#Description
+A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+#Classes
++ DeviceStatus()
++ CommandType ()
++ CommandStatus ()
++ RuleStatus ()
++ BinaryOp ()
++ SHAS()
++ SmartHome()
++ User()
++ Address()
++ Room()
++ abstract Device()
++ SensorDevice()
++ ActuatorDevice()
++ ActivityLog()
++ abstract RuntimeElement()
++ SensorReading()
++ ControlCommand()
++ AlertRule()
++ abstract BooleanExpression()
++ RelationalTerm()
++ NotExpression()
++ BinaryExpression()
++ CommandSequence()
+result_presicion = 0.5
+result_recall = 0.2962962962962963
+result_F1 = 0.37209302325581395
+---------------------2/10------SHAS:
+AI_answer_after_cut:
++ * SmartHome associate * Room
++ * Room associate * Device
++ * Device associate * DeviceStatus
++ * Device associate * CommandStatus
++ * Device associate * CommandSequence
++ * Device associate * SensorReading
++ * Device associate * ControlCommand
++ * Device associate * AlertRule
++ * AlertRule associate * BooleanExpression
++ * BooleanExpression associate * RelationalTerm
++ * BooleanExpression associate * BinaryOp
++ * RelationalTerm associate * Device
++ * RelationalTerm associate * SensorReading
++ * RelationalTerm associate * ControlCommand
++ * CommandSequence associate * ControlCommand
++ * CommandSequence associate * CommandType
++ * ControlCommand associate * CommandStatus
++ * ControlCommand associate * Device
++ * SensorReading associate * Device
++ * SensorReading associate * DeviceStatus
++ * SensorReading associate * Room
++ * ControlCommand associate * Device
++ * ControlCommand associate * DeviceStatus
++ * ControlCommand associate * Room
++ * AlertRule associate * RuleStatus
++ * AlertRule associate * CommandSequence
++ * SHAS associate * SmartHome
++ * User associate * SmartHome
++ * SmartHome associate * ActvityLog
+
+
++ 1 SHAS contain * SmartHome
++ 1 SmartHome contain * Room
++ 1 Room contain * Device
++ 1 Device contain * DeviceStatus
++ 1 Device contain * CommandStatus
++ 1 Device contain * CommandSequence
++ 1 Device contain * SensorReading
++ 1 Device contain * ControlCommand
++ 1 Device contain * AlertRule
++ 1 AlertRule contain * BooleanExpression
++ 1 BooleanExpression contain * RelationalTerm
++ 1 CommandSequence contain * ControlCommand
++ 1 CommandSequence contain * CommandType
++ 1 SensorReading contain * Device
++ 1 SensorReading contain * DeviceStatus
++ 1 SensorReading contain * Room
++ 1 ControlCommand contain * Device
++ 1 ControlCommand contain * DeviceStatus
++ 1 ControlCommand contain * Room
++ 1 AlertRule contain * RuleStatus
++ 1 AlertRule contain * CommandSequence
++ 1 User contain * SmartHome
++ 1 SmartHome contain * ActvityLog
+AI_answer_after_cut:
++ Device extends RuntimeElement
++ SensorDevice extends Device
++ ActuatorDevice extends Device
++ ActivityLog extends RuntimeElement
++ BooleanExpression extends RuntimeElement
++ NotExpression extends BooleanExpression
++ BinaryExpression extends BooleanExpression
++ CommandSequence extends RuntimeElement
+
+# Description
+A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+# Classes
++ DeviceStatus()
++ CommandType ()
++ CommandStatus ()
++ RuleStatus ()
++ BinaryOp ()
++ SHAS()
++ SmartHome()
++ User()
++ Address()
++ Room()
++ abstract Device()
++ SensorDevice()
++ ActuatorDevice()
++ ActivityLog()
++ abstract RuntimeElement()
++ SensorReading()
++ ControlCommand()
++ AlertRule()
++ abstract BooleanExpression()
++ RelationalTerm()
++ NotExpression()
++ BinaryExpression()
++ CommandSequence()
+result_presicion = 0.3181818181818182
+result_recall = 0.25925925925925924
+result_F1 = 0.2857142857142857
+---------------------3/10------SHAS:
+AI_answer_after_cut:
++ 1..* SensorDevice associate 1 Room
++ 1..* ActuatorDevice associate 1 Room
++ 1..* SensorReading associate 1 SensorDevice
++ 1..* ControlCommand associate 1 ActuatorDevice
++ 1..* ControlCommand associate 1 CommandStatus
++ 1..* AlertRule associate 1 SmartHome
++ 1..* AlertRule associate 1 RuleStatus
++ 1..* AlertRule associate 1 BinaryExpression
++ 1..* AlertRule associate 1 CommandSequence
+
+
++ 1 SHAS contain * SmartHome
++ 1 SmartHome contain * Room
++ 1 SmartHome contain * SensorDevice
++ 1 SmartHome contain * ActuatorDevice
++ 1 SmartHome contain * ActvityLog
++ 1 SmartHome contain * AlertRule
++ 1 SmartHome contain * CommandSequence
+AI_answer_after_cut:
++ Device extends RuntimeElement
++ SensorDevice extends Device
++ ActuatorDevice extends Device
++ ActivityLog extends RuntimeElement
++ BooleanExpression extends RuntimeElement
++ RelationalTerm extends BooleanExpression
++ NotExpression extends BooleanExpression
++ BinaryExpression extends BooleanExpression
++ CommandSequence extends RuntimeElement
+
+#Description
+A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+#Classes
++ DeviceStatus()
++ CommandType ()
++ CommandStatus ()
++ RuleStatus ()
++ BinaryOp ()
++ SHAS()
++ SmartHome()
++ User()
++ Address()
++ Room()
++ abstract Device()
++ SensorDevice()
++ ActuatorDevice()
++ ActivityLog()
++ abstract RuntimeElement()
++ SensorReading()
++ ControlCommand()
++ AlertRule()
++ abstract BooleanExpression()
++ RelationalTerm()
++ NotExpression()
++ BinaryExpression()
++ CommandSequence()
+result_presicion = 0.5
+result_recall = 0.25925925925925924
+result_F1 = 0.3414634146341463
+---------------------4/10------SHAS:
+AI_answer_after_cut:
++ 1..* SmartHome associate 1 Address
++ 1..* SmartHome associate 1..* Room
++ 1..* Room associate 0..* SensorDevice
++ 1..* Room associate 0..* ActuatorDevice
++ 1..* SensorDevice associate 1 DeviceStatus
++ 1..* ActuatorDevice associate 1 DeviceStatus
++ 1..* SensorDevice associate 1..* SensorReading
++ 1..* ActuatorDevice associate 1..* ControlCommand
++ 1 SHAS associate 1..* SmartHome
++ 1 SHAS associate 1..* User
++ 1 SHAS associate 1..* AlertRule
++ 1 SHAS associate 1..* ActivityLog
+
+
++ 1 SHAS contain * SmartHome
++ 1 SmartHome contain * Room
++ 1 Room contain * SensorDevice
++ 1 Room contain * ActuatorDevice
++ 1 SensorDevice contain * SensorReading
++ 1 ActuatorDevice contain * ControlCommand
++ 1 SHAS contain * User
++ 1 SHAS contain * AlertRule
++ 1 SHAS contain * ActivityLog
+AI_answer_after_cut:
++ Device extends RuntimeElement
++ SensorDevice extends Device
++ ActuatorDevice extends Device
++ ActivityLog extends RuntimeElement
++ BooleanExpression extends RuntimeElement
++ NotExpression extends BooleanExpression
++ BinaryExpression extends BooleanExpression
++ CommandSequence extends RuntimeElement
+
+# Description
+A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+# Classes
++ DeviceStatus()
++ CommandType ()
++ CommandStatus ()
++ RuleStatus ()
++ BinaryOp ()
++ SHAS()
++ SmartHome()
++ User()
++ Address()
++ Room()
++ abstract Device()
++ SensorDevice()
++ ActuatorDevice()
++ ActivityLog()
++ abstract RuntimeElement()
++ SensorReading()
++ ControlCommand()
++ AlertRule()
++ abstract BooleanExpression()
++ RelationalTerm()
++ NotExpression()
++ BinaryExpression()
++ CommandSequence()
+result_presicion = 0.42105263157894735
+result_recall = 0.2962962962962963
+result_F1 = 0.34782608695652173
+---------------------5/10------SHAS:
+AI_answer_after_cut:
++ 1..* SmartHome associate 1 Address
++ 1..* SmartHome associate 1 SHAS
++ 1..* SmartHome associate * Room
++ 1..* Room associate * SensorDevice
++ 1..* Room associate * ActuatorDevice
++ 1..* Device associate 1 DeviceStatus
++ 1..* Device associate * SensorReading
++ 1..* Device associate * ControlCommand
++ 1..* SHAS associate * ActivityLog
++ 1..* SensorDevice associate * SensorReading
++ 1..* ActuatorDevice associate * ControlCommand
++ 1..* User associate 1 SmartHome
++ 1..* AlertRule associate * RelationalTerm
++ 1..* AlertRule associate * CommandSequence
+
+
++ 1 SHAS contain * AlertRule
++ 1 SHAS contain * RuleStatus
++ 1 SHAS contain * BinaryOp
++ 1 SHAS contain * BooleanExpression
++ 1 SHAS contain * NotExpression
++ 1 SHAS contain * BinaryExpression
++ 1 SHAS contain * CommandSequence
++ 1 SmartHome contain * Device
++ 1 SmartHome contain * AlertRule
++ 1 SmartHome contain * RuleStatus
++ 1 SmartHome contain * BinaryOp
++ 1 SmartHome contain * BooleanExpression
++ 1 SmartHome contain * NotExpression
++ 1 SmartHome contain * BinaryExpression
++ 1 SmartHome contain * CommandSequence
+AI_answer_after_cut:
++ Device extends RuntimeElement
++ SensorDevice extends Device
++ ActuatorDevice extends Device
++ ActivityLog extends RuntimeElement
++ BooleanExpression extends RuntimeElement
++ RelationalTerm extends BooleanExpression
++ NotExpression extends BooleanExpression
++ BinaryExpression extends BooleanExpression
++ CommandSequence extends RuntimeElement
+
+#Description
+A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+#Classes
++ DeviceStatus()
++ CommandType ()
++ CommandStatus ()
++ RuleStatus ()
++ BinaryOp ()
++ SHAS()
++ SmartHome()
++ User()
++ Address()
++ Room()
++ abstract Device()
++ SensorDevice()
++ ActuatorDevice()
++ ActivityLog()
++ abstract RuntimeElement()
++ SensorReading()
++ ControlCommand()
++ AlertRule()
++ abstract BooleanExpression()
++ RelationalTerm()
++ NotExpression()
++ BinaryExpression()
++ CommandSequence()
+result_presicion = 0.5
+result_recall = 0.3333333333333333
+result_F1 = 0.4
+---------------------6/10------SHAS:
+AI_answer_after_cut:
++ * SmartHome associate * Room
++ * Room associate * SensorDevice
++ * Room associate * ActuatorDevice
++ * SensorDevice associate * SensorReading
++ * ActuatorDevice associate * ControlCommand
++ * SmartHome associate 1 SHAS
++ * User associate * SmartHome
++ * SensorReading associate 1 SensorDevice
++ * ControlCommand associate 1 ActuatorDevice
++ * SmartHome associate 1 ActivityLog
++ * SmartHome associate * AlertRule
++ * AlertRule associate * BooleanExpression
++ * AlertRule associate * CommandSequence
++ * AlertRule associate * RuleStatus
+
+
++ 1 SHAS contain * SmartHome
++ 1 SmartHome contain * Room
++ 1 Room contain * SensorDevice
++ 1 Room contain * ActuatorDevice
++ 1 SmartHome contain 1 ActivityLog
++ 1 SmartHome contain * AlertRule
++ 1 AlertRule contain * BooleanExpression
++ 1 AlertRule contain * CommandSequence
++ 1 AlertRule contain 1 RuleStatus
+AI_answer_after_cut:
++ Device extends RuntimeElement
++ SensorDevice extends Device
++ ActuatorDevice extends Device
++ ActivityLog extends RuntimeElement
++ BooleanExpression extends RuntimeElement
++ RelationalTerm extends BooleanExpression
++ NotExpression extends BooleanExpression
++ BinaryExpression extends BooleanExpression
++ CommandSequence extends RuntimeElement
+
+#Description
+A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+#Classes
++ DeviceStatus()
++ CommandType ()
++ CommandStatus ()
++ RuleStatus ()
++ BinaryOp ()
++ SHAS()
++ SmartHome()
++ User()
++ Address()
++ Room()
++ abstract Device()
++ SensorDevice()
++ ActuatorDevice()
++ ActivityLog()
++ abstract RuntimeElement()
++ SensorReading()
++ ControlCommand()
++ AlertRule()
++ abstract BooleanExpression()
++ RelationalTerm()
++ NotExpression()
++ BinaryExpression()
++ CommandSequence()
+result_presicion = 0.47058823529411764
+result_recall = 0.2962962962962963
+result_F1 = 0.3636363636363636
+---------------------7/10------SHAS:
+AI_answer_after_cut:
++ * SmartHome associate * Room
++ * Room associate * SensorDevice
++ * Room associate * ActuatorDevice
++ * SensorDevice associate * SensorReading
++ * ActuatorDevice associate * ControlCommand
++ * SmartHome associate 1 Address
++ * SmartHome associate 1 ActivityLog
++ * User associate * SmartHome
++ * User associate * AlertRule
++ * AlertRule associate * BooleanExpression
++ * BooleanExpression associate * RelationalTerm
++ * BooleanExpression associate * BinaryExpression
++ * BooleanExpression associate * NotExpression
++ * AlertRule associate * CommandSequence
+
+
++ 1 SHAS contain * SmartHome
++ 1 SmartHome contain * Room
++ 1 Room contain * SensorDevice
++ 1 Room contain * ActuatorDevice
++ 1 SmartHome contain 1 Address
++ 1 SmartHome contain 1 ActivityLog
++ 1 User contain * SmartHome
++ 1 User contain * AlertRule
+AI_answer_after_cut:
++ Device extends RuntimeElement
++ SensorDevice extends Device
++ ActuatorDevice extends Device
++ ActivityLog extends RuntimeElement
++ BooleanExpression extends RuntimeElement
++ NotExpression extends BooleanExpression
++ BinaryExpression extends BooleanExpression
++ CommandSequence extends RuntimeElement
+
+#Description
+A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+#Classes
++ DeviceStatus()
++ CommandType ()
++ CommandStatus ()
++ RuleStatus ()
++ BinaryOp ()
++ SHAS()
++ SmartHome()
++ User()
++ Address()
++ Room()
++ abstract Device()
++ SensorDevice()
++ ActuatorDevice()
++ ActivityLog()
++ abstract RuntimeElement()
++ SensorReading()
++ ControlCommand()
++ AlertRule()
++ abstract BooleanExpression()
++ RelationalTerm()
++ NotExpression()
++ BinaryExpression()
++ CommandSequence()
+result_presicion = 0.5625
+result_recall = 0.3333333333333333
+result_F1 = 0.4186046511627907
+---------------------8/10------SHAS:
+AI_answer_after_cut:
++ * SmartHome associate * Room
++ * Room associate * SensorDevice
++ * Room associate * ActuatorDevice
++ * SensorDevice associate * SensorReading
++ * ActuatorDevice associate * ControlCommand
++ * SmartHome associate * ActivityLog
++ * SmartHome associate * AlertRule
++ * AlertRule associate * BooleanExpression
++ * BooleanExpression associate * RelationalTerm
++ * BooleanExpression associate * CommandSequence
+
+
++ 1 SHAS contain * SmartHome
++ 1 SmartHome contain * Room
++ 1 Room contain * SensorDevice
++ 1 Room contain * ActuatorDevice
++ 1 SmartHome contain * ActivityLog
++ 1 SmartHome contain * AlertRule
+AI_answer_after_cut:
++ Device extends RuntimeElement
++ SensorDevice extends Device
++ ActuatorDevice extends Device
++ ActivityLog extends RuntimeElement
++ BooleanExpression extends RuntimeElement
++ NotExpression extends BooleanExpression
++ BinaryExpression extends BooleanExpression
++ CommandSequence extends RuntimeElement
+
+# Description
+A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings, and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+
+Automation rules can be created, edited, activated, and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+# Classes
++ DeviceStatus()
++ CommandType ()
++ CommandStatus ()
++ RuleStatus ()
++ BinaryOp ()
++ SHAS()
++ SmartHome()
++ User()
++ Address()
++ Room()
++ abstract Device()
++ SensorDevice()
++ ActuatorDevice()
++ ActivityLog()
++ abstract RuntimeElement()
++ SensorReading()
++ ControlCommand()
++ AlertRule()
++ abstract BooleanExpression()
++ RelationalTerm()
++ NotExpression()
++ BinaryExpression()
++ CommandSequence()
+result_presicion = 0.5454545454545454
+result_recall = 0.2222222222222222
+result_F1 = 0.3157894736842105
+---------------------9/10------SHAS:
+AI_answer_after_cut:
++ 1..* SensorDevice associate 1 Room
++ 1..* ActuatorDevice associate 1 Room
++ 1..* SensorReading associate 1 SensorDevice
++ 1..* ControlCommand associate 1 ActuatorDevice
++ 1..* ControlCommand associate 1 CommandStatus
++ 1..* AlertRule associate 1 BooleanExpression
++ 1..* AlertRule associate 1 CommandSequence
++ 1..* AlertRule associate 1 RuleStatus
++ 1..* User associate 1 SHAS
++ 1..* SmartHome associate 1 Address
++ 1..* Room associate 1 SmartHome
++ 1..* DeviceStatus associate 1 Device
++ 1..* DeviceStatus associate 1 CommandStatus
++ 1..* DeviceStatus associate 1 Device
++ 1..* DeviceStatus associate 1 CommandType
++ 1..* ActivityLog associate 1 SensorReading
++ 1..* ActivityLog associate 1 ControlCommand
+
+
++ 1 SHAS contain * User
++ 1 SHAS contain * SmartHome
++ 1 SmartHome contain * Room
++ 1 Room contain * SensorDevice
++ 1 Room contain * ActuatorDevice
++ 1 Device contain * DeviceStatus
++ 1 Device contain * DeviceStatus
++ 1 Device contain * DeviceStatus
++ 1 Device contain * DeviceStatus
++ 1 SHAS contain * ActivityLog
++ 1 ActivityLog contain * SensorReading
++ 1 ActivityLog contain * ControlCommand
++ 1 SmartHome contain * Address
++ 1 AlertRule contain * BooleanExpression
++ 1 AlertRule contain * CommandSequence
++ 1 AlertRule contain * RuleStatus
+AI_answer_after_cut:
++ Device extends RuntimeElement
++ SensorDevice extends Device
++ ActuatorDevice extends Device
++ ActivityLog extends RuntimeElement
++ BooleanExpression extends RuntimeElement
++ NotExpression extends BooleanExpression
++ BinaryExpression extends BooleanExpression
++ CommandSequence extends RuntimeElement
+
+#Description
+A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+#Classes
++ DeviceStatus()
++ CommandType ()
++ CommandStatus ()
++ RuleStatus ()
++ BinaryOp ()
++ SHAS()
++ SmartHome()
++ User()
++ Address()
++ Room()
++ abstract Device()
++ SensorDevice()
++ ActuatorDevice()
++ ActivityLog()
++ abstract RuntimeElement()
++ SensorReading()
++ ControlCommand()
++ AlertRule()
++ abstract BooleanExpression()
++ RelationalTerm()
++ NotExpression()
++ BinaryExpression()
++ CommandSequence()
+result_presicion = 0.6
+result_recall = 0.3333333333333333
+result_F1 = 0.42857142857142855
+---------------------10/10------SHAS:
+AI_answer_after_cut:
++ 1..* SensorReading associate 1 SensorDevice
++ 1..* ControlCommand associate 1 ActuatorDevice
++ 1..* ControlCommand associate 1 CommandType
++ 1..* AlertRule associate 1 BooleanExpression
++ 1..* AlertRule associate 1 CommandSequence
++ 1..* AlertRule associate 1 RuleStatus
++ 1..* AlertRule associate 1 User
+
+
++ 1 SHAS contain * SmartHome
++ 1 SmartHome contain * Room
++ 1 Room contain * SensorDevice
++ 1 Room contain * ActuatorDevice
++ 1 SmartHome contain * ActivityLog
++ 1 ActivityLog contain * SensorReading
++ 1 ActivityLog contain * ControlCommand
++ 1 SmartHome contain * AlertRule
++ 1 AlertRule contain * BooleanExpression
++ 1 AlertRule contain * CommandSequence
+AI_answer_after_cut:
++ Device extends RuntimeElement
++ SensorDevice extends Device
++ ActuatorDevice extends Device
++ BooleanExpression extends RuntimeElement
++ NotExpression extends BooleanExpression
++ BinaryExpression extends BooleanExpression
+
+#Description
+A smart home automation system (SHAS) offers various users to automatically manage smart home automation tasks. A smart home (located at a physical address) consists of several rooms, each of which may contain sensor devices and actuator (controller) devices of different types (e.g. temperature sensor, movement sensor, light controller, lock controller). Each sensor and actuator have a unique device identifier. Once a new sensor or actuator is activated or deactivated, SHAS will recognize the change and update its infrastructure map.
+When SHAS is operational, a sensor device periodically provides sensor readings (recording the measured value and the timestamp). Similarly, a predefined set of control commands (e.g. lockDoor, turnOnHeating) can be sent to the actuator devices with the timestamp and the status of the command (e.g. requested, completed, failed, etc.). All sensor readings and control commands for a smart home are recorded by SHAS in an activity log.
+Relevant alerts in a smart home can be set up and managed by its owner by setting up automation rules. An automation rule has a precondition and an action. The precondition is a Boolean expression constructed from relational terms connected by basic Boolean operators (AND, OR, NOT). Atomic relational terms may refer to rooms, sensors, actuators, sensor readings and control commands. The action is a sequence of control commands. For example, a sample rule could specify:
+when actualTemperature by Device #1244 in Living Room < 18 and window is closed 
+then turnOnHeating in Living Room
+Automation rules can be created, edited, activated and deactivated by owners. Only deactivated rules can be edited. Rules can also depend on or conflict with other rules, thus a complex rule hierarchy can be designed. SHAS records whenever an active rule was triggered using a timestamp.
+
+#Classes
++DeviceStatus()
++CommandType ()
++CommandStatus ()
++RuleStatus ()
++BinaryOp ()
++SHAS()
++SmartHome()
++User()
++Address()
++Room()
++abstract Device()
++SensorDevice()
++ActuatorDevice()
++ActvityLog()
++abstract RuntimeElement()
++SensorReading()
++ControlCommand()
++AlertRule()
++abstract BooleanExpression()
++RelationalTerm()
++NotExpression()
++BinaryExpression()
++CommandSequence()
+result_presicion = 0.7
+result_recall = 0.25925925925925924
+result_F1 = 0.37837837837837834
+average_result_presicion = 0.5117777230509428
+average_result_recall = 0.28888888888888886
+average_result_F1 = 0.36520771059939394

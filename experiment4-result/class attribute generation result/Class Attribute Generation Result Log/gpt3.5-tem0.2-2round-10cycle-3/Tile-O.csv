@@ -1,0 +1,1353 @@
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------1/10------Tile-O:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The Tile-O application first allows a game designer to design a board game and then allows players to play the game. Only one game can be played at a time and it cannot be paused or saved. The objective of the game is to find a hidden tile on the board. Two to four players take turns by moving their playing pieces along connected tiles based on the roll of a die. Each playing piece has a different color. 
+
+A designer first defines the whole game including the layout of the game board. The designer places the tiles on the board and connects them with connection pieces. A tile can be connected to other tiles on its right side, left side, top side, and bottom side. At the most one tile can be connected on each side. In addition, the designer indicates the hidden tile, the starting positions of each player, as well as the location of action tiles. 
+
+The designer also defines a deck of 32 action cards by choosing from the following predefined choices: (i) roll the die for an extra turn, (ii) connect two adjacent tiles with a connection piece from the pile of 32 spare connection pieces, (iii) remove a connection piece from the board and place it in the pile of spare connection pieces, (iv) move your playing piece to an arbitrary tile that is not your current tile, and (v) lose your next turn. 
+
+Players take turns, with Player 1 starting the game, followed by Player 2, Player 3 (if applicable), and Player 4 (if applicable). The player whose turn it is rolls the die and them moves their playing piece along connected tiles. If the player lands on any tile, the color of the tile changes from white to black to indicate that the tile has been visited during the game. If the player lands on the hidden tile, the game ends and the player wins the game. If the player lands on an action tile, the player takes the first action card from the deck of action cards and follows the instructions on the action card. In addition, the action tile turns into a regular tile for a number of turns as specified by the game designer. Players do not know whether a tile is an action tile until a player lands on it.
+
+AI:### Enumerations:
+1. **Color**: {WHITE, BLACK}
+2. **ActionCardType**: {ROLL_DIE, CONNECT_TILES, REMOVE_CONNECTION, MOVE_TO_ARBITRARY_TILE, LOSE_NEXT_TURN}
+
+### Classes:
+1. **Game**
+   - Attributes:
+     - currentTurn: Player
+     - board: Board
+     - actionDeck: List<ActionCard>
+     - hiddenTile: Tile
+     - players: List<Player>
+     - currentPlayerIndex: int
+
+2. **Board**
+   - Attributes:
+     - tiles: List<Tile>
+     - connectionPieces: List<ConnectionPiece>
+     - actionTiles: List<Tile>
+
+3. **Tile**
+   - Attributes:
+     - position: Position
+     - connectedTiles: List<Tile>
+     - isHidden: boolean
+     - isActionTile: boolean
+     - visitedByPlayers: List<Player>
+     - color: Color
+
+4. **ConnectionPiece**
+   - Attributes:
+     - connectedTiles: List<Tile>
+
+5. **ActionCard**
+   - Attributes:
+     - type: ActionCardType
+     - description: String
+
+6. **Player**
+   - Attributes:
+     - name: String
+     - playingPieceColor: Color
+     - currentPosition: Tile
+     - hasExtraTurn: boolean
+
+7. **Position**
+   - Attributes:
+     - x: int
+     - y: int
+
+### Associations:
+- **Game** has a **Board**
+- **Game** has a list of **Players**
+- **Game** has a list of **ActionCards**
+- **Board** has a list of **Tiles**
+- **Board** has a list of **ConnectionPieces**
+- **Board** has a list of **ActionTiles**
+- **Tile** has a list of connected **Tiles**
+- **Tile** is visited by multiple **Players**
+- **Player** has a **Tile** as currentPosition"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. Color: [Represents the color of a tile or playing piece in the game.]
+2. ActionCardType: [Represents the type of action card that can be drawn during the game.]
+
+### Classes:
+1. Game(currentTurn: Player, board: Board, actionDeck: List<ActionCard>, hiddenTile: Tile, players: List<Player>, currentPlayerIndex: int): [Represents the main game entity that orchestrates player turns and game flow.]
+   
+2. Board(tiles: List<Tile>, connectionPieces: List<ConnectionPiece>, actionTiles: List<Tile): [Represents the game board with tiles, connection pieces, and action tiles.]
+
+3. Tile(position: Position, connectedTiles: List<Tile>, isHidden: boolean, isActionTile: boolean, visitedByPlayers: List<Player>, color: Color): [Represents a tile on the game board with various properties.]
+
+4. ConnectionPiece(connectedTiles: List<Tile): [Represents a connection piece that connects two tiles on the board.]
+
+5. ActionCard(type: ActionCardType, description: String): [Represents an action card that players can draw during the game.]
+
+6. Player(name: String, playingPieceColor: Color, currentPosition: Tile, hasExtraTurn: boolean): [Represents a player in the game with attributes like name, playing piece color, and current position.]
+
+7. Position(x: int, y: int): [Represents the position coordinates on the game board.]"
+"
+"
+------------------------------------------------------------
+ O  Class:Color  Oracle:Color
+ O  Class:Game  Oracle:Game
+   X  Attribute:currentTurn 
+   X  Attribute:board 
+   X  Attribute:actionDeck 
+   X  Attribute:hiddenTile 
+   X  Attribute:players 
+   X  Attribute:currentPlayerIndex 
+ O  Class:Tile  Oracle:Tile
+   X  Attribute:position 
+   X  Attribute:connectedTiles 
+   X  Attribute:isHidden 
+   X  Attribute:isActionTile 
+   X  Attribute:visitedByPlayers 
+   X  Attribute:color 
+ O  Class:ActionCard  Oracle:ActionCard
+   X  Attribute:type 
+   X  Attribute:description 
+ O  Class:Player  Oracle:Player
+   X  Attribute:name 
+   X  Attribute:playingPieceColor 
+   X  Attribute:currentPosition 
+   X  Attribute:hasExtraTurn 
+ X  Class:ActionCardType
+ X  Class:Board
+   X  Attribute:tiles 
+   X  Attribute:connectionPieces 
+   X  Attribute:actionTiles 
+ X  Class:ConnectionPiece
+   X  Attribute:connectedTiles 
+ X  Class:Position
+   X  Attribute:x 
+   X  Attribute:y 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------2/10------Tile-O:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The Tile-O application first allows a game designer to design a board game and then allows players to play the game. Only one game can be played at a time and it cannot be paused or saved. The objective of the game is to find a hidden tile on the board. Two to four players take turns by moving their playing pieces along connected tiles based on the roll of a die. Each playing piece has a different color. 
+
+A designer first defines the whole game including the layout of the game board. The designer places the tiles on the board and connects them with connection pieces. A tile can be connected to other tiles on its right side, left side, top side, and bottom side. At the most one tile can be connected on each side. In addition, the designer indicates the hidden tile, the starting positions of each player, as well as the location of action tiles. 
+
+The designer also defines a deck of 32 action cards by choosing from the following predefined choices: (i) roll the die for an extra turn, (ii) connect two adjacent tiles with a connection piece from the pile of 32 spare connection pieces, (iii) remove a connection piece from the board and place it in the pile of spare connection pieces, (iv) move your playing piece to an arbitrary tile that is not your current tile, and (v) lose your next turn. 
+
+Players take turns, with Player 1 starting the game, followed by Player 2, Player 3 (if applicable), and Player 4 (if applicable). The player whose turn it is rolls the die and them moves their playing piece along connected tiles. If the player lands on any tile, the color of the tile changes from white to black to indicate that the tile has been visited during the game. If the player lands on the hidden tile, the game ends and the player wins the game. If the player lands on an action tile, the player takes the first action card from the deck of action cards and follows the instructions on the action card. In addition, the action tile turns into a regular tile for a number of turns as specified by the game designer. Players do not know whether a tile is an action tile until a player lands on it.
+
+AI:### Enumerations:
+1. **Color**: {WHITE, BLACK}
+2. **ActionCardType**: {ROLL_DIE, CONNECT_TILES, REMOVE_CONNECTION, MOVE_TO_ARBITRARY_TILE, LOSE_TURN}
+
+### Classes:
+1. **Game**
+   - Attributes:
+     - currentTurn: Player
+     - board: Board
+     - actionDeck: List<ActionCard>
+     - hiddenTile: Tile
+     - players: List<Player>
+
+2. **Board**
+   - Attributes:
+     - tiles: List<Tile>
+     - connectionPieces: List<ConnectionPiece>
+     - actionTiles: List<Tile>
+
+3. **Tile**
+   - Attributes:
+     - position: Position
+     - connectedTiles: List<Tile>
+     - isActionTile: boolean
+     - visited: boolean
+     - color: Color
+
+4. **ConnectionPiece**
+   - Attributes:
+     - tile1: Tile
+     - tile2: Tile
+
+5. **ActionCard**
+   - Attributes:
+     - type: ActionCardType
+     - description: String
+
+6. **Player**
+   - Attributes:
+     - name: String
+     - playingPieceColor: Color
+     - currentPosition: Tile
+
+7. **Position**
+   - Attributes:
+     - x: int
+     - y: int
+
+### Attributes:
+- **Game**:
+  - currentTurn
+  - board
+  - actionDeck
+  - hiddenTile
+  - players
+
+- **Board**:
+  - tiles
+  - connectionPieces
+  - actionTiles
+
+- **Tile**:
+  - position
+  - connectedTiles
+  - isActionTile
+  - visited
+  - color
+
+- **ConnectionPiece**:
+  - tile1
+  - tile2
+
+- **ActionCard**:
+  - type
+  - description
+
+- **Player**:
+  - name
+  - playingPieceColor
+  - currentPosition
+
+- **Position**:
+  - x
+  - y"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. Color (WHITE, BLACK): Represents the possible colors of a tile.
+2. ActionCardType (ROLL_DIE, CONNECT_TILES, REMOVE_CONNECTION, MOVE_TO_ARBITRARY_TILE, LOSE_TURN): Defines the types of action cards in the game.
+
+### Classes:
+1. Game(currentTurn: Player, board: Board, actionDeck: List<ActionCard>, hiddenTile: Tile, players: List<Player): Represents the overall game state and functionality.
+2. Board(tiles: List<Tile>, connectionPieces: List<ConnectionPiece>, actionTiles: List<Tile): Represents the game board with tiles, connection pieces, and action tiles.
+3. Tile(position: Position, connectedTiles: List<Tile>, isActionTile: boolean, visited: boolean, color: Color): Represents a tile on the game board.
+4. ConnectionPiece(tile1: Tile, tile2: Tile): Represents a connection between two tiles on the board.
+5. ActionCard(type: ActionCardType, description: String): Represents an action card with a type and description.
+6. Player(name: String, playingPieceColor: Color, currentPosition: Tile): Represents a player in the game.
+7. Position(x: int, y: int): Represents the position coordinates on the game board."
+"
+"
+------------------------------------------------------------
+ O  Class:Color   Oracle:Color
+   X  Attribute:WHITE 
+   X  Attribute:BLACK 
+ O  Class:Game  Oracle:Game
+   X  Attribute:currentTurn 
+   X  Attribute:board 
+   X  Attribute:actionDeck 
+   X  Attribute:hiddenTile 
+   X  Attribute:players 
+ O  Class:Tile  Oracle:Tile
+   X  Attribute:position 
+   X  Attribute:connectedTiles 
+   X  Attribute:isActionTile 
+   X  Attribute:visited 
+   X  Attribute:color 
+ O  Class:ActionCard  Oracle:ActionCard
+   X  Attribute:type 
+   X  Attribute:description 
+ O  Class:Player  Oracle:Player
+   X  Attribute:name 
+   X  Attribute:playingPieceColor 
+   X  Attribute:currentPosition 
+ X  Class:ActionCardType 
+   X  Attribute:ROLL_DIE 
+   X  Attribute:CONNECT_TILES 
+   X  Attribute:REMOVE_CONNECTION 
+   X  Attribute:MOVE_TO_ARBITRARY_TILE 
+   X  Attribute:LOSE_TURN 
+ X  Class:Board
+   X  Attribute:tiles 
+   X  Attribute:connectionPieces 
+   X  Attribute:actionTiles 
+ X  Class:ConnectionPiece
+   X  Attribute:tile1 
+   X  Attribute:tile2 
+ X  Class:Position
+   X  Attribute:x 
+   X  Attribute:y 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------3/10------Tile-O:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The Tile-O application first allows a game designer to design a board game and then allows players to play the game. Only one game can be played at a time and it cannot be paused or saved. The objective of the game is to find a hidden tile on the board. Two to four players take turns by moving their playing pieces along connected tiles based on the roll of a die. Each playing piece has a different color. 
+
+A designer first defines the whole game including the layout of the game board. The designer places the tiles on the board and connects them with connection pieces. A tile can be connected to other tiles on its right side, left side, top side, and bottom side. At the most one tile can be connected on each side. In addition, the designer indicates the hidden tile, the starting positions of each player, as well as the location of action tiles. 
+
+The designer also defines a deck of 32 action cards by choosing from the following predefined choices: (i) roll the die for an extra turn, (ii) connect two adjacent tiles with a connection piece from the pile of 32 spare connection pieces, (iii) remove a connection piece from the board and place it in the pile of spare connection pieces, (iv) move your playing piece to an arbitrary tile that is not your current tile, and (v) lose your next turn. 
+
+Players take turns, with Player 1 starting the game, followed by Player 2, Player 3 (if applicable), and Player 4 (if applicable). The player whose turn it is rolls the die and them moves their playing piece along connected tiles. If the player lands on any tile, the color of the tile changes from white to black to indicate that the tile has been visited during the game. If the player lands on the hidden tile, the game ends and the player wins the game. If the player lands on an action tile, the player takes the first action card from the deck of action cards and follows the instructions on the action card. In addition, the action tile turns into a regular tile for a number of turns as specified by the game designer. Players do not know whether a tile is an action tile until a player lands on it.
+
+AI:### Enumerations:
+1. **PlayerColor**: Represents the color of a player's playing piece. Possible values: RED, BLUE, GREEN, YELLOW.
+2. **ActionCardType**: Represents the type of action card in the deck. Possible values: ROLL_DIE, CONNECT_TILES, REMOVE_CONNECTION, MOVE_TO_ARBITRARY_TILE, LOSE_NEXT_TURN.
+
+### Classes:
+1. **Game**:
+   - Attributes:
+     - `board: Board`
+     - `players: List<Player>`
+     - `currentPlayer: Player`
+     - `actionCardDeck: List<ActionCard>`
+     - `hiddenTile: Tile`
+     - `actionTileTurns: int`
+
+2. **Board**:
+   - Attributes:
+     - `tiles: List<Tile>`
+     - `connectionPieces: List<ConnectionPiece>`
+     - `actionTiles: List<Tile>`
+
+3. **Player**:
+   - Attributes:
+     - `name: String`
+     - `playingPieceColor: PlayerColor`
+     - `currentTile: Tile`
+
+4. **Tile**:
+   - Attributes:
+     - `positionX: int`
+     - `positionY: int`
+     - `connectedTiles: List<Tile>`
+     - `isActionTile: boolean`
+     - `visited: boolean`
+     - `color: String`
+
+5. **ConnectionPiece**:
+   - Attributes:
+     - `connectedTiles: List<Tile>`
+
+6. **ActionCard**:
+   - Attributes:
+     - `type: ActionCardType`
+     - `instructions: String`
+
+### Note:
+- This class model is a simplified representation based on the provided description. Additional methods and relationships can be added based on the specific requirements of the Tile-O application."
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. PlayerColor (RED, BLUE, GREEN, YELLOW): Represents the color of a player's playing piece.
+2. ActionCardType (ROLL_DIE, CONNECT_TILES, REMOVE_CONNECTION, MOVE_TO_ARBITRARY_TILE, LOSE_NEXT_TURN): Represents the type of action card in the deck.
+
+Classes:
+1. Game(board: Board, players: List<Player>, currentPlayer: Player, actionCardDeck: List<ActionCard>, hiddenTile: Tile, actionTileTurns: int): Represents the overall game state and management.
+2. Board(tiles: List<Tile>, connectionPieces: List<ConnectionPiece>, actionTiles: List<Tile): Represents the game board layout and components.
+3. Player(name: String, playingPieceColor: PlayerColor, currentTile: Tile): Represents a player in the game with their attributes.
+4. Tile(positionX: int, positionY: int, connectedTiles: List<Tile>, isActionTile: boolean, visited: boolean, color: String): Represents a tile on the game board with its properties.
+5. ConnectionPiece(connectedTiles: List<Tile]): Represents a connection piece between tiles on the board.
+6. ActionCard(type: ActionCardType, instructions: String): Represents an action card in the deck with its type and instructions."
+"
+"
+------------------------------------------------------------
+ O  Class:Game  Oracle:Game
+   X  Attribute:board 
+   X  Attribute:players 
+   X  Attribute:currentPlayer 
+   X  Attribute:actionCardDeck 
+   X  Attribute:hiddenTile 
+   X  Attribute:actionTileTurns 
+ O  Class:Player  Oracle:Player
+   X  Attribute:name 
+   X  Attribute:playingPieceColor 
+   X  Attribute:currentTile 
+ O  Class:Tile  Oracle:Tile
+   X  Attribute:positionX 
+   X  Attribute:positionY 
+   X  Attribute:connectedTiles 
+   X  Attribute:isActionTile 
+   X  Attribute:visited 
+   X  Attribute:color 
+ O  Class:ActionCard  Oracle:ActionCard
+   X  Attribute:type 
+   O  Attribute:instructions  Oracle:instructions 
+ O  Class:PlayerColor   Oracle:Color 
+   O  Attribute:RED  Oracle:red 
+   O  Attribute:BLUE  Oracle:blue 
+   O  Attribute:GREEN  Oracle:green 
+   O  Attribute:YELLOW  Oracle:yellow 
+ X  Class:ActionCardType 
+   X  Attribute:ROLL_DIE 
+   X  Attribute:CONNECT_TILES 
+   X  Attribute:REMOVE_CONNECTION 
+   X  Attribute:MOVE_TO_ARBITRARY_TILE 
+   X  Attribute:LOSE_NEXT_TURN 
+ X  Class:Board
+   X  Attribute:tiles 
+   X  Attribute:connectionPieces 
+   X  Attribute:actionTiles 
+ X  Class:ConnectionPiece
+   X  Attribute:connectedTiles 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------4/10------Tile-O:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The Tile-O application first allows a game designer to design a board game and then allows players to play the game. Only one game can be played at a time and it cannot be paused or saved. The objective of the game is to find a hidden tile on the board. Two to four players take turns by moving their playing pieces along connected tiles based on the roll of a die. Each playing piece has a different color. 
+
+A designer first defines the whole game including the layout of the game board. The designer places the tiles on the board and connects them with connection pieces. A tile can be connected to other tiles on its right side, left side, top side, and bottom side. At the most one tile can be connected on each side. In addition, the designer indicates the hidden tile, the starting positions of each player, as well as the location of action tiles. 
+
+The designer also defines a deck of 32 action cards by choosing from the following predefined choices: (i) roll the die for an extra turn, (ii) connect two adjacent tiles with a connection piece from the pile of 32 spare connection pieces, (iii) remove a connection piece from the board and place it in the pile of spare connection pieces, (iv) move your playing piece to an arbitrary tile that is not your current tile, and (v) lose your next turn. 
+
+Players take turns, with Player 1 starting the game, followed by Player 2, Player 3 (if applicable), and Player 4 (if applicable). The player whose turn it is rolls the die and them moves their playing piece along connected tiles. If the player lands on any tile, the color of the tile changes from white to black to indicate that the tile has been visited during the game. If the player lands on the hidden tile, the game ends and the player wins the game. If the player lands on an action tile, the player takes the first action card from the deck of action cards and follows the instructions on the action card. In addition, the action tile turns into a regular tile for a number of turns as specified by the game designer. Players do not know whether a tile is an action tile until a player lands on it.
+
+AI:### Enumerations:
+1. **ActionCardType**  
+   - ROLL_DIE_FOR_EXTRA_TURN
+   - CONNECT_TWO_TILES
+   - REMOVE_CONNECTION_PIECE
+   - MOVE_TO_ARBITRARY_TILE
+   - LOSE_NEXT_TURN
+
+### Classes:
+1. **TileOGame**
+   - Attributes:
+     - currentTurn: Player
+     - board: GameBoard
+     - actionCardDeck: List\<ActionCard\>
+     - players: List\<Player\>
+     - hiddenTile: Tile
+     - actionTiles: List\<Tile\>
+
+2. **GameBoard**
+   - Attributes:
+     - tiles: List\<Tile\>
+     - connectionPieces: List\<ConnectionPiece\>
+
+3. **Tile**
+   - Attributes:
+     - positionX: int
+     - positionY: int
+     - connectedTiles: List\<Tile\>
+     - isHidden: boolean
+     - isActionTile: boolean
+     - visitedByPlayers: List\<Player\>
+     - color: Color
+
+4. **ConnectionPiece**
+   - Attributes:
+     - connectedTiles: List\<Tile\>
+
+5. **ActionCard**
+   - Attributes:
+     - type: ActionCardType
+     - instructions: String
+
+6. **Player**
+   - Attributes:
+     - playerNumber: int
+     - playingPieceColor: Color
+     - currentPosition: Tile
+
+### Attributes:
+- **Tile**
+  - positionX
+  - positionY
+  - connectedTiles
+  - isHidden
+  - isActionTile
+  - visitedByPlayers
+  - color
+
+- **ConnectionPiece**
+  - connectedTiles
+
+- **ActionCard**
+  - type
+  - instructions
+
+- **Player**
+  - playerNumber
+  - playingPieceColor
+  - currentPosition"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. ActionCardType(ROLL_DIE_FOR_EXTRA_TURN, CONNECT_TWO_TILES, REMOVE_CONNECTION_PIECE, MOVE_TO_ARBITRARY_TILE, LOSE_NEXT_TURN): Represents the different types of action cards that can be drawn during the game.
+
+Classes:
+1. TileOGame(currentTurn: Player, board: GameBoard, actionCardDeck: List<ActionCard>, players: List<Player>, hiddenTile: Tile, actionTiles: List<Tile): Represents the main game entity that orchestrates player turns, board layout, and game elements.
+   
+2. GameBoard(tiles: List<Tile>, connectionPieces: List<ConnectionPiece>): Represents the game board with tiles and connection pieces.
+
+3. Tile(positionX: int, positionY: int, connectedTiles: List<Tile>, isHidden: boolean, isActionTile: boolean, visitedByPlayers: List<Player>, color: Color): Represents a tile on the game board with its properties and connections.
+
+4. ConnectionPiece(connectedTiles: List<Tile): Represents a connection piece that links two tiles on the game board.
+
+5. ActionCard(type: ActionCardType, instructions: String): Represents an action card with a specific type and instructions.
+
+6. Player(playerNumber: int, playingPieceColor: Color, currentPosition: Tile): Represents a player in the game with a player number, playing piece color, and current position on the board."
+"
+"
+------------------------------------------------------------
+ O  Class:Tile  Oracle:Tile
+   X  Attribute:positionX 
+   X  Attribute:positionY 
+   X  Attribute:connectedTiles 
+   X  Attribute:isHidden 
+   X  Attribute:isActionTile 
+   X  Attribute:visitedByPlayers 
+   X  Attribute:color 
+ O  Class:ActionCard  Oracle:ActionCard
+   X  Attribute:type 
+   O  Attribute:instructions  Oracle:instructions 
+ O  Class:Player  Oracle:Player
+   X  Attribute:playerNumber 
+   X  Attribute:playingPieceColor 
+   X  Attribute:currentPosition 
+ X  Class:ActionCardType
+   X  Attribute:ROLL_DIE_FOR_EXTRA_TURN 
+   X  Attribute:CONNECT_TWO_TILES 
+   X  Attribute:REMOVE_CONNECTION_PIECE 
+   X  Attribute:MOVE_TO_ARBITRARY_TILE 
+   X  Attribute:LOSE_NEXT_TURN 
+ X  Class:TileOGame
+   X  Attribute:currentTurn 
+   X  Attribute:board 
+   X  Attribute:actionCardDeck 
+   X  Attribute:players 
+   X  Attribute:hiddenTile 
+   X  Attribute:actionTiles 
+ X  Class:GameBoard
+   X  Attribute:tiles 
+   X  Attribute:connectionPieces 
+ X  Class:ConnectionPiece
+   X  Attribute:connectedTiles 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------5/10------Tile-O:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The Tile-O application first allows a game designer to design a board game and then allows players to play the game. Only one game can be played at a time and it cannot be paused or saved. The objective of the game is to find a hidden tile on the board. Two to four players take turns by moving their playing pieces along connected tiles based on the roll of a die. Each playing piece has a different color. 
+
+A designer first defines the whole game including the layout of the game board. The designer places the tiles on the board and connects them with connection pieces. A tile can be connected to other tiles on its right side, left side, top side, and bottom side. At the most one tile can be connected on each side. In addition, the designer indicates the hidden tile, the starting positions of each player, as well as the location of action tiles. 
+
+The designer also defines a deck of 32 action cards by choosing from the following predefined choices: (i) roll the die for an extra turn, (ii) connect two adjacent tiles with a connection piece from the pile of 32 spare connection pieces, (iii) remove a connection piece from the board and place it in the pile of spare connection pieces, (iv) move your playing piece to an arbitrary tile that is not your current tile, and (v) lose your next turn. 
+
+Players take turns, with Player 1 starting the game, followed by Player 2, Player 3 (if applicable), and Player 4 (if applicable). The player whose turn it is rolls the die and them moves their playing piece along connected tiles. If the player lands on any tile, the color of the tile changes from white to black to indicate that the tile has been visited during the game. If the player lands on the hidden tile, the game ends and the player wins the game. If the player lands on an action tile, the player takes the first action card from the deck of action cards and follows the instructions on the action card. In addition, the action tile turns into a regular tile for a number of turns as specified by the game designer. Players do not know whether a tile is an action tile until a player lands on it.
+
+AI:### Enumerations:
+1. **ActionCardType**:
+   - ROLL_DIE
+   - CONNECT_TILES
+   - REMOVE_CONNECTION
+   - MOVE_TO_ARBITRARY_TILE
+   - LOSE_NEXT_TURN
+
+### Classes:
+1. **Game**:
+   - Attributes:
+     - currentTurn: Player
+     - board: Board
+     - actionCardDeck: List\<ActionCard\>
+
+2. **Board**:
+   - Attributes:
+     - tiles: List\<Tile\>
+     - connectionPieces: List\<ConnectionPiece\>
+     - hiddenTile: Tile
+     - actionTiles: List\<Tile\>
+     - playersStartingPositions: Map\<Player, Tile\>
+
+3. **Tile**:
+   - Attributes:
+     - connectedTiles: List\<Tile\>
+     - color: Color
+     - isHidden: boolean
+     - isActionTile: boolean
+
+4. **ConnectionPiece**:
+   - Attributes:
+     - connectedTiles: List\<Tile\>
+
+5. **Player**:
+   - Attributes:
+     - playerNumber: int
+     - playingPieceColor: Color
+
+6. **ActionCard**:
+   - Attributes:
+     - type: ActionCardType
+     - instructions: String
+
+### Attributes:
+- **Player**:
+  - playerNumber: int
+  - playingPieceColor: Color
+
+- **Tile**:
+  - connectedTiles: List\<Tile\>
+  - color: Color
+  - isHidden: boolean
+  - isActionTile: boolean
+
+- **ConnectionPiece**:
+  - connectedTiles: List\<Tile\>
+
+- **Game**:
+  - currentTurn: Player
+  - board: Board
+  - actionCardDeck: List\<ActionCard\>
+
+- **Board**:
+  - tiles: List\<Tile\>
+  - connectionPieces: List\<ConnectionPiece\>
+  - hiddenTile: Tile
+  - actionTiles: List\<Tile\>
+  - playersStartingPositions: Map\<Player, Tile\>
+
+- **ActionCard**:
+  - type: ActionCardType
+  - instructions: String"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. ActionCardType(ROLL_DIE, CONNECT_TILES, REMOVE_CONNECTION, MOVE_TO_ARBITRARY_TILE, LOSE_NEXT_TURN): Represents the different types of action cards that can be drawn during the game.
+
+### Classes:
+1. Game(currentTurn: Player, board: Board, actionCardDeck: List<ActionCard>): Represents the overall game state and management, including the current turn, the game board, and the deck of action cards.
+   
+2. Board(tiles: List<Tile>, connectionPieces: List<ConnectionPiece>, hiddenTile: Tile, actionTiles: List<Tile>, playersStartingPositions: Map<Player, Tile>): Represents the game board layout with tiles, connection pieces, hidden tile, action tiles, and starting positions of players.
+
+3. Tile(connectedTiles: List<Tile>, color: Color, isHidden: boolean, isActionTile: boolean): Represents an individual tile on the game board with connections to other tiles, color, hidden status, and whether it's an action tile.
+
+4. ConnectionPiece(connectedTiles: List<Tile>): Represents a connection piece that connects two tiles on the game board.
+
+5. Player(playerNumber: int, playingPieceColor: Color): Represents a player in the game with a player number and a playing piece color.
+
+6. ActionCard(type: ActionCardType, instructions: String): Represents an action card with a type and specific instructions to be followed when drawn during the game."
+"
+"
+------------------------------------------------------------
+ O  Class:Game  Oracle:Game
+   X  Attribute:currentTurn 
+   X  Attribute:board 
+   X  Attribute:actionCardDeck 
+ O  Class:Tile  Oracle:Tile
+   X  Attribute:connectedTiles 
+   X  Attribute:color 
+   X  Attribute:isHidden 
+   X  Attribute:isActionTile 
+ O  Class:Player  Oracle:Player
+   X  Attribute:playerNumber 
+   X  Attribute:playingPieceColor 
+ O  Class:ActionCard  Oracle:ActionCard
+   X  Attribute:type 
+   O  Attribute:instructions  Oracle:instructions 
+ X  Class:ActionCardType
+   X  Attribute:ROLL_DIE 
+   X  Attribute:CONNECT_TILES 
+   X  Attribute:REMOVE_CONNECTION 
+   X  Attribute:MOVE_TO_ARBITRARY_TILE 
+   X  Attribute:LOSE_NEXT_TURN 
+ X  Class:Board
+   X  Attribute:tiles 
+   X  Attribute:connectionPieces 
+   X  Attribute:hiddenTile 
+   X  Attribute:actionTiles 
+   X  Attribute:playersStartingPositions 
+   X  Attribute:Tile> 
+ X  Class:ConnectionPiece
+   X  Attribute:connectedTiles 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------6/10------Tile-O:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The Tile-O application first allows a game designer to design a board game and then allows players to play the game. Only one game can be played at a time and it cannot be paused or saved. The objective of the game is to find a hidden tile on the board. Two to four players take turns by moving their playing pieces along connected tiles based on the roll of a die. Each playing piece has a different color. 
+
+A designer first defines the whole game including the layout of the game board. The designer places the tiles on the board and connects them with connection pieces. A tile can be connected to other tiles on its right side, left side, top side, and bottom side. At the most one tile can be connected on each side. In addition, the designer indicates the hidden tile, the starting positions of each player, as well as the location of action tiles. 
+
+The designer also defines a deck of 32 action cards by choosing from the following predefined choices: (i) roll the die for an extra turn, (ii) connect two adjacent tiles with a connection piece from the pile of 32 spare connection pieces, (iii) remove a connection piece from the board and place it in the pile of spare connection pieces, (iv) move your playing piece to an arbitrary tile that is not your current tile, and (v) lose your next turn. 
+
+Players take turns, with Player 1 starting the game, followed by Player 2, Player 3 (if applicable), and Player 4 (if applicable). The player whose turn it is rolls the die and them moves their playing piece along connected tiles. If the player lands on any tile, the color of the tile changes from white to black to indicate that the tile has been visited during the game. If the player lands on the hidden tile, the game ends and the player wins the game. If the player lands on an action tile, the player takes the first action card from the deck of action cards and follows the instructions on the action card. In addition, the action tile turns into a regular tile for a number of turns as specified by the game designer. Players do not know whether a tile is an action tile until a player lands on it.
+
+AI:### Enumerations:
+1. **PlayerColor**: Represents the color of a player's playing piece. Possible values: RED, BLUE, GREEN, YELLOW.
+2. **ActionCardType**: Represents the type of action card in the deck. Possible values: ROLL_DIE, CONNECT_TILES, REMOVE_CONNECTION, MOVE_TO_ARBITRARY_TILE, LOSE_NEXT_TURN.
+
+### Classes:
+1. **Game**:
+   - Attributes:
+     - `board: Board`
+     - `players: List<Player>`
+     - `currentPlayer: Player`
+     - `actionDeck: List<ActionCard>`
+     - `hiddenTile: Tile`
+
+2. **Board**:
+   - Attributes:
+     - `tiles: List<Tile>`
+     - `connectionPieces: List<ConnectionPiece>`
+     - `actionTiles: List<Tile>`
+
+3. **Tile**:
+   - Attributes:
+     - `position: Position`
+     - `connectedTiles: List<Tile>`
+     - `visited: boolean`
+     - `isHidden: boolean`
+     - `isActionTile: boolean`
+
+4. **ConnectionPiece**:
+   - Attributes:
+     - `connectedTiles: List<Tile>`
+
+5. **Position**:
+   - Attributes:
+     - `x: int`
+     - `y: int`
+
+6. **Player**:
+   - Attributes:
+     - `name: String`
+     - `color: PlayerColor`
+     - `currentTile: Tile`
+
+7. **ActionCard**:
+   - Attributes:
+     - `type: ActionCardType`
+     - `instructions: String`
+     - `turnsAsRegularTile: int`
+
+### Note:
+- The relationships between classes (e.g., how players move along connected tiles, how action cards are drawn and executed) can be further detailed in the class methods and interactions."
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. PlayerColor (RED, BLUE, GREEN, YELLOW): Represents the color of a player's playing piece.
+2. ActionCardType (ROLL_DIE, CONNECT_TILES, REMOVE_CONNECTION, MOVE_TO_ARBITRARY_TILE, LOSE_NEXT_TURN): Represents the type of action card in the deck.
+
+### Classes:
+1. Game(board: Board, players: List<Player>, currentPlayer: Player, actionDeck: List<ActionCard>, hiddenTile: Tile): Represents the main game entity with board, players, action deck, and hidden tile.
+2. Board(tiles: List<Tile>, connectionPieces: List<ConnectionPiece>, actionTiles: List<Tile): Represents the game board with tiles, connection pieces, and action tiles.
+3. Tile(position: Position, connectedTiles: List<Tile>, visited: boolean, isHidden: boolean, isActionTile: boolean): Represents a tile on the board with its properties.
+4. ConnectionPiece(connectedTiles: List<Tile): Represents a connection piece that connects tiles on the board.
+5. Position(x: int, y: int): Represents the position coordinates on the board.
+6. Player(name: String, color: PlayerColor, currentTile: Tile): Represents a player with a name, color, and current tile position.
+7. ActionCard(type: ActionCardType, instructions: String, turnsAsRegularTile: int): Represents an action card with type, instructions, and duration as a regular tile."
+"
+"
+------------------------------------------------------------
+ O  Class:Game  Oracle:Game
+   X  Attribute:board 
+   X  Attribute:players 
+   X  Attribute:currentPlayer 
+   X  Attribute:actionDeck 
+   X  Attribute:hiddenTile 
+ O  Class:Tile  Oracle:Tile
+   X  Attribute:position 
+   X  Attribute:connectedTiles 
+   X  Attribute:visited 
+   X  Attribute:isHidden 
+   X  Attribute:isActionTile 
+ O  Class:Player  Oracle:Player
+   X  Attribute:name 
+   O  Attribute:color  Oracle:color 
+   X  Attribute:currentTile 
+ O  Class:ActionCard  Oracle:ActionCard
+   X  Attribute:type 
+   O  Attribute:instructions  Oracle:instructions 
+   X  Attribute:turnsAsRegularTile 
+ O  Class:PlayerColor   Oracle:Color 
+   O  Attribute:RED  Oracle:red 
+   O  Attribute:BLUE  Oracle:blue 
+   O  Attribute:GREEN  Oracle:green 
+   O  Attribute:YELLOW  Oracle:yellow 
+ X  Class:ActionCardType 
+   X  Attribute:ROLL_DIE 
+   X  Attribute:CONNECT_TILES 
+   X  Attribute:REMOVE_CONNECTION 
+   X  Attribute:MOVE_TO_ARBITRARY_TILE 
+   X  Attribute:LOSE_NEXT_TURN 
+ X  Class:Board
+   X  Attribute:tiles 
+   X  Attribute:connectionPieces 
+   X  Attribute:actionTiles 
+ X  Class:ConnectionPiece
+   X  Attribute:connectedTiles 
+ X  Class:Position
+   X  Attribute:x 
+   X  Attribute:y 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------7/10------Tile-O:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The Tile-O application first allows a game designer to design a board game and then allows players to play the game. Only one game can be played at a time and it cannot be paused or saved. The objective of the game is to find a hidden tile on the board. Two to four players take turns by moving their playing pieces along connected tiles based on the roll of a die. Each playing piece has a different color. 
+
+A designer first defines the whole game including the layout of the game board. The designer places the tiles on the board and connects them with connection pieces. A tile can be connected to other tiles on its right side, left side, top side, and bottom side. At the most one tile can be connected on each side. In addition, the designer indicates the hidden tile, the starting positions of each player, as well as the location of action tiles. 
+
+The designer also defines a deck of 32 action cards by choosing from the following predefined choices: (i) roll the die for an extra turn, (ii) connect two adjacent tiles with a connection piece from the pile of 32 spare connection pieces, (iii) remove a connection piece from the board and place it in the pile of spare connection pieces, (iv) move your playing piece to an arbitrary tile that is not your current tile, and (v) lose your next turn. 
+
+Players take turns, with Player 1 starting the game, followed by Player 2, Player 3 (if applicable), and Player 4 (if applicable). The player whose turn it is rolls the die and them moves their playing piece along connected tiles. If the player lands on any tile, the color of the tile changes from white to black to indicate that the tile has been visited during the game. If the player lands on the hidden tile, the game ends and the player wins the game. If the player lands on an action tile, the player takes the first action card from the deck of action cards and follows the instructions on the action card. In addition, the action tile turns into a regular tile for a number of turns as specified by the game designer. Players do not know whether a tile is an action tile until a player lands on it.
+
+AI:### Enumerations:
+1. **PlayerColor**: Represents the color of a player's playing piece. Possible values: RED, BLUE, GREEN, YELLOW.
+2. **ActionCardType**: Represents the type of action card in the deck. Possible values: ROLL_DIE, CONNECT_TILES, REMOVE_CONNECTION, MOVE_TO_ARBITRARY_TILE, LOSE_NEXT_TURN.
+
+### Classes:
+1. **Game**:
+   - Attributes:
+     - `board: Board`
+     - `players: List<Player>`
+     - `currentPlayer: Player`
+     - `actionCardDeck: List<ActionCard>`
+     - `hiddenTile: Tile`
+     - `actionTileTurns: int`
+     - `winner: Player`
+
+2. **Board**:
+   - Attributes:
+     - `tiles: List<Tile>`
+     - `connectionPieces: List<ConnectionPiece>`
+     - `actionTiles: List<Tile>`
+
+3. **Player**:
+   - Attributes:
+     - `playerNumber: int`
+     - `playingPieceColor: PlayerColor`
+     - `currentTile: Tile`
+
+4. **Tile**:
+   - Attributes:
+     - `positionX: int`
+     - `positionY: int`
+     - `connectedTiles: List<Tile>`
+     - `isActionTile: boolean`
+     - `visited: boolean`
+     - `color: String`
+
+5. **ConnectionPiece**:
+   - Attributes:
+     - `connectedTiles: List<Tile>`
+
+6. **ActionCard**:
+   - Attributes:
+     - `type: ActionCardType`
+     - `description: String`
+
+### Note:
+- This class model is a high-level representation based on the provided description. Additional methods and relationships may be required for a more detailed implementation."
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. PlayerColor (RED, BLUE, GREEN, YELLOW): Represents the color of a player's playing piece for easy identification during the game.
+2. ActionCardType (ROLL_DIE, CONNECT_TILES, REMOVE_CONNECTION, MOVE_TO_ARBITRARY_TILE, LOSE_NEXT_TURN): Represents the different types of action cards available in the game deck.
+
+### Classes:
+1. Game(board: Board, players: List<Player>, currentPlayer: Player, actionCardDeck: List<ActionCard>, hiddenTile: Tile, actionTileTurns: int, winner: Player): Represents the overall game state and management, including the board, players, action cards, and game progress.
+2. Board(tiles: List<Tile>, connectionPieces: List<ConnectionPiece>, actionTiles: List<Tile): Represents the game board layout with tiles, connection pieces, and action tiles.
+3. Player(playerNumber: int, playingPieceColor: PlayerColor, currentTile: Tile): Represents a player in the game with a unique number, playing piece color, and current position on the board.
+4. Tile(positionX: int, positionY: int, connectedTiles: List<Tile>, isActionTile: boolean, visited: boolean, color: String): Represents a tile on the game board with its position, connections, status, and color.
+5. ConnectionPiece(connectedTiles: List<Tile): Represents a connection piece that links two tiles on the board.
+6. ActionCard(type: ActionCardType, description: String): Represents an action card in the game deck with a specific type and description of the action it triggers."
+"
+"
+------------------------------------------------------------
+ O  Class:Game  Oracle:Game
+   X  Attribute:board 
+   X  Attribute:players 
+   X  Attribute:currentPlayer 
+   X  Attribute:actionCardDeck 
+   X  Attribute:hiddenTile 
+   X  Attribute:actionTileTurns 
+   X  Attribute:winner 
+ O  Class:Player  Oracle:Player
+   X  Attribute:playerNumber 
+   X  Attribute:playingPieceColor 
+   X  Attribute:currentTile 
+ O  Class:Tile  Oracle:Tile
+   X  Attribute:positionX 
+   X  Attribute:positionY 
+   X  Attribute:connectedTiles 
+   X  Attribute:isActionTile 
+   X  Attribute:visited 
+   X  Attribute:color 
+ O  Class:ActionCard  Oracle:ActionCard
+   X  Attribute:type 
+   X  Attribute:description 
+ O  Class:PlayerColor   Oracle:Color 
+   O  Attribute:RED  Oracle:red 
+   O  Attribute:BLUE  Oracle:blue 
+   O  Attribute:GREEN  Oracle:green 
+   O  Attribute:YELLOW  Oracle:yellow 
+ X  Class:ActionCardType 
+   X  Attribute:ROLL_DIE 
+   X  Attribute:CONNECT_TILES 
+   X  Attribute:REMOVE_CONNECTION 
+   X  Attribute:MOVE_TO_ARBITRARY_TILE 
+   X  Attribute:LOSE_NEXT_TURN 
+ X  Class:Board
+   X  Attribute:tiles 
+   X  Attribute:connectionPieces 
+   X  Attribute:actionTiles 
+ X  Class:ConnectionPiece
+   X  Attribute:connectedTiles 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------8/10------Tile-O:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The Tile-O application first allows a game designer to design a board game and then allows players to play the game. Only one game can be played at a time and it cannot be paused or saved. The objective of the game is to find a hidden tile on the board. Two to four players take turns by moving their playing pieces along connected tiles based on the roll of a die. Each playing piece has a different color. 
+
+A designer first defines the whole game including the layout of the game board. The designer places the tiles on the board and connects them with connection pieces. A tile can be connected to other tiles on its right side, left side, top side, and bottom side. At the most one tile can be connected on each side. In addition, the designer indicates the hidden tile, the starting positions of each player, as well as the location of action tiles. 
+
+The designer also defines a deck of 32 action cards by choosing from the following predefined choices: (i) roll the die for an extra turn, (ii) connect two adjacent tiles with a connection piece from the pile of 32 spare connection pieces, (iii) remove a connection piece from the board and place it in the pile of spare connection pieces, (iv) move your playing piece to an arbitrary tile that is not your current tile, and (v) lose your next turn. 
+
+Players take turns, with Player 1 starting the game, followed by Player 2, Player 3 (if applicable), and Player 4 (if applicable). The player whose turn it is rolls the die and them moves their playing piece along connected tiles. If the player lands on any tile, the color of the tile changes from white to black to indicate that the tile has been visited during the game. If the player lands on the hidden tile, the game ends and the player wins the game. If the player lands on an action tile, the player takes the first action card from the deck of action cards and follows the instructions on the action card. In addition, the action tile turns into a regular tile for a number of turns as specified by the game designer. Players do not know whether a tile is an action tile until a player lands on it.
+
+AI:### Enumerations:
+1. **Color**: {WHITE, BLACK}
+2. **ActionCardType**: {ROLL_DIE_EXTRA_TURN, CONNECT_TWO_TILES, REMOVE_CONNECTION_PIECE, MOVE_TO_ARBITRARY_TILE, LOSE_NEXT_TURN}
+
+### Classes:
+1. **GameDesigner**
+   - Attributes:
+     - gameBoardLayout: BoardLayout
+     - hiddenTile: Tile
+     - playerStartingPositions: Map<Player, Tile>
+     - actionTiles: Set<Tile>
+     - actionCardDeck: List<ActionCard>
+
+2. **BoardLayout**
+   - Attributes:
+     - tiles: Set<Tile>
+     - connectionPieces: Set<ConnectionPiece>
+
+3. **Tile**
+   - Attributes:
+     - position: Position
+     - connectedTiles: Map<Direction, Tile>
+     - visited: boolean
+     - actionTile: boolean
+
+4. **ConnectionPiece**
+
+5. **ActionCard**
+   - Attributes:
+     - type: ActionCardType
+     - instructions: String
+
+6. **Player**
+   - Attributes:
+     - color: Color
+     - currentTile: Tile
+
+7. **Die**
+
+### Attributes:
+- **Game**
+  - currentPlayers: List<Player>
+  - currentPlayer: Player
+  - hiddenTileFound: boolean
+- **Tile**
+  - color: Color
+- **ConnectionPiece**
+  - sparePieces: List<ConnectionPiece>"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. Color: {WHITE, BLACK} - Represents the colors of tiles and playing pieces in the game.
+2. ActionCardType: {ROLL_DIE_EXTRA_TURN, CONNECT_TWO_TILES, REMOVE_CONNECTION_PIECE, MOVE_TO_ARBITRARY_TILE, LOSE_NEXT_TURN} - Defines the types of action cards available in the game.
+
+Classes:
+1. GameDesigner(gameBoardLayout: BoardLayout, hiddenTile: Tile, playerStartingPositions: Map<Player, Tile>, actionTiles: Set<Tile>, actionCardDeck: List<ActionCard>): Represents a game designer who defines the game elements and action cards.
+2. BoardLayout(tiles: Set<Tile>, connectionPieces: Set<ConnectionPiece>): Represents the layout of the game board with tiles and connection pieces.
+3. Tile(position: Position, connectedTiles: Map<Direction, Tile>, visited: boolean, actionTile: boolean): Represents a tile on the game board with connections and visitation status.
+4. ConnectionPiece: Represents a connection piece used to connect tiles on the board.
+5. ActionCard(type: ActionCardType, instructions: String): Represents an action card with a type and instructions.
+6. Player(color: Color, currentTile: Tile): Represents a player with a color and current tile position.
+7. Die: Represents a die used for rolling in the game."
+"
+"
+------------------------------------------------------------
+ O  Class:Color:   Oracle:Color
+   X  Attribute:WHITE 
+   X  Attribute:BLACK 
+ O  Class:Tile  Oracle:Tile
+   X  Attribute:position 
+   X  Attribute:connectedTiles 
+   X  Attribute:Tile> 
+   X  Attribute:visited 
+   X  Attribute:actionTile 
+ O  Class:ActionCard  Oracle:ActionCard
+   X  Attribute:type 
+   O  Attribute:instructions  Oracle:instructions 
+ O  Class:Player  Oracle:Player
+   O  Attribute:color  Oracle:color 
+   X  Attribute:currentTile 
+ O  Class:Die  Oracle:Die
+ X  Class:ActionCardType: 
+   X  Attribute:ROLL_DIE_EXTRA_TURN 
+   X  Attribute:CONNECT_TWO_TILES 
+   X  Attribute:REMOVE_CONNECTION_PIECE 
+   X  Attribute:MOVE_TO_ARBITRARY_TILE 
+   X  Attribute:LOSE_NEXT_TURN 
+ X  Class:GameDesigner
+   X  Attribute:gameBoardLayout 
+   X  Attribute:hiddenTile 
+   X  Attribute:playerStartingPositions 
+   X  Attribute:Tile> 
+   X  Attribute:actionTiles 
+   X  Attribute:actionCardDeck 
+ X  Class:BoardLayout
+   X  Attribute:tiles 
+   X  Attribute:connectionPieces 
+ X  Class:ConnectionPiece
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------9/10------Tile-O:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The Tile-O application first allows a game designer to design a board game and then allows players to play the game. Only one game can be played at a time and it cannot be paused or saved. The objective of the game is to find a hidden tile on the board. Two to four players take turns by moving their playing pieces along connected tiles based on the roll of a die. Each playing piece has a different color. 
+
+A designer first defines the whole game including the layout of the game board. The designer places the tiles on the board and connects them with connection pieces. A tile can be connected to other tiles on its right side, left side, top side, and bottom side. At the most one tile can be connected on each side. In addition, the designer indicates the hidden tile, the starting positions of each player, as well as the location of action tiles. 
+
+The designer also defines a deck of 32 action cards by choosing from the following predefined choices: (i) roll the die for an extra turn, (ii) connect two adjacent tiles with a connection piece from the pile of 32 spare connection pieces, (iii) remove a connection piece from the board and place it in the pile of spare connection pieces, (iv) move your playing piece to an arbitrary tile that is not your current tile, and (v) lose your next turn. 
+
+Players take turns, with Player 1 starting the game, followed by Player 2, Player 3 (if applicable), and Player 4 (if applicable). The player whose turn it is rolls the die and them moves their playing piece along connected tiles. If the player lands on any tile, the color of the tile changes from white to black to indicate that the tile has been visited during the game. If the player lands on the hidden tile, the game ends and the player wins the game. If the player lands on an action tile, the player takes the first action card from the deck of action cards and follows the instructions on the action card. In addition, the action tile turns into a regular tile for a number of turns as specified by the game designer. Players do not know whether a tile is an action tile until a player lands on it.
+
+AI:### Enumerations:
+1. **PlayerColor**: Represents the color of a player's playing piece. Possible values: RED, BLUE, GREEN, YELLOW.
+2. **ActionCardType**: Represents the type of action card in the deck. Possible values: ROLL_DIE, CONNECT_TILES, REMOVE_CONNECTION, MOVE_TO_ARBITRARY_TILE, LOSE_NEXT_TURN.
+
+### Classes:
+1. **TileOGame**:
+   - Attributes:
+     - `board: Board`: Represents the game board layout.
+     - `players: List<Player>`: Represents the list of players in the game.
+     - `currentPlayer: Player`: Represents the player whose turn it is.
+     - `actionCardDeck: List<ActionCard>`: Represents the deck of action cards.
+     - `hiddenTile: Tile`: Represents the hidden tile on the board.
+     - `actionTileTurns: Map<Tile, Integer>`: Represents the number of turns an action tile remains active.
+
+2. **Board**:
+   - Attributes:
+     - `tiles: List<Tile>`: Represents the tiles on the board.
+     - `connectionPieces: List<ConnectionPiece>`: Represents the spare connection pieces available for use.
+
+3. **Player**:
+   - Attributes:
+     - `name: String`: Represents the name of the player.
+     - `playingPieceColor: PlayerColor`: Represents the color of the player's playing piece.
+     - `currentTile: Tile`: Represents the tile on which the player's playing piece is currently located.
+
+4. **Tile**:
+   - Attributes:
+     - `position: Point`: Represents the position of the tile on the board.
+     - `connectedTiles: List<Tile>`: Represents the tiles connected to this tile.
+     - `isActionTile: boolean`: Indicates if the tile is an action tile.
+     - `visitedByPlayers: Set<Player>`: Represents the set of players who have visited this tile.
+
+5. **ConnectionPiece**:
+   - Attributes:
+     - `position: Point`: Represents the position of the connection piece on the board.
+
+6. **ActionCard**:
+   - Attributes:
+     - `type: ActionCardType`: Represents the type of action card.
+     - `instructions: String`: Represents the instructions on the action card.
+
+### Note:
+- The classes and attributes mentioned above are based on the description provided and may need further refinement based on additional requirements or constraints."
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:### Enumerations:
+1. PlayerColor (RED, BLUE, GREEN, YELLOW): Represents the color of a player's playing piece.
+2. ActionCardType (ROLL_DIE, CONNECT_TILES, REMOVE_CONNECTION, MOVE_TO_ARBITRARY_TILE, LOSE_NEXT_TURN): Represents the type of action card in the deck.
+
+### Classes:
+1. TileOGame(board: Board, players: List<Player>, currentPlayer: Player, actionCardDeck: List<ActionCard>, hiddenTile: Tile, actionTileTurns: Map<Tile, Integer): Represents the main game class with attributes related to the game state and components.
+2. Board(tiles: List<Tile>, connectionPieces: List<ConnectionPiece): Represents the game board with tiles and spare connection pieces.
+3. Player(name: String, playingPieceColor: PlayerColor, currentTile: Tile): Represents a player with attributes such as name, playing piece color, and current tile position.
+4. Tile(position: Point, connectedTiles: List<Tile>, isActionTile: boolean, visitedByPlayers: Set<Player): Represents a tile on the board with connections, status, and players who have visited it.
+5. ConnectionPiece(position: Point): Represents a connection piece on the board.
+6. ActionCard(type: ActionCardType, instructions: String): Represents an action card with a type and instructions for the player."
+"
+"
+------------------------------------------------------------
+ O  Class:Player  Oracle:Player
+   X  Attribute:name 
+   X  Attribute:playingPieceColor 
+   X  Attribute:currentTile 
+ O  Class:Tile  Oracle:Tile
+   X  Attribute:position 
+   X  Attribute:connectedTiles 
+   X  Attribute:isActionTile 
+   X  Attribute:visitedByPlayers 
+ O  Class:ActionCard  Oracle:ActionCard
+   X  Attribute:type 
+   O  Attribute:instructions  Oracle:instructions 
+ O  Class:PlayerColor   Oracle:Color 
+   O  Attribute:RED  Oracle:red 
+   O  Attribute:BLUE  Oracle:blue 
+   O  Attribute:GREEN  Oracle:green 
+   O  Attribute:YELLOW  Oracle:yellow 
+ X  Class:ActionCardType 
+   X  Attribute:ROLL_DIE 
+   X  Attribute:CONNECT_TILES 
+   X  Attribute:REMOVE_CONNECTION 
+   X  Attribute:MOVE_TO_ARBITRARY_TILE 
+   X  Attribute:LOSE_NEXT_TURN 
+ X  Class:TileOGame
+   X  Attribute:board 
+   X  Attribute:players 
+   X  Attribute:currentPlayer 
+   X  Attribute:actionCardDeck 
+   X  Attribute:hiddenTile 
+   X  Attribute:actionTileTurns 
+   X  Attribute:Integer 
+ X  Class:Board
+   X  Attribute:tiles 
+   X  Attribute:connectionPieces 
+ X  Class:ConnectionPiece
+   X  Attribute:position 
+------------------------------------------------------------
+------------------------------------------------------------
+---------------------10/10------Tile-O:
+------------------------------------------------------------
+---------------------Prediction AI:
+"User:Generate the lists of enumerations, classes and attributes from a given <Description>.
+#Description 
+The Tile-O application first allows a game designer to design a board game and then allows players to play the game. Only one game can be played at a time and it cannot be paused or saved. The objective of the game is to find a hidden tile on the board. Two to four players take turns by moving their playing pieces along connected tiles based on the roll of a die. Each playing piece has a different color. 
+
+A designer first defines the whole game including the layout of the game board. The designer places the tiles on the board and connects them with connection pieces. A tile can be connected to other tiles on its right side, left side, top side, and bottom side. At the most one tile can be connected on each side. In addition, the designer indicates the hidden tile, the starting positions of each player, as well as the location of action tiles. 
+
+The designer also defines a deck of 32 action cards by choosing from the following predefined choices: (i) roll the die for an extra turn, (ii) connect two adjacent tiles with a connection piece from the pile of 32 spare connection pieces, (iii) remove a connection piece from the board and place it in the pile of spare connection pieces, (iv) move your playing piece to an arbitrary tile that is not your current tile, and (v) lose your next turn. 
+
+Players take turns, with Player 1 starting the game, followed by Player 2, Player 3 (if applicable), and Player 4 (if applicable). The player whose turn it is rolls the die and them moves their playing piece along connected tiles. If the player lands on any tile, the color of the tile changes from white to black to indicate that the tile has been visited during the game. If the player lands on the hidden tile, the game ends and the player wins the game. If the player lands on an action tile, the player takes the first action card from the deck of action cards and follows the instructions on the action card. In addition, the action tile turns into a regular tile for a number of turns as specified by the game designer. Players do not know whether a tile is an action tile until a player lands on it.
+
+AI:### Enumerations:
+1. **Color**: {WHITE, BLACK}
+2. **ActionCardType**: {ROLL_DIE, CONNECT_TILES, REMOVE_CONNECTION, MOVE_TO_ARBITRARY_TILE, LOSE_TURN}
+
+### Classes:
+1. **Game**
+   - Attributes:
+     - currentTurn: Player
+     - board: Board
+     - actionDeck: List<ActionCard>
+     - hiddenTile: Tile
+     - players: List<Player>
+     - isGameEnded: boolean
+
+2. **Board**
+   - Attributes:
+     - tiles: List<Tile>
+     - connectionPieces: List<ConnectionPiece>
+     - actionTiles: List<Tile>
+
+3. **Tile**
+   - Attributes:
+     - positionX: int
+     - positionY: int
+     - connectedTiles: List<Tile>
+     - isHidden: boolean
+     - isVisited: boolean
+     - color: Color
+
+4. **ConnectionPiece**
+   - Attributes:
+     - tile1: Tile
+     - tile2: Tile
+
+5. **ActionCard**
+   - Attributes:
+     - type: ActionCardType
+     - description: String
+
+6. **Player**
+   - Attributes:
+     - name: String
+     - color: Color
+     - currentPosition: Tile
+
+### Associations:
+- **Game** has a **Board**
+- **Game** has a list of **Players**
+- **Game** has a list of **ActionCards**
+- **Board** has a list of **Tiles**
+- **Board** has a list of **ConnectionPieces**
+- **Board** has a list of **ActionTiles**
+- **Tile** has a list of connected **Tiles**
+- **ConnectionPiece** connects two **Tiles**
+- **Player** has a current **Tile** position"
+"
+"
+"User:List all the classes and enumerations using format:
+Enumerations:
+1.enumeration(literals):[one-sentence rationale]
+2.enumeration(literals):[one-sentence rationale]
+...
+Classes:
+1.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+2.classname(attributeName1: attributeType1, attributeName2: attributeType2 ):[one-sentence rationale]
+...
+
+AI:Enumerations:
+1. Color: [Represents the color of a tile or player's playing piece.]
+2. ActionCardType: [Represents the type of action card that can be drawn during the game.]
+
+Classes:
+1. Game(currentTurn: Player, board: Board, actionDeck: List<ActionCard>, hiddenTile: Tile, players: List<Player>, isGameEnded: boolean): [Represents the overall game state and functionality.]
+2. Board(tiles: List<Tile>, connectionPieces: List<ConnectionPiece>, actionTiles: List<Tile): [Represents the game board with tiles, connection pieces, and action tiles.]
+3. Tile(positionX: int, positionY: int, connectedTiles: List<Tile>, isHidden: boolean, isVisited: boolean, color: Color): [Represents a tile on the game board with its properties.]
+4. ConnectionPiece(tile1: Tile, tile2: Tile): [Represents a connection piece between two tiles on the board.]
+5. ActionCard(type: ActionCardType, description: String): [Represents an action card that can be drawn during the game.]
+6. Player(name: String, color: Color, currentPosition: Tile): [Represents a player in the game with their attributes and current position on the board.]"
+"
+"
+------------------------------------------------------------
+ O  Class:Color  Oracle:Color
+ O  Class:Game  Oracle:Game
+   X  Attribute:currentTurn 
+   X  Attribute:board 
+   X  Attribute:actionDeck 
+   X  Attribute:hiddenTile 
+   X  Attribute:players 
+   X  Attribute:isGameEnded 
+ O  Class:Tile  Oracle:Tile
+   X  Attribute:positionX 
+   X  Attribute:positionY 
+   X  Attribute:connectedTiles 
+   X  Attribute:isHidden 
+   X  Attribute:isVisited 
+   X  Attribute:color 
+ O  Class:ActionCard  Oracle:ActionCard
+   X  Attribute:type 
+   X  Attribute:description 
+ O  Class:Player  Oracle:Player
+   X  Attribute:name 
+   O  Attribute:color  Oracle:color 
+   X  Attribute:currentPosition 
+ X  Class:ActionCardType
+ X  Class:Board
+   X  Attribute:tiles 
+   X  Attribute:connectionPieces 
+   X  Attribute:actionTiles 
+ X  Class:ConnectionPiece
+   X  Attribute:tile1 
+   X  Attribute:tile2 
